@@ -12,8 +12,8 @@ class AbubaAppBar extends AppBar {
   );
 
   static Widget _buildAbubaAppBar() {
-    return Container(
-      padding: EdgeInsets.only(right: 16.0, left: 40.0),
+    return Padding(
+      padding: const EdgeInsets.only(right:8.0, left: 50.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[

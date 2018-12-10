@@ -4,7 +4,7 @@ class AbubaAppBar extends AppBar {
   AbubaAppBar() : super(
     elevation: 0.25,
     backgroundColor: Colors.white,
-    flexibleSpace: _buildAbubaAppBar()
+    flexibleSpace: _buildAbubaAppBar(),
   );
 
   static Widget _buildAbubaAppBar() {

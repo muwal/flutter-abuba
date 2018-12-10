@@ -190,13 +190,14 @@ class _FormEventState extends State<FormEvent> {
                     style: TextStyle(color: Colors.green),
                   ),
                   Container(
-                      width: 150.0,
-                      child: TimePickerFormField(
-                        format: timeFormat,
-                        onChanged: (t) => setState(() => time = t),
-                        decoration:
-                            InputDecoration(border: UnderlineInputBorder()),
-                      ))
+                    width: 150.0,
+                    child: TimePickerFormField(
+                      format: timeFormat,
+                      onChanged: (t) => setState(() => time = t),
+                      decoration:
+                          InputDecoration(border: UnderlineInputBorder()),
+                    ),
+                  ),
                 ],
               ),
               Row(
