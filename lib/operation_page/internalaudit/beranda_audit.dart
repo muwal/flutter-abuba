@@ -15,13 +15,38 @@ class MenuAudit extends StatefulWidget {
 }
 
 class _MenuAuditState extends State<MenuAudit> {
+  final _scaffoldState = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        key: _scaffoldState,
         appBar: AbubaAppBar(),
         body: _buildLogMenu(),
       ),
+    );
+  }
+
+  void _modalBottomSheetMenu(){
+    showModalBottomSheet(
+        context: context,
+        builder: (builder){
+          return new Container(
+            height: 350.0,
+            color: Colors.transparent, //could change this to Color(0xFF737373),
+            //so you don't have to change MaterialApp canvasColor
+            child: new Container(
+                decoration: new BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: new BorderRadius.only(
+                        topLeft: const Radius.circular(10.0),
+                        topRight: const Radius.circular(10.0))),
+                child: new Center(
+                  child: new Text("This is a modal sheet"),
+                )),
+          );
+        }
     );
   }
 
@@ -373,10 +398,7 @@ class _MenuAuditState extends State<MenuAudit> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => null)),
+                    onTap: () => _modalBottomSheetMenu,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[

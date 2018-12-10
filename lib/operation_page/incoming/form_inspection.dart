@@ -162,6 +162,11 @@ class _InspectionState extends State<Inspection> {
                             ),
                           ),
                         ),
+                        IconButton(
+                          icon: Icon(Icons.help_outline,
+                              color: Colors.transparent),
+                          onPressed: null,
+                        )
                       ],
                     )
                   ],
@@ -224,6 +229,11 @@ class _InspectionState extends State<Inspection> {
                             ),
                           ),
                         ),
+                        IconButton(
+                          icon: Icon(Icons.help_outline,
+                              color: Colors.transparent),
+                          onPressed: null,
+                        )
                       ],
                     )
                   ],
@@ -306,6 +316,12 @@ class _InspectionState extends State<Inspection> {
                             ),
                           ),
                         ),
+                        IconButton(
+                          icon: Icon(
+                            Icons.help_outline,
+                          ),
+                          onPressed: null,
+                        )
                       ],
                     )
                   ],
@@ -368,6 +384,10 @@ class _InspectionState extends State<Inspection> {
                             ),
                           ),
                         ),
+                        IconButton(
+                          icon: Icon(Icons.help_outline),
+                          onPressed: null,
+                        )
                       ],
                     )
                   ],
@@ -396,7 +416,6 @@ class _InspectionState extends State<Inspection> {
               ListTile(
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   verticalDirection: VerticalDirection.up,
                   children: <Widget>[
                     Expanded(
@@ -419,6 +438,10 @@ class _InspectionState extends State<Inspection> {
                               color: Colors.black,
                             ),
                           ),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.help_outline),
+                          onPressed: null,
                         )
                       ],
                     )
@@ -428,7 +451,6 @@ class _InspectionState extends State<Inspection> {
               ListTile(
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   verticalDirection: VerticalDirection.up,
                   children: <Widget>[
                     Expanded(
@@ -451,6 +473,10 @@ class _InspectionState extends State<Inspection> {
                               color: Colors.black,
                             ),
                           ),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.help_outline),
+                          onPressed: null,
                         )
                       ],
                     )
@@ -470,8 +496,8 @@ class _InspectionState extends State<Inspection> {
                           children: <Widget>[
                             Text(
                               'Traceability',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 14.0),
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 14.0),
                               textAlign: TextAlign.start,
                             ),
                           ],
@@ -500,9 +526,14 @@ class _InspectionState extends State<Inspection> {
                           child: TimePickerFormField(
                             format: timeFormat,
                             onChanged: (t) => setState(() => time = t),
-                            decoration: InputDecoration(
-                                border: UnderlineInputBorder()),
+                            decoration:
+                                InputDecoration(border: UnderlineInputBorder()),
                           ),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.help_outline,
+                              color: Colors.transparent),
+                          onPressed: null,
                         )
                       ],
                     )
@@ -529,10 +560,15 @@ class _InspectionState extends State<Inspection> {
                           child: TimePickerFormField(
                             format: timeFormat,
                             onChanged: (t) => setState(() => time = t),
-                            decoration: InputDecoration(
-                                border: UnderlineInputBorder()),
+                            decoration:
+                                InputDecoration(border: UnderlineInputBorder()),
                           ),
                         ),
+                        IconButton(
+                          icon: Icon(Icons.help_outline,
+                              color: Colors.transparent),
+                          onPressed: null,
+                        )
                       ],
                     )
                   ],
@@ -564,7 +600,9 @@ class _InspectionState extends State<Inspection> {
                               color: Colors.black,
                             ),
                           ),
-                        )
+                        ),
+                        IconButton(
+                            icon: Icon(Icons.help_outline), onPressed: null)
                       ],
                     )
                   ],
@@ -596,6 +634,11 @@ class _InspectionState extends State<Inspection> {
                               color: Colors.black,
                             ),
                           ),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.help_outline,
+                              color: Colors.transparent),
+                          onPressed: null,
                         )
                       ],
                     )
@@ -615,8 +658,8 @@ class _InspectionState extends State<Inspection> {
                           children: <Widget>[
                             Text(
                               'Status',
-                              style:
-                              TextStyle(color: Colors.white, fontSize: 14.0),
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 14.0),
                               textAlign: TextAlign.start,
                             ),
                           ],
@@ -626,7 +669,7 @@ class _InspectionState extends State<Inspection> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom:15.0),
+                padding: const EdgeInsets.only(bottom: 15.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
@@ -652,7 +695,8 @@ class _InspectionState extends State<Inspection> {
                           style: TextStyle(fontSize: 13.0),
                         ),
                         textColor: AbubaPallate.menuBluebird,
-                        borderSide: BorderSide(color: AbubaPallate.menuBluebird),
+                        borderSide:
+                            BorderSide(color: AbubaPallate.menuBluebird),
                         onPressed: () {},
                       ),
                     ),
