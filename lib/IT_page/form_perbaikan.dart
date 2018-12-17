@@ -16,10 +16,22 @@ class _FormPerbaikanState extends State<FormPerbaikan> {
   TextEditingController controllerNoteSatu = new TextEditingController();
 
   String _mySelection;
+  String _mySelectionDua;
+  String _mySelectionTiga;
   String _jenisAcara;
   List<Map> _jenisAcaraJson = [
     {"id": 1, "jenis": "Hardware"},
     {"id": 2, "jenis": "Software"}
+  ];
+
+  List<Map> _lokasiJson = [
+    {"id": 1, "jenis": "Lokasi A"},
+    {"id": 2, "jenis": "Lokasi B"}
+  ];
+
+  List<Map> _itemJson = [
+    {"id": 1, "jenis": "Item A"},
+    {"id": 2, "jenis": "Item B"}
   ];
 
   void _showDialogChiller() {
@@ -361,15 +373,41 @@ class _FormPerbaikanState extends State<FormPerbaikan> {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 6.0),
+                      padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
                       width: 150.0,
-                      child: TextField(
-                        keyboardType: TextInputType.number,
-                        /*decoration: InputDecoration(
-                      hintText: 'Rp', hintStyle: TextStyle(fontSize: 12.0)),*/
-                        style: TextStyle(
-                          color: Colors.black,
-                        ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          DropdownButtonHideUnderline(
+                            child: DropdownButton<String>(
+                              isDense: true,
+                              hint: Text('Lokasi'),
+                              value: _mySelectionDua,
+                              onChanged: (String newValue) {
+                                setState(() {
+                                  switch (int.tryParse(newValue)) {
+                                    case 1:
+                                      _jenisAcara = 'Har';
+                                      break;
+                                    case 2:
+                                      _jenisAcara = 'Ulang tahun';
+                                      break;
+                                    default:
+                                      _jenisAcara = '-';
+                                      break;
+                                  }
+                                  _mySelectionDua = newValue;
+                                });
+                              },
+                              items: _lokasiJson.map((Map map) {
+                                return new DropdownMenuItem(
+                                  value: map['id'].toString(),
+                                  child: Text(map['jenis']),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
@@ -396,15 +434,41 @@ class _FormPerbaikanState extends State<FormPerbaikan> {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 6.0),
+                      padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
                       width: 150.0,
-                      child: TextField(
-                        keyboardType: TextInputType.number,
-                        /*decoration: InputDecoration(
-                      hintText: 'Rp', hintStyle: TextStyle(fontSize: 12.0)),*/
-                        style: TextStyle(
-                          color: Colors.black,
-                        ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          DropdownButtonHideUnderline(
+                            child: DropdownButton<String>(
+                              isDense: true,
+                              hint: Text('Item'),
+                              value: _mySelectionTiga,
+                              onChanged: (String newValue) {
+                                setState(() {
+                                  switch (int.tryParse(newValue)) {
+                                    case 1:
+                                      _jenisAcara = 'Har';
+                                      break;
+                                    case 2:
+                                      _jenisAcara = 'Ulang tahun';
+                                      break;
+                                    default:
+                                      _jenisAcara = '-';
+                                      break;
+                                  }
+                                  _mySelectionTiga = newValue;
+                                });
+                              },
+                              items: _itemJson.map((Map map) {
+                                return new DropdownMenuItem(
+                                  value: map['id'].toString(),
+                                  child: Text(map['jenis']),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
