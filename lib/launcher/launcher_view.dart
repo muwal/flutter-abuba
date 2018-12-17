@@ -33,7 +33,7 @@ class _LauncherPageState extends State<LauncherPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Expanded(
-                  flex: 2,
+                  flex: 3,
                   child: Container(
                     padding: EdgeInsets.only(top: 50.0),
                     child: Center(

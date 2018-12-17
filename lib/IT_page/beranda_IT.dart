@@ -3,18 +3,15 @@ import 'package:flutter_abuba/constant.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 
-import 'form_createnew.dart';
-import 'form_jadwalaudit.dart';
-import 'form_auditreport.dart';
-import 'form_auditsum.dart';
-import 'form_auditteam.dart';
+import 'form_perbaikan.dart';
+import 'form_maintenance.dart';
 
-class MenuAudit extends StatefulWidget {
+class MenuIT extends StatefulWidget {
   @override
-  _MenuAuditState createState() => _MenuAuditState();
+  _MenuITState createState() => _MenuITState();
 }
 
-class _MenuAuditState extends State<MenuAudit> {
+class _MenuITState extends State<MenuIT> {
   final _scaffoldState = GlobalKey<ScaffoldState>();
 
   @override
@@ -28,10 +25,10 @@ class _MenuAuditState extends State<MenuAudit> {
     );
   }
 
-  void _modalBottomSheetMenu(){
+  void _modalBottomSheetMenu() {
     showModalBottomSheet(
         context: context,
-        builder: (builder){
+        builder: (builder) {
           return new Container(
             height: 350.0,
             color: Colors.transparent, //could change this to Color(0xFF737373),
@@ -46,8 +43,7 @@ class _MenuAuditState extends State<MenuAudit> {
                   child: new Text("This is a modal sheet"),
                 )),
           );
-        }
-    );
+        });
   }
 
   Widget _buildLogMenu() {
@@ -59,7 +55,7 @@ class _MenuAuditState extends State<MenuAudit> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Text(
-                'Home',
+                'IT',
                 style: TextStyle(color: Colors.black12, fontSize: 12.0),
               ),
               Padding(
@@ -67,15 +63,15 @@ class _MenuAuditState extends State<MenuAudit> {
                 child: Text(
                   '|',
                   style:
-                  TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
+                      TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
                 ),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 15.0),
                 child: Text(
-                  'Internal Audit',
+                  'Maintenance',
                   style:
-                  TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
+                      TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
                 ),
               ),
             ],
@@ -89,13 +85,11 @@ class _MenuAuditState extends State<MenuAudit> {
             direction: Axis.horizontal,
             children: <Widget>[
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   GestureDetector(
-                    onTap: () => Navigator.push(
-                        context,
-                        MyCustomRoute(
-                            builder: (context) => FormCreateNew())),
+                    onTap: () => Navigator.push(context,
+                        MyCustomRoute(builder: (context) => FormMaintenance())),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
@@ -110,7 +104,7 @@ class _MenuAuditState extends State<MenuAudit> {
                                   border: Border.all(
                                       color: Colors.grey, width: 1.0),
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(18.0))),
+                                      BorderRadius.all(Radius.circular(18.0))),
                             ),
                             Positioned(
                               bottom: 22.5,
@@ -140,7 +134,7 @@ class _MenuAuditState extends State<MenuAudit> {
                         Padding(
                           padding: EdgeInsets.only(top: 10.0),
                           child: Text(
-                            'Create New',
+                            'Maintenance',
                             style: TextStyle(
                                 fontWeight: FontWeight.w500, fontSize: 12.0),
                           ),
@@ -155,7 +149,7 @@ class _MenuAuditState extends State<MenuAudit> {
                         onTap: () => Navigator.push(
                             context,
                             MyCustomRoute(
-                                builder: (context) => FormJadwalAudit())),
+                                builder: (context) => FormPerbaikan())),
                         child: Stack(
                           overflow: Overflow.visible,
                           children: <Widget>[
@@ -167,7 +161,7 @@ class _MenuAuditState extends State<MenuAudit> {
                                   border: Border.all(
                                       color: Colors.grey, width: 1.0),
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(18.0))),
+                                      BorderRadius.all(Radius.circular(18.0))),
                             ),
                             Positioned(
                               bottom: 22.5,
@@ -197,7 +191,7 @@ class _MenuAuditState extends State<MenuAudit> {
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: 10.0),
-                        child: Text('Jadwal Audit',
+                        child: Text('Perbaikan',
                             style: TextStyle(
                                 fontWeight: FontWeight.w500, fontSize: 12.0),
                             softWrap: false,
@@ -206,10 +200,7 @@ class _MenuAuditState extends State<MenuAudit> {
                     ],
                   ),
                   GestureDetector(
-                    onTap: () => Navigator.push(
-                        context,
-                        MyCustomRoute(
-                            builder: (context) => FormAuditReport())),
+                    onTap: () {},
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
@@ -224,7 +215,7 @@ class _MenuAuditState extends State<MenuAudit> {
                                   border: Border.all(
                                       color: Colors.grey, width: 1.0),
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(18.0))),
+                                      BorderRadius.all(Radius.circular(18.0))),
                             ),
                             Positioned(
                               bottom: 22.5,
@@ -254,7 +245,7 @@ class _MenuAuditState extends State<MenuAudit> {
                         Padding(
                           padding: EdgeInsets.only(top: 10.0),
                           child: Text(
-                            'Audit Report',
+                            'Riwayat',
                             style: TextStyle(
                                 fontWeight: FontWeight.w500, fontSize: 12.0),
                           ),
@@ -262,16 +253,8 @@ class _MenuAuditState extends State<MenuAudit> {
                       ],
                     ),
                   ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
                   GestureDetector(
-                    onTap: () => Navigator.push(
-                        context,
-                        MyCustomRoute(
-                            builder: (context) => FormAuditSum())),
+                    onTap: () {},
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
@@ -283,10 +266,10 @@ class _MenuAuditState extends State<MenuAudit> {
                               width: 70.0,
                               decoration: BoxDecoration(
                                   color: Colors.transparent,
-                                  border:
-                                  Border.all(color: Colors.grey, width: 1.0),
+                                  border: Border.all(
+                                      color: Colors.grey, width: 1.0),
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(18.0))),
+                                      BorderRadius.all(Radius.circular(18.0))),
                             ),
                             Positioned(
                               bottom: 22.5,
@@ -319,141 +302,6 @@ class _MenuAuditState extends State<MenuAudit> {
                             'Audit',
                             style: TextStyle(
                                 fontWeight: FontWeight.w500, fontSize: 12.0),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 5.0),
-                          child: Text(
-                            'Summary',
-                            style: TextStyle(
-                                fontSize: 12.0, fontWeight: FontWeight.w500),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () => Navigator.push(
-                        context,
-                        MyCustomRoute(
-                            builder: (context) => FormAuditTeam())),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Stack(
-                          overflow: Overflow.visible,
-                          children: <Widget>[
-                            Container(
-                              height: 70.0,
-                              width: 70.0,
-                              decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  border:
-                                  Border.all(color: Colors.grey, width: 1.0),
-                                  borderRadius:
-                                  BorderRadius.all(Radius.circular(18.0))),
-                            ),
-                            Positioned(
-                              bottom: 22.5,
-                              left: 25.0,
-                              child: Icon(MdiIcons.heart,
-                                  size: 25.0, color: Colors.grey),
-                            ),
-                            Positioned(
-                              top: -5.0,
-                              right: -5.0,
-                              child: Icon(
-                                Icons.brightness_1,
-                                size: 25.0,
-                                color: Colors.redAccent,
-                              ),
-                            ),
-                            Positioned(
-                              top: -1.0,
-                              right: 3.0,
-                              child: Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
-                          ],
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10.0),
-                          child: Text(
-                            'Audit Team',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12.0),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 5.0),
-                          child: Text(
-                            '',
-                            style: TextStyle(
-                                fontSize: 12.0, fontWeight: FontWeight.w500),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () => _modalBottomSheetMenu,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Stack(
-                          overflow: Overflow.visible,
-                          children: <Widget>[
-                            Container(
-                              height: 70.0,
-                              width: 70.0,
-                              decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  border:
-                                  Border.all(color: Colors.grey, width: 1.0),
-                                  borderRadius:
-                                  BorderRadius.all(Radius.circular(18.0))),
-                            ),
-                            Positioned(
-                              bottom: 22.5,
-                              left: 25.0,
-                              child: Icon(MdiIcons.heart,
-                                  size: 25.0, color: Colors.grey),
-                            ),
-                            Positioned(
-                              top: -5.0,
-                              right: -5.0,
-                              child: Icon(
-                                Icons.brightness_1,
-                                size: 25.0,
-                                color: Colors.redAccent,
-                              ),
-                            ),
-                            Positioned(
-                              top: -1.0,
-                              right: 3.0,
-                              child: Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
-                          ],
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10.0),
-                          child: Text(
-                            'Start Audit',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12.0),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 5.0),
-                          child: Text(
-                            '',
-                            style: TextStyle(
-                                fontSize: 12.0, fontWeight: FontWeight.w500),
                           ),
                         ),
                       ],

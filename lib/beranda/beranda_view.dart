@@ -5,7 +5,7 @@ import 'package:flutter_abuba/beranda/beranda_appbar.dart';
 import 'package:flutter_abuba/constant.dart';
 
 import 'package:flutter_abuba/operation_page/beranda_operation.dart';
-import 'package:flutter_abuba/IT_page/form_it.dart';
+import 'package:flutter_abuba/IT_page/beranda_IT.dart';
 import 'package:flutter_abuba/more_page/beranda_more.dart';
 
 class BerandaPage extends StatefulWidget {
@@ -170,7 +170,7 @@ class _BerandaPageState extends State<BerandaPage> {
                         GestureDetector(
                           onTap: () => Navigator.push(
                               context,
-                              MaterialPageRoute(
+                              MyCustomRoute(
                                   builder: (context) => BerandaOperation())),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -280,8 +280,8 @@ class _BerandaPageState extends State<BerandaPage> {
                         GestureDetector(
                           onTap: () => Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                  builder: (context) => FormIT())),
+                              MyCustomRoute(
+                                  builder: (context) => MenuIT())),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
@@ -554,7 +554,7 @@ class _BerandaPageState extends State<BerandaPage> {
                         GestureDetector(
                           onTap: () => Navigator.push(
                               context,
-                              MaterialPageRoute(
+                              MyCustomRoute(
                                   builder: (context) => BerandaMore())),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,

@@ -3,6 +3,8 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:flutter_abuba/constant.dart';
 
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
+import 'form_mydevice.dart';
+import 'menu_testfitur.dart';
 
 class BerandaMore extends StatefulWidget {
   @override
@@ -50,7 +52,7 @@ class _BerandaMoreState extends State<BerandaMore> {
                 ),
               ),
               SizedBox(
-                height: 30.0,
+                height: 50.0,
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 50.0, right: 50.0),
@@ -117,36 +119,97 @@ class _BerandaMoreState extends State<BerandaMore> {
               crossAxisCount: 2,
               children: <Widget>[
                 Container(
+                  decoration: new BoxDecoration(
+                      border:
+                          new Border(right: BorderSide(color: Colors.grey))),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(
+                        Icons.search,
+                        color: Colors.black54,
+                      ),
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                      Text(
+                        'Verification \n Abuba 4.0',
+                        style: TextStyle(color: Colors.black54),
+                      )
+                    ],
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () => Navigator.push(context,
+                      MyCustomRoute(builder: (context) => MyDevice())),
+                  child: Container(
                     decoration: new BoxDecoration(
-                        border: new Border(right: BorderSide(color: Colors.grey))
+                        border:
+                            new Border(right: BorderSide(color: Colors.grey))),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          Icons.important_devices,
+                          color: Colors.black54,
+                        ),
+                        SizedBox(
+                          height: 5.0,
+                        ),
+                        Text(
+                          'Last Audit',
+                          style: TextStyle(color: Colors.black54),
+                        )
+                      ],
                     ),
-                    child: new Center(
-                      child: new Text('tile'),
-                    )
+                  ),
                 ),
                 Container(
-                    decoration: new BoxDecoration(
-                        border: new Border(right: BorderSide(color: Colors.grey))
-                    ),
-                    child: new Center(
-                      child: new Text('tile '),
-                    )
+                  decoration: new BoxDecoration(
+                      border: new Border(
+                          right: BorderSide(color: Colors.grey),
+                          top: BorderSide(color: Colors.grey))),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(
+                        Icons.select_all,
+                        color: Colors.black54,
+                      ),
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                      Text(
+                        'Stress Test',
+                        style: TextStyle(color: Colors.black54),
+                      )
+                    ],
+                  ),
                 ),
-                Container(
+                GestureDetector(
+                  onTap: () => Navigator.push(context, MyCustomRoute(builder: (context) => MenuTestFitur())),
+                  child: Container(
                     decoration: new BoxDecoration(
-                        border: new Border(right: BorderSide(color: Colors.grey), top: BorderSide(color: Colors.grey))
+                        border: new Border(
+                            right: BorderSide(color: Colors.grey),
+                            top: BorderSide(color: Colors.grey))),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          Icons.touch_app,
+                          color: Colors.black54,
+                        ),
+                        SizedBox(
+                          height: 5.0,
+                        ),
+                        Text(
+                          'Start Audit',
+                          style: TextStyle(color: Colors.black54),
+                        )
+                      ],
                     ),
-                    child: new Center(
-                      child: new Text('tile '),
-                    )
-                ),
-                Container(
-                    decoration: new BoxDecoration(
-                        border: new Border(right: BorderSide(color: Colors.grey), top: BorderSide(color: Colors.grey))
-                    ),
-                    child: new Center(
-                      child: new Text('tile '),
-                    )
+                  ),
                 ),
               ],
             ),

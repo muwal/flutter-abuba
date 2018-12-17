@@ -146,7 +146,7 @@ class _BerandaOperationState extends State<BerandaOperation> {
                   ),
                   GestureDetector(
                     onTap: () => Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MenuAudit())),
+                        MyCustomRoute(builder: (context) => MenuAudit())),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
@@ -625,7 +625,7 @@ class _BerandaOperationState extends State<BerandaOperation> {
                     GestureDetector(
                       onTap: () => Navigator.push(
                           context,
-                          MaterialPageRoute(
+                          MyCustomRoute(
                               builder: (context) => MenuLogBook())),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -690,7 +690,7 @@ class _BerandaOperationState extends State<BerandaOperation> {
                     GestureDetector(
                       onTap: () => Navigator.push(
                           context,
-                          MaterialPageRoute(
+                          MyCustomRoute(
                               builder: (context) => MenuChecklist())),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -821,7 +821,7 @@ class _BerandaOperationState extends State<BerandaOperation> {
                       onTap: () {
                         Navigator.push(
                             context,
-                            MaterialPageRoute(
+                            MyCustomRoute(
                                 builder: (context) => FormTemperature()));
                       },
                       child: Column(
@@ -895,7 +895,7 @@ class _BerandaOperationState extends State<BerandaOperation> {
                     GestureDetector(
                       onTap: () => Navigator.push(
                           context,
-                          MaterialPageRoute(
+                          MyCustomRoute(
                               builder: (context) => Inspection())),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,

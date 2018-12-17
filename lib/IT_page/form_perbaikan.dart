@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:async';
+import 'detail_perbaikan.dart';
 
 class ModalBottomSheet extends StatefulWidget {
   _ModalBottomSheetState createState() => _ModalBottomSheetState();
@@ -120,130 +121,13 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
   }
 }
 
-class ModalBottomSheetSkip extends StatefulWidget {
-  _ModalBottomSheetSkipState createState() => _ModalBottomSheetSkipState();
+class FormPerbaikan extends StatefulWidget {
+  FormPerbaikan({Key key}) : super(key: key);
+
+  _FormPerbaikanState createState() => _FormPerbaikanState();
 }
 
-class _ModalBottomSheetSkipState extends State<ModalBottomSheetSkip> {
-  bool _value = false;
-  bool _value2 = false;
-
-  TextEditingController controller = new TextEditingController();
-  List<String> textList = [
-    "Alasan 1",
-    "Alasan 2",
-    "Alasan 3",
-    "Alasan 4",
-    "Alasan 5"
-  ];
-  List<bool> checkboxList = [false, false, false, false, false];
-  String listck = '';
-  List<String> selectedck = new List();
-
-  setText() {
-    if (selectedck.length == 0) {
-      listck = '';
-    } else {
-      listck = selectedck.join(', ');
-    }
-
-    print(listck);
-  }
-
-  Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          ListTile(
-            dense: true,
-            title: Text(
-              'DONE',
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.green),
-            ),
-          ),
-          contentwrap(),
-          ButtonTheme.bar(
-            child: ButtonBar(
-              children: <Widget>[
-                FlatButton(
-                  child: Text('SAVE'),
-                  onPressed: () {},
-                ),
-                FlatButton(
-                  child: Text(
-                    'CANCEL',
-                    style: TextStyle(color: Colors.black54),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget contentwrap() {
-    return Wrap(
-      spacing: 0.0,
-      runSpacing: 0.0,
-      direction: Axis.horizontal,
-      children: <Widget>[
-        Container(
-            height: 150.0,
-            child: Column(
-              children: <Widget>[
-                Flexible(
-                  child: Scrollbar(
-                    child: ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      itemCount: textList.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Row(
-                          children: <Widget>[
-                            Checkbox(
-                              value: checkboxList[index],
-                              activeColor: Colors.green,
-                              onChanged: (bool newVal) {
-                                checkboxList[index] = newVal;
-                                setState(() {
-                                  if (checkboxList[index]) {
-                                    selectedck.add(textList[index]);
-                                    setText();
-                                  } else {
-                                    selectedck.remove(textList[index]);
-                                    setText();
-                                  }
-                                });
-                              },
-                            ),
-                            Text(textList[index])
-                          ],
-                        );
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            )),
-      ],
-    );
-  }
-}
-
-class FormIT extends StatefulWidget {
-  FormIT({Key key}) : super(key: key);
-
-  _FormITState createState() => _FormITState();
-}
-
-class _FormITState extends State<FormIT> {
+class _FormPerbaikanState extends State<FormPerbaikan> {
   bool _note = false;
 
   @override
@@ -284,10 +168,35 @@ class _FormITState extends State<FormIT> {
                       children: <Widget>[
                         Flexible(
                           child: Text(
-                            'Lokasi',
+                            '# Perbaikan',
                             style:
-                                TextStyle(color: Colors.white, fontSize: 12.0),
+                            TextStyle(color: Colors.white, fontSize: 12.0),
                             textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    color: Color(0xFF2F592F),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 100.0,
+                height: 35.0,
+                child: Container(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Flexible(
+                          child: Text(
+                            'Tanggal',
+                            style:
+                            TextStyle(color: Colors.white, fontSize: 12.0),
+                            textAlign: TextAlign.start,
                           ),
                         ),
                       ],
@@ -311,32 +220,7 @@ class _FormITState extends State<FormIT> {
                           child: Text(
                             'Item',
                             style:
-                                TextStyle(color: Colors.white, fontSize: 12.0),
-                            textAlign: TextAlign.start,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  decoration: BoxDecoration(
-                    color: Color(0xFF2F592F),
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: 100.0,
-                height: 35.0,
-                child: Container(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Flexible(
-                          child: Text(
-                            'Merek',
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 12.0),
+                            TextStyle(color: Colors.white, fontSize: 12.0),
                             textAlign: TextAlign.start,
                           ),
                         ),
@@ -351,144 +235,59 @@ class _FormITState extends State<FormIT> {
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(right: 20.0, left: 20.0, bottom: 10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Container(
-                width: 100.0,
-                child: Row(
-                  children: <Widget>[
-                    Flexible(
-                      child: Text(
-                        'Outlet A',
-                        style: TextStyle(color: Colors.grey[500]),
+        GestureDetector(
+          onTap: () => Navigator.push(context,
+              MyCustomRoute(builder: (context) => DetailPerbaikan())),
+          child: Padding(
+            padding: const EdgeInsets.only(right: 20.0, left: 20.0, bottom: 10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(
+                  width: 100.0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Icon(Icons.remove_circle, color: Colors.grey,),
+                      Flexible(
+                        child: Text(
+                          '001',
+                          style: TextStyle(color: Colors.grey[500]),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                width: 100.0,
-                child: Row(
-                  children: <Widget>[
-                    Flexible(
-                      child: Text(
-                        'Computer',
-                        style: TextStyle(color: Colors.grey[500]),
+                Container(
+                  width: 100.0,
+                  child: Row(
+                    children: <Widget>[
+                      Flexible(
+                        child: Text(
+                          '18/09/2018',
+                          style: TextStyle(color: Colors.grey[500]),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                width: 100.0,
-                child: Row(
-                  children: <Widget>[
-                    Flexible(
-                      child: Text(
-                        'Lenovo',
-                        style: TextStyle(color: Colors.grey[500]),
+                Container(
+                  width: 100.0,
+                  child: Row(
+                    children: <Widget>[
+                      Flexible(
+                        child: Text(
+                          'Lenovo',
+                          style: TextStyle(color: Colors.grey[500]),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              ButtonTheme(
-                minWidth: 50.0,
-                height: 20.0,
-                child: OutlineButton(
-                  child: Text(
-                    'Detail',
-                    style: TextStyle(fontSize: 13.0),
-                  ),
-                  borderSide: BorderSide(color: Colors.green, width: 1.0),
-                  highlightedBorderColor: Colors.green,
-                  onPressed: () {},
-                ),
-              ),
-              ButtonTheme(
-                minWidth: 50.0,
-                height: 20.0,
-                child: OutlineButton(
-                  child: Text(
-                    'Note',
-                    style: TextStyle(fontSize: 13.0),
-                  ),
-                  borderSide: BorderSide(color: Colors.green, width: 1.0),
-                  highlightedBorderColor: Colors.green,
-                  onPressed: () {
-                    setState(() {
-                      _note = !_note;
-                    });
-                  },
-                ),
-              ),
-              ButtonTheme(
-                minWidth: 50.0,
-                height: 20.0,
-                child: OutlineButton(
-                  child: Text(
-                    'Skip',
-                    style: TextStyle(fontSize: 13.0),
-                  ),
-                  borderSide: BorderSide(color: Colors.green, width: 1.0),
-                  highlightedBorderColor: Colors.green,
-                  onPressed: () {
-                    showModalBottomSheet(
-                      context: context,
-                      builder: (context) {
-                        return ModalBottomSheetSkip();
-                      },
-                    );
-                  },
-                ),
-              ),
-              ButtonTheme(
-                minWidth: 50.0,
-                height: 20.0,
-                child: OutlineButton(
-                  child: Text(
-                    'Done',
-                    style: TextStyle(fontSize: 13.0),
-                  ),
-                  borderSide: BorderSide(color: Colors.green, width: 1.0),
-                  highlightedBorderColor: Colors.green,
-                  onPressed: () {
-                    showModalBottomSheet(
-                        context: context,
-                        builder: (context) {
-                          return ModalBottomSheet();
-                        },
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-        _note
-            ? Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                width: 300.0,
-                child: TextField(
-                  decoration: InputDecoration(border: OutlineInputBorder()),
-                  maxLines: 3,
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                ),
-              )
-            : Container(),
         Divider(
           height: 15.0,
         ),
@@ -736,13 +535,13 @@ Widget _appBar() {
       tabs: <Widget>[
         new Tab(
           child: Text(
-            'Hardware',
+            'Status',
             style: TextStyle(color: Colors.grey[400]),
           ),
         ), // 1st Tab
         new Tab(
           child: Text(
-            'Software',
+            'Create New',
             style: TextStyle(color: Colors.grey[400]),
           ),
         ), // 1st Tab

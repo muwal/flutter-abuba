@@ -72,7 +72,7 @@ class _MenuLogBookState extends State<MenuLogBook> {
                   GestureDetector(
                     onTap: () => Navigator.push(
                         context,
-                        MaterialPageRoute(
+                        MyCustomRoute(
                             builder: (context) => FormPerformance())),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -132,7 +132,7 @@ class _MenuLogBookState extends State<MenuLogBook> {
                       GestureDetector(
                         onTap: () => Navigator.push(
                             context,
-                            MaterialPageRoute(
+                            MyCustomRoute(
                                 builder: (context) => FormEvent())),
                         child: Stack(
                           overflow: Overflow.visible,
@@ -186,7 +186,7 @@ class _MenuLogBookState extends State<MenuLogBook> {
                   GestureDetector(
                     onTap: () => Navigator.push(
                         context,
-                        MaterialPageRoute(
+                        MyCustomRoute(
                             builder: (context) => FormBahanBaku())),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -243,7 +243,7 @@ class _MenuLogBookState extends State<MenuLogBook> {
                   GestureDetector(
                     onTap: () => Navigator.push(
                         context,
-                        MaterialPageRoute(
+                        MyCustomRoute(
                             builder: (context) => FormAbsensi())),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -305,7 +305,7 @@ class _MenuLogBookState extends State<MenuLogBook> {
                   GestureDetector(
                     onTap: () => Navigator.push(
                         context,
-                        MaterialPageRoute(
+                        MyCustomRoute(
                             builder: (context) => FormJobdesc())),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -370,7 +370,7 @@ class _MenuLogBookState extends State<MenuLogBook> {
                   GestureDetector(
                     onTap: () => Navigator.push(
                         context,
-                        MaterialPageRoute(
+                        MyCustomRoute(
                             builder: (context) => FormPenampilan())),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -435,7 +435,7 @@ class _MenuLogBookState extends State<MenuLogBook> {
                   GestureDetector(
                     onTap: () => Navigator.push(
                         context,
-                        MaterialPageRoute(
+                        MyCustomRoute(
                             builder: (context) => FormBriefing())),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -500,7 +500,7 @@ class _MenuLogBookState extends State<MenuLogBook> {
                   GestureDetector(
                     onTap: () => Navigator.push(
                         context,
-                        MaterialPageRoute(
+                        MyCustomRoute(
                             builder: (context) => FormLineCheck())),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
