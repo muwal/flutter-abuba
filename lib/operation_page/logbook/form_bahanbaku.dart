@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+// import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 
 class FormBahanBaku extends StatefulWidget {
@@ -10,10 +10,12 @@ class FormBahanBaku extends StatefulWidget {
 
 class _FormBahanBakuState extends State<FormBahanBaku> {
   String _mySelection;
+  String _mySelectionsatu;
+  String _mySelectiondua;
   String _jenisAcara;
   List<Map> _jenisAcaraJson = [
-    {"id": 1, "jenis": "Pernikahan"},
-    {"id": 2, "jenis": "Ulang tahun"}
+    {"id": 1, "jenis": "Bahan Baku 1"},
+    {"id": 2, "jenis": "Bahan Baku 2"}
   ];
 
   TextEditingController controller = new TextEditingController();
@@ -84,16 +86,16 @@ class _FormBahanBakuState extends State<FormBahanBaku> {
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton<String>(
                         isDense: true,
-                        hint: Text('Jenis Acara'),
+                        hint: Text('Bahan Baku'),
                         value: _mySelection,
                         onChanged: (String newValue) {
                           setState(() {
                             switch (int.tryParse(newValue)) {
                               case 1:
-                                _jenisAcara = 'Pernikahan';
+                                _jenisAcara = 'Bahan Baku 1';
                                 break;
                               case 2:
-                                _jenisAcara = 'Ulang tahun';
+                                _jenisAcara = 'Bahan Baku 2';
                                 break;
                               default:
                                 _jenisAcara = '-';
@@ -132,22 +134,22 @@ class _FormBahanBakuState extends State<FormBahanBaku> {
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton<String>(
                         isDense: true,
-                        hint: Text('Jenis Acara'),
-                        value: _mySelection,
+                        hint: Text('Bahan Baku'),
+                        value: _mySelectionsatu,
                         onChanged: (String newValue) {
                           setState(() {
                             switch (int.tryParse(newValue)) {
                               case 1:
-                                _jenisAcara = 'Pernikahan';
+                                _jenisAcara = 'Bahan Baku 1';
                                 break;
                               case 2:
-                                _jenisAcara = 'Ulang tahun';
+                                _jenisAcara = 'Bahan Baku 2';
                                 break;
                               default:
                                 _jenisAcara = '-';
                                 break;
                             }
-                            _mySelection = newValue;
+                            _mySelectionsatu = newValue;
                           });
                         },
                         items: _jenisAcaraJson.map((Map map) {
@@ -180,22 +182,22 @@ class _FormBahanBakuState extends State<FormBahanBaku> {
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton<String>(
                         isDense: true,
-                        hint: Text('Jenis Acara'),
-                        value: _mySelection,
+                        hint: Text('Bahan Baku'),
+                        value: _mySelectiondua,
                         onChanged: (String newValue) {
                           setState(() {
                             switch (int.tryParse(newValue)) {
                               case 1:
-                                _jenisAcara = 'Pernikahan';
+                                _jenisAcara = 'Bahan Baku 1';
                                 break;
                               case 2:
-                                _jenisAcara = 'Ulang tahun';
+                                _jenisAcara = 'Bahan Baku 2';
                                 break;
                               default:
                                 _jenisAcara = '-';
                                 break;
                             }
-                            _mySelection = newValue;
+                            _mySelectiondua = newValue;
                           });
                         },
                         items: _jenisAcaraJson.map((Map map) {

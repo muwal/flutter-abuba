@@ -26,13 +26,38 @@ class _LauncherPageState extends State<LauncherPage> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Image.asset(
-          'assets/images/logo_splash.png',
-          height: 190.0,
-          width: 390.0,
-        ),
-      ),
+        body: Stack(
+          fit: StackFit.expand,
+          children: <Widget>[
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                    padding: EdgeInsets.only(top: 50.0),
+                    child: Center(
+                      child: Image.asset(
+                        'assets/images/logo_splash.png',
+                        height: 190.0,
+                        width: 390.0,
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      CircularProgressIndicator(),
+                    ],
+                  ),
+                )
+              ],
+            )
+          ],
+        )
     );
   }
 }

@@ -1,8 +1,245 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
+import 'package:flutter/cupertino.dart';
+import 'dart:async';
+
+class ModalBottomSheet extends StatefulWidget {
+  _ModalBottomSheetState createState() => _ModalBottomSheetState();
+}
+
+class _ModalBottomSheetState extends State<ModalBottomSheet> {
+  bool _value = false;
+  bool _value2 = false;
+
+  TextEditingController controller = new TextEditingController();
+  List<String> textList = [
+    "Alasan 1",
+    "Alasan 2",
+    "Alasan 3",
+    "Alasan 4",
+    "Alasan 5"
+  ];
+  List<bool> checkboxList = [false, false, false, false, false];
+  String listck = '';
+  List<String> selectedck = new List();
+
+  setText() {
+    if (selectedck.length == 0) {
+      listck = '';
+    } else {
+      listck = selectedck.join(', ');
+    }
+
+    print(listck);
+  }
+
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          ListTile(
+            dense: true,
+            title: Text(
+              'DONE',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.green),
+            ),
+          ),
+          contentwrap(),
+          ButtonTheme.bar(
+            child: ButtonBar(
+              children: <Widget>[
+                FlatButton(
+                  child: Text('SAVE'),
+                  onPressed: () {},
+                ),
+                FlatButton(
+                  child: Text(
+                    'CANCEL',
+                    style: TextStyle(color: Colors.black54),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget contentwrap() {
+    return Wrap(
+      spacing: 0.0,
+      runSpacing: 0.0,
+      direction: Axis.horizontal,
+      children: <Widget>[
+        Container(
+            height: 150.0,
+            child: Column(
+              children: <Widget>[
+                Flexible(
+                  child: Scrollbar(
+                    child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: textList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Row(
+                          children: <Widget>[
+                            Checkbox(
+                              value: checkboxList[index],
+                              activeColor: Colors.green,
+                              onChanged: (bool newVal) {
+                                checkboxList[index] = newVal;
+                                setState(() {
+                                  if (checkboxList[index]) {
+                                    selectedck.add(textList[index]);
+                                    setText();
+                                  } else {
+                                    selectedck.remove(textList[index]);
+                                    setText();
+                                  }
+                                });
+                              },
+                            ),
+                            Text(textList[index])
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            )),
+      ],
+    );
+  }
+}
+
+class ModalBottomSheetSkip extends StatefulWidget {
+  _ModalBottomSheetSkipState createState() => _ModalBottomSheetSkipState();
+}
+
+class _ModalBottomSheetSkipState extends State<ModalBottomSheetSkip> {
+  bool _value = false;
+  bool _value2 = false;
+
+  TextEditingController controller = new TextEditingController();
+  List<String> textList = [
+    "Alasan 1",
+    "Alasan 2",
+    "Alasan 3",
+    "Alasan 4",
+    "Alasan 5"
+  ];
+  List<bool> checkboxList = [false, false, false, false, false];
+  String listck = '';
+  List<String> selectedck = new List();
+
+  setText() {
+    if (selectedck.length == 0) {
+      listck = '';
+    } else {
+      listck = selectedck.join(', ');
+    }
+
+    print(listck);
+  }
+
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          ListTile(
+            dense: true,
+            title: Text(
+              'DONE',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.green),
+            ),
+          ),
+          contentwrap(),
+          ButtonTheme.bar(
+            child: ButtonBar(
+              children: <Widget>[
+                FlatButton(
+                  child: Text('SAVE'),
+                  onPressed: () {},
+                ),
+                FlatButton(
+                  child: Text(
+                    'CANCEL',
+                    style: TextStyle(color: Colors.black54),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget contentwrap() {
+    return Wrap(
+      spacing: 0.0,
+      runSpacing: 0.0,
+      direction: Axis.horizontal,
+      children: <Widget>[
+        Container(
+            height: 150.0,
+            child: Column(
+              children: <Widget>[
+                Flexible(
+                  child: Scrollbar(
+                    child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: textList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Row(
+                          children: <Widget>[
+                            Checkbox(
+                              value: checkboxList[index],
+                              activeColor: Colors.green,
+                              onChanged: (bool newVal) {
+                                checkboxList[index] = newVal;
+                                setState(() {
+                                  if (checkboxList[index]) {
+                                    selectedck.add(textList[index]);
+                                    setText();
+                                  } else {
+                                    selectedck.remove(textList[index]);
+                                    setText();
+                                  }
+                                });
+                              },
+                            ),
+                            Text(textList[index])
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            )),
+      ],
+    );
+  }
+}
 
 class FormIT extends StatefulWidget {
-  @override
+  FormIT({Key key}) : super(key: key);
+
   _FormITState createState() => _FormITState();
 }
 
@@ -15,6 +252,7 @@ class _FormITState extends State<FormIT> {
       child: DefaultTabController(
         length: 2,
         child: Scaffold(
+          resizeToAvoidBottomPadding: false,
           appBar: _appBar(),
           body: TabBarView(
             children: <Widget>[
@@ -118,23 +356,43 @@ class _FormITState extends State<FormIT> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Flexible(
-                child: Text(
-                  'Outlet A',
-                  style: TextStyle(color: Colors.grey[500]),
+              Container(
+                width: 100.0,
+                child: Row(
+                  children: <Widget>[
+                    Flexible(
+                      child: Text(
+                        'Outlet A',
+                        style: TextStyle(color: Colors.grey[500]),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              Flexible(
-                child: Text(
-                  'Computer',
-                  style: TextStyle(color: Colors.grey[500]),
+              Container(
+                width: 100.0,
+                child: Row(
+                  children: <Widget>[
+                    Flexible(
+                      child: Text(
+                        'Computer',
+                        style: TextStyle(color: Colors.grey[500]),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              Flexible(
-                child: Text(
-                  'Lenovo',
-                  style: TextStyle(color: Colors.grey[500]),
-                  textAlign: TextAlign.left,
+              Container(
+                width: 100.0,
+                child: Row(
+                  children: <Widget>[
+                    Flexible(
+                      child: Text(
+                        'Lenovo',
+                        style: TextStyle(color: Colors.grey[500]),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -185,7 +443,14 @@ class _FormITState extends State<FormIT> {
                   ),
                   borderSide: BorderSide(color: Colors.green, width: 1.0),
                   highlightedBorderColor: Colors.green,
-                  onPressed: () {},
+                  onPressed: () {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return ModalBottomSheetSkip();
+                      },
+                    );
+                  },
                 ),
               ),
               ButtonTheme(
@@ -198,7 +463,14 @@ class _FormITState extends State<FormIT> {
                   ),
                   borderSide: BorderSide(color: Colors.green, width: 1.0),
                   highlightedBorderColor: Colors.green,
-                  onPressed: () {},
+                  onPressed: () {
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (context) {
+                          return ModalBottomSheet();
+                        },
+                    );
+                  },
                 ),
               ),
             ],
@@ -206,23 +478,34 @@ class _FormITState extends State<FormIT> {
         ),
         _note
             ? Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          width: 300.0,
-          child: TextField(
-            decoration:
-            InputDecoration(border: OutlineInputBorder()),
-            maxLines: 3,
-            style: TextStyle(
-              color: Colors.black,
-            ),
-          ),
-        )
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                width: 300.0,
+                child: TextField(
+                  decoration: InputDecoration(border: OutlineInputBorder()),
+                  maxLines: 3,
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+              )
             : Container(),
         Divider(
           height: 15.0,
         ),
       ],
     );
+  }
+
+  void containerForSheet<T>({BuildContext context, Widget child}) {
+    showCupertinoModalPopup<T>(
+      context: context,
+      builder: (BuildContext context) => child,
+    ).then<void>((T value) {
+      Scaffold.of(context).showSnackBar(SnackBar(
+        content: Text('You clicked $value'),
+        duration: Duration(milliseconds: 800),
+      ));
+    });
   }
 }
 
@@ -314,22 +597,43 @@ Widget _buildReportForm() {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Flexible(
-              child: Text(
-                'HRD',
-                style: TextStyle(color: Colors.grey[500]),
+            Container(
+              width: 100.0,
+              child: Row(
+                children: <Widget>[
+                  Flexible(
+                    child: Text(
+                      'HRD',
+                      style: TextStyle(color: Colors.grey[500]),
+                    ),
+                  ),
+                ],
               ),
             ),
-            Flexible(
-              child: Text(
-                '80',
-                style: TextStyle(color: Colors.grey[500]),
+            Container(
+              width: 100.0,
+              child: Row(
+                children: <Widget>[
+                  Flexible(
+                    child: Text(
+                      '80',
+                      style: TextStyle(color: Colors.grey[500]),
+                    ),
+                  ),
+                ],
               ),
             ),
-            Flexible(
-              child: Text(
-                '17/09/2018',
-                style: TextStyle(color: Colors.grey[500]),
+            Container(
+              width: 100.0,
+              child: Row(
+                children: <Widget>[
+                  Flexible(
+                    child: Text(
+                      '17/09/2018',
+                      style: TextStyle(color: Colors.grey[500]),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
@@ -340,16 +644,43 @@ Widget _buildReportForm() {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Flexible(
-              child: Text(
-                'Yani',
-                style: TextStyle(color: Colors.grey[500]),
+            Container(
+              width: 100.0,
+              child: Row(
+                children: <Widget>[
+                  Flexible(
+                    child: Text(
+                      'Yani',
+                      style: TextStyle(color: Colors.grey[500]),
+                    ),
+                  ),
+                ],
               ),
             ),
-            Flexible(
-              child: Text(
-                '18/09/2018',
-                style: TextStyle(color: Colors.grey[500]),
+            Container(
+              width: 100.0,
+              child: Row(
+                children: <Widget>[
+                  Flexible(
+                    child: Text(
+                      '',
+                      style: TextStyle(color: Colors.grey[500]),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              width: 100.0,
+              child: Row(
+                children: <Widget>[
+                  Flexible(
+                    child: Text(
+                      '18/09/2018',
+                      style: TextStyle(color: Colors.grey[500]),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

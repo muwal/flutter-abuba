@@ -70,10 +70,7 @@ class _MenuChecklistState extends State<MenuChecklist> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   GestureDetector(
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => FormPerformance())),
+                    onTap: () {},
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
@@ -184,10 +181,7 @@ class _MenuChecklistState extends State<MenuChecklist> {
                     ],
                   ),
                   GestureDetector(
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => FormBahanBaku())),
+                    onTap: () {},
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
@@ -241,10 +235,7 @@ class _MenuChecklistState extends State<MenuChecklist> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => FormAbsensi())),
+                    onTap: () {},
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
@@ -303,10 +294,7 @@ class _MenuChecklistState extends State<MenuChecklist> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   GestureDetector(
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => FormJobdesc())),
+                    onTap: () {},
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
@@ -360,10 +348,7 @@ class _MenuChecklistState extends State<MenuChecklist> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => FormPenampilan())),
+                    onTap: () {},
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
@@ -417,10 +402,7 @@ class _MenuChecklistState extends State<MenuChecklist> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => FormBriefing())),
+                    onTap: () {},
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
@@ -474,10 +456,7 @@ class _MenuChecklistState extends State<MenuChecklist> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => FormLineCheck())),
+                    onTap: () {},
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[

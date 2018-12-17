@@ -84,10 +84,7 @@ class _BerandaOperationState extends State<BerandaOperation> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   GestureDetector(
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => BerandaOperation())),
+                    onTap: () {},
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
@@ -575,255 +572,384 @@ class _BerandaOperationState extends State<BerandaOperation> {
   }
 
   Widget _buildOperationMenu() {
-    return ListView(
-      children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(left: 20.0),
-              child: Text(
-                'Operational Process',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(right: 20.0),
-              child: ButtonTheme(
-                minWidth: 50.0,
-                height: 20.0,
-                child: RaisedButton(
-                  color: AbubaPallate.greenabuba,
-                  child: Text(
-                    'Info',
-                    style: TextStyle(fontSize: 13.0, color: Colors.white),
-                  ),
-                  onPressed: () {},
+    return Scrollbar(
+      child: ListView(
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(left: 20.0),
+                child: Text(
+                  'Operational Process',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
                 ),
               ),
-            ),
-          ],
-        ),
-        Padding(
-          padding: EdgeInsets.only(left: 20.0, right: 20.0),
-          child: Text(
-            'Lakukan aktifitas ini dimulai dari opening hingga closing outlet',
-            style: TextStyle(color: Colors.black38),
+              Padding(
+                padding: EdgeInsets.only(right: 20.0),
+                child: ButtonTheme(
+                  minWidth: 50.0,
+                  height: 20.0,
+                  child: RaisedButton(
+                    color: AbubaPallate.greenabuba,
+                    child: Text(
+                      'Info',
+                      style: TextStyle(fontSize: 13.0, color: Colors.white),
+                    ),
+                    onPressed: () {},
+                  ),
+                ),
+              ),
+            ],
           ),
-        ),
-        SizedBox(
-          height: 15.0,
-        ),
-        Wrap(
-          spacing: 10.0,
-          runSpacing: 15.0,
-          direction: Axis.horizontal,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  GestureDetector(
-                    onTap: () => Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MenuLogBook())),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Stack(
-                          overflow: Overflow.visible,
-                          children: <Widget>[
-                            Container(
-                              height: 70.0,
-                              width: 70.0,
-                              decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  border: Border.all(
-                                      color: Colors.grey, width: 1.0),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(18.0))),
-                            ),
-                            Positioned(
-                              bottom: 22.5,
-                              left: 25.0,
-                              child: Icon(MdiIcons.heart,
-                                  size: 25.0, color: Colors.grey),
-                            ),
-                            Positioned(
-                              top: -5.0,
-                              right: -5.0,
-                              child: Icon(
-                                Icons.brightness_1,
-                                size: 25.0,
-                                color: Colors.redAccent,
-                              ),
-                            ),
-                            Positioned(
-                              top: -1.0,
-                              right: 3.0,
-                              child: Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
-                          ],
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10.0),
-                          child: Text(
-                            'Log Book',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12.0),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 5.0),
-                          child: Text(
-                            'MOD',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12.0),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => MenuChecklist())),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Stack(
-                          overflow: Overflow.visible,
-                          children: <Widget>[
-                            Container(
-                              height: 70.0,
-                              width: 70.0,
-                              decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  border: Border.all(
-                                      color: Colors.grey, width: 1.0),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(18.0))),
-                            ),
-                            Positioned(
-                              bottom: 22.5,
-                              left: 25.0,
-                              child: Icon(MdiIcons.heart,
-                                  size: 25.0, color: Colors.grey),
-                            ),
-                            Positioned(
-                              top: -5.0,
-                              right: -5.0,
-                              child: Icon(
-                                Icons.brightness_1,
-                                size: 25.0,
-                                color: Colors.redAccent,
-                              ),
-                            ),
-                            Positioned(
-                              top: -1.0,
-                              right: 3.0,
-                              child: Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
-                          ],
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10.0),
-                          child: Text('BOH Daily',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 12.0),
-                              softWrap: false,
-                              overflow: TextOverflow.ellipsis),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 5.0),
-                          child: Text(
-                            'Checklist',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12.0),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      showSearch(context: context, delegate: DataSearch());
-                    },
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Stack(
-                          overflow: Overflow.visible,
-                          children: <Widget>[
-                            Container(
-                              height: 70.0,
-                              width: 70.0,
-                              decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  border: Border.all(
-                                      color: Colors.grey, width: 1.0),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(18.0))),
-                            ),
-                            Positioned(
-                              bottom: 22.5,
-                              left: 25.0,
-                              child: Icon(MdiIcons.heart,
-                                  size: 25.0, color: Colors.grey),
-                            ),
-                            Positioned(
-                              top: -5.0,
-                              right: -5.0,
-                              child: Icon(
-                                Icons.brightness_1,
-                                size: 25.0,
-                                color: Colors.redAccent,
-                              ),
-                            ),
-                            Positioned(
-                              top: -1.0,
-                              right: 3.0,
-                              child: Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
-                          ],
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10.0),
-                          child: Text(
-                            'Incoming',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12.0),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 5.0),
-                          child: Text(
-                            '',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12.0),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
+          Padding(
+            padding: EdgeInsets.only(left: 20.0, right: 20.0),
+            child: Text(
+              'Lakukan aktifitas ini dimulai dari opening hingga closing outlet',
+              style: TextStyle(color: Colors.black38),
+            ),
+          ),
+          SizedBox(
+            height: 15.0,
+          ),
+          Wrap(
+            spacing: 10.0,
+            runSpacing: 15.0,
+            direction: Axis.horizontal,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    GestureDetector(
+                      onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => FormTemperature()));
-                    },
-                    child: Column(
+                              builder: (context) => MenuLogBook())),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Stack(
+                            overflow: Overflow.visible,
+                            children: <Widget>[
+                              Container(
+                                height: 70.0,
+                                width: 70.0,
+                                decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    border: Border.all(
+                                        color: Colors.grey, width: 1.0),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(18.0))),
+                              ),
+                              Positioned(
+                                bottom: 22.5,
+                                left: 25.0,
+                                child: Icon(MdiIcons.heart,
+                                    size: 25.0, color: Colors.grey),
+                              ),
+                              Positioned(
+                                top: -5.0,
+                                right: -5.0,
+                                child: Icon(
+                                  Icons.brightness_1,
+                                  size: 25.0,
+                                  color: Colors.redAccent,
+                                ),
+                              ),
+                              Positioned(
+                                top: -1.0,
+                                right: 3.0,
+                                child: Text(
+                                  '2',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              )
+                            ],
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 10.0),
+                            child: Text(
+                              'Log Book',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500, fontSize: 12.0),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 5.0),
+                            child: Text(
+                              'MOD',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500, fontSize: 12.0),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MenuChecklist())),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Stack(
+                            overflow: Overflow.visible,
+                            children: <Widget>[
+                              Container(
+                                height: 70.0,
+                                width: 70.0,
+                                decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    border: Border.all(
+                                        color: Colors.grey, width: 1.0),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(18.0))),
+                              ),
+                              Positioned(
+                                bottom: 22.5,
+                                left: 25.0,
+                                child: Icon(MdiIcons.heart,
+                                    size: 25.0, color: Colors.grey),
+                              ),
+                              Positioned(
+                                top: -5.0,
+                                right: -5.0,
+                                child: Icon(
+                                  Icons.brightness_1,
+                                  size: 25.0,
+                                  color: Colors.redAccent,
+                                ),
+                              ),
+                              Positioned(
+                                top: -1.0,
+                                right: 3.0,
+                                child: Text(
+                                  '2',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              )
+                            ],
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 10.0),
+                            child: Text('BOH Daily',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12.0),
+                                softWrap: false,
+                                overflow: TextOverflow.ellipsis),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 5.0),
+                            child: Text(
+                              'Checklist',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500, fontSize: 12.0),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        showSearch(context: context, delegate: DataSearch());
+                      },
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Stack(
+                            overflow: Overflow.visible,
+                            children: <Widget>[
+                              Container(
+                                height: 70.0,
+                                width: 70.0,
+                                decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    border: Border.all(
+                                        color: Colors.grey, width: 1.0),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(18.0))),
+                              ),
+                              Positioned(
+                                bottom: 22.5,
+                                left: 25.0,
+                                child: Icon(MdiIcons.heart,
+                                    size: 25.0, color: Colors.grey),
+                              ),
+                              Positioned(
+                                top: -5.0,
+                                right: -5.0,
+                                child: Icon(
+                                  Icons.brightness_1,
+                                  size: 25.0,
+                                  color: Colors.redAccent,
+                                ),
+                              ),
+                              Positioned(
+                                top: -1.0,
+                                right: 3.0,
+                                child: Text(
+                                  '2',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              )
+                            ],
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 10.0),
+                            child: Text(
+                              'Incoming',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500, fontSize: 12.0),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 5.0),
+                            child: Text(
+                              '',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500, fontSize: 12.0),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => FormTemperature()));
+                      },
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Stack(
+                            overflow: Overflow.visible,
+                            children: <Widget>[
+                              Container(
+                                height: 70.0,
+                                width: 70.0,
+                                decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    border: Border.all(
+                                        color: Colors.grey, width: 1.0),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(18.0))),
+                              ),
+                              Positioned(
+                                bottom: 22.5,
+                                left: 25.0,
+                                child: Icon(MdiIcons.heart,
+                                    size: 25.0, color: Colors.grey),
+                              ),
+                              Positioned(
+                                top: -5.0,
+                                right: -5.0,
+                                child: Icon(
+                                  Icons.brightness_1,
+                                  size: 25.0,
+                                  color: Colors.redAccent,
+                                ),
+                              ),
+                              Positioned(
+                                top: -1.0,
+                                right: 3.0,
+                                child: Text(
+                                  '2',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              )
+                            ],
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 10.0),
+                            child: Text(
+                              'Storage',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500, fontSize: 12.0),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 5.0),
+                            child: Text(
+                              '',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500, fontSize: 12.0),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    GestureDetector(
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Inspection())),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Stack(
+                            overflow: Overflow.visible,
+                            children: <Widget>[
+                              Container(
+                                height: 70.0,
+                                width: 70.0,
+                                decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    border: Border.all(
+                                        color: Colors.grey, width: 1.0),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(18.0))),
+                              ),
+                              Positioned(
+                                bottom: 22.5,
+                                left: 25.0,
+                                child: Icon(MdiIcons.heart,
+                                    size: 25.0, color: Colors.grey),
+                              ),
+                              Positioned(
+                                top: -5.0,
+                                right: -5.0,
+                                child: Icon(
+                                  Icons.brightness_1,
+                                  size: 25.0,
+                                  color: Colors.redAccent,
+                                ),
+                              ),
+                              Positioned(
+                                top: -1.0,
+                                right: 3.0,
+                                child: Text(
+                                  '2',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              )
+                            ],
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 10.0),
+                            child: Text(
+                              'Kitchen',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500, fontSize: 12.0),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         Stack(
@@ -867,34 +993,14 @@ class _BerandaOperationState extends State<BerandaOperation> {
                         Padding(
                           padding: EdgeInsets.only(top: 10.0),
                           child: Text(
-                            'Storage',
+                            'Event',
                             style: TextStyle(
                                 fontWeight: FontWeight.w500, fontSize: 12.0),
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 5.0),
-                          child: Text(
-                            '',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12.0),
-                          ),
-                        )
                       ],
                     ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  GestureDetector(
-                    onTap: () => Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Inspection())),
-                    child: Column(
+                    Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         Stack(
@@ -938,229 +1044,126 @@ class _BerandaOperationState extends State<BerandaOperation> {
                         Padding(
                           padding: EdgeInsets.only(top: 10.0),
                           child: Text(
-                            'Kitchen',
+                            'Open Close',
                             style: TextStyle(
                                 fontWeight: FontWeight.w500, fontSize: 12.0),
                           ),
                         ),
                       ],
                     ),
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Stack(
-                        overflow: Overflow.visible,
-                        children: <Widget>[
-                          Container(
-                            height: 70.0,
-                            width: 70.0,
-                            decoration: BoxDecoration(
-                                color: Colors.transparent,
-                                border:
-                                    Border.all(color: Colors.grey, width: 1.0),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(18.0))),
-                          ),
-                          Positioned(
-                            bottom: 22.5,
-                            left: 25.0,
-                            child: Icon(MdiIcons.heart,
-                                size: 25.0, color: Colors.grey),
-                          ),
-                          Positioned(
-                            top: -5.0,
-                            right: -5.0,
-                            child: Icon(
-                              Icons.brightness_1,
-                              size: 25.0,
-                              color: Colors.redAccent,
-                            ),
-                          ),
-                          Positioned(
-                            top: -1.0,
-                            right: 3.0,
-                            child: Text(
-                              '2',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          )
-                        ],
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 10.0),
-                        child: Text(
-                          'Event',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500, fontSize: 12.0),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Stack(
-                        overflow: Overflow.visible,
-                        children: <Widget>[
-                          Container(
-                            height: 70.0,
-                            width: 70.0,
-                            decoration: BoxDecoration(
-                                color: Colors.transparent,
-                                border:
-                                    Border.all(color: Colors.grey, width: 1.0),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(18.0))),
-                          ),
-                          Positioned(
-                            bottom: 22.5,
-                            left: 25.0,
-                            child: Icon(MdiIcons.heart,
-                                size: 25.0, color: Colors.grey),
-                          ),
-                          Positioned(
-                            top: -5.0,
-                            right: -5.0,
-                            child: Icon(
-                              Icons.brightness_1,
-                              size: 25.0,
-                              color: Colors.redAccent,
-                            ),
-                          ),
-                          Positioned(
-                            top: -1.0,
-                            right: 3.0,
-                            child: Text(
-                              '2',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          )
-                        ],
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 10.0),
-                        child: Text(
-                          'Open Close',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500, fontSize: 12.0),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Stack(
-                        overflow: Overflow.visible,
-                        children: <Widget>[
-                          Container(
-                            height: 70.0,
-                            width: 70.0,
-                            decoration: BoxDecoration(
-                                color: Colors.transparent,
-                                border:
-                                    Border.all(color: Colors.grey, width: 1.0),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(18.0))),
-                          ),
-                          Positioned(
-                            bottom: 22.5,
-                            left: 25.0,
-                            child: Icon(MdiIcons.heart,
-                                size: 25.0, color: Colors.grey),
-                          ),
-                          Positioned(
-                            top: -5.0,
-                            right: -5.0,
-                            child: Icon(
-                              Icons.brightness_1,
-                              size: 25.0,
-                              color: Colors.redAccent,
-                            ),
-                          ),
-                          Positioned(
-                            top: -1.0,
-                            right: 3.0,
-                            child: Text(
-                              '2',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          )
-                        ],
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 10.0),
-                        child: Text(
-                          'MORE',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500, fontSize: 12.0),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Divider(
-              height: 5.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        'Best Employee',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16.0),
-                      ),
-                      ButtonTheme(
-                        minWidth: 50.0,
-                        height: 20.0,
-                        child: RaisedButton(
-                          color: AbubaPallate.greenabuba,
-                          child: Text(
-                            'More',
-                            style:
-                                TextStyle(fontSize: 13.0, color: Colors.white),
-                          ),
-                          onPressed: () {},
-                        ),
-                      ),
-                    ],
-                  ),
-                  Text(
-                    'Selamat kepada 10 besar karyawan dengan performance terbaik',
-                    style: TextStyle(color: Colors.black38),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.only(left: 15.0),
-              height: 140.0,
-              child: Column(
-                children: <Widget>[
-                  Flexible(
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 10,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Column(
-                          mainAxisSize: MainAxisSize.min,
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Stack(
+                          overflow: Overflow.visible,
                           children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.all(10.0),
-                              child: Stack(
-                                overflow: Overflow.visible,
-                                children: <Widget>[
-                                  Container(
-                                    height: 70.0,
-                                    width: 70.0,
-                                    decoration: BoxDecoration(
+                            Container(
+                              height: 70.0,
+                              width: 70.0,
+                              decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  border: Border.all(
+                                      color: Colors.grey, width: 1.0),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(18.0))),
+                            ),
+                            Positioned(
+                              bottom: 22.5,
+                              left: 25.0,
+                              child: Icon(MdiIcons.heart,
+                                  size: 25.0, color: Colors.grey),
+                            ),
+                            Positioned(
+                              top: -5.0,
+                              right: -5.0,
+                              child: Icon(
+                                Icons.brightness_1,
+                                size: 25.0,
+                                color: Colors.redAccent,
+                              ),
+                            ),
+                            Positioned(
+                              top: -1.0,
+                              right: 3.0,
+                              child: Text(
+                                '2',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            )
+                          ],
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 10.0),
+                          child: Text(
+                            'MORE',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500, fontSize: 12.0),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Divider(
+                height: 5.0,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          'Best Employee',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16.0),
+                        ),
+                        ButtonTheme(
+                          minWidth: 50.0,
+                          height: 20.0,
+                          child: RaisedButton(
+                            color: AbubaPallate.greenabuba,
+                            child: Text(
+                              'More',
+                              style: TextStyle(
+                                  fontSize: 13.0, color: Colors.white),
+                            ),
+                            onPressed: () {},
+                          ),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      'Selamat kepada 10 besar karyawan dengan performance terbaik',
+                      style: TextStyle(color: Colors.black38),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                height: 140.0,
+                child: Column(
+                  children: <Widget>[
+                    Flexible(
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 10,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Padding(
+                                padding: EdgeInsets.all(10.0),
+                                child: Stack(
+                                  overflow: Overflow.visible,
+                                  children: <Widget>[
+                                    Container(
+                                      height: 70.0,
+                                      width: 70.0,
+                                      decoration: BoxDecoration(
                                         boxShadow: [
                                           BoxShadow(
                                               color: Colors.black26,
@@ -1177,135 +1180,137 @@ class _BerandaOperationState extends State<BerandaOperation> {
                                         image: DecorationImage(
                                             image: NetworkImage(
                                                 "https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTE5NTU2MzE2NDE4MzExNjkx/jackie-chan-9542080-1-402.jpg"),
-                                            fit: BoxFit.cover)),
-                                  )
-                                ],
+                                            fit: BoxFit.cover),
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 10.0),
-                              child: Text(
-                                'Dewi $index',
-                                style: TextStyle(fontSize: 12.0),
+                              Padding(
+                                padding: EdgeInsets.only(top: 10.0),
+                                child: Text(
+                                  'Dewi $index',
+                                  style: TextStyle(fontSize: 12.0),
+                                ),
                               ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 10.0),
-                              child: Text('Operation'),
-                            )
-                          ],
-                        );
-                      },
+                              Padding(
+                                padding: EdgeInsets.only(top: 10.0),
+                                child: Text('Operation'),
+                              )
+                            ],
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Divider(height: 5.0),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        'What\'s Happening in Abuba',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16.0),
-                      ),
-                      ButtonTheme(
-                        minWidth: 50.0,
-                        height: 20.0,
-                        child: RaisedButton(
-                          color: AbubaPallate.greenabuba,
-                          child: Text(
-                            'More',
-                            style:
-                                TextStyle(fontSize: 13.0, color: Colors.white),
-                          ),
-                          onPressed: () {},
-                        ),
-                      ),
-                    ],
-                  ),
-                  Text(
-                    'Pastikan Anda tidak melewatkan berbagai informasi penting dan seru seputar aktivitas Anda di Abuba',
-                    style: TextStyle(color: Colors.black38),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10.0),
-                    child: Stack(
-                      overflow: Overflow.visible,
+              Divider(height: 5.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Container(
-                          height: 150.0,
-                          width: MediaQuery.of(context).size.width - 10,
-                          decoration: BoxDecoration(
-                              color: Colors.green,
-                              border:
-                                  Border.all(color: Colors.black12, width: 4.0),
-                              image: DecorationImage(
-                                  image: NetworkImage(
-                                      "https://c1.staticflickr.com/5/4149/35646344915_805ee67321_b.jpg"),
-                                  fit: BoxFit.cover)),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Flexible(
-                        child: Text(
-                          'Camping Night',
+                        Text(
+                          'What\'s Happening in Abuba',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16.0),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 5.0,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Flexible(
-                        child: Text(
-                          'Camping night in the night night night night',
-                          style: TextStyle(color: Colors.black38),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 5.0,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      ButtonTheme(
-                        minWidth: 50.0,
-                        height: 20.0,
-                        child: RaisedButton(
-                          color: AbubaPallate.greenabuba,
-                          child: Text(
-                            'More',
-                            style:
-                                TextStyle(fontSize: 13.0, color: Colors.white),
+                        ButtonTheme(
+                          minWidth: 50.0,
+                          height: 20.0,
+                          child: RaisedButton(
+                            color: AbubaPallate.greenabuba,
+                            child: Text(
+                              'More',
+                              style: TextStyle(
+                                  fontSize: 13.0, color: Colors.white),
+                            ),
+                            onPressed: () {},
                           ),
-                          onPressed: () {},
                         ),
+                      ],
+                    ),
+                    Text(
+                      'Pastikan Anda tidak melewatkan berbagai informasi penting dan seru seputar aktivitas Anda di Abuba',
+                      style: TextStyle(color: Colors.black38),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10.0),
+                      child: Stack(
+                        overflow: Overflow.visible,
+                        children: <Widget>[
+                          Container(
+                            height: 150.0,
+                            width: MediaQuery.of(context).size.width - 10,
+                            decoration: BoxDecoration(
+                                color: Colors.green,
+                                border: Border.all(
+                                    color: Colors.black12, width: 4.0),
+                                image: DecorationImage(
+                                    image: NetworkImage(
+                                        "https://c1.staticflickr.com/5/4149/35646344915_805ee67321_b.jpg"),
+                                    fit: BoxFit.cover)),
+                          ),
+                        ],
                       ),
-                    ],
-                  )
-                ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Flexible(
+                          child: Text(
+                            'Camping Night',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16.0),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5.0,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Flexible(
+                          child: Text(
+                            'Camping night in the night night night night',
+                            style: TextStyle(color: Colors.black38),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5.0,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        ButtonTheme(
+                          minWidth: 50.0,
+                          height: 20.0,
+                          child: RaisedButton(
+                            color: AbubaPallate.greenabuba,
+                            child: Text(
+                              'More',
+                              style: TextStyle(
+                                  fontSize: 13.0, color: Colors.white),
+                            ),
+                            onPressed: () {},
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-      ],
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

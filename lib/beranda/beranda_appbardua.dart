@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_abuba/constant.dart';
 
 class AbubaAppBar extends AppBar {
   AbubaAppBar() : super(
@@ -7,8 +6,8 @@ class AbubaAppBar extends AppBar {
       backgroundColor: Colors.white,
       flexibleSpace: _buildAbubaAppBar(),
       iconTheme: IconThemeData(
-        color: Colors.black
-      )
+        color: Colors.black,
+      ),
   );
 
   static Widget _buildAbubaAppBar() {

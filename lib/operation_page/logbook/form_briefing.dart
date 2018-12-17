@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+// import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 
 class FormBriefing extends StatefulWidget {
@@ -215,6 +215,7 @@ class _FormBriefingState extends State<FormBriefing> {
 
               _note
                   ? Container(
+                    padding: EdgeInsets.only(bottom: 10.0),
                     width: 300.0,
                     child: TextField(
                       decoration:

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/beranda/beranda_view.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+// import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class LandingPage extends StatefulWidget {
   @override
@@ -19,7 +19,6 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       body: _container[_BottomNavCurrentIndex],
       bottomNavigationBar: _buildBottomNavigation(),

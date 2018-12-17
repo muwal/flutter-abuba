@@ -44,6 +44,7 @@ flutter:
     - assets/images/img_gojek_logo.png
     - assets/images/logo.png
     - assets/images/logo_splash.png
+    - assets/images/logo_light.png
   fonts:
     - family: NeoSans
       fonts:

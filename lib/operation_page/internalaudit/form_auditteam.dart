@@ -83,18 +83,34 @@ Widget _buildDaftarForm() {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Flexible(
-              child: Text(
-                'Ridwan Surgawi',
-                style: TextStyle(color: Colors.grey[500]),
+            Container(
+              width: 150.0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Flexible(
+                    child: Text(
+                      'Ridwan Surgawi',
+                      style: TextStyle(color: Colors.grey[500]),
+                    ),
+                  ),
+                ],
               ),
             ),
-            Flexible(
-              child: Text(
-                '17/09/2018',
-                style: TextStyle(color: Colors.grey[500]),
+            Container(
+              width: 150.0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Flexible(
+                    child: Text(
+                      '17/09/2018',
+                      style: TextStyle(color: Colors.grey[500]),
+                    ),
+                  ),
+                ],
               ),
-            ),
+            )
           ],
         ),
       ),
@@ -103,18 +119,34 @@ Widget _buildDaftarForm() {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Flexible(
-              child: Text(
-                'Yani',
-                style: TextStyle(color: Colors.grey[500]),
+            Container(
+              width: 150.0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Flexible(
+                    child: Text(
+                      'Yani',
+                      style: TextStyle(color: Colors.grey[500]),
+                    ),
+                  ),
+                ],
               ),
             ),
-            Flexible(
-              child: Text(
-                '18/09/2018',
-                style: TextStyle(color: Colors.grey[500]),
+            Container(
+              width: 150.0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Flexible(
+                    child: Text(
+                      '18/09/2018',
+                      style: TextStyle(color: Colors.grey[500]),
+                    ),
+                  ),
+                ],
               ),
-            ),
+            )
           ],
         ),
       ),
@@ -136,7 +168,7 @@ Widget _buildTrackForm() {
                   '17/09/2018',
                   style: TextStyle(color: Colors.black54),
                 ),
-                Text('Last Audit')
+                Text('Last Audit', style: TextStyle(color: AbubaPallate.greenabuba))
               ],
             ),
             Column(
@@ -153,12 +185,12 @@ Widget _buildTrackForm() {
                         Border.all(color: AbubaPallate.greenabuba, width: 3.0),
                     image: new DecorationImage(
                       fit: BoxFit.fill,
-                      image:
-                          new NetworkImage("https://i.imgur.com/BoN9kdC.png"),
+                      image: NetworkImage(
+                          "https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTE5NTU2MzE2NDE4MzExNjkx/jackie-chan-9542080-1-402.jpg"),
                     ),
                   ),
                 ),
-                Text("John Doe", textScaleFactor: 1.5)
+                Text("John Doe", textScaleFactor: 1.5, style: TextStyle(color: AbubaPallate.greenabuba))
               ],
             ),
             Column(
@@ -167,7 +199,7 @@ Widget _buildTrackForm() {
                   'HRD',
                   style: TextStyle(color: Colors.black54),
                 ),
-                Text('Departemen')
+                Text('Departemen', style: TextStyle(color: AbubaPallate.greenabuba),)
               ],
             ),
           ],
@@ -181,13 +213,13 @@ Widget _buildTrackForm() {
                 child: Text(
               '“ Prinsip saya dalam mengaudit adalah memastikan auditee nya ada untuk diaudit"',
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.black54),
+              style: TextStyle(color: Colors.black54, fontStyle: FontStyle.italic),
             )),
           ],
         ),
       ),
       Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 50.0),
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 40.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
@@ -195,7 +227,7 @@ Widget _buildTrackForm() {
               children: <Widget>[
                 Text(
                   '5',
-                  style: TextStyle(color: Colors.black54, fontSize: 20.0),
+                  style: TextStyle(color: AbubaPallate.greenabuba, fontSize: 25.0, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   'Auditor',
@@ -207,7 +239,7 @@ Widget _buildTrackForm() {
               children: <Widget>[
                 Text(
                   '5',
-                  style: TextStyle(color: Colors.black54, fontSize: 20.0),
+                  style: TextStyle(color: AbubaPallate.greenabuba, fontSize: 25.0, fontWeight: FontWeight.bold),
                 ),
                 Text('Auditee', style: TextStyle(color: Colors.black54)),
               ],
@@ -216,7 +248,7 @@ Widget _buildTrackForm() {
               children: <Widget>[
                 Text(
                   '5',
-                  style: TextStyle(color: Colors.black54, fontSize: 20.0),
+                  style: TextStyle(color: AbubaPallate.greenabuba, fontSize: 25.0, fontWeight: FontWeight.bold),
                 ),
                 Text('CAR Issued', style: TextStyle(color: Colors.black54)),
               ],

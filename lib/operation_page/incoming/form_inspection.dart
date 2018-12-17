@@ -1,8 +1,7 @@
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
-
-import 'package:datetime_picker_formfield/time_picker_formfield.dart';
 import 'package:intl/intl.dart';
 
 class Inspection extends StatefulWidget {
@@ -21,15 +20,17 @@ class _InspectionState extends State<Inspection> {
   Color colorYesJumlah = Colors.green;
   Color colorNoJumlah = Colors.grey;
 
-  final timeFormat = DateFormat("h:mm a");
-  TimeOfDay time;
+  final dateFormatProduction = DateFormat("MMM d, yyyy");
+  final dateFormatExpiry = DateFormat("MMM d, yyyy");
+  DateTime dateProduction;
+  DateTime dateExpiry;
 
   FocusNode _focusNode = new FocusNode();
 
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomPadding: true,
         appBar: AbubaAppBar(),
         body: GestureDetector(
             onTap: () {
@@ -523,11 +524,18 @@ class _InspectionState extends State<Inspection> {
                       children: <Widget>[
                         Container(
                           width: 120.0,
-                          child: TimePickerFormField(
-                            format: timeFormat,
-                            onChanged: (t) => setState(() => time = t),
+                          child: DateTimePickerFormField(
+                            format: dateFormatProduction,
+                            onChanged: (dt) => setState(() => dateProduction = dt),
+                            dateOnly: true,
+                            style: TextStyle(
+                              fontSize: 12.0,
+                              color: Colors.black
+                            ),
                             decoration:
-                                InputDecoration(border: UnderlineInputBorder()),
+                                InputDecoration(
+                                  border: UnderlineInputBorder(),
+                                ),
                           ),
                         ),
                         IconButton(
@@ -557,11 +565,18 @@ class _InspectionState extends State<Inspection> {
                       children: <Widget>[
                         Container(
                           width: 120.0,
-                          child: TimePickerFormField(
-                            format: timeFormat,
-                            onChanged: (t) => setState(() => time = t),
+                          child: DateTimePickerFormField(
+                            format: dateFormatExpiry,
+                            onChanged: (dt) => setState(() => dateExpiry = dt),
+                            dateOnly: true,
+                            style: TextStyle(
+                              fontSize: 12.0,
+                              color: Colors.black
+                            ),
                             decoration:
-                                InputDecoration(border: UnderlineInputBorder()),
+                              InputDecoration(
+                                border: UnderlineInputBorder()
+                              ),
                           ),
                         ),
                         IconButton(
@@ -678,11 +693,11 @@ class _InspectionState extends State<Inspection> {
                       height: 30.0,
                       child: OutlineButton(
                         child: Text(
-                          'APPROVE',
+                          'REJECT',
                           style: TextStyle(fontSize: 13.0),
                         ),
-                        textColor: Colors.green,
-                        borderSide: BorderSide(color: AbubaPallate.greenabuba),
+                        textColor: AbubaPallate.menuDeals,
+                        borderSide: BorderSide(color: AbubaPallate.menuDeals),
                         onPressed: () {},
                       ),
                     ),
@@ -705,11 +720,11 @@ class _InspectionState extends State<Inspection> {
                       height: 30.0,
                       child: OutlineButton(
                         child: Text(
-                          'REJECT',
+                          'APPROVE',
                           style: TextStyle(fontSize: 13.0),
                         ),
-                        textColor: AbubaPallate.menuDeals,
-                        borderSide: BorderSide(color: AbubaPallate.menuDeals),
+                        textColor: Colors.green,
+                        borderSide: BorderSide(color: AbubaPallate.greenabuba),
                         onPressed: () {},
                       ),
                     ),

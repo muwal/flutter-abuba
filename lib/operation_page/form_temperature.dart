@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 
-import 'package:datetime_picker_formfield/time_picker_formfield.dart';
-import 'package:intl/intl.dart';
-
 class FormTemperature extends StatefulWidget {
   FormTemperature({this.material});
 
@@ -15,16 +12,12 @@ class FormTemperature extends StatefulWidget {
 }
 
 class _FormTemperatureState extends State<FormTemperature> {
-  Color colorYesWaktu = Colors.green;
-  Color colorNoWaktu = Colors.grey;
-
-  Color colorYesJumlah = Colors.green;
-  Color colorNoJumlah = Colors.grey;
-
-  final timeFormat = DateFormat("h:mm a");
-  TimeOfDay time;
-
   FocusNode _focusNode = new FocusNode();
+
+  double _sliderValueChiller1 = 0.0;
+  double _sliderValueChiller2 = 0.0;
+  double _sliderValueChiller3 = 0.0;
+  double _sliderValueKulkas = 0.0;
 
   Widget build(BuildContext context) {
     return SafeArea(
@@ -81,29 +74,42 @@ class _FormTemperatureState extends State<FormTemperature> {
                   children: <Widget>[
                     Expanded(
                       child: Text(
-                        'Chiller 2',
+                        'Chiller 1',
                         style: TextStyle(color: Colors.grey, fontSize: 13.0),
                         overflow: TextOverflow.clip,
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          width: 120.0,
-                          child: TextField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                                hintText: 'Type here',
-                                hintStyle: TextStyle(fontSize: 12.0)),
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                        IconButton(icon: Icon(Icons.help_outline), onPressed: null)
-                      ],
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   crossAxisAlignment: CrossAxisAlignment.start,
+                    //   children: <Widget>[
+                    //     Container(
+                    //       width: 120.0,
+                    //       child: TextField(
+                    //         keyboardType: TextInputType.number,
+                    //         decoration: InputDecoration(
+                    //             hintText: 'Type here',
+                    //             hintStyle: TextStyle(fontSize: 12.0)),
+                    //         style: TextStyle(
+                    //           color: Colors.black,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     IconButton(icon: Icon(Icons.help_outline), onPressed: null)
+                    //   ],
+                    // )
+                    Container(
+                      width: 180.0,
+                      child: Slider(
+                        value: _sliderValueChiller1,
+                        min: -10.0,
+                        max: 10.0,
+                        divisions: 100,
+                        label: '${_sliderValueChiller1.round()}',
+                        onChanged: (double value) {
+                          setState(() => _sliderValueChiller1 = value);
+                        },
+                      )
                     )
                   ],
                 ),
@@ -114,29 +120,23 @@ class _FormTemperatureState extends State<FormTemperature> {
                   children: <Widget>[
                     Expanded(
                       child: Text(
-                        'Chiller 1',
+                        'Chiller 2',
                         style: TextStyle(color: Colors.grey, fontSize: 13.0),
                         overflow: TextOverflow.clip,
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          width: 120.0,
-                          child: TextField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                                hintText: 'Type here',
-                                hintStyle: TextStyle(fontSize: 12.0)),
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                        IconButton(icon: Icon(Icons.help_outline), onPressed: null)
-                      ],
+                    Container(
+                      width: 180.0,
+                      child: Slider(
+                        value: _sliderValueChiller2,
+                        min: -10.0,
+                        max: 10.0,
+                        divisions: 100,
+                        label: '${_sliderValueChiller2.round()}',
+                        onChanged: (double value) {
+                          setState(() => _sliderValueChiller2 = value);
+                        },
+                      )
                     )
                   ],
                 ),
@@ -152,24 +152,18 @@ class _FormTemperatureState extends State<FormTemperature> {
                         overflow: TextOverflow.clip,
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          width: 120.0,
-                          child: TextField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                                hintText: 'Type here',
-                                hintStyle: TextStyle(fontSize: 12.0)),
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                        IconButton(icon: Icon(Icons.help_outline), onPressed: null)
-                      ],
+                    Container(
+                      width: 180.0,
+                      child: Slider(
+                        value: _sliderValueChiller3,
+                        min: -10.0,
+                        max: 10.0,
+                        divisions: 100,
+                        label: '${_sliderValueChiller3.round()}',
+                        onChanged: (double value) {
+                          setState(() => _sliderValueChiller3 = value);
+                        },
+                      )
                     )
                   ],
                 ),
@@ -185,24 +179,18 @@ class _FormTemperatureState extends State<FormTemperature> {
                         overflow: TextOverflow.clip,
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          width: 120.0,
-                          child: TextField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                                hintText: 'Type here',
-                                hintStyle: TextStyle(fontSize: 12.0)),
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                        IconButton(icon: Icon(Icons.help_outline), onPressed: null)
-                      ],
+                    Container(
+                      width: 180.0,
+                      child: Slider(
+                        value: _sliderValueKulkas,
+                        min: -10.0,
+                        max: 10.0,
+                        divisions: 100,
+                        label: '${_sliderValueKulkas.round()}',
+                        onChanged: (double value) {
+                          setState(() => _sliderValueKulkas = value);
+                        },
+                      )
                     )
                   ],
                 ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+// import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 
 class FormPerformance extends StatefulWidget {
@@ -9,11 +9,6 @@ class FormPerformance extends StatefulWidget {
 }
 
 class _FormPerformanceState extends State<FormPerformance> {
-  final _formKey = GlobalKey<FormState>();
-
-  String _name;
-  int _age;
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -79,7 +74,7 @@ class _FormPerformanceState extends State<FormPerformance> {
                     child: TextField(
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                          hintText: 'Rp', hintStyle: TextStyle(fontSize: 12.0)),
+                           prefixText: 'Rp ', hintStyle: TextStyle(fontSize: 12.0)),
                       style: TextStyle(
                         color: Colors.black,
                       ),
@@ -121,7 +116,7 @@ class _FormPerformanceState extends State<FormPerformance> {
                     child: TextField(
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                          hintText: 'Rp', hintStyle: TextStyle(fontSize: 12.0)),
+                          prefixText: 'Rp ', hintStyle: TextStyle(fontSize: 12.0)),
                       style: TextStyle(
                         color: Colors.black,
                       ),
@@ -143,7 +138,7 @@ class _FormPerformanceState extends State<FormPerformance> {
                     child: TextField(
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                          hintText: 'Rp', hintStyle: TextStyle(fontSize: 12.0)),
+                          prefixText: 'Rp ', hintStyle: TextStyle(fontSize: 12.0)),
                       style: TextStyle(
                         color: Colors.black,
                       ),
@@ -165,7 +160,7 @@ class _FormPerformanceState extends State<FormPerformance> {
                     child: TextField(
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                          hintText: 'Rp', hintStyle: TextStyle(fontSize: 12.0)),
+                          prefixText: 'Rp ', hintStyle: TextStyle(fontSize: 12.0)),
                       style: TextStyle(
                         color: Colors.black,
                       ),
@@ -187,7 +182,7 @@ class _FormPerformanceState extends State<FormPerformance> {
                     child: TextField(
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                          hintText: 'Rp', hintStyle: TextStyle(fontSize: 12.0)),
+                          prefixText: 'Rp ', hintStyle: TextStyle(fontSize: 12.0)),
                       style: TextStyle(
                         color: Colors.black,
                       ),
