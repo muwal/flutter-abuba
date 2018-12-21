@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
-// import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 
 class FormPerformance extends StatefulWidget {
@@ -74,7 +73,9 @@ class _FormPerformanceState extends State<FormPerformance> {
                     child: TextField(
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                           prefixText: 'Rp ', hintStyle: TextStyle(fontSize: 12.0)),
+                        prefixText: 'Rp ',
+                        hintStyle: TextStyle(fontSize: 12.0),
+                      ),
                       style: TextStyle(
                         color: Colors.black,
                       ),

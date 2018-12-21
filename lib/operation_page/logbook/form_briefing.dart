@@ -19,6 +19,12 @@ class _FormBriefingState extends State<FormBriefing> {
   ];
 
   bool _note = false;
+  String _briefing;
+  void _pilihBriefing(String value) {
+    setState(() {
+      _briefing = value;      
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +86,7 @@ class _FormBriefingState extends State<FormBriefing> {
                   ),
                   Container(
                     width: 150.0,
-                    child: Radio(value: 0, groupValue: null, onChanged: null),
+                    child: Radio(value: 'Menu Baru', groupValue: _briefing, onChanged: (String value) {_pilihBriefing(value); }),
                   )
                 ],
               ),
@@ -95,7 +101,7 @@ class _FormBriefingState extends State<FormBriefing> {
                   ),
                   Container(
                     width: 150.0,
-                    child: Radio(value: 0, groupValue: null, onChanged: null),
+                    child: Radio(value: 'Menu Baru 2', groupValue: _briefing, onChanged: (String value) {_pilihBriefing(value);}),
                   )
                 ],
               ),
@@ -110,7 +116,7 @@ class _FormBriefingState extends State<FormBriefing> {
                   ),
                   Container(
                     width: 150.0,
-                    child: Radio(value: 0, groupValue: null, onChanged: null),
+                    child: Radio(value: 'Event', groupValue: _briefing, onChanged: (String value) {_pilihBriefing(value);}),
                   )
                 ],
               ),
@@ -125,7 +131,7 @@ class _FormBriefingState extends State<FormBriefing> {
                   ),
                   Container(
                     width: 150.0,
-                    child: Radio(value: 0, groupValue: null, onChanged: null),
+                    child: Radio(value: 'Upselling', groupValue: _briefing, onChanged: (String value) {_pilihBriefing(value);}),
                   )
                 ],
               ),
@@ -140,7 +146,7 @@ class _FormBriefingState extends State<FormBriefing> {
                   ),
                   Container(
                     width: 150.0,
-                    child: Radio(value: 0, groupValue: null, onChanged: null),
+                    child: Radio(value: 'Hasil Audit', groupValue: _briefing, onChanged: (String value) {_pilihBriefing(value);}),
                   )
                 ],
               ),
@@ -155,7 +161,7 @@ class _FormBriefingState extends State<FormBriefing> {
                   ),
                   Container(
                     width: 150.0,
-                    child: Radio(value: 0, groupValue: null, onChanged: null),
+                    child: Radio(value: 'Pengumuman', groupValue: _briefing, onChanged: (String value) {_pilihBriefing(value);}),
                   )
                 ],
               ),
@@ -168,7 +174,9 @@ class _FormBriefingState extends State<FormBriefing> {
                       color: Colors.green,
                       size: 30.0,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+
+                    },
                   ),
                 ],
               ),
@@ -218,8 +226,11 @@ class _FormBriefingState extends State<FormBriefing> {
                     padding: EdgeInsets.only(bottom: 10.0),
                     width: 300.0,
                     child: TextField(
-                      decoration:
-                          InputDecoration(border: OutlineInputBorder()),
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Note',
+                        hintStyle: TextStyle(fontSize: 12.0),
+                      ),
                       maxLines: 3,
                       style: TextStyle(
                         color: Colors.black,

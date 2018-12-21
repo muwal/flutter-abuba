@@ -245,6 +245,10 @@ class _FormBahanBakuState extends State<FormBahanBaku> {
                     child: TextField(
                       maxLines: 3,
                       keyboardType: TextInputType.multiline,
+                      decoration: InputDecoration(
+                        hintText: 'Catatan',
+                        hintStyle: TextStyle(fontSize: 12.0),
+                      ),
                       textCapitalization: TextCapitalization.sentences,
                       style: TextStyle(
                         color: Colors.black,

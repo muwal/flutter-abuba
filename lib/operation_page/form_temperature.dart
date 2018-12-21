@@ -79,25 +79,6 @@ class _FormTemperatureState extends State<FormTemperature> {
                         overflow: TextOverflow.clip,
                       ),
                     ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //   crossAxisAlignment: CrossAxisAlignment.start,
-                    //   children: <Widget>[
-                    //     Container(
-                    //       width: 120.0,
-                    //       child: TextField(
-                    //         keyboardType: TextInputType.number,
-                    //         decoration: InputDecoration(
-                    //             hintText: 'Type here',
-                    //             hintStyle: TextStyle(fontSize: 12.0)),
-                    //         style: TextStyle(
-                    //           color: Colors.black,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     IconButton(icon: Icon(Icons.help_outline), onPressed: null)
-                    //   ],
-                    // )
                     Container(
                       width: 180.0,
                       child: Slider(

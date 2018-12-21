@@ -183,8 +183,13 @@ class _FormKitchenState extends State<FormKitchen> {
                         child: Container(
                           width: MediaQuery.of(context).size.width / 1.1,
                           child: TextField(
-                            decoration:
-                                InputDecoration(border: OutlineInputBorder()),
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Note',
+                              hintStyle: TextStyle(
+                                fontSize: 12.0
+                              )
+                            ),
                             controller: controllerNoteSatu,
                             maxLines: 3,
                             style: TextStyle(
@@ -274,8 +279,13 @@ class _FormKitchenState extends State<FormKitchen> {
                         child: Container(
                           width: MediaQuery.of(context).size.width / 1.1,
                           child: TextField(
-                            decoration:
-                                InputDecoration(border: OutlineInputBorder()),
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Note',
+                              hintStyle: TextStyle(
+                                fontSize: 12.0
+                              )
+                            ),
                             controller: controllerNoteDua,
                             maxLines: 3,
                             style: TextStyle(
@@ -365,8 +375,13 @@ class _FormKitchenState extends State<FormKitchen> {
                         child: Container(
                           width: MediaQuery.of(context).size.width / 1.1,
                           child: TextField(
-                            decoration:
-                                InputDecoration(border: OutlineInputBorder()),
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Note',
+                              hintStyle: TextStyle(
+                                fontSize: 12.0
+                              )
+                            ),
                             controller: controllerNoteTiga,
                             maxLines: 3,
                             style: TextStyle(
@@ -456,8 +471,13 @@ class _FormKitchenState extends State<FormKitchen> {
                         child: Container(
                           width: MediaQuery.of(context).size.width / 1.1,
                           child: TextField(
-                            decoration:
-                                InputDecoration(border: OutlineInputBorder()),
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Note',
+                              hintStyle: TextStyle(
+                                fontSize: 12.0
+                              )
+                            ),
                             controller: controllerNoteEmpat,
                             maxLines: 3,
                             style: TextStyle(

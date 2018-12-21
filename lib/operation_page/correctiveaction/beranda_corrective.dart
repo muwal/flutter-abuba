@@ -3,22 +3,47 @@ import 'package:flutter_abuba/constant.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 
-import 'package:flutter_abuba/operation_page/dailychecklist/form_kitchen.dart';
+import 'form_createnew.dart';
+import 'form_reportcar.dart';
 
-class MenuChecklist extends StatefulWidget {
+class MenuCorrective extends StatefulWidget {
   @override
-  _MenuChecklistState createState() => _MenuChecklistState();
+  _MenuCorrectiveState createState() => _MenuCorrectiveState();
 }
 
-class _MenuChecklistState extends State<MenuChecklist> {
+class _MenuCorrectiveState extends State<MenuCorrective> {
+  final _scaffoldState = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        key: _scaffoldState,
         appBar: AbubaAppBar(),
         body: _buildLogMenu(),
       ),
     );
+  }
+
+  void _modalBottomSheetMenu() {
+    showModalBottomSheet(
+        context: context,
+        builder: (builder) {
+          return new Container(
+            height: 350.0,
+            color: Colors.transparent, //could change this to Color(0xFF737373),
+            //so you don't have to change MaterialApp canvasColor
+            child: new Container(
+                decoration: new BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: new BorderRadius.only(
+                        topLeft: const Radius.circular(10.0),
+                        topRight: const Radius.circular(10.0))),
+                child: new Center(
+                  child: new Text("This is a modal sheet"),
+                )),
+          );
+        });
   }
 
   Widget _buildLogMenu() {
@@ -30,7 +55,7 @@ class _MenuChecklistState extends State<MenuChecklist> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Text(
-                'Operational Process',
+                'Home',
                 style: TextStyle(color: Colors.black12, fontSize: 12.0),
               ),
               Padding(
@@ -44,7 +69,7 @@ class _MenuChecklistState extends State<MenuChecklist> {
               Padding(
                 padding: EdgeInsets.only(left: 15.0),
                 child: Text(
-                  'BOH Daily Checklist',
+                  'Corrective Action',
                   style:
                       TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
                 ),
@@ -63,7 +88,8 @@ class _MenuChecklistState extends State<MenuChecklist> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () => Navigator.push(context,
+                        MyCustomRoute(builder: (context) => FormCreateNew())),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
@@ -108,7 +134,15 @@ class _MenuChecklistState extends State<MenuChecklist> {
                         Padding(
                           padding: EdgeInsets.only(top: 10.0),
                           child: Text(
-                            'Production',
+                            'Create New',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500, fontSize: 12.0),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 5.0),
+                          child: Text(
+                            '',
                             style: TextStyle(
                                 fontWeight: FontWeight.w500, fontSize: 12.0),
                           ),
@@ -120,10 +154,8 @@ class _MenuChecklistState extends State<MenuChecklist> {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       GestureDetector(
-                        onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => FormKitchen())),
+                        onTap: () => Navigator.push(context,
+                            MyCustomRoute(builder: (context) => ReportCar())),
                         child: Stack(
                           overflow: Overflow.visible,
                           children: <Widget>[
@@ -134,8 +166,8 @@ class _MenuChecklistState extends State<MenuChecklist> {
                                   color: Colors.transparent,
                                   border: Border.all(
                                       color: Colors.grey, width: 1.0),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(18.0))),
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(18.0))),
                             ),
                             Positioned(
                               bottom: 22.5,
@@ -165,11 +197,19 @@ class _MenuChecklistState extends State<MenuChecklist> {
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: 10.0),
-                        child: Text('Kitchen',
+                        child: Text('View Report',
                             style: TextStyle(
                                 fontWeight: FontWeight.w500, fontSize: 12.0),
                             softWrap: false,
                             overflow: TextOverflow.ellipsis),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 5.0),
+                        child: Text(
+                          '',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 12.0),
+                        ),
                       ),
                     ],
                   ),
@@ -219,9 +259,17 @@ class _MenuChecklistState extends State<MenuChecklist> {
                         Padding(
                           padding: EdgeInsets.only(top: 10.0),
                           child: Text(
-                            'Bar',
+                            'Verification',
                             style: TextStyle(
                                 fontWeight: FontWeight.w500, fontSize: 12.0),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 5.0),
+                          child: Text(
+                            '',
+                            style: TextStyle(
+                                fontSize: 12.0, fontWeight: FontWeight.w500),
                           ),
                         ),
                       ],
@@ -273,9 +321,17 @@ class _MenuChecklistState extends State<MenuChecklist> {
                         Padding(
                           padding: EdgeInsets.only(top: 10.0),
                           child: Text(
-                            'Warehouse',
+                            'Car Internal',
                             style: TextStyle(
                                 fontWeight: FontWeight.w500, fontSize: 12.0),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 5.0),
+                          child: Text(
+                            'Audit',
+                            style: TextStyle(
+                                fontSize: 12.0, fontWeight: FontWeight.w500),
                           ),
                         ),
                       ],
@@ -285,224 +341,7 @@ class _MenuChecklistState extends State<MenuChecklist> {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  GestureDetector(
-                    onTap: () {},
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Stack(
-                          overflow: Overflow.visible,
-                          children: <Widget>[
-                            Container(
-                              height: 70.0,
-                              width: 70.0,
-                              decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  border:
-                                      Border.all(color: Colors.grey, width: 1.0),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(18.0))),
-                            ),
-                            Positioned(
-                              bottom: 22.5,
-                              left: 25.0,
-                              child: Icon(MdiIcons.heart,
-                                  size: 25.0, color: Colors.grey),
-                            ),
-                            Positioned(
-                              top: -5.0,
-                              right: -5.0,
-                              child: Icon(
-                                Icons.brightness_1,
-                                size: 25.0,
-                                color: Colors.redAccent,
-                              ),
-                            ),
-                            Positioned(
-                              top: -1.0,
-                              right: 3.0,
-                              child: Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
-                          ],
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10.0),
-                          child: Text(
-                            'Administrasi',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12.0),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Stack(
-                          overflow: Overflow.visible,
-                          children: <Widget>[
-                            Container(
-                              height: 70.0,
-                              width: 70.0,
-                              decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  border:
-                                      Border.all(color: Colors.grey, width: 1.0),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(18.0))),
-                            ),
-                            Positioned(
-                              bottom: 22.5,
-                              left: 25.0,
-                              child: Icon(MdiIcons.heart,
-                                  size: 25.0, color: Colors.grey),
-                            ),
-                            Positioned(
-                              top: -5.0,
-                              right: -5.0,
-                              child: Icon(
-                                Icons.brightness_1,
-                                size: 25.0,
-                                color: Colors.redAccent,
-                              ),
-                            ),
-                            Positioned(
-                              top: -1.0,
-                              right: 3.0,
-                              child: Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
-                          ],
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10.0),
-                          child: Text(
-                            'Food Safety',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12.0),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Stack(
-                          overflow: Overflow.visible,
-                          children: <Widget>[
-                            Container(
-                              height: 70.0,
-                              width: 70.0,
-                              decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  border:
-                                      Border.all(color: Colors.grey, width: 1.0),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(18.0))),
-                            ),
-                            Positioned(
-                              bottom: 22.5,
-                              left: 25.0,
-                              child: Icon(MdiIcons.heart,
-                                  size: 25.0, color: Colors.grey),
-                            ),
-                            Positioned(
-                              top: -5.0,
-                              right: -5.0,
-                              child: Icon(
-                                Icons.brightness_1,
-                                size: 25.0,
-                                color: Colors.redAccent,
-                              ),
-                            ),
-                            Positioned(
-                              top: -1.0,
-                              right: 3.0,
-                              child: Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
-                          ],
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10.0),
-                          child: Text(
-                            'Open Close',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12.0),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Stack(
-                          overflow: Overflow.visible,
-                          children: <Widget>[
-                            Container(
-                              height: 70.0,
-                              width: 70.0,
-                              decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  border:
-                                      Border.all(color: Colors.grey, width: 1.0),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(18.0))),
-                            ),
-                            Positioned(
-                              bottom: 22.5,
-                              left: 25.0,
-                              child: Icon(MdiIcons.heart,
-                                  size: 25.0, color: Colors.grey),
-                            ),
-                            Positioned(
-                              top: -5.0,
-                              right: -5.0,
-                              child: Icon(
-                                Icons.brightness_1,
-                                size: 25.0,
-                                color: Colors.redAccent,
-                              ),
-                            ),
-                            Positioned(
-                              top: -1.0,
-                              right: 3.0,
-                              child: Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
-                          ],
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10.0),
-                          child: Text(
-                            'More',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12.0),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                children: <Widget>[],
               ),
             ],
           ),

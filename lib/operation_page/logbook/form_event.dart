@@ -171,8 +171,10 @@ class _FormEventState extends State<FormEvent> {
                     width: 150.0,
                     child: TextField(
                       keyboardType: TextInputType.number,
-                      /*decoration: InputDecoration(
-                          hintText: 'Rp', hintStyle: TextStyle(fontSize: 12.0)),*/
+                      decoration: InputDecoration(
+                        hintText: 'Pack',
+                        hintStyle: TextStyle(fontSize: 12.0),
+                      ),
                       style: TextStyle(
                         color: Colors.black,
                       ),
@@ -191,11 +193,15 @@ class _FormEventState extends State<FormEvent> {
                   ),
                   Container(
                     width: 150.0,
+                    padding: EdgeInsets.only(top: 5.0),
                     child: TimePickerFormField(
                       format: timeFormat,
                       onChanged: (t) => setState(() => time = t),
-                      decoration:
-                          InputDecoration(border: UnderlineInputBorder()),
+                      decoration: InputDecoration(
+                        border: UnderlineInputBorder(),
+                        hintText: 'Waktu',
+                        hintStyle: TextStyle(fontSize: 12.0),
+                      ),
                     ),
                   ),
                 ],
@@ -214,6 +220,10 @@ class _FormEventState extends State<FormEvent> {
                     child: TextField(
                       maxLines: 3,
                       keyboardType: TextInputType.multiline,
+                      decoration: InputDecoration(
+                        hintText: 'Catatan',
+                        hintStyle: TextStyle(fontSize: 12.0),
+                      ),
                       textCapitalization: TextCapitalization.sentences,
                       style: TextStyle(
                         color: Colors.black,

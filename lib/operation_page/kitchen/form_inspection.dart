@@ -124,10 +124,7 @@ class _InspectionState extends State<Inspection> {
                             minWidth: 40.0,
                             height: 30.0,
                             child: OutlineButton(
-                              child: Text(
-                                'YES',
-                                style: TextStyle(fontSize: 14.0),
-                              ),
+                              child: Icon(Icons.check, color: colorYesWaktu, size: 14.0),
                               borderSide:
                                   BorderSide(color: colorYesWaktu, width: 1.0),
                               highlightedBorderColor: colorYesWaktu,
@@ -146,10 +143,7 @@ class _InspectionState extends State<Inspection> {
                             minWidth: 40.0,
                             height: 30.0,
                             child: OutlineButton(
-                              child: Text(
-                                'NO',
-                                style: TextStyle(fontSize: 14.0),
-                              ),
+                              child: Icon(Icons.close, color: colorNoWaktu, size: 14.0),
                               borderSide:
                                   BorderSide(color: colorNoWaktu, width: 1.0),
                               highlightedBorderColor: colorNoWaktu,
@@ -188,10 +182,7 @@ class _InspectionState extends State<Inspection> {
                             minWidth: 50.0,
                             height: 30.0,
                             child: OutlineButton(
-                              child: Text(
-                                'YES',
-                                style: TextStyle(fontSize: 14.0),
-                              ),
+                              child: Icon(Icons.check, color: colorYesJumlah, size: 14.0),
                               borderSide:
                                   BorderSide(color: colorYesJumlah, width: 1.0),
                               highlightedBorderColor: colorYesJumlah,
@@ -210,10 +201,7 @@ class _InspectionState extends State<Inspection> {
                             minWidth: 50.0,
                             height: 30.0,
                             child: OutlineButton(
-                              child: Text(
-                                'NO',
-                                style: TextStyle(fontSize: 14.0),
-                              ),
+                              child: Icon(Icons.close, color: colorNoJumlah, size: 14.0),
                               borderSide:
                                   BorderSide(color: colorNoJumlah, width: 1.0),
                               highlightedBorderColor: colorNoJumlah,
@@ -252,10 +240,7 @@ class _InspectionState extends State<Inspection> {
                             minWidth: 40.0,
                             height: 30.0,
                             child: OutlineButton(
-                              child: Text(
-                                'YES',
-                                style: TextStyle(fontSize: 14.0),
-                              ),
+                              child: Icon(Icons.check, color: colorYesWaktu, size: 14.0),
                               borderSide:
                               BorderSide(color: colorYesWaktu, width: 1.0),
                               highlightedBorderColor: colorYesWaktu,
@@ -274,10 +259,7 @@ class _InspectionState extends State<Inspection> {
                             minWidth: 40.0,
                             height: 30.0,
                             child: OutlineButton(
-                              child: Text(
-                                'NO',
-                                style: TextStyle(fontSize: 14.0),
-                              ),
+                              child: Icon(Icons.close, color: colorNoWaktu, size: 14.0),
                               borderSide:
                               BorderSide(color: colorNoWaktu, width: 1.0),
                               highlightedBorderColor: colorNoWaktu,
@@ -339,7 +321,7 @@ class _InspectionState extends State<Inspection> {
                           child: TextField(
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
-                                hintText: 'Type here',
+                                hintText: 'Suhu',
                                 hintStyle: TextStyle(fontSize: 12.0)),
                             style: TextStyle(
                               color: Colors.black,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
+import 'package:flutter_abuba/operation_page/kpimonitoring/kpi_monitoring_beranda.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import 'package:flutter_abuba/operation_page/logbook/beranda_logbook.dart';
@@ -8,6 +9,7 @@ import 'incoming/search.dart';
 import 'kitchen/form_inspection.dart';
 import 'internalaudit/beranda_audit.dart';
 import 'form_temperature.dart';
+import 'correctiveaction/beranda_corrective.dart';
 
 class BerandaOperation extends StatefulWidget {
   @override
@@ -84,7 +86,13 @@ class _BerandaOperationState extends State<BerandaOperation> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(context,
+                        MaterialPageRoute(
+                          builder: (context) => new BerandaKpiMonitoring()
+                        )
+                      );
+                    },
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
@@ -206,63 +214,69 @@ class _BerandaOperationState extends State<BerandaOperation> {
                       ],
                     ),
                   ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Stack(
-                        overflow: Overflow.visible,
-                        children: <Widget>[
-                          Container(
-                            height: 70.0,
-                            width: 70.0,
-                            decoration: BoxDecoration(
-                                color: Colors.transparent,
-                                border:
-                                    Border.all(color: Colors.grey, width: 1.0),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(18.0))),
-                          ),
-                          Positioned(
-                            bottom: 22.5,
-                            left: 25.0,
-                            child: Icon(MdiIcons.heart,
-                                size: 25.0, color: Colors.grey),
-                          ),
-                          Positioned(
-                            top: -5.0,
-                            right: -5.0,
-                            child: Icon(
-                              Icons.brightness_1,
-                              size: 25.0,
-                              color: Colors.redAccent,
+                  GestureDetector(
+                    onTap: () => Navigator.push(
+                        context,
+                        MyCustomRoute(
+                            builder: (context) => MenuCorrective())),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Stack(
+                          overflow: Overflow.visible,
+                          children: <Widget>[
+                            Container(
+                              height: 70.0,
+                              width: 70.0,
+                              decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  border:
+                                      Border.all(color: Colors.grey, width: 1.0),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(18.0))),
                             ),
-                          ),
-                          Positioned(
-                            top: -1.0,
-                            right: 3.0,
-                            child: Text(
-                              '2',
-                              style: TextStyle(color: Colors.white),
+                            Positioned(
+                              bottom: 22.5,
+                              left: 25.0,
+                              child: Icon(MdiIcons.heart,
+                                  size: 25.0, color: Colors.grey),
                             ),
-                          )
-                        ],
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 10.0),
-                        child: Text(
-                          'Corrective',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500, fontSize: 12.0),
+                            Positioned(
+                              top: -5.0,
+                              right: -5.0,
+                              child: Icon(
+                                Icons.brightness_1,
+                                size: 25.0,
+                                color: Colors.redAccent,
+                              ),
+                            ),
+                            Positioned(
+                              top: -1.0,
+                              right: 3.0,
+                              child: Text(
+                                '2',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            )
+                          ],
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 5.0),
-                        child: Text(
-                          'Action',
-                          style: TextStyle(fontSize: 10.0),
+                        Padding(
+                          padding: EdgeInsets.only(top: 10.0),
+                          child: Text(
+                            'Corrective',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500, fontSize: 12.0),
+                          ),
                         ),
-                      )
-                    ],
+                        Padding(
+                          padding: EdgeInsets.only(top: 5.0),
+                          child: Text(
+                            'Action',
+                            style: TextStyle(fontSize: 10.0),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                   Column(
                     mainAxisSize: MainAxisSize.min,

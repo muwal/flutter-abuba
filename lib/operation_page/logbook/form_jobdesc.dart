@@ -77,7 +77,7 @@ class _FormJobdescState extends State<FormJobdesc> {
                     child: TextField(
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                          hintText: 'Type here',
+                          hintText: 'Cashier',
                           hintStyle: TextStyle(fontSize: 12.0)),
                       style: TextStyle(
                         color: Colors.black,
@@ -100,7 +100,7 @@ class _FormJobdescState extends State<FormJobdesc> {
                     child: TextField(
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                          hintText: 'Type here',
+                          hintText: 'Section 1',
                           hintStyle: TextStyle(fontSize: 12.0)),
                       style: TextStyle(
                         color: Colors.black,
@@ -123,7 +123,7 @@ class _FormJobdescState extends State<FormJobdesc> {
                     child: TextField(
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                          hintText: 'Type here',
+                          hintText: 'Bartender',
                           hintStyle: TextStyle(fontSize: 12.0)),
                       style: TextStyle(
                         color: Colors.black,
@@ -146,7 +146,7 @@ class _FormJobdescState extends State<FormJobdesc> {
                     child: TextField(
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                          hintText: 'Type here',
+                          hintText: 'Runner',
                           hintStyle: TextStyle(fontSize: 12.0)),
                       style: TextStyle(
                         color: Colors.black,
@@ -169,7 +169,7 @@ class _FormJobdescState extends State<FormJobdesc> {
                     child: TextField(
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                          hintText: 'Type here',
+                          hintText: 'Steaward',
                           hintStyle: TextStyle(fontSize: 12.0)),
                       style: TextStyle(
                         color: Colors.black,
@@ -192,7 +192,7 @@ class _FormJobdescState extends State<FormJobdesc> {
                     child: TextField(
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                          hintText: 'Type here',
+                          hintText: 'Kitchen - Grill',
                           hintStyle: TextStyle(fontSize: 12.0)),
                       style: TextStyle(
                         color: Colors.black,
