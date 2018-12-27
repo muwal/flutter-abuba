@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_abuba/IT_page/beranda_risk_register.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 
-import 'form_perbaikan.dart';
 import 'form_maintenance.dart';
+import 'package:flutter_abuba/hrd_page/medical/menu_medical.dart';
 
-class MenuIT extends StatefulWidget {
+class MenuHRD extends StatefulWidget {
   @override
-  _MenuITState createState() => _MenuITState();
+  _MenuHRDState createState() => _MenuHRDState();
 }
 
-class _MenuITState extends State<MenuIT> {
+class _MenuHRDState extends State<MenuHRD> {
   final _scaffoldState = GlobalKey<ScaffoldState>();
 
   @override
@@ -24,27 +23,6 @@ class _MenuITState extends State<MenuIT> {
         body: _buildLogMenu(),
       ),
     );
-  }
-
-  void _modalBottomSheetMenu() {
-    showModalBottomSheet(
-        context: context,
-        builder: (builder) {
-          return new Container(
-            height: 350.0,
-            color: Colors.transparent, //could change this to Color(0xFF737373),
-            //so you don't have to change MaterialApp canvasColor
-            child: new Container(
-                decoration: new BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: new BorderRadius.only(
-                        topLeft: const Radius.circular(10.0),
-                        topRight: const Radius.circular(10.0))),
-                child: new Center(
-                  child: new Text("This is a modal sheet"),
-                )),
-          );
-        });
   }
 
   Widget _buildLogMenu() {
@@ -70,7 +48,7 @@ class _MenuITState extends State<MenuIT> {
               Padding(
                 padding: EdgeInsets.only(left: 15.0),
                 child: Text(
-                  'IT',
+                  'HRD',
                   style:
                       TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
                 ),
@@ -86,7 +64,7 @@ class _MenuITState extends State<MenuIT> {
             direction: Axis.horizontal,
             children: <Widget>[
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   GestureDetector(
                     onTap: () => Navigator.push(context,
@@ -147,10 +125,7 @@ class _MenuITState extends State<MenuIT> {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       GestureDetector(
-                        onTap: () => Navigator.push(
-                            context,
-                            MyCustomRoute(
-                                builder: (context) => FormPerbaikan())),
+                        onTap: () {},
                         child: Stack(
                           overflow: Overflow.visible,
                           children: <Widget>[
@@ -246,7 +221,7 @@ class _MenuITState extends State<MenuIT> {
                         Padding(
                           padding: EdgeInsets.only(top: 10.0),
                           child: Text(
-                            'Riwayat',
+                            'Recruitment',
                             style: TextStyle(
                                 fontWeight: FontWeight.w500, fontSize: 12.0),
                           ),
@@ -254,14 +229,13 @@ class _MenuITState extends State<MenuIT> {
                       ],
                     ),
                   ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
                   GestureDetector(
-                    onTap: () {
-                      Navigator.push(context,
-                        MyCustomRoute(
-                          builder: (context) => new BerandaRiskRegister()
-                        )
-                      );
-                    },
+                    onTap: () {},
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
@@ -276,7 +250,7 @@ class _MenuITState extends State<MenuIT> {
                                   border: Border.all(
                                       color: Colors.grey, width: 1.0),
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(18.0))),
+                                  BorderRadius.all(Radius.circular(18.0))),
                             ),
                             Positioned(
                               bottom: 22.5,
@@ -306,10 +280,121 @@ class _MenuITState extends State<MenuIT> {
                         Padding(
                           padding: EdgeInsets.only(top: 10.0),
                           child: Text(
-                            'Risk Register',
+                            'Training',
                             style: TextStyle(
                                 fontWeight: FontWeight.w500, fontSize: 12.0),
                           ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Stack(
+                          overflow: Overflow.visible,
+                          children: <Widget>[
+                            Container(
+                              height: 70.0,
+                              width: 70.0,
+                              decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  border: Border.all(
+                                      color: Colors.grey, width: 1.0),
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(18.0))),
+                            ),
+                            Positioned(
+                              bottom: 22.5,
+                              left: 25.0,
+                              child: Icon(MdiIcons.heart,
+                                  size: 25.0, color: Colors.grey),
+                            ),
+                            Positioned(
+                              top: -5.0,
+                              right: -5.0,
+                              child: Icon(
+                                Icons.brightness_1,
+                                size: 25.0,
+                                color: Colors.redAccent,
+                              ),
+                            ),
+                            Positioned(
+                              top: -1.0,
+                              right: 3.0,
+                              child: Text(
+                                '2',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            )
+                          ],
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 10.0),
+                          child: Text(
+                            'Approval',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500, fontSize: 12.0),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MyCustomRoute(builder: (context) => MenuMedical()));
+                    },
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Stack(
+                          overflow: Overflow.visible,
+                          children: <Widget>[
+                            Container(
+                              height: 70.0,
+                              width: 70.0,
+                              decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  border: Border.all(
+                                      color: Colors.grey, width: 1.0),
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(18.0))),
+                            ),
+                            Positioned(
+                              bottom: 22.5,
+                              left: 25.0,
+                              child: Icon(MdiIcons.heart,
+                                  size: 25.0, color: Colors.grey),
+                            ),
+                            Positioned(
+                              top: -5.0,
+                              right: -5.0,
+                              child: Icon(
+                                Icons.brightness_1,
+                                size: 25.0,
+                                color: Colors.redAccent,
+                              ),
+                            ),
+                            Positioned(
+                              top: -1.0,
+                              right: 3.0,
+                              child: Text(
+                                '2',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            )
+                          ],
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 10.0),
+                          child: Text('Medical',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500, fontSize: 12.0),
+                              softWrap: false,
+                              overflow: TextOverflow.ellipsis),
                         ),
                       ],
                     ),

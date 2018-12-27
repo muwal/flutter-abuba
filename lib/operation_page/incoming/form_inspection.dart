@@ -110,7 +110,7 @@ class _InspectionState extends State<Inspection> {
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Expanded(
+                    Flexible(
                       child: Text(
                         'Barang datang tepat waktu',
                         style: TextStyle(color: Colors.grey, fontSize: 13.0),
@@ -171,7 +171,7 @@ class _InspectionState extends State<Inspection> {
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Expanded(
+                    Flexible(
                       child: Text(
                         'Barang datang tepat jumlah',
                         style: TextStyle(color: Colors.grey, fontSize: 13.0),
@@ -183,7 +183,7 @@ class _InspectionState extends State<Inspection> {
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 5.0),
                           child: ButtonTheme(
-                            minWidth: 50.0,
+                            minWidth: 40.0,
                             height: 30.0,
                             child: OutlineButton(
                               child: Icon(Icons.check, color: colorYesJumlah, size: 14.0),
@@ -202,7 +202,7 @@ class _InspectionState extends State<Inspection> {
                         Padding(
                           padding: EdgeInsets.all(5.0),
                           child: ButtonTheme(
-                            minWidth: 50.0,
+                            minWidth: 40.0,
                             height: 30.0,
                             child: OutlineButton(
                               child: Icon(Icons.close, color: colorNoJumlah, size: 14.0),
@@ -252,7 +252,7 @@ class _InspectionState extends State<Inspection> {
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Expanded(
+                    Flexible(
                       child: Text(
                         'CoA',
                         style: TextStyle(color: Colors.grey, fontSize: 13.0),
@@ -314,7 +314,7 @@ class _InspectionState extends State<Inspection> {
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Expanded(
+                    Flexible(
                       child: Text(
                         'Kondisi Kemasan',
                         style: TextStyle(color: Colors.grey, fontSize: 13.0),
@@ -326,7 +326,7 @@ class _InspectionState extends State<Inspection> {
                         Padding(
                           padding: EdgeInsets.all(5.0),
                           child: ButtonTheme(
-                            minWidth: 50.0,
+                            minWidth: 40.0,
                             height: 30.0,
                             child: OutlineButton(
                               child: Icon(Icons.check, color: colorYesJumlah, size: 14.0),
@@ -345,7 +345,7 @@ class _InspectionState extends State<Inspection> {
                         Padding(
                           padding: EdgeInsets.all(5.0),
                           child: ButtonTheme(
-                            minWidth: 50.0,
+                            minWidth: 40.0,
                             height: 30.0,
                             child: OutlineButton(
                               child: Icon(Icons.close, color: colorNoJumlah, size: 14.0),
@@ -395,7 +395,7 @@ class _InspectionState extends State<Inspection> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   verticalDirection: VerticalDirection.up,
                   children: <Widget>[
-                    Expanded(
+                    Flexible(
                       child: Text(
                         'Suhu',
                         style: TextStyle(color: Colors.grey, fontSize: 13.0),
@@ -430,7 +430,7 @@ class _InspectionState extends State<Inspection> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   verticalDirection: VerticalDirection.up,
                   children: <Widget>[
-                    Expanded(
+                    Flexible(
                       child: Text(
                         'Berat',
                         style: TextStyle(color: Colors.grey, fontSize: 13.0),
@@ -489,7 +489,7 @@ class _InspectionState extends State<Inspection> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   verticalDirection: VerticalDirection.up,
                   children: <Widget>[
-                    Expanded(
+                    Flexible(
                       child: Text(
                         'Production Date',
                         style: TextStyle(color: Colors.grey, fontSize: 13.0),

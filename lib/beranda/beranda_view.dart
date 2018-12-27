@@ -7,6 +7,10 @@ import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/operation_page/beranda_operation.dart';
 import 'package:flutter_abuba/IT_page/beranda_IT.dart';
 import 'package:flutter_abuba/more_page/beranda_more.dart';
+import 'package:flutter_abuba/hrd_page/beranda_hrd.dart';
+import 'package:flutter_abuba/whats_page/form_comment.dart';
+import 'package:flutter_abuba/creative_page/form_detail.dart';
+import 'package:flutter_abuba/creative_page/form_create.dart';
 
 class BerandaPage extends StatefulWidget {
   @override
@@ -278,10 +282,8 @@ class _BerandaPageState extends State<BerandaPage> {
                           ],
                         ),
                         GestureDetector(
-                          onTap: () => Navigator.push(
-                              context,
-                              MyCustomRoute(
-                                  builder: (context) => MenuIT())),
+                          onTap: () => Navigator.push(context,
+                              MyCustomRoute(builder: (context) => MenuIT())),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
@@ -395,57 +397,61 @@ class _BerandaPageState extends State<BerandaPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Stack(
-                              overflow: Overflow.visible,
-                              children: <Widget>[
-                                Container(
-                                  height: 70.0,
-                                  width: 70.0,
-                                  decoration: BoxDecoration(
-                                      color: Colors.transparent,
-                                      border: Border.all(
-                                          color: Colors.grey, width: 1.0),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(18.0))),
-                                ),
-                                Positioned(
-                                  bottom: 22.5,
-                                  left: 25.0,
-                                  child: Icon(MdiIcons.heart,
-                                      size: 25.0, color: Colors.grey),
-                                ),
-                                Positioned(
-                                  top: -5.0,
-                                  right: -5.0,
-                                  child: Icon(
-                                    Icons.brightness_1,
-                                    size: 25.0,
-                                    color: Colors.redAccent,
+                        GestureDetector(
+                          onTap: () => Navigator.push(context,
+                              MyCustomRoute(builder: (context) => MenuHRD())),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Stack(
+                                overflow: Overflow.visible,
+                                children: <Widget>[
+                                  Container(
+                                    height: 70.0,
+                                    width: 70.0,
+                                    decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        border: Border.all(
+                                            color: Colors.grey, width: 1.0),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(18.0))),
                                   ),
-                                ),
-                                Positioned(
-                                  top: -1.0,
-                                  right: 3.0,
-                                  child: Text(
-                                    '2',
-                                    style: TextStyle(color: Colors.white),
+                                  Positioned(
+                                    bottom: 22.5,
+                                    left: 25.0,
+                                    child: Icon(MdiIcons.heart,
+                                        size: 25.0, color: Colors.grey),
                                   ),
-                                )
-                              ],
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 10.0),
-                              child: Text(
-                                'HRD',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12.0),
+                                  Positioned(
+                                    top: -5.0,
+                                    right: -5.0,
+                                    child: Icon(
+                                      Icons.brightness_1,
+                                      size: 25.0,
+                                      color: Colors.redAccent,
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: -1.0,
+                                    right: 3.0,
+                                    child: Text(
+                                      '2',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  )
+                                ],
                               ),
-                            ),
-                          ],
+                              Padding(
+                                padding: EdgeInsets.only(top: 10.0),
+                                child: Text(
+                                  'HRD',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12.0),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         Column(
                           mainAxisSize: MainAxisSize.min,
@@ -737,189 +743,177 @@ class _BerandaPageState extends State<BerandaPage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(right: 20.0),
+                    padding: EdgeInsets.only(right:8.0),
                     child: ButtonTheme(
                       minWidth: 50.0,
                       height: 20.0,
-                      child: OutlineButton(
-                        child: Text(
-                          'More',
-                          style: TextStyle(fontSize: 13.0),
-                        ),
-                        borderSide: BorderSide(color: Colors.green, width: 1.0),
-                        highlightedBorderColor: Colors.green,
-                        onPressed: () {},
+                      buttonColor: Colors.green,
+                      child: RaisedButton(
+                        child: Icon(Icons.add, color: Colors.white,),
+                        shape: CircleBorder(side: BorderSide(width: 1.0, color: Colors.green)),
+                        color: Colors.green,
+                        onPressed: () => Navigator.push(context,
+                            MyCustomRoute(builder: (context) => FormCreate())),
                       ),
                     ),
                   ),
                 ],
               ),
               Padding(
-                padding: EdgeInsets.only(left: 20.0, right: 20.0),
-                child: Text(
-                  'Berikan ide terbaik Anda untuk meningkatkan performance kerja atau membuat suasana kerja jadi lebih menyenangkan',
-                  style: TextStyle(color: Colors.black38),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Row(
+                  children: <Widget>[
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            'Meningkatkan sales sebanyak 25% lewat upselling',
+                            style:
+                                TextStyle(color: Colors.black, fontSize: 13.0),
+                          ),
+                          Text(
+                            'Ridwan . HRD . 2h',
+                            style: TextStyle(
+                                color: Colors.grey[500], fontSize: 12.0),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              Wrap(
-                spacing: 10.0,
-                runSpacing: 15.0,
-                direction: Axis.horizontal,
+              Padding(
+                padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
+                child: Text(
+                  'Dengan menjalankan ide ini, sales di outlet A berhasil meningkat sebesar 50% selama 1 minggu sejak implementasi',
+                  style: TextStyle(color: Colors.black38, fontSize: 13.0),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 8.0, vertical: 30.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Stack(
-                              overflow: Overflow.visible,
-                              children: <Widget>[
-                                Container(
-                                  height: 70.0,
-                                  width: 70.0,
-                                  decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    border: Border.all(
-                                        color: Colors.grey, width: 1.0),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(18.0)),
-                                  ),
-                                ),
-                                Positioned(
-                                  bottom: 22.5,
-                                  left: 25.0,
-                                  child: Icon(MdiIcons.heart,
-                                      size: 25.0, color: Colors.grey),
-                                ),
-                              ],
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 10.0),
-                              child: Text(
-                                'AJUKAN',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12.0),
-                              ),
-                            )
-                          ],
+                    padding: EdgeInsets.only(right: 20.0),
+                    child: ButtonTheme(
+                      minWidth: 50.0,
+                      height: 20.0,
+                      child: OutlineButton(
+                        child: Text(
+                          'Detail',
+                          style: TextStyle(fontSize: 13.0),
                         ),
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Stack(
-                              overflow: Overflow.visible,
-                              children: <Widget>[
-                                Container(
-                                  height: 70.0,
-                                  width: 70.0,
-                                  decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    border: Border.all(
-                                        color: Colors.grey, width: 1.0),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(18.0)),
-                                  ),
-                                ),
-                                Positioned(
-                                  bottom: 22.5,
-                                  left: 25.0,
-                                  child: Icon(MdiIcons.heart,
-                                      size: 25.0, color: Colors.grey),
-                                ),
-                              ],
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 10.0),
-                              child: Text(
-                                'STATUS',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12.0),
-                              ),
-                            )
-                          ],
-                        ),
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Stack(
-                              overflow: Overflow.visible,
-                              children: <Widget>[
-                                Container(
-                                  height: 70.0,
-                                  width: 70.0,
-                                  decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    border: Border.all(
-                                        color: Colors.grey, width: 1.0),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(18.0)),
-                                  ),
-                                ),
-                                Positioned(
-                                  bottom: 22.5,
-                                  left: 25.0,
-                                  child: Icon(MdiIcons.heart,
-                                      size: 25.0, color: Colors.grey),
-                                ),
-                              ],
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 10.0),
-                              child: Text(
-                                'PEMENANG',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12.0),
-                              ),
-                            )
-                          ],
-                        ),
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Stack(
-                              overflow: Overflow.visible,
-                              children: <Widget>[
-                                Container(
-                                  height: 70.0,
-                                  width: 70.0,
-                                  decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    border: Border.all(
-                                        color: Colors.grey, width: 1.0),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(18.0)),
-                                  ),
-                                ),
-                                Positioned(
-                                  bottom: 22.5,
-                                  left: 25.0,
-                                  child: Icon(MdiIcons.heart,
-                                      size: 25.0, color: Colors.grey),
-                                ),
-                              ],
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 10.0),
-                              child: Text(
-                                'GALERY',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12.0),
-                              ),
-                            )
-                          ],
-                        ),
-                      ],
+                        borderSide: BorderSide(color: Colors.green, width: 1.0),
+                        highlightedBorderColor: Colors.green,
+                        onPressed: () => Navigator.push(context,
+                            MyCustomRoute(builder: (context) => FormDetail())),
+                      ),
                     ),
                   ),
                 ],
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Stack(
+                      overflow: Overflow.visible,
+                      children: <Widget>[
+                        Container(
+                          height: 150.0,
+                          width: MediaQuery.of(context).size.width - 33,
+                          decoration: BoxDecoration(
+                              color: Colors.green,
+                              border:
+                                  Border.all(color: Colors.black12, width: 4.0),
+                              image: DecorationImage(
+                                  image: NetworkImage(
+                                      "https://c1.staticflickr.com/5/4149/35646344915_805ee67321_b.jpg"),
+                                  fit: BoxFit.cover)),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 15.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Container(
+                      width: 100.0,
+                      child: Row(
+                        children: <Widget>[
+                          Flexible(
+                            child: Text(
+                              '200',
+                              style: TextStyle(color: AbubaPallate.green),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 2.0,
+                          ),
+                          Flexible(
+                            child: Text(
+                              'view',
+                              style: TextStyle(color: Colors.grey[500]),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: 100.0,
+                      child: GestureDetector(
+                        onTap: () => Navigator.push(context,
+                            MyCustomRoute(builder: (context) => FormComment())),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(
+                              Icons.comment,
+                              size: 16.0,
+                              color: AbubaPallate.green,
+                            ),
+                            SizedBox(
+                              width: 2.0,
+                            ),
+                            Flexible(
+                              child: Text(
+                                '100',
+                                style: TextStyle(color: Colors.grey[500]),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: 100.0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          Icon(
+                            MdiIcons.heart,
+                            size: 16.0,
+                            color: AbubaPallate.green,
+                          ),
+                          SizedBox(
+                            width: 2.0,
+                          ),
+                          Flexible(
+                            child: Text(
+                              '100',
+                              style: TextStyle(color: Colors.grey[500]),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
               Divider(
                 height: 5.0,
@@ -954,66 +948,35 @@ class _BerandaPageState extends State<BerandaPage> {
                 ],
               ),
               Padding(
-                padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Row(
+                  children: <Widget>[
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            'Ulang tahun ABUBA ke - 100',
+                            style:
+                                TextStyle(color: Colors.black, fontSize: 13.0),
+                          ),
+                          Text(
+                            'Ridwan HRD . 2h',
+                            style: TextStyle(
+                                color: Colors.grey[500], fontSize: 12.0),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
                 child: Text(
-                  'Pastikan Anda tidak melewatkan berbagai informasi penting dan seru seputar aktivitas Anda di Abuba',
-                  style: TextStyle(color: Colors.black38),
+                  'Jangan lupa besok tanggal 17 Agustus 2118 kita merayakan ulang tahun ABUBA yang ke 100. Datang dengan kostum yang seru ya !',
+                  style: TextStyle(color: Colors.black38, fontSize: 13.0),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Stack(
-                        overflow: Overflow.visible,
-                        children: <Widget>[
-                          Container(
-                            height: 150.0,
-                            width: MediaQuery.of(context).size.width - 33,
-                            decoration: BoxDecoration(
-                                color: Colors.green,
-                                border: Border.all(
-                                    color: Colors.black12, width: 4.0),
-                                image: DecorationImage(
-                                    image: NetworkImage(
-                                        "https://c1.staticflickr.com/5/4149/35646344915_805ee67321_b.jpg"),
-                                    fit: BoxFit.cover)),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(left: 20.0),
-                    child: Text(
-                      'Camping Night',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 16.0),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: 20.0, right: 20.0, top: 5.0, bottom: 10.0),
-                    child: Text(
-                      'Camping night in the night night night night',
-                      style: TextStyle(color: Colors.black38),
-                    ),
-                  ),
-                  Container()
-                ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -1026,102 +989,118 @@ class _BerandaPageState extends State<BerandaPage> {
                       child: RaisedButton(
                         color: AbubaPallate.greenabuba,
                         child: Text(
-                          'More',
+                          'OK',
                           style: TextStyle(fontSize: 13.0, color: Colors.white),
                         ),
-                        /*borderSide: BorderSide(
-                            color: Colors.green,
-                            width: 1.0
-                        ),
-                        highlightedBorderColor: Colors.green,*/
-                        onPressed: () {},
+                        /*borderSide: BorderSide( color: Colors.green, width: 1.0 ), highlightedBorderColor: Colors.green,*/ onPressed:
+                            () {},
                       ),
                     ),
                   ),
                 ],
-              ),
-              Divider(
-                height: 6.0,
               ),
               Padding(
                 padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Stack(
-                        overflow: Overflow.visible,
+                    Stack(
+                      overflow: Overflow.visible,
+                      children: <Widget>[
+                        Container(
+                          height: 150.0,
+                          width: MediaQuery.of(context).size.width - 33,
+                          decoration: BoxDecoration(
+                              color: Colors.green,
+                              border:
+                                  Border.all(color: Colors.black12, width: 4.0),
+                              image: DecorationImage(
+                                  image: NetworkImage(
+                                      "https://c1.staticflickr.com/5/4149/35646344915_805ee67321_b.jpg"),
+                                  fit: BoxFit.cover)),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 15.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Container(
+                      width: 100.0,
+                      child: Row(
                         children: <Widget>[
-                          Container(
-                            height: 150.0,
-                            width: MediaQuery.of(context).size.width - 33,
-                            decoration: BoxDecoration(
-                                color: Colors.green,
-                                border: Border.all(
-                                    color: Colors.black12, width: 4.0),
-                                image: DecorationImage(
-                                    image: NetworkImage(
-                                        "https://c1.staticflickr.com/5/4149/35646344915_805ee67321_b.jpg"),
-                                    fit: BoxFit.cover)),
+                          Flexible(
+                            child: Text(
+                              '200',
+                              style: TextStyle(color: AbubaPallate.green),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 2.0,
+                          ),
+                          Flexible(
+                            child: Text(
+                              'OK',
+                              style: TextStyle(color: Colors.grey[500]),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: 100.0,
+                      child: GestureDetector(
+                        onTap: () => Navigator.push(context,
+                            MyCustomRoute(builder: (context) => FormComment())),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(
+                              Icons.comment,
+                              size: 16.0,
+                              color: AbubaPallate.green,
+                            ),
+                            SizedBox(
+                              width: 2.0,
+                            ),
+                            Flexible(
+                              child: Text(
+                                '100',
+                                style: TextStyle(color: Colors.grey[500]),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: 100.0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          Icon(
+                            MdiIcons.heart,
+                            size: 16.0,
+                            color: AbubaPallate.green,
+                          ),
+                          SizedBox(
+                            width: 2.0,
+                          ),
+                          Flexible(
+                            child: Text(
+                              '100',
+                              style: TextStyle(color: Colors.grey[500]),
+                            ),
                           ),
                         ],
                       ),
                     ),
                   ],
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(left: 20.0),
-                    child: Text(
-                      'Camping Night',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 16.0),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: 20.0, right: 20.0, top: 5.0, bottom: 10.0),
-                    child: Text(
-                      'Camping night in the night night night night',
-                      style: TextStyle(color: Colors.black38),
-                    ),
-                  ),
-                  Container()
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(right: 20.0),
-                    child: ButtonTheme(
-                      minWidth: 50.0,
-                      height: 20.0,
-                      child: RaisedButton(
-                        color: AbubaPallate.greenabuba,
-                        child: Text(
-                          'More',
-                          style: TextStyle(fontSize: 13.0, color: Colors.white),
-                        ),
-                        /*borderSide: BorderSide(
-                            color: Colors.green,
-                            width: 1.0
-                        ),
-                        highlightedBorderColor: Colors.green,*/
-                        onPressed: () {},
-                      ),
-                    ),
-                  ),
-                ],
               ),
             ],
           )
