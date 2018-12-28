@@ -293,12 +293,9 @@ class _FormAuditReportState extends State<FormAuditReport> {
                     width: 300.0,
                     child: TextField(
                       decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Note',
-                        hintStyle: TextStyle(
-                          fontSize: 12.0
-                        )
-                      ),
+                          border: OutlineInputBorder(),
+                          hintText: 'Note',
+                          hintStyle: TextStyle(fontSize: 12.0)),
                       controller: controllerNoteSatu,
                       maxLines: 3,
                       style: TextStyle(

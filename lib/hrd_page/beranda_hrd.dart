@@ -4,6 +4,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 
 import 'form_maintenance.dart';
+import 'form_perbaikan.dart';
 import 'package:flutter_abuba/hrd_page/medical/menu_medical.dart';
 
 class MenuHRD extends StatefulWidget {
@@ -121,12 +122,13 @@ class _MenuHRDState extends State<MenuHRD> {
                       ],
                     ),
                   ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      GestureDetector(
-                        onTap: () {},
-                        child: Stack(
+                  GestureDetector(
+                    onTap: () => Navigator.push(context,
+                        MyCustomRoute(builder: (context) => FormPerbaikan())),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Stack(
                           overflow: Overflow.visible,
                           children: <Widget>[
                             Container(
@@ -164,16 +166,16 @@ class _MenuHRDState extends State<MenuHRD> {
                             )
                           ],
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 10.0),
-                        child: Text('Perbaikan',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12.0),
-                            softWrap: false,
-                            overflow: TextOverflow.ellipsis),
-                      ),
-                    ],
+                        Padding(
+                          padding: EdgeInsets.only(top: 10.0),
+                          child: Text('Perbaikan',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500, fontSize: 12.0),
+                              softWrap: false,
+                              overflow: TextOverflow.ellipsis),
+                        ),
+                      ],
+                    ),
                   ),
                   GestureDetector(
                     onTap: () {},
@@ -250,7 +252,7 @@ class _MenuHRDState extends State<MenuHRD> {
                                   border: Border.all(
                                       color: Colors.grey, width: 1.0),
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(18.0))),
+                                      BorderRadius.all(Radius.circular(18.0))),
                             ),
                             Positioned(
                               bottom: 22.5,
@@ -304,7 +306,7 @@ class _MenuHRDState extends State<MenuHRD> {
                                   border: Border.all(
                                       color: Colors.grey, width: 1.0),
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(18.0))),
+                                      BorderRadius.all(Radius.circular(18.0))),
                             ),
                             Positioned(
                               bottom: 22.5,
@@ -361,7 +363,7 @@ class _MenuHRDState extends State<MenuHRD> {
                                   border: Border.all(
                                       color: Colors.grey, width: 1.0),
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(18.0))),
+                                      BorderRadius.all(Radius.circular(18.0))),
                             ),
                             Positioned(
                               bottom: 22.5,

@@ -9,7 +9,8 @@ class ReportCar extends StatefulWidget {
 }
 
 class _ReportCarState extends State<ReportCar> {
-  final GlobalKey<AnimatedCircularChartState> _chartKey = new GlobalKey<AnimatedCircularChartState>();
+  final GlobalKey<AnimatedCircularChartState> _chartKey =
+      new GlobalKey<AnimatedCircularChartState>();
 
   bool _note = false;
   var ratingChiller = 0.0;
@@ -101,7 +102,9 @@ class _ReportCarState extends State<ReportCar> {
               ),
             ),
           ),
-          SizedBox(height: 20.0,),
+          SizedBox(
+            height: 20.0,
+          ),
           Container(
             color: Colors.white,
             child: Row(
@@ -130,7 +133,8 @@ class _ReportCarState extends State<ReportCar> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Container(
-                      padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
+                      padding:
+                          const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
                       width: 150.0,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -146,7 +150,8 @@ class _ReportCarState extends State<ReportCar> {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
+                      padding:
+                          const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
                       width: 150.0,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -301,7 +306,7 @@ class _ReportCarState extends State<ReportCar> {
                   children: <Widget>[
                     Container(
                       padding:
-                      const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
+                          const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
                       width: 150.0,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -318,7 +323,7 @@ class _ReportCarState extends State<ReportCar> {
                     ),
                     Container(
                       padding:
-                      const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
+                          const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
                       width: 150.0,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -344,7 +349,7 @@ class _ReportCarState extends State<ReportCar> {
                   children: <Widget>[
                     Container(
                       padding:
-                      const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
+                          const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
                       width: 150.0,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -361,7 +366,7 @@ class _ReportCarState extends State<ReportCar> {
                     ),
                     Container(
                       padding:
-                      const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
+                          const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
                       width: 150.0,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -387,7 +392,7 @@ class _ReportCarState extends State<ReportCar> {
                   children: <Widget>[
                     Container(
                       padding:
-                      const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
+                          const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
                       width: 150.0,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -404,7 +409,7 @@ class _ReportCarState extends State<ReportCar> {
                     ),
                     Container(
                       padding:
-                      const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
+                          const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
                       width: 150.0,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -430,7 +435,7 @@ class _ReportCarState extends State<ReportCar> {
                   children: <Widget>[
                     Container(
                       padding:
-                      const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
+                          const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
                       width: 150.0,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -447,7 +452,7 @@ class _ReportCarState extends State<ReportCar> {
                     ),
                     Container(
                       padding:
-                      const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
+                          const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
                       width: 150.0,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -473,7 +478,7 @@ class _ReportCarState extends State<ReportCar> {
                   children: <Widget>[
                     Container(
                       padding:
-                      const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
+                          const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
                       width: 150.0,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -490,7 +495,7 @@ class _ReportCarState extends State<ReportCar> {
                     ),
                     Container(
                       padding:
-                      const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
+                          const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
                       width: 150.0,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -516,7 +521,7 @@ class _ReportCarState extends State<ReportCar> {
                   children: <Widget>[
                     Container(
                       padding:
-                      const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
+                          const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
                       width: 150.0,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -533,7 +538,7 @@ class _ReportCarState extends State<ReportCar> {
                     ),
                     Container(
                       padding:
-                      const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
+                          const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
                       width: 150.0,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -559,7 +564,7 @@ class _ReportCarState extends State<ReportCar> {
                   children: <Widget>[
                     Container(
                       padding:
-                      const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
+                          const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
                       width: 150.0,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -576,7 +581,7 @@ class _ReportCarState extends State<ReportCar> {
                     ),
                     Container(
                       padding:
-                      const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
+                          const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
                       width: 150.0,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -602,7 +607,7 @@ class _ReportCarState extends State<ReportCar> {
                   children: <Widget>[
                     Container(
                       padding:
-                      const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
+                          const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
                       width: 150.0,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -619,7 +624,7 @@ class _ReportCarState extends State<ReportCar> {
                     ),
                     Container(
                       padding:
-                      const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
+                          const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
                       width: 150.0,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -645,7 +650,7 @@ class _ReportCarState extends State<ReportCar> {
                   children: <Widget>[
                     Container(
                       padding:
-                      const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
+                          const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
                       width: 150.0,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -662,7 +667,7 @@ class _ReportCarState extends State<ReportCar> {
                     ),
                     Container(
                       padding:
-                      const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
+                          const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
                       width: 150.0,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,

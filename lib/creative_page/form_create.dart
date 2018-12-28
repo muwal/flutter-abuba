@@ -11,9 +11,12 @@ class FormCreate extends StatefulWidget {
 }
 
 class _FormCreateState extends State<FormCreate> {
-  bool _note = false;
-  bool _notedua = false;
-  bool _notetiga = false;
+  bool _note      = false;
+  bool _notedua   = false;
+  bool _notetiga  = false;
+  bool _noteEmpat = false;
+  bool _noteLima  = false;
+  bool _noteEnam  = false;
   TextEditingController controllerNoteSatu = new TextEditingController();
 
   final dateFormat = DateFormat("MMMM d, yyyy");
@@ -45,26 +48,24 @@ class _FormCreateState extends State<FormCreate> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Flexible(
-                  child: Text(
-                    'Creative Idea',
-                    style: TextStyle(color: Colors.black12, fontSize: 12.0),
-                  ),
+                Text(
+                  'Creative Idea',
+                  style: TextStyle(color: Colors.black12, fontSize: 12.0),
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 15.0),
                   child: Text(
                     '|',
-                    style:
-                        TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
+                    style: TextStyle(
+                        color: AbubaPallate.greenabuba, fontSize: 12.0),
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 15.0),
                   child: Text(
                     'Detail',
-                    style:
-                        TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
+                    style: TextStyle(
+                        color: AbubaPallate.greenabuba, fontSize: 12.0),
                   ),
                 ),
               ],
@@ -155,25 +156,12 @@ class _FormCreateState extends State<FormCreate> {
             height: 8.0,
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(20.0, 8.0, 20.0, 0.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Flexible(
-                  child: Text(
-                    'Problem',
-                    style: TextStyle(color: AbubaPallate.green),
-                  ),
-                )
-              ],
-            ),
-          ),
-          Padding(
             padding: const EdgeInsets.fromLTRB(20.0, 8.0, 20.0, 8.0),
             child: Container(
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15.0), color: Colors.white),
+                  borderRadius: BorderRadius.circular(15.0),
+                  color: Colors.white),
               child: Padding(
                 padding: EdgeInsets.all(12.0),
                 child: Row(
@@ -194,199 +182,96 @@ class _FormCreateState extends State<FormCreate> {
             height: 8.0,
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(20.0, 8.0, 20.0, 0.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Flexible(
-                  child: Text(
-                    'Akar Masalah',
-                    style: TextStyle(color: AbubaPallate.green),
-                  ),
-                )
-              ],
+            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+            child: Container(
+              width: 150.0,
+              child: TextField(
+                maxLines: null,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  labelText: 'Man',
+                  labelStyle: TextStyle(fontSize: 12.0),
+                ),
+                textCapitalization: TextCapitalization.sentences,
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(20.0, 12.0, 20.0, 6.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Flexible(
-                      child: Text(
-                        'Man',
-                        style: TextStyle(fontSize: 13.0, color: Colors.black54),
-                      ),
-                    ),
-
-                  ],
+            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+            child: Container(
+              width: 150.0,
+              child: TextField(
+                maxLines: null,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  labelText: 'Material',
+                  labelStyle: TextStyle(fontSize: 12.0),
                 ),
-                SizedBox(
-                  height: 5.0,
+                textCapitalization: TextCapitalization.sentences,
+                style: TextStyle(
+                  color: Colors.black,
                 ),
-                Row(
-                  children: <Widget>[
-                    Flexible(
-                      child: Text(
-                        'Kasir tidak menawarkan produk upselling kepada customer',
-                        style: TextStyle(fontSize: 12.0, color: Colors.black38),
-                      ),
-                    ),
-
-                  ],
-                )
-              ],
+              ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 6.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Flexible(
-                      child: Text(
-                        'Material',
-                        style: TextStyle(fontSize: 13.0, color: Colors.black54),
-                      ),
-                    ),
-
-                  ],
+            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+            child: Container(
+              width: 150.0,
+              child: TextField(
+                maxLines: null,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  labelText: 'Method',
+                  labelStyle: TextStyle(fontSize: 12.0),
                 ),
-                SizedBox(
-                  height: 5.0,
+                textCapitalization: TextCapitalization.sentences,
+                style: TextStyle(
+                  color: Colors.black,
                 ),
-                Row(
-                  children: <Widget>[
-                    Flexible(
-                      child: Text(
-                        'Tidak ada menu baru yang menarik',
-                        style: TextStyle(fontSize: 12.0, color: Colors.black38),
-                      ),
-                    ),
-
-                  ],
-                )
-              ],
+              ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 6.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Flexible(
-                      child: Text(
-                        'Method',
-                        style: TextStyle(fontSize: 13.0, color: Colors.black54),
-                      ),
-                    ),
-
-                  ],
+            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
+            child: Container(
+              width: 150.0,
+              child: TextField(
+                maxLines: null,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  labelText: 'Environment',
+                  labelStyle: TextStyle(fontSize: 12.0),
                 ),
-                SizedBox(
-                  height: 5.0,
+                textCapitalization: TextCapitalization.sentences,
+                style: TextStyle(
+                  color: Colors.black,
                 ),
-                Row(
-                  children: <Widget>[
-                    Flexible(
-                      child: Text(
-                        'Customer bosan dengan penawaran manual yang berulang',
-                        style: TextStyle(fontSize: 12.0, color: Colors.black38),
-                      ),
-                    ),
-
-                  ],
-                )
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 6.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Flexible(
-                      child: Text(
-                        'Environment',
-                        style: TextStyle(fontSize: 13.0, color: Colors.black54),
-                      ),
-                    ),
-
-                  ],
-                ),
-                SizedBox(
-                  height: 5.0,
-                ),
-                Row(
-                  children: <Widget>[
-                    Flexible(
-                      child: Text(
-                        'Kasir tidak menawarkan produk upseeling kepada customer',
-                        style: TextStyle(fontSize: 12.0, color: Colors.black38),
-                      ),
-                    ),
-
-                  ],
-                )
-              ],
+              ),
             ),
           ),
           Divider(
             height: 8.0,
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(20.0, 8.0, 20.0, 0.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Flexible(
-                  child: Text(
-                    'Akar Masalah',
-                    style: TextStyle(color: AbubaPallate.green),
-                  ),
-                )
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20.0, 12.0, 20.0, 6.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Flexible(
-                      child: Text(
-                        'Deskripsi',
-                        style: TextStyle(fontSize: 13.0, color: Colors.black54),
-                      ),
-                    ),
-
-                  ],
+            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 8.0),
+            child: Container(
+              width: 150.0,
+              child: TextField(
+                maxLines: null,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  labelText: 'Deskripsi',
+                  labelStyle: TextStyle(fontSize: 12.0),
                 ),
-                SizedBox(
-                  height: 5.0,
+                textCapitalization: TextCapitalization.sentences,
+                style: TextStyle(
+                  color: Colors.black,
                 ),
-                Row(
-                  children: <Widget>[
-                    Flexible(
-                      child: Text(
-                        'Kasir menawarkan produk upseeling dalam bentuk pairing product kepada customer yang berulang tahun di hari kedatangan',
-                        style: TextStyle(fontSize: 12.0, color: Colors.black38),
-                      ),
-                    ),
-
-                  ],
-                )
-              ],
+              ),
             ),
           ),
           Padding(
@@ -422,7 +307,7 @@ class _FormCreateState extends State<FormCreate> {
                   ),
                 ),
               ],
-            )
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(right: 20.0),
@@ -435,8 +320,8 @@ class _FormCreateState extends State<FormCreate> {
                   child: OutlineButton(
                     child: Text(
                       'Note',
-                      style:
-                      TextStyle(fontSize: 12.0, color: AbubaPallate.menuBluebird),
+                      style: TextStyle(
+                          fontSize: 12.0, color: AbubaPallate.menuBluebird),
                     ),
                     borderSide: BorderSide(color: AbubaPallate.menuBluebird),
                     onPressed: () {
@@ -453,55 +338,54 @@ class _FormCreateState extends State<FormCreate> {
             padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
             child: _note
                 ? Container(
-              width: 330.0,
-              child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                ),
-                controller: controllerNoteSatu,
-                maxLines: 3,
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-              ),
-            )
-                : Container(),
-          ),
-
-          Padding(
-              padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 3.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Container(
-                    width: 150.0,
+                    width: 330.0,
                     child: TextField(
-                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        labelText: 'Financial Saving',
-                        labelStyle: TextStyle(fontSize: 12.0),
+                        border: OutlineInputBorder(),
                       ),
-                      textCapitalization: TextCapitalization.sentences,
+                      controller: controllerNoteSatu,
+                      maxLines: 3,
                       style: TextStyle(
                         color: Colors.black,
                       ),
                     ),
-                  ),
-                  Container(
-                    width: 150.0,
-                    child: DateTimePickerFormField(
-                      format: dateFormat,
-                      onChanged: (dt) => setState(() => dateStart = dt),
-                      dateOnly: true,
-                      style: TextStyle(fontSize: 14.0, color: Colors.black),
-                      decoration: InputDecoration(
-                          border: UnderlineInputBorder(),
-                          labelStyle: TextStyle(fontSize: 12.0),
-                          labelText: 'Tanggal'),
+                  )
+                : Container(),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 3.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(
+                  width: 150.0,
+                  child: TextField(
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      labelText: 'Financial Saving',
+                      labelStyle: TextStyle(fontSize: 12.0),
+                    ),
+                    textCapitalization: TextCapitalization.sentences,
+                    style: TextStyle(
+                      color: Colors.black,
                     ),
                   ),
-                ],
-              )
+                ),
+                Container(
+                  width: 150.0,
+                  child: DateTimePickerFormField(
+                    format: dateFormat,
+                    onChanged: (dt) => setState(() => dateStart = dt),
+                    dateOnly: true,
+                    style: TextStyle(fontSize: 14.0, color: Colors.black),
+                    decoration: InputDecoration(
+                        border: UnderlineInputBorder(),
+                        labelStyle: TextStyle(fontSize: 12.0),
+                        labelText: 'Tanggal'),
+                  ),
+                ),
+              ],
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(right: 20.0),
@@ -514,8 +398,8 @@ class _FormCreateState extends State<FormCreate> {
                   child: OutlineButton(
                     child: Text(
                       'Note',
-                      style:
-                      TextStyle(fontSize: 12.0, color: AbubaPallate.menuBluebird),
+                      style: TextStyle(
+                          fontSize: 12.0, color: AbubaPallate.menuBluebird),
                     ),
                     borderSide: BorderSide(color: AbubaPallate.menuBluebird),
                     onPressed: () {
@@ -532,56 +416,55 @@ class _FormCreateState extends State<FormCreate> {
             padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
             child: _notedua
                 ? Container(
-              width: 330.0,
-              child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                ),
-                controller: controllerNoteSatu,
-                maxLines: 3,
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-              ),
-            )
-                : Container(),
-          ),
-
-          Padding(
-              padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 3.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Container(
-                    width: 150.0,
+                    width: 330.0,
                     child: TextField(
-                      maxLines: null,
-                      keyboardType: TextInputType.text,
                       decoration: InputDecoration(
-                        labelText: 'Quality',
-                        labelStyle: TextStyle(fontSize: 12.0),
+                        border: OutlineInputBorder(),
                       ),
-                      textCapitalization: TextCapitalization.sentences,
+                      controller: controllerNoteSatu,
+                      maxLines: 3,
                       style: TextStyle(
                         color: Colors.black,
                       ),
                     ),
-                  ),
-                  Container(
-                    width: 150.0,
-                    child: DateTimePickerFormField(
-                      format: dateFormat,
-                      onChanged: (dt) => setState(() => dateStart = dt),
-                      dateOnly: true,
-                      style: TextStyle(fontSize: 14.0, color: Colors.black),
-                      decoration: InputDecoration(
-                          border: UnderlineInputBorder(),
-                          labelStyle: TextStyle(fontSize: 12.0),
-                          labelText: 'Tanggal'),
+                  )
+                : Container(),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 3.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(
+                  width: 150.0,
+                  child: TextField(
+                    maxLines: null,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                      labelText: 'Quality',
+                      labelStyle: TextStyle(fontSize: 12.0),
+                    ),
+                    textCapitalization: TextCapitalization.sentences,
+                    style: TextStyle(
+                      color: Colors.black,
                     ),
                   ),
-                ],
-              )
+                ),
+                Container(
+                  width: 150.0,
+                  child: DateTimePickerFormField(
+                    format: dateFormat,
+                    onChanged: (dt) => setState(() => dateStart = dt),
+                    dateOnly: true,
+                    style: TextStyle(fontSize: 14.0, color: Colors.black),
+                    decoration: InputDecoration(
+                        border: UnderlineInputBorder(),
+                        labelStyle: TextStyle(fontSize: 12.0),
+                        labelText: 'Tanggal'),
+                  ),
+                ),
+              ],
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(right: 20.0),
@@ -594,8 +477,8 @@ class _FormCreateState extends State<FormCreate> {
                   child: OutlineButton(
                     child: Text(
                       'Note',
-                      style:
-                      TextStyle(fontSize: 12.0, color: AbubaPallate.menuBluebird),
+                      style: TextStyle(
+                          fontSize: 12.0, color: AbubaPallate.menuBluebird),
                     ),
                     borderSide: BorderSide(color: AbubaPallate.menuBluebird),
                     onPressed: () {
@@ -611,6 +494,322 @@ class _FormCreateState extends State<FormCreate> {
           Padding(
             padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
             child: _notetiga
+                ? Container(
+                    width: 330.0,
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                      ),
+                      controller: controllerNoteSatu,
+                      maxLines: 3,
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
+                  )
+                : Container(),
+          ),
+          Divider(
+            height: 15.0,
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+            child: Container(
+              child: DateTimePickerFormField(
+                format: dateFormat,
+                onChanged: (dt) => setState(() => dateStart = dt),
+                dateOnly: true,
+                style: TextStyle(fontSize: 14.0, color: Colors.black),
+                decoration: InputDecoration(
+                    border: UnderlineInputBorder(),
+                    labelStyle: TextStyle(fontSize: 12.0),
+                    labelText: 'Define'),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+            child: Container(
+              child: DateTimePickerFormField(
+                format: dateFormat,
+                onChanged: (dt) => setState(() => dateStart = dt),
+                dateOnly: true,
+                style: TextStyle(fontSize: 14.0, color: Colors.black),
+                decoration: InputDecoration(
+                    border: UnderlineInputBorder(),
+                    labelStyle: TextStyle(fontSize: 12.0),
+                    labelText: 'Measure'),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+            child: Container(
+              child: DateTimePickerFormField(
+                format: dateFormat,
+                onChanged: (dt) => setState(() => dateStart = dt),
+                dateOnly: true,
+                style: TextStyle(fontSize: 14.0, color: Colors.black),
+                decoration: InputDecoration(
+                    border: UnderlineInputBorder(),
+                    labelStyle: TextStyle(fontSize: 12.0),
+                    labelText: 'Analysis'),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+            child: Container(
+              child: DateTimePickerFormField(
+                format: dateFormat,
+                onChanged: (dt) => setState(() => dateStart = dt),
+                dateOnly: true,
+                style: TextStyle(fontSize: 14.0, color: Colors.black),
+                decoration: InputDecoration(
+                    border: UnderlineInputBorder(),
+                    labelStyle: TextStyle(fontSize: 12.0),
+                    labelText: 'Improve'),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
+            child: Container(
+              child: DateTimePickerFormField(
+                format: dateFormat,
+                onChanged: (dt) => setState(() => dateStart = dt),
+                dateOnly: true,
+                style: TextStyle(fontSize: 14.0, color: Colors.black),
+                decoration: InputDecoration(
+                    border: UnderlineInputBorder(),
+                    labelStyle: TextStyle(fontSize: 12.0),
+                    labelText: 'Control'),
+              ),
+            ),
+          ),
+          Divider(
+            height: 10.0,
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 3.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(
+                  width: 150.0,
+                  child: TextField(
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      labelText: 'Financial Improvement',
+                      labelStyle: TextStyle(fontSize: 12.0),
+                    ),
+                    textCapitalization: TextCapitalization.sentences,
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                Container(
+                  width: 150.0,
+                  child: DateTimePickerFormField(
+                    format: dateFormat,
+                    onChanged: (dt) => setState(() => dateStart = dt),
+                    dateOnly: true,
+                    style: TextStyle(fontSize: 14.0, color: Colors.black),
+                    decoration: InputDecoration(
+                        border: UnderlineInputBorder(),
+                        labelStyle: TextStyle(fontSize: 12.0),
+                        labelText: 'Tanggal'),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 20.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                ButtonTheme(
+                  minWidth: 30.0,
+                  height: 25.0,
+                  child: OutlineButton(
+                    child: Text(
+                      'Note',
+                      style: TextStyle(
+                          fontSize: 12.0, color: AbubaPallate.menuBluebird),
+                    ),
+                    borderSide: BorderSide(color: AbubaPallate.menuBluebird),
+                    onPressed: () {
+                      setState(() {
+                        _noteEmpat = !_noteEmpat;
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+            child: _noteEmpat
+                ? Container(
+                    width: 330.0,
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                      ),
+                      controller: controllerNoteSatu,
+                      maxLines: 3,
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
+                  )
+                : Container(),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 3.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(
+                  width: 150.0,
+                  child: TextField(
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      labelText: 'Financial Saving',
+                      labelStyle: TextStyle(fontSize: 12.0),
+                    ),
+                    textCapitalization: TextCapitalization.sentences,
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                Container(
+                  width: 150.0,
+                  child: DateTimePickerFormField(
+                    format: dateFormat,
+                    onChanged: (dt) => setState(() => dateStart = dt),
+                    dateOnly: true,
+                    style: TextStyle(fontSize: 14.0, color: Colors.black),
+                    decoration: InputDecoration(
+                        border: UnderlineInputBorder(),
+                        labelStyle: TextStyle(fontSize: 12.0),
+                        labelText: 'Tanggal'),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 20.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                ButtonTheme(
+                  minWidth: 30.0,
+                  height: 25.0,
+                  child: OutlineButton(
+                    child: Text(
+                      'Note',
+                      style: TextStyle(
+                          fontSize: 12.0, color: AbubaPallate.menuBluebird),
+                    ),
+                    borderSide: BorderSide(color: AbubaPallate.menuBluebird),
+                    onPressed: () {
+                      setState(() {
+                        _noteLima = !_noteLima;
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+            child: _noteLima
+                ? Container(
+                    width: 330.0,
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                      ),
+                      controller: controllerNoteSatu,
+                      maxLines: 3,
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
+                  )
+                : Container(),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 3.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(
+                  width: 150.0,
+                  child: TextField(
+                    maxLines: null,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                      labelText: 'Quality',
+                      labelStyle: TextStyle(fontSize: 12.0),
+                    ),
+                    textCapitalization: TextCapitalization.sentences,
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                Container(
+                  width: 150.0,
+                  child: DateTimePickerFormField(
+                    format: dateFormat,
+                    onChanged: (dt) => setState(() => dateStart = dt),
+                    dateOnly: true,
+                    style: TextStyle(fontSize: 14.0, color: Colors.black),
+                    decoration: InputDecoration(
+                        border: UnderlineInputBorder(),
+                        labelStyle: TextStyle(fontSize: 12.0),
+                        labelText: 'Tanggal'),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 20.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                ButtonTheme(
+                  minWidth: 30.0,
+                  height: 25.0,
+                  child: OutlineButton(
+                    child: Text(
+                      'Note',
+                      style: TextStyle(
+                          fontSize: 12.0, color: AbubaPallate.menuBluebird),
+                    ),
+                    borderSide: BorderSide(color: AbubaPallate.menuBluebird),
+                    onPressed: () {
+                      setState(() {
+                        _noteEnam = !_noteEnam;
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 15.0),
+            child: _noteEnam
                 ? Container(
               width: 330.0,
               child: TextField(

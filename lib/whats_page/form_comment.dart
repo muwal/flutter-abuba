@@ -40,7 +40,7 @@ class _FormCommentState extends State<FormComment> {
                 child: Text(
                   '|',
                   style:
-                      TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
+                  TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
                 ),
               ),
               Padding(
@@ -48,7 +48,7 @@ class _FormCommentState extends State<FormComment> {
                 child: Text(
                   'Comments',
                   style:
-                      TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
+                  TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
                 ),
               ),
             ],
@@ -61,33 +61,38 @@ class _FormCommentState extends State<FormComment> {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15.0), color: Colors.white),
             child: Padding(
-              padding: EdgeInsets.all(12.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    width: 50.0,
-                    height: 50.0,
-                    margin: EdgeInsets.only(bottom: 10.0),
-                    decoration: new BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: new DecorationImage(
-                        fit: BoxFit.fill,
-                        image: NetworkImage(
-                            "https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTE5NTU2MzE2NDE4MzExNjkx/jackie-chan-9542080-1-402.jpg"),
-                      ),
+              padding: EdgeInsets.only(bottom: 8.0, top: 8.0),
+              child: ListTile(
+                onTap: null,
+                leading: Container(
+                  width: 35.0,
+                  height: 35.0,
+                  decoration: new BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: new DecorationImage(
+                      fit: BoxFit.fill,
+                      image: NetworkImage(
+                          "https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTE5NTU2MzE2NDE4MzExNjkx/jackie-chan-9542080-1-402.jpg"),
                     ),
                   ),
-                  SizedBox(
-                    width: 12.0,
+                ),
+                title: Text(
+                    'Ulang tahun ABUBA ke - 100',
+                    style: TextStyle(
+                        fontSize: 12.0,
+                        color: Colors.black87
+                    )
+                ),
+                subtitle: Padding(
+                  padding: const EdgeInsets.only(top: 5.0),
+                  child: Text(
+                      'Jangan lupa besok tanggal 17 Agustus 2118 kita merayakan ulang tahun ABUBA yang ke 100. Datang dengan kostum yang seru ya !',
+                      style: TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.black38
+                      )
                   ),
-                  Flexible(
-                    child: Text(
-                        'Jangan lupa besok tanggal 17 Agustus 2018 kita merayakan ulang tahun ABUBA yang ke 100. Datang dengan kostum yang seru ya !',
-                        style:
-                            TextStyle(fontSize: 12.0, color: Colors.black38)),
-                  ),
-                ],
+                ),
               ),
             ),
           ),
@@ -116,53 +121,49 @@ class _FormCommentState extends State<FormComment> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(20.0, 8.0, 20.0, 8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                width: 50.0,
-                height: 50.0,
-                margin: EdgeInsets.only(bottom: 10.0, right: 8.0),
-                decoration: new BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: new DecorationImage(
-                    fit: BoxFit.fill,
-                    image: NetworkImage(
-                        "https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTE5NTU2MzE2NDE4MzExNjkx/jackie-chan-9542080-1-402.jpg"),
-                  ),
+          padding: const EdgeInsets.fromLTRB(5.0, 8.0, 5.0, 8.0),
+          child: ListTile(
+            leading: Container(
+              width: 35.0,
+              height: 35.0,
+              decoration: new BoxDecoration(
+                shape: BoxShape.circle,
+                image: new DecorationImage(
+                  fit: BoxFit.fill,
+                  image: NetworkImage(
+                      "https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTE5NTU2MzE2NDE4MzExNjkx/jackie-chan-9542080-1-402.jpg"),
                 ),
               ),
-              Container(
-                width: 150.0,
-                child: TextField(
-                  maxLines: null,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    hintText: 'Sampaikan komentar Anda',
-                    hintStyle: TextStyle(fontSize: 12.0),
-                  ),
-                  textCapitalization: TextCapitalization.sentences,
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
+            ),
+            title: Container(
+              width: 150.0,
+              child: TextField(
+                maxLines: null,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  hintText: 'Sampaikan komentar Anda',
+                  hintStyle: TextStyle(fontSize: 12.0),
+                ),
+                textCapitalization: TextCapitalization.sentences,
+                style: TextStyle(
+                  color: Colors.black,
                 ),
               ),
-              ButtonTheme(
-                minWidth: 50.0,
-                height: 20.0,
-                child: RaisedButton(
-                  color: AbubaPallate.greenabuba,
-                  splashColor: AbubaPallate.greensatu,
-                  child: Text(
-                    'Kirim',
-                    style: TextStyle(fontSize: 12.0, color: Colors.white),
-                  ),
-                  onPressed: () {},
+            ),
+            trailing: ButtonTheme(
+              minWidth: 50.0,
+              height: 20.0,
+              child: RaisedButton(
+                color: AbubaPallate.greenabuba,
+                splashColor: AbubaPallate.greensatu,
+                child: Text(
+                  'Kirim',
+                  style: TextStyle(fontSize: 12.0, color: Colors.white),
                 ),
+                onPressed: () {},
               ),
-            ],
+            ),
+            onTap: null,
           ),
         ),
         Padding(
@@ -172,51 +173,63 @@ class _FormCommentState extends State<FormComment> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(20.0, 8.0, 20.0, 8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                width: 50.0,
-                height: 50.0,
-                margin: EdgeInsets.only(bottom: 10.0),
-                decoration: new BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: new DecorationImage(
-                    fit: BoxFit.fill,
-                    image: NetworkImage(
-                        "https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTE5NTU2MzE2NDE4MzExNjkx/jackie-chan-9542080-1-402.jpg"),
-                  ),
+          padding: const EdgeInsets.fromLTRB(5.0, 8.0, 5.0, 0.0),
+          child: ListTile(
+            leading: Container(
+              width: 35.0,
+              height: 35.0,
+              decoration: new BoxDecoration(
+                shape: BoxShape.circle,
+                image: new DecorationImage(
+                  fit: BoxFit.fill,
+                  image: NetworkImage(
+                      "https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTE5NTU2MzE2NDE4MzExNjkx/jackie-chan-9542080-1-402.jpg"),
                 ),
               ),
-              SizedBox(
-                width: 12.0,
+            ),
+            title: Text(
+              'OK Siap, saya pasti datang paling pagi sebelum yang laindating. Udah nggak sabar nih buat merayakan ultah ABUBA !',
+              style: TextStyle(color: Colors.black54, fontSize: 12.0),
+            ),
+            subtitle: Padding(
+              padding: const EdgeInsets.only(top: 5.0),
+              child: Text(
+                'Ridwan . IT . 3 months ago',
+                style: TextStyle(
+                    color: Colors.grey[500], fontSize: 10.0),
               ),
-              Container(
-                width: 250.0,
-                child: Row(
-                  children: <Widget>[
-                    Flexible(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            'Ridwan . IT . 3 months ago',
-                            style: TextStyle(
-                                color: Colors.grey[500], fontSize: 10.0),
-                          ),
-                          SizedBox(height: 5.0,),
-                          Text(
-                            'OK Siap, saya pasti datang paling pagi sebelum yang laindating. Udah nggak sabar nih buat merayakan ultah ABUBA !',
-                            style: TextStyle(color: Colors.black54, fontSize: 12.0),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+            ),
+            onTap: null,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),
+          child: ListTile(
+            leading: Container(
+              width: 35.0,
+              height: 35.0,
+              decoration: new BoxDecoration(
+                shape: BoxShape.circle,
+                image: new DecorationImage(
+                  fit: BoxFit.fill,
+                  image: NetworkImage(
+                      "https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTE5NTU2MzE2NDE4MzExNjkx/jackie-chan-9542080-1-402.jpg"),
                 ),
               ),
-            ],
+            ),
+            title: Text(
+              'Mantap!',
+              style: TextStyle(color: Colors.black54, fontSize: 12.0),
+            ),
+            subtitle: Padding(
+              padding: const EdgeInsets.only(top: 5.0),
+              child: Text(
+                'Kurniawan . HRD . 3 months ago',
+                style: TextStyle(
+                    color: Colors.grey[500], fontSize: 10.0),
+              ),
+            ),
+            onTap: null,
           ),
         ),
       ],
