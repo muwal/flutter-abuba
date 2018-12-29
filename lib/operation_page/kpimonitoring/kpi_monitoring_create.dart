@@ -12,15 +12,14 @@ class CreateKpiMonitoring extends StatefulWidget {
   _CreateKpiMonitoringState createState() => new _CreateKpiMonitoringState();
 }
 
-class _CreateKpiMonitoringState extends State<CreateKpiMonitoring>
-    with SingleTickerProviderStateMixin {
+class _CreateKpiMonitoringState extends State<CreateKpiMonitoring> with SingleTickerProviderStateMixin{ 
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   TabController _tabController;
 
   int counter = 0;
   void _addTask() {
     setState(() {
-      counter++;
+      counter++;      
     });
   }
 
@@ -32,8 +31,7 @@ class _CreateKpiMonitoringState extends State<CreateKpiMonitoring>
   @override
   void initState() {
     super.initState();
-    _tabController =
-        TabController(vsync: this, length: createKpiMonitoringTabs.length);
+    _tabController = TabController(vsync: this, length: createKpiMonitoringTabs.length);
   }
 
   @override
@@ -46,19 +44,19 @@ class _CreateKpiMonitoringState extends State<CreateKpiMonitoring>
   DateTime dateStart;
   DateTime dateEnd;
   DateTime dueDate;
-
+  
   String _categorySelection;
   String _category;
   List<Map> _categoryJSON = [
-    {"id": "1", "category": "BRC"},
-    {"id": "2", "category": "Not BRC"},
+    {"id":"1", "category":"BRC"},
+    {"id":"2", "category":"Not BRC"},
   ];
 
   String _picSelection;
   String _pic;
   List<Map> _picJSON = [
-    {"id": "1", "pic": "Anto"},
-    {"id": "2", "pic": "Inem"},
+    {"id":"1", "pic":"Anto"},
+    {"id":"2", "pic":"Inem"},
   ];
 
   @override
@@ -67,14 +65,18 @@ class _CreateKpiMonitoringState extends State<CreateKpiMonitoring>
       child: DefaultTabController(
         length: createKpiMonitoringTabs.length,
         child: Scaffold(
+          resizeToAvoidBottomPadding: false,
           backgroundColor: Colors.white,
           key: _scaffoldKey,
           appBar: _appBar(),
           body: TabBarView(
             controller: _tabController,
-            children: <Widget>[_buildFormHeader(), _buildFormTask()],
-          ),
-        ),
+            children: <Widget>[
+              _buildFormHeader(),
+              _buildFormTask()
+            ],
+          )
+        )
       ),
     );
   }
@@ -82,241 +84,259 @@ class _CreateKpiMonitoringState extends State<CreateKpiMonitoring>
   Widget _buildFormHeader() {
     final double width = MediaQuery.of(context).size.width;
 
-    return ListView(
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 125.0, horizontal: 20.0),
-          child: Column(
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.only(bottom: 20.0),
-                    width: width / 2.5,
-                    child: DateTimePickerFormField(
-                      format: dateFormat,
-                      onChanged: (dt) => setState(() => dateStart = dt),
-                      dateOnly: true,
-                      style: TextStyle(fontSize: 16.0, color: Colors.black),
-                      decoration: InputDecoration(
-                          border: UnderlineInputBorder(),
-                          labelStyle: TextStyle(fontSize: 14.0),
-                          labelText: 'Start'),
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 100.0, horizontal: 20.0),
+        child: Column(
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.only(bottom: 20.0),
+                  width: width / 2.5,
+                  child: DateTimePickerFormField(
+                    format: dateFormat,
+                    onChanged: (dt) => setState(() => dateStart = dt),
+                    dateOnly: true,
+                    style: TextStyle(fontSize: 16.0, color: Colors.black),
+                    decoration: InputDecoration(
+                      border: UnderlineInputBorder(),
+                      labelStyle: TextStyle(fontSize: 14.0),
+                      labelText: 'Start'
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.only(bottom: 20.0),
-                    width: width / 2.5,
-                    child: DateTimePickerFormField(
-                      format: dateFormat,
-                      onChanged: (dt) => setState(() => dateEnd = dt),
-                      dateOnly: true,
-                      style: TextStyle(fontSize: 16.0, color: Colors.black),
-                      decoration: InputDecoration(
-                          border: UnderlineInputBorder(),
-                          labelStyle: TextStyle(fontSize: 14.0),
-                          labelText: 'End'),
+                ),
+                Container(
+                  padding: EdgeInsets.only(bottom: 20.0),
+                  width: width / 2.5,
+                  child: DateTimePickerFormField(
+                    format: dateFormat,
+                    onChanged: (dt) => setState(() => dateEnd = dt),
+                    dateOnly: true,
+                    style: TextStyle(fontSize: 16.0, color: Colors.black),
+                    decoration: InputDecoration(
+                      border: UnderlineInputBorder(),
+                      labelStyle: TextStyle(fontSize: 14.0),
+                      labelText: 'End'
                     ),
+                  ),
+                )
+              ],
+            ),
+            Container(
+              padding: EdgeInsets.only(bottom: 10.0),
+              width: width,
+              child: DropdownButtonFormField(
+                hint: Text(
+                  'Category',
+                  style: TextStyle(
+                    fontSize: 14.0
+                  ),
+                ),
+                value: _categorySelection,
+                onChanged: (String value) {
+                  setState(() {
+                    switch (int.tryParse(value)) {
+                      case 1:
+                        _category = 'BRC';
+                        break;
+                      
+                      case 2:
+                        _category = 'Not BRC';
+                        break;
+                    }
+                    _categorySelection = value;
+                  });
+                },
+                items: _categoryJSON.map((Map map) {
+                  return new DropdownMenuItem(
+                    value: map['id'].toString(),
+                    child: Text(map['category']),
+                  );
+                }).toList(),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(bottom: 10.0),
+              width: width,
+              child: TextField(
+                decoration: InputDecoration(
+                  labelText: 'Title',
+                  labelStyle: TextStyle(
+                    fontSize: 14.0
                   )
-                ],
+                ),
+                style: TextStyle(
+                  color: Colors.black,
+                ),
               ),
-              Container(
-                padding: EdgeInsets.only(bottom: 10.0),
-                width: width,
-                child: DropdownButton<String>(
-                  isDense: true,
-                  hint: Text(
-                    'Category',
-                    style: TextStyle(fontSize: 14.0),
+            ),
+            Container(
+              padding: EdgeInsets.only(bottom: 10.0),
+              width: width,
+              child: TextField(
+                decoration: InputDecoration(
+                  labelText: 'Description',
+                  labelStyle: TextStyle(
+                    fontSize: 14.0
+                  )
+                ),
+                maxLines: 3,
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+            ),
+            Container(
+              alignment: Alignment.centerRight,
+              padding: const EdgeInsets.only(top: 10.0),
+              child: ButtonTheme(
+                minWidth: 50.0,
+                height: 30.0,
+                child: OutlineButton(
+                  child: Text(
+                    'NEXT',
+                    style: TextStyle(
+                        fontSize: 13.0, color: Colors.blue),
                   ),
-                  value: _categorySelection,
-                  onChanged: (String value) {
-                    setState(() {
-                      switch (int.tryParse(value)) {
-                        case 1:
-                          _category = 'BRC';
-                          break;
-
-                        case 2:
-                          _category = 'Not BRC';
-                          break;
-                      }
-                      _categorySelection = value;
-                    });
+                  borderSide:
+                      BorderSide(color: Colors.blue, width: 1.0),
+                  highlightedBorderColor: Colors.blue,
+                  onPressed: () {
+                    _tabController.animateTo(_tabController.index + 1);
                   },
-                  items: _categoryJSON.map((Map map) {
-                    return new DropdownMenuItem(
-                      value: map['id'].toString(),
-                      child: Text(map['category']),
-                    );
-                  }).toList(),
                 ),
               ),
-              Container(
-                padding: EdgeInsets.only(bottom: 10.0),
-                width: width,
-                child: TextField(
-                  decoration: InputDecoration(
-                      labelText: 'Title', labelStyle: TextStyle(fontSize: 14.0)),
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.only(bottom: 10.0),
-                width: width,
-                child: TextField(
-                  decoration: InputDecoration(
-                      labelText: 'Description',
-                      labelStyle: TextStyle(fontSize: 14.0)),
-                  maxLines: 3,
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-              Container(
-                alignment: Alignment.centerRight,
-                padding: const EdgeInsets.only(top: 10.0),
-                child: ButtonTheme(
-                  minWidth: 50.0,
-                  height: 30.0,
-                  child: OutlineButton(
-                    child: Text(
-                      'NEXT',
-                      style: TextStyle(fontSize: 13.0, color: Colors.blue),
-                    ),
-                    borderSide: BorderSide(color: Colors.blue, width: 1.0),
-                    highlightedBorderColor: Colors.blue,
-                    onPressed: () {
-                      _tabController.animateTo(_tabController.index + 1);
-                    },
-                  ),
-                ),
-              ),
-            ],
-          ),
-        )
-      ],
+            ),
+          ],
+        ),
+      )
     );
   }
 
   Widget _buildFormTask() {
     final double width = MediaQuery.of(context).size.width;
 
-    return ListView(
-      children: <Widget>[
-    Padding(
-    padding: EdgeInsets.symmetric(vertical: 125.0, horizontal: 20.0),
-    child: Column(
-    children: <Widget>[
-    Container(
-    padding: EdgeInsets.only(bottom: 20.0),
-    width: width,
-    child: TextField(
-    decoration: InputDecoration(
-    labelText: 'Task', labelStyle: TextStyle(fontSize: 14.0)),
-    maxLines: 3,
-    style: TextStyle(
-    color: Colors.black,
-    ),
-    ),
-    ),
-    Container(
-    padding: EdgeInsets.only(bottom: 10.0),
-    width: width,
-    child: DropdownButton<String>(
-    isDense: true,
-    hint: Text(
-    'PIC',
-    style: TextStyle(fontSize: 14.0),
-    ),
-    value: _picSelection,
-    onChanged: (String value) {
-    setState(() {
-    switch (int.tryParse(value)) {
-    case 1:
-    _pic = 'Anto';
-    break;
-
-    case 2:
-    _pic = 'Inem';
-    break;
-    }
-    _picSelection = value;
-    });
-    },
-    items: _picJSON.map((Map map) {
-    return new DropdownMenuItem(
-    value: map['id'].toString(),
-    child: Text(map['pic']),
-    );
-    }).toList(),
-    ),
-    ),
-    Container(
-    padding: EdgeInsets.only(bottom: 20.0),
-    width: width,
-    child: DateTimePickerFormField(
-    format: dateFormat,
-    onChanged: (dt) => setState(() => dueDate = dt),
-    dateOnly: true,
-    style: TextStyle(fontSize: 16.0, color: Colors.black),
-    decoration: InputDecoration(
-    border: UnderlineInputBorder(),
-    labelStyle: TextStyle(fontSize: 14.0),
-    labelText: 'Due Date'),
-    ),
-    ),
-    Row(
-    mainAxisAlignment: MainAxisAlignment.end,
-    children: <Widget>[
-    Container(
-    alignment: Alignment.centerRight,
-    padding: const EdgeInsets.only(top: 10.0, right: 20.0),
-    child: ButtonTheme(
-    minWidth: 50.0,
-    height: 30.0,
-    child: OutlineButton(
-    child: Text(
-    'Back',
-    style: TextStyle(fontSize: 13.0, color: Colors.grey),
-    ),
-    borderSide: BorderSide(color: Colors.grey, width: 1.0),
-    highlightedBorderColor: Colors.grey,
-    onPressed: () {
-    _tabController.animateTo(_tabController.index - 1);
-    },
-    ),
-    ),
-    ),
-    Container(
-    alignment: Alignment.centerRight,
-    padding: const EdgeInsets.only(top: 10.0),
-    child: ButtonTheme(
-    minWidth: 50.0,
-    height: 30.0,
-    child: OutlineButton(
-    child: Text(
-    'Add',
-    style: TextStyle(fontSize: 13.0, color: Colors.green),
-    ),
-    borderSide: BorderSide(color: Colors.green, width: 1.0),
-    highlightedBorderColor: Colors.green,
-    onPressed: () {
-    _addTask();
-    },
-    ),
-    ),
-    ),
-    ],
-    )
-    ],
-    ),
-    ),
-      ],
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 125.0, horizontal: 20.0),
+        child: Column(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.only(bottom: 10.0),
+              width: width,
+              child: TextField(
+                decoration: InputDecoration(
+                  labelText: 'Task',
+                  labelStyle: TextStyle(
+                    fontSize: 14.0
+                  )
+                ),
+                maxLines: 3,
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(bottom: 10.0),
+              width: width,
+              child: DropdownButtonFormField(
+                hint: Text(
+                  'PIC',
+                  style: TextStyle(
+                    fontSize: 14.0
+                  ),
+                ),
+                value: _picSelection,
+                onChanged: (String value) {
+                  setState(() {
+                    switch (int.tryParse(value)) {
+                      case 1:
+                        _pic = 'Anto';
+                        break;
+                      
+                      case 2:
+                        _pic = 'Inem';
+                        break;
+                    }
+                    _picSelection = value;
+                  });
+                },
+                items: _picJSON.map((Map map) {
+                  return new DropdownMenuItem(
+                    value: map['id'].toString(),
+                    child: Text(map['pic']),
+                  );
+                }).toList(),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(bottom: 20.0),
+              width: width,
+              child: DateTimePickerFormField(
+                format: dateFormat,
+                onChanged: (dt) => setState(() => dueDate = dt),
+                dateOnly: true,
+                style: TextStyle(fontSize: 16.0, color: Colors.black),
+                decoration: InputDecoration(
+                  border: UnderlineInputBorder(),
+                  labelStyle: TextStyle(fontSize: 14.0),
+                  labelText: 'Due Date'
+                ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Container(
+                  alignment: Alignment.centerRight,
+                  padding: const EdgeInsets.only(top: 10.0, right: 20.0),
+                  child: ButtonTheme(
+                    minWidth: 50.0,
+                    height: 30.0,
+                    child: OutlineButton(
+                      child: Text(
+                        'Back',
+                        style: TextStyle(
+                            fontSize: 13.0, color: Colors.grey),
+                      ),
+                      borderSide:
+                          BorderSide(color: Colors.grey, width: 1.0),
+                      highlightedBorderColor: Colors.grey,
+                      onPressed: () {
+                        _tabController.animateTo(_tabController.index - 1);
+                      },
+                    ),
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.centerRight,
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: ButtonTheme(
+                    minWidth: 50.0,
+                    height: 30.0,
+                    child: OutlineButton(
+                      child: Text(
+                        'Add',
+                        style: TextStyle(
+                            fontSize: 13.0, color: Colors.green),
+                      ),
+                      borderSide:
+                          BorderSide(color: Colors.green, width: 1.0),
+                      highlightedBorderColor: Colors.green,
+                      onPressed: () {
+                        _addTask();
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      )
     );
   }
 
@@ -333,8 +353,11 @@ class _CreateKpiMonitoringState extends State<CreateKpiMonitoring>
           badgeTextColor: Colors.white,
           icon: Icon(MdiIcons.formatListCheckbox, size: 26.0),
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => new DataTable()));
+            Navigator.push(context, 
+              MaterialPageRoute(
+                builder: (context) => new DataTable(counterData: counter,)
+              )
+            );
           },
         )
       ],
@@ -367,6 +390,9 @@ class _CreateKpiMonitoringState extends State<CreateKpiMonitoring>
 }
 
 class DataTable extends StatefulWidget {
+  final int counterData;
+  DataTable({this.counterData});
+
   @override
   _DataTableState createState() => new _DataTableState();
 }
@@ -378,7 +404,7 @@ class _DataTableState extends State<DataTable> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Data'),
+        title: Text('${widget.counterData.toString()} Data'),
       ),
       body: SingleChildScrollView(
         child: PaginatedDataTable(
@@ -387,7 +413,7 @@ class _DataTableState extends State<DataTable> {
           availableRowsPerPage: <int>[5, 10, 20],
           onRowsPerPageChanged: (int value) {
             setState(() {
-              _rowsPerPage = value;
+              _rowsPerPage = value;            
             });
           },
           columns: kTableColumns,
@@ -408,7 +434,10 @@ class _DataTableState extends State<DataTable> {
 }
 
 const kTableColumns = <DataColumn>[
-  DataColumn(label: const Text('No'), numeric: true),
+  DataColumn(
+    label: const Text('No'),
+    numeric: true
+  ),
   DataColumn(
     label: const Text('Task'),
   ),
@@ -456,22 +485,23 @@ class DessertDataSource extends DataTableSource {
     final Dessert dessert = _desserts[index];
 
     return DataRow.byIndex(
-        index: index,
-        selected: dessert.selected,
-        onSelectChanged: (bool value) {
-          if (dessert.selected != value) {
-            _selectedCount += value ? 1 : -1;
-            assert(_selectedCount >= 0);
-            dessert.selected = value;
-            notifyListeners();
-          }
-        },
-        cells: <DataCell>[
-          DataCell(Text('${dessert.no}')),
-          DataCell(Text('${dessert.task}')),
-          DataCell(Text('${dessert.pic}')),
-          DataCell(Text('${dessert.duedate}')),
-        ]);
+      index: index,
+      selected: dessert.selected,
+      onSelectChanged: (bool value) {
+        if (dessert.selected != value) {
+          _selectedCount += value ? 1 : -1;
+          assert(_selectedCount >= 0);
+          dessert.selected = value;
+          notifyListeners();
+        }
+      },
+      cells: <DataCell>[
+        DataCell(Text('${dessert.no}')),
+        DataCell(Text('${dessert.task}')),
+        DataCell(Text('${dessert.pic}')),
+        DataCell(Text('${dessert.duedate}')),
+      ]
+    );
   }
 
   @override

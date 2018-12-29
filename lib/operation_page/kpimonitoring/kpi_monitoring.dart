@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
+import 'package:flutter_abuba/operation_page/kpimonitoring/kpi_history.dart';
 
 class KpiMonitoring extends StatefulWidget {
   @override
@@ -41,36 +42,6 @@ class _KpiMonitoringState extends State<KpiMonitoring> {
 
   TextEditingController _controllerNote = new TextEditingController();
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  VoidCallback _showPersBottomSheetCallback;
-
-  @override
-  void initState() {
-    super.initState();
-    _showPersBottomSheetCallback = _showBottomSheet;
-  }
-
-  void _showBottomSheet() {
-    setState(() {
-      _showPersBottomSheetCallback = null;      
-    });
-
-    _scaffoldKey.currentState.showBottomSheet(
-      (context) {
-        return Container(
-          color: Colors.redAccent,
-          child: Center(
-            child: Text('Hallo'),
-          ),
-        );
-      }
-    ).closed.whenComplete(() {
-      if (mounted) {
-        setState(() {
-          _showPersBottomSheetCallback = _showBottomSheet;          
-        });
-      }
-    });
-  }
  
   @override
   Widget build(BuildContext context) {
@@ -113,46 +84,47 @@ class _KpiMonitoringState extends State<KpiMonitoring> {
                   )
                 : Column(
                   children: <Widget>[
-                    Dismissible(
-                      key: Key(valueKPI),
-                      onDismissed: (DismissDirection dir) {
-                        setState(() {
-                          this._titleKPI.removeAt(index);
-                          this._valueKPI.removeAt(index);
-                          this._subtitleKPI.removeAt(index);
-                          this._tanggalKPI.removeAt(index);
-                        });
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                      child: Dismissible(
+                        key: Key(valueKPI),
+                        onDismissed: (DismissDirection dir) {
+                          setState(() {
+                            this._titleKPI.removeAt(index);
+                            this._valueKPI.removeAt(index);
+                            this._subtitleKPI.removeAt(index);
+                            this._tanggalKPI.removeAt(index);
+                          });
 
-                        _scaffoldKey.currentState.showSnackBar(
-                          SnackBar(
-                            content: RichText(
-                              overflow: TextOverflow.ellipsis,
-                              text: TextSpan(
-                                text: dir == DismissDirection.startToEnd
-                                ? '$titleKPI'
-                                : '$titleKPI',
+                          _scaffoldKey.currentState.showSnackBar(
+                            SnackBar(
+                              content: RichText(
+                                overflow: TextOverflow.ellipsis,
+                                text: TextSpan(
+                                  text: dir == DismissDirection.startToEnd
+                                  ? '$titleKPI'
+                                  : '$titleKPI',
+                                ),
                               ),
-                            ),
-                            action: SnackBarAction(
-                              label: 'UNDO',
-                              onPressed: () {
-                                setState(() {
-                                  this._titleKPI.insert(index, titleKPI);
-                                  this._subtitleKPI.insert(index, subtitleKPI);
-                                  this._tanggalKPI.insert(index, tanggalKPI);
-                                  this._valueKPI.insert(index, valueKPI);
-                                });
-                              },
-                            ),
-                            duration: Duration(
-                              seconds: 3
-                            ),
-                          )
-                        );
-                      },
-                      background: Container(
-                        color: Colors.green,
-                        child: Padding(
+                              action: SnackBarAction(
+                                label: 'UNDO',
+                                onPressed: () {
+                                  setState(() {
+                                    this._titleKPI.insert(index, titleKPI);
+                                    this._subtitleKPI.insert(index, subtitleKPI);
+                                    this._tanggalKPI.insert(index, tanggalKPI);
+                                    this._valueKPI.insert(index, valueKPI);
+                                  });
+                                },
+                              ),
+                              duration: Duration(
+                                seconds: 3
+                              ),
+                            )
+                          );
+                        },
+                        background: Container(
+                          color: Colors.green,
                           padding: const EdgeInsets.only(right: 30.0, left: 30.0, bottom: 10.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -172,12 +144,10 @@ class _KpiMonitoringState extends State<KpiMonitoring> {
                               )
                             ],
                           ),
+                          alignment: Alignment.centerLeft
                         ),
-                        alignment: Alignment.centerLeft
-                      ),
-                      secondaryBackground: Container(
-                        color: Colors.green,
-                        child: Padding(
+                        secondaryBackground: Container(
+                          color: Colors.green,
                           padding: const EdgeInsets.only(right: 30.0, left: 30.0, bottom: 10.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -197,91 +167,88 @@ class _KpiMonitoringState extends State<KpiMonitoring> {
                               )
                             ],
                           ),
+                          alignment: Alignment.centerRight
                         ),
-                        alignment: Alignment.centerRight
-                      ),
-                      child: Container(
-                        color: Colors.white,
-                        child: ListTile(
-                          title: Text(
-                            _titleKPI[index],
-                            style: TextStyle(
-                              fontSize: 16.0
-                            ),
-                          ),
-                          subtitle: Padding(
-                            padding: EdgeInsets.only(top: 10.0),
-                            child: Text(
-                              _tanggalKPI[index] + ' - ' + _subtitleKPI[index],
+                        child: Container(
+                          color: Colors.white,
+                          child: ListTile(
+                            title: Text(
+                              _titleKPI[index],
                               style: TextStyle(
-                                fontSize: 14.0
+                                fontSize: 16.0
                               ),
                             ),
-                          ),
-                          trailing: ButtonTheme(
-                            minWidth: 50.0,
-                            height: 20.0,
-                            child: OutlineButton(
+                            subtitle: Padding(
+                              padding: EdgeInsets.only(top: 10.0),
                               child: Text(
-                                'Note',
+                                _tanggalKPI[index] + ' - ' + _subtitleKPI[index],
                                 style: TextStyle(
-                                    fontSize: 13.0
+                                  fontSize: 14.0
                                 ),
                               ),
-                              borderSide: BorderSide(
-                                  color: Colors.green,
-                                  width: 1.0
-                              ),
-                              highlightedBorderColor: Colors.green,
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      title: Text(_titleKPI[index]),
-                                      content: Container(
-                                        width: 300.0,
-                                        child: TextField(
-                                          controller: _controllerNote,
-                                          decoration: InputDecoration(
-                                            border: OutlineInputBorder(),
-                                            hintText: 'Note',
-                                            hintStyle: TextStyle(fontSize: 12.0),
-                                          ),
-                                          maxLines: 3,
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ),
-                                      actions: <Widget>[
-                                        FlatButton(
-                                          splashColor: Colors.greenAccent,
-                                          child: Text(
-                                            'OK',
+                            ),
+                            trailing: ButtonTheme(
+                              minWidth: 50.0,
+                              height: 20.0,
+                              child: OutlineButton(
+                                child: Text(
+                                  'Note',
+                                  style: TextStyle(
+                                      fontSize: 13.0
+                                  ),
+                                ),
+                                borderSide: BorderSide(
+                                    color: Colors.green,
+                                    width: 1.0
+                                ),
+                                highlightedBorderColor: Colors.green,
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: Text(_titleKPI[index]),
+                                        content: Container(
+                                          width: 300.0,
+                                          child: TextField(
+                                            controller: _controllerNote,
+                                            decoration: InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              hintText: 'Note',
+                                              hintStyle: TextStyle(fontSize: 12.0),
+                                            ),
+                                            maxLines: 3,
                                             style: TextStyle(
-                                              color: Colors.green
+                                              color: Colors.black,
                                             ),
                                           ),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                        )
-                                      ],
-                                    );
-                                  }
-                                );
-                              },
-                            ),
-                          )
-                        ),
-                      )
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 10.0),
-                      child: Divider(
-                        height: 2.0,
+                                        ),
+                                        actions: <Widget>[
+                                          FlatButton(
+                                            splashColor: Colors.greenAccent,
+                                            child: Text(
+                                              'OK',
+                                              style: TextStyle(
+                                                color: Colors.green
+                                              ),
+                                            ),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          )
+                                        ],
+                                      );
+                                    }
+                                  );
+                                },
+                              ),
+                            )
+                          ),
+                        )
                       ),
+                    ),
+                    Divider(
+                      height: 2.0,
                     )
                   ],
                 );
@@ -308,50 +275,51 @@ class _KpiMonitoringState extends State<KpiMonitoring> {
 
                 return _titleKPI.length == 0
                 ? Center(
-                    child: Text('No Data'), 
+                    child: Text('No Data'),
                   )
                 : Column(
                   children: <Widget>[
-                    Dismissible(
-                      key: Key(valueKPI),
-                      onDismissed: (DismissDirection dir) {
-                        setState(() {
-                          this._titleKPI.removeAt(index);
-                          this._valueKPI.removeAt(index);
-                          this._subtitleKPI.removeAt(index);
-                          this._tanggalKPI.removeAt(index);
-                        });
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                      child: Dismissible(
+                        key: Key(valueKPI),
+                        onDismissed: (DismissDirection dir) {
+                          setState(() {
+                            this._titleKPI.removeAt(index);
+                            this._valueKPI.removeAt(index);
+                            this._subtitleKPI.removeAt(index);
+                            this._tanggalKPI.removeAt(index);
+                          });
 
-                        _scaffoldKey.currentState.showSnackBar(
-                          SnackBar(
-                            content: RichText(
-                              overflow: TextOverflow.ellipsis,
-                              text: TextSpan(
-                                text: dir == DismissDirection.startToEnd
-                                ? '$titleKPI'
-                                : '$titleKPI',
+                          _scaffoldKey.currentState.showSnackBar(
+                            SnackBar(
+                              content: RichText(
+                                overflow: TextOverflow.ellipsis,
+                                text: TextSpan(
+                                  text: dir == DismissDirection.startToEnd
+                                  ? '$titleKPI'
+                                  : '$titleKPI',
+                                ),
                               ),
-                            ),
-                            action: SnackBarAction(
-                              label: 'UNDO',
-                              onPressed: () {
-                                setState(() {
-                                  this._titleKPI.insert(index, titleKPI);
-                                  this._subtitleKPI.insert(index, subtitleKPI);
-                                  this._tanggalKPI.insert(index, tanggalKPI);
-                                  this._valueKPI.insert(index, valueKPI);
-                                });
-                              },
-                            ),
-                            duration: Duration(
-                              seconds: 3
-                            ),
-                          )
-                        );
-                      },
-                      background: Container(
-                        color: Colors.green,
-                        child: Padding(
+                              action: SnackBarAction(
+                                label: 'UNDO',
+                                onPressed: () {
+                                  setState(() {
+                                    this._titleKPI.insert(index, titleKPI);
+                                    this._subtitleKPI.insert(index, subtitleKPI);
+                                    this._tanggalKPI.insert(index, tanggalKPI);
+                                    this._valueKPI.insert(index, valueKPI);
+                                  });
+                                },
+                              ),
+                              duration: Duration(
+                                seconds: 3
+                              ),
+                            )
+                          );
+                        },
+                        background: Container(
+                          color: Colors.green,
                           padding: const EdgeInsets.only(right: 30.0, left: 30.0, bottom: 10.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -371,12 +339,10 @@ class _KpiMonitoringState extends State<KpiMonitoring> {
                               )
                             ],
                           ),
+                          alignment: Alignment.centerLeft
                         ),
-                        alignment: Alignment.centerLeft
-                      ),
-                      secondaryBackground: Container(
-                        color: Colors.green,
-                        child: Padding(
+                        secondaryBackground: Container(
+                          color: Colors.green,
                           padding: const EdgeInsets.only(right: 30.0, left: 30.0, bottom: 10.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -396,91 +362,88 @@ class _KpiMonitoringState extends State<KpiMonitoring> {
                               )
                             ],
                           ),
+                          alignment: Alignment.centerRight
                         ),
-                        alignment: Alignment.centerRight
-                      ),
-                      child: Container(
-                        color: Colors.white,
-                        child: ListTile(
-                          title: Text(
-                            _titleKPI[index],
-                            style: TextStyle(
-                              fontSize: 16.0
-                            ),
-                          ),
-                          subtitle: Padding(
-                            padding: EdgeInsets.only(top: 10.0),
-                            child: Text(
-                              _tanggalKPI[index] + ' - ' + _subtitleKPI[index],
+                        child: Container(
+                          color: Colors.white,
+                          child: ListTile(
+                            title: Text(
+                              _titleKPI[index],
                               style: TextStyle(
-                                fontSize: 14.0
+                                fontSize: 16.0
                               ),
                             ),
-                          ),
-                          trailing: ButtonTheme(
-                            minWidth: 50.0,
-                            height: 20.0,
-                            child: OutlineButton(
+                            subtitle: Padding(
+                              padding: EdgeInsets.only(top: 10.0),
                               child: Text(
-                                'Note',
+                                _tanggalKPI[index] + ' - ' + _subtitleKPI[index],
                                 style: TextStyle(
-                                    fontSize: 13.0
+                                  fontSize: 14.0
                                 ),
                               ),
-                              borderSide: BorderSide(
-                                  color: Colors.green,
-                                  width: 1.0
-                              ),
-                              highlightedBorderColor: Colors.green,
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      title: Text(_titleKPI[index]),
-                                      content: Container(
-                                        width: 300.0,
-                                        child: TextField(
-                                          controller: _controllerNote,
-                                          decoration: InputDecoration(
-                                            border: OutlineInputBorder(),
-                                            hintText: 'Note',
-                                            hintStyle: TextStyle(fontSize: 12.0),
-                                          ),
-                                          maxLines: 3,
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ),
-                                      actions: <Widget>[
-                                        FlatButton(
-                                          splashColor: Colors.greenAccent,
-                                          child: Text(
-                                            'OK',
+                            ),
+                            trailing: ButtonTheme(
+                              minWidth: 50.0,
+                              height: 20.0,
+                              child: OutlineButton(
+                                child: Text(
+                                  'Note',
+                                  style: TextStyle(
+                                      fontSize: 13.0
+                                  ),
+                                ),
+                                borderSide: BorderSide(
+                                    color: Colors.green,
+                                    width: 1.0
+                                ),
+                                highlightedBorderColor: Colors.green,
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: Text(_titleKPI[index]),
+                                        content: Container(
+                                          width: 300.0,
+                                          child: TextField(
+                                            controller: _controllerNote,
+                                            decoration: InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              hintText: 'Note',
+                                              hintStyle: TextStyle(fontSize: 12.0),
+                                            ),
+                                            maxLines: 3,
                                             style: TextStyle(
-                                              color: Colors.green
+                                              color: Colors.black,
                                             ),
                                           ),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                        )
-                                      ],
-                                    );
-                                  }
-                                );
-                              },
-                            ),
-                          )
-                        ),
-                      )
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 10.0),
-                      child: Divider(
-                        height: 2.0,
+                                        ),
+                                        actions: <Widget>[
+                                          FlatButton(
+                                            splashColor: Colors.greenAccent,
+                                            child: Text(
+                                              'OK',
+                                              style: TextStyle(
+                                                color: Colors.green
+                                              ),
+                                            ),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          )
+                                        ],
+                                      );
+                                    }
+                                  );
+                                },
+                              ),
+                            )
+                          ),
+                        )
                       ),
+                    ),
+                    Divider(
+                      height: 2.0,
                     )
                   ],
                 );
@@ -506,39 +469,18 @@ class _KpiMonitoringState extends State<KpiMonitoring> {
             width: 120.0,
           ),
           new Container(
-            child: new Row(
-              children: <Widget>[
-                Container(
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.favorite,
-                        color: Colors.red[500],
-                        size: 20.0,
-                      ),
-                      SizedBox(
-                        width: 5.0,
-                      ),
-                      Text(
-                        '41 pts',
-                        style: TextStyle(fontSize: 12.0, color: Colors.grey),
-                      ),
-                    ],
-                  ),
-                ),
-                PopupMenuButton(
-                  itemBuilder: (context) {
-                    return [
-                      PopupMenuItem(
-                        child: GestureDetector(
-                          onTap: _showPersBottomSheetCallback,
-                          child: Text('History'),
-                        ),
-                      )
-                    ];
-                  },
-                )
-              ],
+            child: IconButton(
+              icon: Icon(Icons.history),
+              color: Colors.black,
+              iconSize: 22.0,
+              onPressed: () {
+                Navigator.push(context,
+                  MyCustomRoute(
+                    builder: (context) => new History()
+                  )
+                );
+              },
+              tooltip: 'History',
             ),
           )
         ],

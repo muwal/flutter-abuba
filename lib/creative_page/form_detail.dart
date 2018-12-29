@@ -812,8 +812,182 @@ class _FormDetailState extends State<FormDetail> {
             ),
           ),
           SizedBox(
-            height: 20.0,
+            height: 15.0,
           ),
+          Container(
+            color: Colors.white,
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20.0, 12.0, 20.0, 0.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Flexible(
+                        child: Text(
+                          'Status',
+                          style: TextStyle(color: AbubaPallate.green),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20.0, 8.0, 20.0, 12.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Flexible(
+                        child: Text(
+                            'No. Creative Idea',
+                            style: TextStyle(
+                                fontSize: 12.0, color: Colors.black38)),
+                      ),
+                      Flexible(
+                        child: Text(
+                            '0123456',
+                            style: TextStyle(
+                                fontSize: 12.0, color: Colors.black38)),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 15.0,
+          ),
+          Container(
+            color: Colors.white,
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20.0, 12.0, 20.0, 0.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Flexible(
+                        child: Text(
+                          'Informasi Pengiriman',
+                          style: TextStyle(color: AbubaPallate.green),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20.0, 8.0, 20.0, 12.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Container(
+                        width: 100.0,
+                        child: Row(
+                          children: <Widget>[
+                            Flexible(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    'Tanggal Kirim',
+                                    style: TextStyle(
+                                        color: Colors.grey[500], fontSize: 10.0),
+                                  ),
+                                  SizedBox(
+                                    height: 3.0,
+                                  ),
+                                  Text(
+                                    '17/08/2018',
+                                    style: TextStyle(color: Colors.black54, fontSize: 12.0),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: 100.0,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Flexible(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    'Dari',
+                                    style: TextStyle(
+                                        color: Colors.grey[500], fontSize: 10.0),
+                                  ),
+                                  SizedBox(
+                                    height: 3.0,
+                                  ),
+                                  Text(
+                                    'Ridwan HRD',
+                                    style: TextStyle(color: Colors.black54, fontSize: 12.0),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: 100.0,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end ,
+                          children: <Widget>[
+                            Flexible(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    'Kepada',
+                                    style: TextStyle(
+                                        color: Colors.grey[500], fontSize: 10.0),
+                                  ),
+                                  SizedBox(
+                                    height: 3.0,
+                                  ),
+                                  Text(
+                                    'Sony IT',
+                                    style: TextStyle(color: Colors.black54, fontSize: 12.0),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      ButtonTheme(
+                        minWidth: 50.0,
+                        height: 20.0,
+                        child: OutlineButton(
+                          borderSide: BorderSide(color: AbubaPallate.greenabuba),
+                          child: Text(
+                            'Approve',
+                            style: TextStyle(fontSize: 12.0, color: AbubaPallate.greenabuba),
+                          ),
+                          onPressed: () {},
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+          SizedBox(height: 20.0,)
         ],
       ),
     );
