@@ -9,7 +9,6 @@ class DetailPerbaikan extends StatefulWidget {
 }
 
 class _DetailPerbaikanState extends State<DetailPerbaikan> {
-  bool _note = false;
   var ratingChiller = 0.0;
 
   TextEditingController controllerNoteSatu = new TextEditingController();

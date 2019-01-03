@@ -4,6 +4,7 @@ import 'package:flutter_abuba/operation_page/kpimonitoring/kpi_monitoring.dart';
 import 'package:flutter_abuba/operation_page/kpimonitoring/kpi_monitoring_create.dart';
 import 'package:flutter_abuba/operation_page/kpimonitoring/kpi_monitoring_dashboard.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 
 class BerandaKpiMonitoring extends StatefulWidget {
   @override
@@ -15,7 +16,7 @@ class _BerandaKpiMonitoringState extends State<BerandaKpiMonitoring> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: _appBar(),
+        appBar: AbubaAppBar(),
         body: _buildIsoMenu(),
       ),
     );
@@ -38,7 +39,7 @@ class _BerandaKpiMonitoringState extends State<BerandaKpiMonitoring> {
                 child: Text(
                   '|',
                   style:
-                  TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
+                      TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
                 ),
               ),
               Padding(
@@ -46,7 +47,7 @@ class _BerandaKpiMonitoringState extends State<BerandaKpiMonitoring> {
                 child: Text(
                   'KPI Monitoring',
                   style:
-                  TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
+                      TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
                 ),
               ),
             ],
@@ -59,11 +60,10 @@ class _BerandaKpiMonitoringState extends State<BerandaKpiMonitoring> {
             children: <Widget>[
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context,
-                    MaterialPageRoute(
-                      builder: (context) => new CreateKpiMonitoring()
-                    )
-                  );
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => new CreateKpiMonitoring()));
                 },
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -72,14 +72,12 @@ class _BerandaKpiMonitoringState extends State<BerandaKpiMonitoring> {
                       height: 70.0,
                       width: 70.0,
                       decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        border: Border.all(
-                          color: Colors.grey, width: 1.0),
-                        borderRadius:
-                          BorderRadius.all(Radius.circular(18.0)
-                        )
-                      ),
-                      child: Icon(MdiIcons.heart,size: 25.0, color: Colors.grey),
+                          color: Colors.transparent,
+                          border: Border.all(color: Colors.grey, width: 1.0),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(18.0))),
+                      child:
+                          Icon(MdiIcons.heart, size: 25.0, color: Colors.grey),
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 10.0),
@@ -94,11 +92,10 @@ class _BerandaKpiMonitoringState extends State<BerandaKpiMonitoring> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context,
-                    MaterialPageRoute(
-                      builder: (context) => new DashboardKpiMonitoring()
-                    )
-                  );
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => new DashboardKpiMonitoring()));
                 },
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -106,11 +103,11 @@ class _BerandaKpiMonitoringState extends State<BerandaKpiMonitoring> {
                     Container(
                       height: 70.0,
                       width: 70.0,
-                      child: Icon(MdiIcons.heart, size: 25.0, color: Colors.grey),
+                      child:
+                          Icon(MdiIcons.heart, size: 25.0, color: Colors.grey),
                       decoration: BoxDecoration(
                           color: Colors.transparent,
-                          border: Border.all(
-                              color: Colors.grey, width: 1.0),
+                          border: Border.all(color: Colors.grey, width: 1.0),
                           borderRadius:
                               BorderRadius.all(Radius.circular(18.0))),
                     ),
@@ -127,11 +124,10 @@ class _BerandaKpiMonitoringState extends State<BerandaKpiMonitoring> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context,
-                    MaterialPageRoute(
-                      builder: (context) => new KpiMonitoring()
-                    )
-                  );
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => new KpiMonitoring()));
                 },
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -144,8 +140,8 @@ class _BerandaKpiMonitoringState extends State<BerandaKpiMonitoring> {
                           width: 70.0,
                           decoration: BoxDecoration(
                               color: Colors.transparent,
-                              border: Border.all(
-                                  color: Colors.grey, width: 1.0),
+                              border:
+                                  Border.all(color: Colors.grey, width: 1.0),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(18.0))),
                         ),
@@ -189,49 +185,6 @@ class _BerandaKpiMonitoringState extends State<BerandaKpiMonitoring> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _appBar() {
-    return AppBar(
-      elevation: 0.25,
-      backgroundColor: Colors.white,
-      iconTheme: IconThemeData(color: Colors.black),
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Image.asset(
-            'assets/images/logo.png',
-            height: 100.0,
-            width: 120.0,
-          ),
-          new Container(
-            child: new Row(
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.only(right: 15.0),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.favorite,
-                        color: Colors.red[500],
-                        size: 20.0,
-                      ),
-                      SizedBox(
-                        width: 5.0,
-                      ),
-                      Text(
-                        '41 pts',
-                        style: TextStyle(fontSize: 12.0, color: Colors.grey),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          )
-        ],
-      ),
     );
   }
 }

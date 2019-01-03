@@ -656,7 +656,7 @@ class _FormCreateNewState extends State<FormCreateNew> with SingleTickerProvider
                   )
                 ],
               ),
-              ListView(
+                ListView(
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(20.0),

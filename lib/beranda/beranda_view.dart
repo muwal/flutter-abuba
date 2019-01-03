@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_abuba/R_D/beranda_RD.dart';
+import 'package:flutter_abuba/creative_page/form_comment.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter_abuba/beranda/beranda_appbar.dart';
@@ -12,6 +14,7 @@ import 'package:flutter_abuba/whats_page/form_comment.dart';
 import 'package:flutter_abuba/whats_page/form_create_happening.dart';
 import 'package:flutter_abuba/creative_page/form_detail.dart';
 import 'package:flutter_abuba/creative_page/form_create.dart';
+import 'package:flutter_abuba/finance_page/beranda_finance.dart';
 
 class BerandaPage extends StatefulWidget {
   @override
@@ -22,10 +25,11 @@ class _BerandaPageState extends State<BerandaPage> {
   List<bool> _alreadyOKHappening = [false, false, true];
   List<int> _counterOKHappening = [200, 150, 500];
   List<bool> _likeHappening = [false, true, false];
-  List<int> _counterLikeHapping = [0, 20, 100];
+  List<int> _counterLikeHappening = [0, 20, 100];
 
-  bool _likeIdea = false;
-  int _counterLikeIdea = 0;
+  List<bool> _likeIdea = [false, true, false];
+  List<int> _counterLikeIdea = [0, 20, 100];
+  List<int> _counterViewIdea = [100, 50, 33];
 
   @override
   Widget build(BuildContext context) {
@@ -462,109 +466,123 @@ class _BerandaPageState extends State<BerandaPage> {
                             ],
                           ),
                         ),
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Stack(
-                              overflow: Overflow.visible,
-                              children: <Widget>[
-                                Container(
-                                  height: 70.0,
-                                  width: 70.0,
-                                  decoration: BoxDecoration(
-                                      color: Colors.transparent,
-                                      border: Border.all(
-                                          color: Colors.grey, width: 1.0),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(18.0))),
-                                ),
-                                Positioned(
-                                  bottom: 22.5,
-                                  left: 25.0,
-                                  child: Icon(MdiIcons.heart,
-                                      size: 25.0, color: Colors.grey),
-                                ),
-                                Positioned(
-                                  top: -5.0,
-                                  right: -5.0,
-                                  child: Icon(
-                                    Icons.brightness_1,
-                                    size: 25.0,
-                                    color: Colors.redAccent,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MyCustomRoute(
+                                    builder: (context) => BerandaFinance()));
+                          },
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Stack(
+                                overflow: Overflow.visible,
+                                children: <Widget>[
+                                  Container(
+                                    height: 70.0,
+                                    width: 70.0,
+                                    decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        border: Border.all(
+                                            color: Colors.grey, width: 1.0),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(18.0))),
                                   ),
-                                ),
-                                Positioned(
-                                  top: -1.0,
-                                  right: 3.0,
-                                  child: Text(
-                                    '2',
-                                    style: TextStyle(color: Colors.white),
+                                  Positioned(
+                                    bottom: 22.5,
+                                    left: 25.0,
+                                    child: Icon(MdiIcons.heart,
+                                        size: 25.0, color: Colors.grey),
                                   ),
-                                )
-                              ],
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 10.0),
-                              child: Text(
-                                'FINANCE',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12.0),
+                                  Positioned(
+                                    top: -5.0,
+                                    right: -5.0,
+                                    child: Icon(
+                                      Icons.brightness_1,
+                                      size: 25.0,
+                                      color: Colors.redAccent,
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: -1.0,
+                                    right: 3.0,
+                                    child: Text(
+                                      '2',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  )
+                                ],
                               ),
-                            ),
-                          ],
+                              Padding(
+                                padding: EdgeInsets.only(top: 10.0),
+                                child: Text(
+                                  'FINANCE',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12.0),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Stack(
-                              overflow: Overflow.visible,
-                              children: <Widget>[
-                                Container(
-                                  height: 70.0,
-                                  width: 70.0,
-                                  decoration: BoxDecoration(
-                                      color: Colors.transparent,
-                                      border: Border.all(
-                                          color: Colors.grey, width: 1.0),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(18.0))),
-                                ),
-                                Positioned(
-                                  bottom: 22.5,
-                                  left: 25.0,
-                                  child: Icon(MdiIcons.heart,
-                                      size: 25.0, color: Colors.grey),
-                                ),
-                                Positioned(
-                                  top: -5.0,
-                                  right: -5.0,
-                                  child: Icon(
-                                    Icons.brightness_1,
-                                    size: 25.0,
-                                    color: Colors.redAccent,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(context,
+                                MyCustomRoute(builder: (context) => MenuRD()));
+                          },
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Stack(
+                                overflow: Overflow.visible,
+                                children: <Widget>[
+                                  Container(
+                                    height: 70.0,
+                                    width: 70.0,
+                                    decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        border: Border.all(
+                                            color: Colors.grey, width: 1.0),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(18.0))),
                                   ),
-                                ),
-                                Positioned(
-                                  top: -1.0,
-                                  right: 3.0,
-                                  child: Text(
-                                    '2',
-                                    style: TextStyle(color: Colors.white),
+                                  Positioned(
+                                    bottom: 22.5,
+                                    left: 25.0,
+                                    child: Icon(MdiIcons.heart,
+                                        size: 25.0, color: Colors.grey),
                                   ),
-                                )
-                              ],
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 10.0),
-                              child: Text(
-                                'R&D',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12.0),
+                                  Positioned(
+                                    top: -5.0,
+                                    right: -5.0,
+                                    child: Icon(
+                                      Icons.brightness_1,
+                                      size: 25.0,
+                                      color: Colors.redAccent,
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: -1.0,
+                                    right: 3.0,
+                                    child: Text(
+                                      '2',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  )
+                                ],
                               ),
-                            ),
-                          ],
+                              Padding(
+                                padding: EdgeInsets.only(top: 10.0),
+                                child: Text(
+                                  'R&D',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12.0),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         GestureDetector(
                           onTap: () => Navigator.push(
@@ -772,160 +790,220 @@ class _BerandaPageState extends State<BerandaPage> {
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Row(
+              Container(
+                padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                height: 350.0,
+                width: MediaQuery.of(context).size.width,
+                child: Column(
                   children: <Widget>[
                     Flexible(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            'Meningkatkan sales sebanyak 25% lewat upselling',
-                            style:
-                                TextStyle(color: Colors.black, fontSize: 13.0),
-                          ),
-                          SizedBox(
-                            height: 5.0,
-                          ),
-                          Text(
-                            'Ridwan . HRD . 2h',
-                            style: TextStyle(
-                                color: Colors.grey[500], fontSize: 12.0),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
-                child: Text(
-                  'Dengan menjalankan ide ini, sales di outlet A berhasil meningkat sebesar 50% selama 1 minggu sejak implementasi',
-                  style: TextStyle(color: Colors.black38, fontSize: 13.0),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(right: 20.0),
-                    child: ButtonTheme(
-                      minWidth: 50.0,
-                      height: 20.0,
-                      child: OutlineButton(
-                        child: Text(
-                          'Detail',
-                          style: TextStyle(fontSize: 13.0),
-                        ),
-                        borderSide: BorderSide(color: Colors.green, width: 1.0),
-                        highlightedBorderColor: Colors.green,
-                        onPressed: () => Navigator.push(context,
-                            MyCustomRoute(builder: (context) => FormDetail())),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Stack(
-                      overflow: Overflow.visible,
-                      children: <Widget>[
-                        Container(
-                          height: 150.0,
-                          width: MediaQuery.of(context).size.width - 33,
-                          decoration: BoxDecoration(
-                              color: Colors.green,
-                              border:
-                                  Border.all(color: Colors.black12, width: 4.0),
-                              image: DecorationImage(
-                                  image: NetworkImage(
-                                      "https://c1.staticflickr.com/5/4149/35646344915_805ee67321_b.jpg"),
-                                  fit: BoxFit.cover)),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 15.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Container(
-                      width: 100.0,
-                      child: Row(
-                        children: <Widget>[
-                          Flexible(
-                            child: Text(
-                              '200',
-                              style: TextStyle(color: AbubaPallate.green),
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: _counterLikeIdea.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Container(
+                            width: MediaQuery.of(context).size.width - 40.0,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Container(
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    'Meningkatkan sales sebanyak 25% lewat upselling',
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 13.0),
+                                  ),
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(top: 3.0),
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    'Ridwan . HRD . 2h',
+                                    style: TextStyle(
+                                        color: Colors.black38, fontSize: 12.0),
+                                  ),
+                                ),
+                                Container(
+                                  alignment: Alignment.topLeft,
+                                  padding:
+                                      EdgeInsets.only(top: 10.0, bottom: 10.0),
+                                  child: Text(
+                                    'Dengan menjalankan ide ini, sales di outlet A berhasil meningkat sebesar 50% selama 1 minggu sejak implementasi',
+                                    style: TextStyle(
+                                        color: Colors.black38, fontSize: 13.0),
+                                  ),
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(right: 20.0),
+                                  alignment: Alignment.topRight,
+                                  child: ButtonTheme(
+                                    minWidth: 50.0,
+                                    height: 20.0,
+                                    child: OutlineButton(
+                                      child: Text(
+                                        'Detail',
+                                        style: TextStyle(fontSize: 13.0),
+                                      ),
+                                      borderSide: BorderSide(
+                                          color: Colors.green, width: 1.0),
+                                      highlightedBorderColor: Colors.green,
+                                      onPressed: () => Navigator.push(
+                                          context,
+                                          MyCustomRoute(
+                                              builder: (context) =>
+                                                  FormDetail())),
+                                    ),
+                                  ),
+                                ),
+                                ListTile(
+                                  contentPadding:
+                                      EdgeInsets.symmetric(horizontal: 10.0),
+                                  onTap: null,
+                                  title: Container(
+                                    height: 140.0,
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey,
+                                        border: Border.all(
+                                            color: Colors.black12, width: 2.0),
+                                        image: DecorationImage(
+                                            image: NetworkImage(
+                                                "https://c1.staticflickr.com/5/4149/35646344915_805ee67321_b.jpg"),
+                                            fit: BoxFit.cover)),
+                                  ),
+                                  subtitle: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 10.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            IconButton(
+                                                tooltip: 'VIEWS',
+                                                alignment:
+                                                    Alignment.centerRight,
+                                                icon: Icon(Icons.visibility),
+                                                iconSize: 18.0,
+                                                color:
+                                                    _alreadyOKHappening[index]
+                                                        ? AbubaPallate.green
+                                                        : Colors.grey,
+                                                onPressed: null),
+                                            _counterViewIdea[index] == 0
+                                                ? Container()
+                                                : Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 5.0),
+                                                    child: Text(
+                                                      _counterViewIdea[index]
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.grey[500]),
+                                                    ),
+                                                  )
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 10.0),
+                                        child: GestureDetector(
+                                          onTap: () => Navigator.push(
+                                              context,
+                                              MyCustomRoute(
+                                                  builder: (context) =>
+                                                      FormCommentIdea())),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              Icon(Icons.chat,
+                                                  size: 18.0,
+                                                  color: AbubaPallate.green),
+                                              Container(
+                                                padding:
+                                                    EdgeInsets.only(left: 5.0),
+                                                margin:
+                                                    EdgeInsets.only(top: 5.0),
+                                                child: Text(
+                                                  '${index + 1}',
+                                                  style: TextStyle(
+                                                      color: Colors.grey[500]),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 10.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            IconButton(
+                                              tooltip: 'Like',
+                                              alignment: Alignment.centerRight,
+                                              icon: _counterLikeIdea[index] == 0
+                                                  ? Icon(_likeIdea[index]
+                                                      ? Icons.favorite
+                                                      : Icons.favorite_border)
+                                                  : Icon(_likeIdea[index]
+                                                      ? Icons.favorite
+                                                      : Icons.favorite_border),
+                                              iconSize: 18.0,
+                                              color: _likeIdea[index]
+                                                  ? Colors.redAccent
+                                                  : Colors.grey,
+                                              onPressed: () {
+                                                setState(() {
+                                                  if (_likeIdea[index] ==
+                                                      false) {
+                                                    _counterLikeIdea[index]++;
+                                                  } else {
+                                                    _counterLikeIdea[index]--;
+                                                  }
+                                                  _likeIdea[index] =
+                                                      !_likeIdea[index];
+                                                });
+                                              },
+                                            ),
+                                            _counterLikeIdea[index] == 0
+                                                ? Container(
+                                                    padding: EdgeInsets.only(
+                                                        right: 20.0),
+                                                  )
+                                                : Container(
+                                                    padding: EdgeInsets.only(
+                                                        right: 20.0),
+                                                    margin: EdgeInsets.only(
+                                                        top: 5.0),
+                                                    child: Text(
+                                                      _counterLikeIdea[index]
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.grey[500]),
+                                                    ),
+                                                  )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
                             ),
-                          ),
-                          SizedBox(
-                            width: 2.0,
-                          ),
-                          Flexible(
-                            child: Text(
-                              'view',
-                              style: TextStyle(color: Colors.grey[500]),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 100.0,
-                      child: GestureDetector(
-                        onTap: () => Navigator.push(context,
-                            MyCustomRoute(builder: (context) => FormComment())),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Icon(
-                              Icons.comment,
-                              size: 16.0,
-                              color: AbubaPallate.green,
-                            ),
-                            SizedBox(
-                              width: 2.0,
-                            ),
-                            Flexible(
-                              child: Text(
-                                '100',
-                                style: TextStyle(color: Colors.grey[500]),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: 100.0,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          Icon(
-                            MdiIcons.heart,
-                            size: 16.0,
-                            color: AbubaPallate.green,
-                          ),
-                          SizedBox(
-                            width: 2.0,
-                          ),
-                          Flexible(
-                            child: Text(
-                              '100',
-                              style: TextStyle(color: Colors.grey[500]),
-                            ),
-                          ),
-                        ],
+                          );
+                        },
                       ),
                     ),
                   ],
@@ -978,7 +1056,7 @@ class _BerandaPageState extends State<BerandaPage> {
                     Flexible(
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: _counterLikeHapping.length,
+                        itemCount: _counterLikeHappening.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Container(
                             width: MediaQuery.of(context).size.width - 40.0,
@@ -1126,7 +1204,7 @@ class _BerandaPageState extends State<BerandaPage> {
                                             IconButton(
                                               tooltip: 'Like',
                                               alignment: Alignment.centerRight,
-                                              icon: _counterLikeHapping[
+                                              icon: _counterLikeHappening[
                                                           index] ==
                                                       0
                                                   ? Icon(_likeHappening[index]
@@ -1143,10 +1221,10 @@ class _BerandaPageState extends State<BerandaPage> {
                                                 setState(() {
                                                   if (_likeHappening[index] ==
                                                       false) {
-                                                    _counterLikeHapping[
+                                                    _counterLikeHappening[
                                                         index]++;
                                                   } else {
-                                                    _counterLikeHapping[
+                                                    _counterLikeHappening[
                                                         index]--;
                                                   }
                                                   _likeHappening[index] =
@@ -1154,7 +1232,7 @@ class _BerandaPageState extends State<BerandaPage> {
                                                 });
                                               },
                                             ),
-                                            _counterLikeHapping[index] == 0
+                                            _counterLikeHappening[index] == 0
                                                 ? Container(
                                                     padding: EdgeInsets.only(
                                                         right: 20.0),
@@ -1165,7 +1243,8 @@ class _BerandaPageState extends State<BerandaPage> {
                                                     margin: EdgeInsets.only(
                                                         top: 5.0),
                                                     child: Text(
-                                                      _counterLikeHapping[index]
+                                                      _counterLikeHappening[
+                                                              index]
                                                           .toString(),
                                                       style: TextStyle(
                                                           color:

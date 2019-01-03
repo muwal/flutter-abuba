@@ -67,6 +67,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
+  final GlobalKey<FormFieldState<String>> _passwordFieldKey = new GlobalKey<FormFieldState<String>>();
+
   @override
   void initState() {
     super.initState();
@@ -80,7 +82,9 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
         },
-        child: _LoginPage(),
+        child: SingleChildScrollView(
+          child: _LoginPage(),
+        ),
       ),
     );
   }
@@ -106,69 +110,22 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
             width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),
             alignment: Alignment.center,
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                    color: AbubaPallate.greenabuba,
-                    width: 0.5,
-                    style: BorderStyle.solid),
-              ),
-            ),
             padding: const EdgeInsets.only(left: 0.0, right: 10.0),
             child: new Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 new Expanded(
-                  child: TextField(
-                    obscureText: true,
-                    textAlign: TextAlign.left,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      labelText: 'Email',
-                      labelStyle: TextStyle(color: Colors.grey),
-                    ),
-                  ),
+                  child: PasswordField(
+                    fieldKey: _passwordFieldKey,
+                    helperText: 'Enter your 6 digits PIN',
+                    labelText: 'PIN',
+                    hintText: 'PIN',
+                    onFieldSubmitted: (String value) {},
+                  )
                 ),
               ],
             ),
-          ),
-          Divider(
-            height: 24.0,
-          ),
-          new Container(
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 0.0),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                    color: AbubaPallate.greenabuba,
-                    width: 0.5,
-                    style: BorderStyle.solid),
-              ),
-            ),
-            padding: const EdgeInsets.only(left: 0.0, right: 10.0),
-            child: new Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                new Expanded(
-                  child: TextField(
-                    obscureText: true,
-                    textAlign: TextAlign.left,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      labelText: 'Password',
-                      labelStyle: TextStyle(color: Colors.grey),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Divider(
-            height: 24.0,
           ),
           new Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -233,6 +190,58 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
       ),
     );
   }
-
 }
 
+class PasswordField extends StatefulWidget {
+  const PasswordField({
+    this.fieldKey,
+    this.hintText,
+    this.labelText,
+    this.helperText,
+    this.onSaved,
+    this.validator,
+    this.onFieldSubmitted,  
+  });
+
+  final Key fieldKey;
+  final String hintText;
+  final String labelText;
+  final String helperText;
+  final FormFieldSetter<String> onSaved;
+  final FormFieldValidator<String> validator;
+  final ValueChanged<String> onFieldSubmitted;
+
+  @override
+  _PasswordFieldState createState() => new _PasswordFieldState();
+}
+
+class _PasswordFieldState extends State<PasswordField> {
+  bool _obscureText = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return new TextFormField(
+      key: widget.fieldKey,
+      obscureText: _obscureText,
+      maxLength: 6,
+      onSaved: widget.onSaved,
+      validator: widget.validator,
+      keyboardType: TextInputType.number,
+      onFieldSubmitted: widget.onFieldSubmitted,
+      decoration: InputDecoration(
+        border: UnderlineInputBorder(),
+        hintText: widget.hintText,
+        labelText: widget.labelText,
+        helperText: widget.helperText,
+        suffixIcon: GestureDetector(
+          onTap: () {
+            setState(() {
+              _obscureText = !_obscureText;              
+            });
+          },
+          child: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
+        )
+      ),
+    );
+  }
+}

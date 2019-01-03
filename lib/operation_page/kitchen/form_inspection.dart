@@ -24,8 +24,6 @@ class _InspectionState extends State<Inspection> {
   final timeFormat = DateFormat("h:mm a");
   TimeOfDay time;
 
-  FocusNode _focusNode = new FocusNode();
-
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(

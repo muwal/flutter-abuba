@@ -25,8 +25,6 @@ class _InspectionState extends State<Inspection> {
   DateTime dateProduction;
   DateTime dateExpiry;
 
-  FocusNode _focusNode = new FocusNode();
-
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(

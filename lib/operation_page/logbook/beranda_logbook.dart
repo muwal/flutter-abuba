@@ -3,13 +3,13 @@ import 'package:flutter_abuba/constant.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 
-import 'package:flutter_abuba/operation_page/logbook/form_performance.dart';
-import 'package:flutter_abuba/operation_page/logbook/form_event.dart';
-import 'package:flutter_abuba/operation_page/logbook/form_bahanbaku.dart';
-import 'package:flutter_abuba/operation_page/logbook/form_absensi.dart';
-import 'package:flutter_abuba/operation_page/logbook/form_jobdesc.dart';
-import 'package:flutter_abuba/operation_page/logbook/form_penampilan.dart';
-import 'package:flutter_abuba/operation_page/logbook/form_briefing.dart';
+import 'package:flutter_abuba/operation_page/logbook/performance/beranda_performance.dart';
+import 'package:flutter_abuba/operation_page/logbook/events/beranda_events.dart';
+import 'package:flutter_abuba/operation_page/logbook/bahanbaku/beranda_bahanbaku.dart';
+import 'package:flutter_abuba/operation_page/logbook/absensi/beranda_absensi.dart';
+import 'package:flutter_abuba/operation_page/logbook/deployment/beranda_deploy.dart';
+import 'package:flutter_abuba/operation_page/logbook/penampilan/beranda_penampilan.dart';
+import 'package:flutter_abuba/operation_page/logbook/briefing/beranda_briefing.dart';
 import 'package:flutter_abuba/operation_page/logbook/form_linecheck.dart';
 
 class MenuLogBook extends StatefulWidget {
@@ -73,7 +73,7 @@ class _MenuLogBookState extends State<MenuLogBook> {
                     onTap: () => Navigator.push(
                         context,
                         MyCustomRoute(
-                            builder: (context) => FormPerformance())),
+                            builder: (context) => BerandaPerformance())),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
@@ -133,7 +133,7 @@ class _MenuLogBookState extends State<MenuLogBook> {
                         onTap: () => Navigator.push(
                             context,
                             MyCustomRoute(
-                                builder: (context) => FormEvent())),
+                                builder: (context) => BerandaEvents())),
                         child: Stack(
                           overflow: Overflow.visible,
                           children: <Widget>[
@@ -187,7 +187,7 @@ class _MenuLogBookState extends State<MenuLogBook> {
                     onTap: () => Navigator.push(
                         context,
                         MyCustomRoute(
-                            builder: (context) => FormBahanBaku())),
+                            builder: (context) => BerandaBahanBaku())),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
@@ -244,7 +244,7 @@ class _MenuLogBookState extends State<MenuLogBook> {
                     onTap: () => Navigator.push(
                         context,
                         MyCustomRoute(
-                            builder: (context) => FormAbsensi())),
+                            builder: (context) => BerandaAbsensi())),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
@@ -306,7 +306,7 @@ class _MenuLogBookState extends State<MenuLogBook> {
                     onTap: () => Navigator.push(
                         context,
                         MyCustomRoute(
-                            builder: (context) => FormJobdesc())),
+                            builder: (context) => BerandaDeploy())),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
@@ -351,7 +351,7 @@ class _MenuLogBookState extends State<MenuLogBook> {
                         Padding(
                           padding: EdgeInsets.only(top: 10.0),
                           child: Text(
-                            'Jobdesc',
+                            'Deployment',
                             style: TextStyle(
                                 fontWeight: FontWeight.w500, fontSize: 12.0),
                           ),
@@ -371,7 +371,7 @@ class _MenuLogBookState extends State<MenuLogBook> {
                     onTap: () => Navigator.push(
                         context,
                         MyCustomRoute(
-                            builder: (context) => FormPenampilan())),
+                            builder: (context) => BerandaPenampilan())),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
@@ -436,7 +436,7 @@ class _MenuLogBookState extends State<MenuLogBook> {
                     onTap: () => Navigator.push(
                         context,
                         MyCustomRoute(
-                            builder: (context) => FormBriefing())),
+                            builder: (context) => BerandaBriefing())),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[

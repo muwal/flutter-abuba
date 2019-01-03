@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
-import 'package:flutter/cupertino.dart';class FormMaintenance extends StatefulWidget {
+import 'package:flutter/cupertino.dart';
+
+class FormMaintenance extends StatefulWidget {
   FormMaintenance({Key key}) : super(key: key);
 
   _FormMaintenanceState createState() => _FormMaintenanceState();
@@ -15,7 +17,6 @@ class _FormMaintenanceState extends State<FormMaintenance> {
   List<String> valueCheckbox = ['1', '2', '3', '4', '5'];
   List<String> selectedValue = [];
   List<String> selectedAlasan = [];
-  String _lokasiUndo = "";
 
   void _dialogDetail(int index) {
     showDialog(
@@ -517,101 +518,103 @@ class _CheckboxState extends State<Checkbox> {
             Padding(
               padding: EdgeInsets.all(20.0),
               child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Flexible(
-                        child: Text(
-                          widget.lokasi +
-                              ' - ' +
-                              widget.item +
-                              ' - ' +
-                              widget.merek,
-                          style: TextStyle(fontSize: 18.0, color: Colors.black),
-                          textAlign: TextAlign.left,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Flexible(
+                      child: Text(
+                        widget.lokasi +
+                            ' - ' +
+                            widget.item +
+                            ' - ' +
+                            widget.merek,
+                        style: TextStyle(fontSize: 18.0, color: Colors.black),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                    FlatButton(
+                      child: Text(
+                        'Add Note',
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontSize: 12.0
                         ),
                       ),
-                      FlatButton(
-                        child: Text(
-                          'Add Note',
-                          style: TextStyle(color: Colors.green, fontSize: 12.0),
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            if (_note == true) {
-                              height = 300.0;
-                            } else {
-                              height = height + 100.0;
-                            }
+                      onPressed: () {
+                        setState(() {
+                          if (_note == true) {
+                            height = 300.0;
+                          } else {
+                            height = height + 100.0;
+                          }
 
-                            _note = !_note;
-                          });
-                        },
-                      ),
-                    ],
-                  )),
+                          _note = !_note;
+                        });
+                      },
+                    ),
+                  ],
+                )
+              ),
             ),
             Expanded(
               child: Scrollbar(
                 child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: widget.alasan.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final AlasanValue = widget.alasan[index];
-                      final ValueFinal = widget.valueCheck[index];
+                  scrollDirection: Axis.vertical,
+                  itemCount: widget.alasan.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final AlasanValue = widget.alasan[index];
+                    final ValueFinal = widget.valueCheck[index];
 
-                      return Container(
-                        child: CheckboxListTile(
-                            title: Text(AlasanValue),
-                            controlAffinity: ListTileControlAffinity.leading,
-                            activeColor: Colors.green,
-                            value: _tempSelectedAlasan.contains(AlasanValue),
-                            onChanged: (bool value) {
-                              if (value) {
-                                if (!_tempSelectedAlasan
-                                    .contains(AlasanValue)) {
-                                  setState(() {
-                                    _tempSelectedValueAlasan.add(ValueFinal);
-                                    _tempSelectedAlasan.add(AlasanValue);
-                                  });
-                                }
-                              } else {
-                                if (_tempSelectedAlasan.contains(AlasanValue)) {
-                                  setState(() {
-                                    _tempSelectedAlasan.removeWhere(
-                                            (String city) => city == AlasanValue);
-                                    _tempSelectedValueAlasan.removeWhere(
-                                            (String city) => city == ValueFinal);
-                                  });
-                                }
+                    return Container(
+                      child: CheckboxListTile(
+                          title: Text(AlasanValue),
+                          controlAffinity: ListTileControlAffinity.leading,
+                          activeColor: Colors.green,
+                          value: _tempSelectedAlasan.contains(AlasanValue),
+                          onChanged: (bool value) {
+                            if (value) {
+                              if (!_tempSelectedAlasan.contains(AlasanValue)) {
+                                setState(() {
+                                  _tempSelectedValueAlasan.add(ValueFinal);
+                                  _tempSelectedAlasan.add(AlasanValue);
+                                });
                               }
-                              widget.onSelectedAlasanListChanged(
-                                  _tempSelectedValueAlasan);
-                            }),
-                      );
-                    }),
-              ),
-            ),
-            _note
-                ? Padding(
-              padding:
-              EdgeInsets.only(top: 20.0, right: 10.0, left: 10.0),
-              child: Container(
-                width: MediaQuery.of(context).size.width / 1.1,
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Note',
-                  ),
-                  maxLines: 3,
-                  controller: _noteController,
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
+                            } else {
+                              if (_tempSelectedAlasan.contains(AlasanValue)) {
+                                setState(() {
+                                  _tempSelectedAlasan.removeWhere(
+                                          (String city) => city == AlasanValue);
+                                  _tempSelectedValueAlasan.removeWhere(
+                                          (String city) => city == ValueFinal);
+                                });
+                              }
+                            }
+                            widget.onSelectedAlasanListChanged(_tempSelectedValueAlasan);
+                          }
+                      ),
+                    );
+                  }
                 ),
               ),
-            )
-                : Container(),
+            ),
+            _note ? Padding(
+                      padding: EdgeInsets.only(top: 20.0, right: 10.0, left: 10.0),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 1.1,
+                        child: TextField(
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'Note',
+                          ),
+                          maxLines: 3,
+                          controller: _noteController,
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    )
+                  : Container(),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 10.0),
               child: Row(
@@ -623,11 +626,13 @@ class _CheckboxState extends State<Checkbox> {
                       color: Colors.red[300],
                       child: Text(
                         'CANCEL',
-                        style: TextStyle(color: Colors.white, fontSize: 12.0),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12.0
+                        ),
                       ),
                       onPressed: () {
-                        widget.onCancelResult(
-                            [widget.lokasi, widget.item, widget.merek]);
+                        widget.onCancelResult([widget.lokasi, widget.item, widget.merek]);
                         Navigator.of(context).pop();
                       },
                       splashColor: Colors.red[300],
@@ -639,7 +644,10 @@ class _CheckboxState extends State<Checkbox> {
                       color: Colors.green[300],
                       child: Text(
                         'OK',
-                        style: TextStyle(color: Colors.white, fontSize: 12.0),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12.0
+                        ),
                       ),
                       onPressed: () {
                         Navigator.of(context).pop();

@@ -141,62 +141,39 @@ class _FormDetailState extends State<FormDetail> {
           ),
           Container(
             color: Colors.white,
-            child: Column(
+            child: ExpansionTile(
+              title: Text(
+                'Problem',
+                style: TextStyle(
+                  fontSize: 14.0
+                ),
+              ),
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 12.0, 20.0, 0.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Flexible(
-                        child: Text(
-                          'Problem',
-                          style: TextStyle(color: AbubaPallate.green),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 8.0, 20.0, 12.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Flexible(
-                        child: Text(
-                            'Periode January – Maret 2018, sales di outlet A hanya 60% dari target. Hal ini membuat bonus karyawan menjadi berkurang 10%',
-                            style: TextStyle(
-                                fontSize: 12.0, color: Colors.black38)),
-                      ),
-                    ],
+                  padding: const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 15.0),
+                  child: Text(
+                    'Periode January – Maret 2018, sales di outlet A hanya 60% dari target. Hal ini membuat bonus karyawan menjadi berkurang 10%',
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.black38
+                    )
                   ),
                 ),
               ],
             ),
           ),
-          SizedBox(
-            height: 15.0,
-          ),
           Container(
             color: Colors.white,
-            child: Column(
+            child: ExpansionTile(
+              title: Text(
+                'Akar Masalah',
+                style: TextStyle(
+                  fontSize: 14.0
+                ),
+              ),
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 12.0, 20.0, 0.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Flexible(
-                        child: Text(
-                          'Akar Masalah',
-                          style: TextStyle(color: AbubaPallate.green),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 12.0, 20.0, 6.0),
+                  padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 6.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
@@ -228,11 +205,8 @@ class _FormDetailState extends State<FormDetail> {
                     ],
                   ),
                 ),
-                Divider(
-                  height: 5.0,
-                ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 6.0),
+                  padding: const EdgeInsets.fromLTRB(15.0, 12.0, 15.0, 6.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
@@ -264,11 +238,8 @@ class _FormDetailState extends State<FormDetail> {
                     ],
                   ),
                 ),
-                Divider(
-                  height: 5.0,
-                ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 6.0),
+                  padding: const EdgeInsets.fromLTRB(15.0, 12.0, 15.0, 6.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
@@ -300,11 +271,8 @@ class _FormDetailState extends State<FormDetail> {
                     ],
                   ),
                 ),
-                Divider(
-                  height: 5.0,
-                ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 12.0),
+                  padding: const EdgeInsets.fromLTRB(15.0, 12.0, 15.0, 15.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
@@ -339,29 +307,18 @@ class _FormDetailState extends State<FormDetail> {
               ],
             ),
           ),
-          SizedBox(
-            height: 15.0,
-          ),
           Container(
             color: Colors.white,
-            child: Column(
+            child: ExpansionTile(
+              title: Text(
+                'Ide',
+                style: TextStyle(
+                  fontSize: 14.0
+                ),
+              ),
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 12.0, 20.0, 0.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Flexible(
-                        child: Text(
-                          'Ide',
-                          style: TextStyle(color: AbubaPallate.green),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 12.0, 20.0, 6.0),
+                  padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 6.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
@@ -393,11 +350,8 @@ class _FormDetailState extends State<FormDetail> {
                     ],
                   ),
                 ),
-                Divider(
-                  height: 5.0,
-                ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 12.0, 20.0, 6.0),
+                  padding: const EdgeInsets.fromLTRB(15.0, 12.0, 15.0, 6.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
@@ -461,6 +415,10 @@ class _FormDetailState extends State<FormDetail> {
                           child: TextField(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
+                              hintText: 'Note',
+                              hintStyle: TextStyle(
+                                fontSize: 12.0
+                              )
                             ),
                             controller: controllerNoteSatu,
                             maxLines: 3,
@@ -471,11 +429,8 @@ class _FormDetailState extends State<FormDetail> {
                         )
                       : Container(),
                 ),
-                Divider(
-                  height: 5.0,
-                ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 12.0, 20.0, 6.0),
+                  padding: const EdgeInsets.fromLTRB(15.0, 12.0, 15.0, 6.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
@@ -539,6 +494,10 @@ class _FormDetailState extends State<FormDetail> {
                           child: TextField(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
+                              hintText: 'Note',
+                              hintStyle: TextStyle(
+                                fontSize: 12.0
+                              )
                             ),
                             controller: controllerNoteSatu,
                             maxLines: 3,
@@ -549,11 +508,8 @@ class _FormDetailState extends State<FormDetail> {
                         )
                       : Container(),
                 ),
-                Divider(
-                  height: 5.0,
-                ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 12.0, 20.0, 6.0),
+                  padding: const EdgeInsets.fromLTRB(15.0, 12.0, 15.0, 6.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
@@ -617,6 +573,10 @@ class _FormDetailState extends State<FormDetail> {
                           child: TextField(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
+                              hintText: 'Note',
+                              hintStyle: TextStyle(
+                                fontSize: 12.0
+                              )
                             ),
                             controller: controllerNoteSatu,
                             maxLines: 3,
@@ -630,30 +590,18 @@ class _FormDetailState extends State<FormDetail> {
               ],
             ),
           ),
-          SizedBox(
-            height: 15.0,
-          ),
           Container(
             color: Colors.white,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+            child: ExpansionTile(
+              title: Text(
+                'Pelaksana',
+                style: TextStyle(
+                  fontSize: 14.0
+                ),
+              ),
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 12.0, 20.0, 0.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Flexible(
-                        child: Text(
-                          'Pelaksana',
-                          style: TextStyle(color: AbubaPallate.green),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 12.0, 20.0, 3.0),
+                  padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 3.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -705,7 +653,7 @@ class _FormDetailState extends State<FormDetail> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 3.0, 20.0, 3.0),
+                  padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 3.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -757,7 +705,7 @@ class _FormDetailState extends State<FormDetail> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 3.0, 20.0, 8.0),
+                  padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 15.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -811,29 +759,18 @@ class _FormDetailState extends State<FormDetail> {
               ],
             ),
           ),
-          SizedBox(
-            height: 15.0,
-          ),
           Container(
             color: Colors.white,
-            child: Column(
+            child: ExpansionTile(
+              title: Text(
+                'Status',
+                style: TextStyle(
+                  fontSize: 14.0
+                ),
+              ),
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 12.0, 20.0, 0.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Flexible(
-                        child: Text(
-                          'Status',
-                          style: TextStyle(color: AbubaPallate.green),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 8.0, 20.0, 12.0),
+                  padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 15.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -855,29 +792,18 @@ class _FormDetailState extends State<FormDetail> {
               ],
             ),
           ),
-          SizedBox(
-            height: 15.0,
-          ),
           Container(
             color: Colors.white,
-            child: Column(
+            child: ExpansionTile(
+              title: Text(
+                'Informasi Pengiriman',
+                style: TextStyle(
+                  fontSize: 14.0
+                ),
+              ),
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 12.0, 20.0, 0.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Flexible(
-                        child: Text(
-                          'Informasi Pengiriman',
-                          style: TextStyle(color: AbubaPallate.green),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 8.0, 20.0, 12.0),
+                  padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 12.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -965,7 +891,7 @@ class _FormDetailState extends State<FormDetail> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+                  padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 0.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
@@ -987,7 +913,6 @@ class _FormDetailState extends State<FormDetail> {
               ],
             ),
           ),
-          SizedBox(height: 20.0,)
         ],
       ),
     );

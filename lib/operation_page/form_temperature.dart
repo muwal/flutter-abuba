@@ -12,8 +12,6 @@ class FormTemperature extends StatefulWidget {
 }
 
 class _FormTemperatureState extends State<FormTemperature> {
-  FocusNode _focusNode = new FocusNode();
-
   double _sliderValueChiller1 = 0.0;
   double _sliderValueChiller2 = 0.0;
   double _sliderValueChiller3 = 0.0;
