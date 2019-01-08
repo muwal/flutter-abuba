@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'ABUBA',
       theme: ThemeData(
-        fontFamily: 'NeoSans',
+//        fontFamily: 'NeoSans',
         primaryColor: AbubaPallate.greenabuba,
         accentColor: AbubaPallate.greenabuba,
       ),

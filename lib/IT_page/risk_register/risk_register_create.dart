@@ -104,11 +104,9 @@ class _RiskRegisterCreateState extends State<RiskRegisterCreate> with TickerProv
   Widget _buildFormRisk(double width) {
     return Scrollbar(
       child: ListView(
-        padding: EdgeInsets.symmetric(
-            horizontal: 20.0, vertical: 10.0),
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(top: 0.0),
+            padding: const EdgeInsets.only(top: 0.0, left: 20.0, right: 20.0),
             child: TextFormField(
               textCapitalization:
               TextCapitalization.words,
@@ -125,7 +123,7 @@ class _RiskRegisterCreateState extends State<RiskRegisterCreate> with TickerProv
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 10.0),
+            padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
             child: DropdownButtonFormField<String>(
               decoration: InputDecoration(
                 labelText: 'Sumber',
@@ -157,7 +155,7 @@ class _RiskRegisterCreateState extends State<RiskRegisterCreate> with TickerProv
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 10.0),
+            padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
             child: TextFormField(
               textCapitalization:
               TextCapitalization.words,
@@ -174,7 +172,7 @@ class _RiskRegisterCreateState extends State<RiskRegisterCreate> with TickerProv
             ),
           ),
           Padding(
-              padding: EdgeInsets.only(top: 30.0),
+              padding: EdgeInsets.only(top: 30.0, left: 20.0, right: 20.0),
               child: Column(
                 children: <Widget>[
                   Container(
@@ -276,7 +274,7 @@ class _RiskRegisterCreateState extends State<RiskRegisterCreate> with TickerProv
                 ],
               )),
           Padding(
-              padding: EdgeInsets.only(top: 20.0),
+              padding: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
               child: Column(
                 children: <Widget>[
                   Container(
@@ -390,7 +388,7 @@ class _RiskRegisterCreateState extends State<RiskRegisterCreate> with TickerProv
                 ],
               )),
           Padding(
-            padding: EdgeInsets.only(top: 20.0),
+            padding: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
             child: Column(
               mainAxisAlignment:
               MainAxisAlignment.spaceEvenly,
@@ -429,7 +427,7 @@ class _RiskRegisterCreateState extends State<RiskRegisterCreate> with TickerProv
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 20.0),
+            padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
             child: TextFormField(
               textCapitalization:
               TextCapitalization.words,
@@ -446,184 +444,172 @@ class _RiskRegisterCreateState extends State<RiskRegisterCreate> with TickerProv
             ),
           ),
           Padding(
-              padding:
-              const EdgeInsets.only(top: 10.0),
-              child: Row(
-                mainAxisAlignment:
-                MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Container(
-                    width: 250,
-                    child: TextFormField(
-                      maxLines: 3,
-                      keyboardType:
-                      TextInputType.text,
-                      textCapitalization:
-                      TextCapitalization.words,
-                      decoration: InputDecoration(
-                        border:
-                        UnderlineInputBorder(),
-                        labelText: 'Deskripsi',
-                        labelStyle:
-                        TextStyle(fontSize: 14.0),
-                      ),
-                      style: TextStyle(
-                          fontStyle: FontStyle.normal,
-                          color: Colors.black87,
-                          fontSize: 14.0),
-                      onSaved: null,
-                    ),
+            padding: const EdgeInsets.only(top: 10.0, left: 5.0, right: 5.0),
+            child: ListTile(
+              title: Container(
+                width: 250,
+                child: TextFormField(
+                  maxLines: 3,
+                  keyboardType:
+                  TextInputType.text,
+                  textCapitalization:
+                  TextCapitalization.words,
+                  decoration: InputDecoration(
+                    border:
+                    UnderlineInputBorder(),
+                    labelText: 'Deskripsi',
+                    labelStyle:
+                    TextStyle(fontSize: 14.0),
                   ),
-                  Container(
-                      width: 50.0,
-                      child: IconButton(
-                        icon: Icon(Icons.add),
-                        color: Colors.blue,
-                        onPressed: () {},
-                      ))
-                ],
-              )),
+                  style: TextStyle(
+                      fontStyle: FontStyle.normal,
+                      color: Colors.black87,
+                      fontSize: 14.0),
+                  onSaved: null,
+                ),
+              ),
+              trailing: Container(
+                width: 50.0,
+                child: IconButton(
+                  icon: Icon(Icons.add),
+                  color: Colors.blue,
+                  onPressed: () {},
+                )
+              )
+            ),
+          ),
           Padding(
-              padding:
-              const EdgeInsets.only(top: 20.0),
-              child: Row(
-                mainAxisAlignment:
-                MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Container(
-                    width: 250,
-                    child: TextFormField(
-                      textCapitalization:
-                      TextCapitalization.words,
-                      decoration: InputDecoration(
-                        border:
-                        UnderlineInputBorder(),
-                        labelText: 'Pemantauan',
-                        labelStyle:
-                        TextStyle(fontSize: 14.0),
-                        hintText: 'Pemantauan',
-                      ),
-                      style: TextStyle(
-                          fontStyle: FontStyle.normal,
-                          color: Colors.black87,
-                          fontSize: 14.0),
-                      onSaved: null,
-                    ),
+            padding: const EdgeInsets.only(top: 10.0, left: 5.0, right: 5.0),
+            child: ListTile(
+              title: Container(
+                width: 250,
+                child: TextFormField(
+                  textCapitalization:
+                  TextCapitalization.words,
+                  decoration: InputDecoration(
+                    border:
+                    UnderlineInputBorder(),
+                    labelText: 'Pemantauan',
+                    labelStyle:
+                    TextStyle(fontSize: 14.0),
+                    hintText: 'Pemantauan',
                   ),
-                  Container(
-                      width: 50.0,
-                      child: IconButton(
-                        icon: Icon(Icons.add),
-                        color: Colors.blue,
-                        onPressed: () {},
-                      ))
-                ],
-              )),
+                  style: TextStyle(
+                      fontStyle: FontStyle.normal,
+                      color: Colors.black87,
+                      fontSize: 14.0),
+                  onSaved: null,
+                ),
+              ),
+              trailing: Container(
+                width: 50.0,
+                child: IconButton(
+                  icon: Icon(Icons.add),
+                  color: Colors.blue,
+                  onPressed: () {},
+                )
+              )
+            ),
+          ),
           Padding(
-              padding:
-              const EdgeInsets.only(top: 10.0),
-              child: Row(
-                mainAxisAlignment:
-                MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Container(
-                    width: 250,
-                    child: DropdownButtonFormField<
-                        String>(
-                      decoration: InputDecoration(
-                        labelText: 'PIC',
-                        labelStyle:
-                        TextStyle(fontSize: 14.0),
-                      ),
-                      value: _selectionPIC,
-                      onChanged: (String value) {
-                        setState(() {
-                          switch (
-                          int.tryParse(value)) {
-                            case 1:
-                              _pic = 'Ironman';
-                              break;
-                            case 2:
-                              _pic = 'Spiderman';
-                              break;
-                            default:
-                              _pic = '-';
-                              break;
-                          }
-                          _selectionPIC = value;
-                        });
-                      },
-                      items: _picJSON.map((Map map) {
-                        return DropdownMenuItem(
-                          value: map['id'].toString(),
-                          child: Text(map['pic']),
-                        );
-                      }).toList(),
-                    ),
+            padding: const EdgeInsets.only(top: 10.0, left: 5.0, right: 5.0),
+            child: ListTile(
+              title: Container(
+                width: 250,
+                child: DropdownButtonFormField<
+                    String>(
+                  decoration: InputDecoration(
+                    labelText: 'Kirim Kepada',
+                    labelStyle:
+                    TextStyle(fontSize: 14.0),
                   ),
-                  Container(
-                      width: 50.0,
-                      child: IconButton(
-                        icon: Icon(Icons.add),
-                        color: Colors.blue,
-                        onPressed: () {},
-                      ))
-                ],
-              )),
+                  value: _selectionPIC,
+                  onChanged: (String value) {
+                    setState(() {
+                      switch (
+                      int.tryParse(value)) {
+                        case 1:
+                          _pic = 'Ironman';
+                          break;
+                        case 2:
+                          _pic = 'Spiderman';
+                          break;
+                        default:
+                          _pic = '-';
+                          break;
+                      }
+                      _selectionPIC = value;
+                    });
+                  },
+                  items: _picJSON.map((Map map) {
+                    return DropdownMenuItem(
+                      value: map['id'].toString(),
+                      child: Text(map['pic']),
+                    );
+                  }).toList(),
+                ),
+              ),
+              trailing: Container(
+                width: 50.0,
+                child: IconButton(
+                  icon: Icon(Icons.add),
+                  color: Colors.blue,
+                  onPressed: () {},
+                )
+              )
+            ),
+          ),
           Padding(
-              padding:
-              const EdgeInsets.only(top: 10.0),
-              child: Row(
-                mainAxisAlignment:
-                MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Container(
-                    width: 250,
-                    child: DropdownButtonFormField<
-                        String>(
-                      decoration: InputDecoration(
-                        labelText: 'Verifikator',
-                        labelStyle:
-                        TextStyle(fontSize: 14.0),
-                      ),
-                      value: _selectionVerifikator,
-                      onChanged: (String value) {
-                        setState(() {
-                          switch (
-                          int.tryParse(value)) {
-                            case 1:
-                              _verifikator = 'Hulk';
-                              break;
-                            case 2:
-                              _verifikator = 'Thor';
-                              break;
-                            default:
-                              _verifikator = '-';
-                              break;
-                          }
-                          _selectionVerifikator =
-                              value;
-                        });
-                      },
-                      items: _verifikatorJSON
-                          .map((Map map) {
-                        return DropdownMenuItem(
-                          value: map['id'].toString(),
-                          child: Text(
-                              map['verifikator']),
-                        );
-                      }).toList(),
-                    ),
+            padding: const EdgeInsets.only(top: 10.0, left: 5.0, right: 5.0),
+            child: ListTile(
+              title: Container(
+                width: 250,
+                child: DropdownButtonFormField<
+                    String>(
+                  decoration: InputDecoration(
+                    labelText: 'Verifikator',
+                    labelStyle:
+                    TextStyle(fontSize: 14.0),
                   ),
-                  Container(
-                      width: 50.0,
-                      child: IconButton(
-                        icon: Icon(Icons.add),
-                        color: Colors.blue,
-                        onPressed: () {},
-                      ))
-                ],
-              )),
+                  value: _selectionVerifikator,
+                  onChanged: (String value) {
+                    setState(() {
+                      switch (
+                      int.tryParse(value)) {
+                        case 1:
+                          _verifikator = 'Hulk';
+                          break;
+                        case 2:
+                          _verifikator = 'Thor';
+                          break;
+                        default:
+                          _verifikator = '-';
+                          break;
+                      }
+                      _selectionVerifikator =
+                          value;
+                    });
+                  },
+                  items: _verifikatorJSON
+                      .map((Map map) {
+                    return DropdownMenuItem(
+                      value: map['id'].toString(),
+                      child: Text(
+                          map['verifikator']),
+                    );
+                  }).toList(),
+                ),
+              ),
+              trailing: Container(
+                width: 50.0,
+                child: IconButton(
+                  icon: Icon(Icons.add),
+                  color: Colors.blue,
+                  onPressed: () {},
+                )
+              )
+            ),
+          ),
           Padding(
             padding: EdgeInsets.only(top: 20.0),
             child: Row(

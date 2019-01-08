@@ -39,10 +39,13 @@ class _FormMaterialState extends State<FormMaterial>
 
   @override
   Widget build(BuildContext context) {
+    final _scaffoldKey = new GlobalKey<ScaffoldState>();
+
     return SafeArea(
       child: DefaultTabController(
         length: 5,
         child: Scaffold(
+          key: _scaffoldKey,
           appBar: _appBar(),
           body: TabBarView(
             controller: _tabController,
@@ -391,8 +394,10 @@ class _FormMaterialState extends State<FormMaterial>
                     borderSide: BorderSide(color: Colors.red, width: 1.0),
                     highlightedBorderColor: Colors.red,
                     onPressed: () {
-                      Navigator.push(context,
-                          MyCustomRoute(builder: (context) => DetailQuantity()));
+                      Navigator.push(
+                          context,
+                          MyCustomRoute(
+                              builder: (context) => DetailQuantity()));
                     },
                   ),
                 ),
@@ -574,9 +579,7 @@ class _FormMaterialState extends State<FormMaterial>
                     ),
                     borderSide: BorderSide(color: Colors.red, width: 1.0),
                     highlightedBorderColor: Colors.red,
-                    onPressed: () {
-
-                    },
+                    onPressed: () {},
                   ),
                 ),
               ),
@@ -611,6 +614,209 @@ class _FormMaterialState extends State<FormMaterial>
   }
 
   Widget _KomunikasiForm() {
+    void _showModalSheet() {
+      showModalBottomSheet(
+        context: context,
+        builder: (builder) {
+          return Container(
+            color: Color(0xFF737373),
+            height: 130.0,
+            child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topRight: const Radius.circular(20.0),
+                    topLeft: const Radius.circular(20.0),
+                  ),
+                ),
+                child: Padding(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 12.0, horizontal: 20.0),
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Flexible(
+                            child: Text(
+                              'HARGA',
+                              style: TextStyle(
+                                  color: AbubaPallate.greenabuba,
+                                  fontWeight: FontWeight.w700),
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 6.0,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Flexible(
+                            child: Text(
+                              'PT Supplier A',
+                              style: TextStyle(color: Colors.black54),
+                            ),
+                          ),
+                          Flexible(
+                            child: Text(
+                              '0123456',
+                              style: TextStyle(color: Colors.black54),
+                            ),
+                          )
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Container(
+                            width: 100.0,
+                            child: ButtonTheme(
+                              padding: EdgeInsets.all(0.0),
+                              height: 30.0,
+                              child: OutlineButton(
+                                child: Text(
+                                  '60',
+                                  style: TextStyle(
+                                      fontSize: 13.0, color: Colors.grey),
+                                ),
+                                borderSide:
+                                    BorderSide(color: Colors.grey, width: 1.0),
+                                highlightedBorderColor: Colors.grey,
+                                onPressed: () {},
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 100.0,
+                            child: ButtonTheme(
+                              padding: EdgeInsets.all(0.0),
+                              height: 30.0,
+                              child: OutlineButton(
+                                child: Text(
+                                  '70',
+                                  style: TextStyle(
+                                      fontSize: 13.0, color: Colors.grey),
+                                ),
+                                borderSide:
+                                    BorderSide(color: Colors.grey, width: 1.0),
+                                highlightedBorderColor: Colors.grey,
+                                onPressed: () {},
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 100.0,
+                            child: ButtonTheme(
+                              padding: EdgeInsets.all(0.0),
+                              height: 30.0,
+                              child: OutlineButton(
+                                child: Text(
+                                  '90',
+                                  style: TextStyle(
+                                      fontSize: 13.0, color: Colors.grey),
+                                ),
+                                borderSide:
+                                    BorderSide(color: Colors.grey, width: 1.0),
+                                highlightedBorderColor: Colors.grey,
+                                onPressed: () {},
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Container(
+                            width: 100.0,
+                            child: Row(
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    'TIDAK',
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 3.0,
+                                ),
+                                Flexible(
+                                  child: Text(
+                                    'Kompetitif',
+                                    style: TextStyle(
+                                        color: Colors.black54, fontSize: 10.0),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            width: 100.0,
+                            child: Row(
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    'CUKUP',
+                                    style: TextStyle(
+                                        color: Colors.black87,
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 3.0,
+                                ),
+                                Flexible(
+                                  child: Text(
+                                    'Kompetitif',
+                                    style: TextStyle(
+                                        color: Colors.black54, fontSize: 10.0),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            width: 100.0,
+                            child: Row(
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    'SANGAT',
+                                    style: TextStyle(
+                                        color: AbubaPallate.greenabuba,
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 3.0,
+                                ),
+                                Flexible(
+                                  child: Text(
+                                    'Kompetitif',
+                                    style: TextStyle(
+                                        color: Colors.black54, fontSize: 10.0),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                )),
+          );
+        },
+      );
+    }
+
     return ListView(
       children: <Widget>[
         Padding(
@@ -706,7 +912,7 @@ class _FormMaterialState extends State<FormMaterial>
                     ),
                     borderSide: BorderSide(color: Colors.grey, width: 1.0),
                     highlightedBorderColor: Colors.grey,
-                    onPressed: () {},
+                    onPressed: _showModalSheet,
                   ),
                 ),
               ),
@@ -753,13 +959,13 @@ class _FormMaterialState extends State<FormMaterial>
                   child: OutlineButton(
                     child: Text(
                       '60',
-                      style: TextStyle(fontSize: 13.0, color: AbubaPallate.menuBluebird),
+                      style: TextStyle(
+                          fontSize: 13.0, color: AbubaPallate.menuBluebird),
                     ),
-                    borderSide: BorderSide(color: AbubaPallate.menuBluebird, width: 1.0),
+                    borderSide: BorderSide(
+                        color: AbubaPallate.menuBluebird, width: 1.0),
                     highlightedBorderColor: AbubaPallate.menuBluebird,
-                    onPressed: () {
-
-                    },
+                    onPressed: () {},
                   ),
                 ),
               ),
@@ -777,13 +983,13 @@ class _FormMaterialState extends State<FormMaterial>
                 child: OutlineButton(
                   child: Text(
                     'SAVE',
-                    style: TextStyle(fontSize: 13.0, color: AbubaPallate.greenabuba),
+                    style: TextStyle(
+                        fontSize: 13.0, color: AbubaPallate.greenabuba),
                   ),
-                  borderSide: BorderSide(color: AbubaPallate.greenabuba, width: 1.0),
+                  borderSide:
+                      BorderSide(color: AbubaPallate.greenabuba, width: 1.0),
                   highlightedBorderColor: AbubaPallate.greenabuba,
-                  onPressed: () {
-
-                  },
+                  onPressed: () {},
                 ),
               ),
             ],
@@ -794,6 +1000,193 @@ class _FormMaterialState extends State<FormMaterial>
   }
 
   Widget _HargaForm() {
+    void _showModalSheetHarga() {
+      showModalBottomSheet(
+        context: context,
+        builder: (builder) {
+          return Container(
+            color: Color(0xFF737373),
+            height: 130.0,
+            child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topRight: const Radius.circular(20.0),
+                    topLeft: const Radius.circular(20.0),
+                  ),
+                ),
+                child: Padding(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 12.0, horizontal: 20.0),
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Flexible(
+                            child: Text(
+                              'PT Supplier A',
+                              style: TextStyle(color: Colors.black54),
+                            ),
+                          ),
+                          Flexible(
+                            child: Text(
+                              '0123456',
+                              style: TextStyle(color: Colors.black54),
+                            ),
+                          )
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Container(
+                            width: 100.0,
+                            child: ButtonTheme(
+                              padding: EdgeInsets.all(0.0),
+                              height: 30.0,
+                              child: OutlineButton(
+                                child: Text(
+                                  '60',
+                                  style: TextStyle(
+                                      fontSize: 13.0, color: Colors.grey),
+                                ),
+                                borderSide:
+                                    BorderSide(color: Colors.grey, width: 1.0),
+                                highlightedBorderColor: Colors.grey,
+                                onPressed: () {},
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 100.0,
+                            child: ButtonTheme(
+                              padding: EdgeInsets.all(0.0),
+                              height: 30.0,
+                              child: OutlineButton(
+                                child: Text(
+                                  '70',
+                                  style: TextStyle(
+                                      fontSize: 13.0, color: Colors.grey),
+                                ),
+                                borderSide:
+                                    BorderSide(color: Colors.grey, width: 1.0),
+                                highlightedBorderColor: Colors.grey,
+                                onPressed: () {},
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 100.0,
+                            child: ButtonTheme(
+                              padding: EdgeInsets.all(0.0),
+                              height: 30.0,
+                              child: OutlineButton(
+                                child: Text(
+                                  '90',
+                                  style: TextStyle(
+                                      fontSize: 13.0, color: Colors.grey),
+                                ),
+                                borderSide:
+                                    BorderSide(color: Colors.grey, width: 1.0),
+                                highlightedBorderColor: Colors.grey,
+                                onPressed: () {},
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Container(
+                            width: 100.0,
+                            child: Row(
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    'TIDAK',
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 3.0,
+                                ),
+                                Flexible(
+                                  child: Text(
+                                    'Kompetitif',
+                                    style: TextStyle(
+                                        color: Colors.black54, fontSize: 10.0),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            width: 100.0,
+                            child: Row(
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    'CUKUP',
+                                    style: TextStyle(
+                                        color: Colors.black87,
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 3.0,
+                                ),
+                                Flexible(
+                                  child: Text(
+                                    'Kompetitif',
+                                    style: TextStyle(
+                                        color: Colors.black54, fontSize: 10.0),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            width: 100.0,
+                            child: Row(
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    'SANGAT',
+                                    style: TextStyle(
+                                        color: AbubaPallate.greenabuba,
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 3.0,
+                                ),
+                                Flexible(
+                                  child: Text(
+                                    'Kompetitif',
+                                    style: TextStyle(
+                                        color: Colors.black54, fontSize: 10.0),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                )),
+          );
+        },
+      );
+    }
+
     return ListView(
       children: <Widget>[
         Padding(
@@ -889,7 +1282,7 @@ class _FormMaterialState extends State<FormMaterial>
                     ),
                     borderSide: BorderSide(color: Colors.grey, width: 1.0),
                     highlightedBorderColor: Colors.grey,
-                    onPressed: () {},
+                    onPressed: _showModalSheetHarga,
                   ),
                 ),
               ),
@@ -936,14 +1329,13 @@ class _FormMaterialState extends State<FormMaterial>
                   child: OutlineButton(
                     child: Text(
                       '60',
-                      style: TextStyle(fontSize: 13.0, color: AbubaPallate.menuBluebird),
+                      style: TextStyle(
+                          fontSize: 13.0, color: AbubaPallate.menuBluebird),
                     ),
-                    borderSide: BorderSide(color: AbubaPallate.menuBluebird, width: 1.0),
+                    borderSide: BorderSide(
+                        color: AbubaPallate.menuBluebird, width: 1.0),
                     highlightedBorderColor: AbubaPallate.menuBluebird,
-                    onPressed: () {
-                      Navigator.push(context,
-                          MyCustomRoute(builder: (context) => DetailWaktu()));
-                    },
+                    onPressed: () {},
                   ),
                 ),
               ),
@@ -961,13 +1353,13 @@ class _FormMaterialState extends State<FormMaterial>
                 child: OutlineButton(
                   child: Text(
                     'SAVE',
-                    style: TextStyle(fontSize: 13.0, color: AbubaPallate.greenabuba),
+                    style: TextStyle(
+                        fontSize: 13.0, color: AbubaPallate.greenabuba),
                   ),
-                  borderSide: BorderSide(color: AbubaPallate.greenabuba, width: 1.0),
+                  borderSide:
+                      BorderSide(color: AbubaPallate.greenabuba, width: 1.0),
                   highlightedBorderColor: AbubaPallate.greenabuba,
-                  onPressed: () {
-
-                  },
+                  onPressed: () {},
                 ),
               ),
             ],

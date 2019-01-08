@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
+import 'package:flutter_abuba/operation_page/logbook/linecheck/beranda_linecheck.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 
@@ -10,7 +11,6 @@ import 'package:flutter_abuba/operation_page/logbook/absensi/beranda_absensi.dar
 import 'package:flutter_abuba/operation_page/logbook/deployment/beranda_deploy.dart';
 import 'package:flutter_abuba/operation_page/logbook/penampilan/beranda_penampilan.dart';
 import 'package:flutter_abuba/operation_page/logbook/briefing/beranda_briefing.dart';
-import 'package:flutter_abuba/operation_page/logbook/form_linecheck.dart';
 
 class MenuLogBook extends StatefulWidget {
   @override
@@ -501,7 +501,7 @@ class _MenuLogBookState extends State<MenuLogBook> {
                     onTap: () => Navigator.push(
                         context,
                         MyCustomRoute(
-                            builder: (context) => FormLineCheck())),
+                            builder: (context) => BerandaLinecheck())),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[

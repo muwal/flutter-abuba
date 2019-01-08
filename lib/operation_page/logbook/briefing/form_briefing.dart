@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
-// import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 
 class FormBriefing extends StatefulWidget {
@@ -9,25 +8,41 @@ class FormBriefing extends StatefulWidget {
 }
 
 class _FormBriefingState extends State<FormBriefing> {
+  String _textButton = 'Start';
+  bool _start = true;
+  Color _colorButton = Colors.green;
+
   TextEditingController controller = new TextEditingController();
   List<String> textList = [
     'Menu Baru',
     'Event',
     'Upselling',
     'Hasil Audit',
-    'Pengumuman'
+    'Pengumuman',
   ];
 
-  bool _note = false;
-  String _briefing;
-  void _pilihBriefing(String value) {
-    setState(() {
-      _briefing = value;      
-    });
-  }
+  List<bool> textListValue = [
+    false,
+    false,
+    false,
+    false,
+    false,
+  ];
+
+  List<bool> textListNote = [
+    false,
+    false,
+    false,
+    false,
+    false,
+  ];
+
+  TextEditingController _controller = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width;
+
     return SafeArea(
       child: Scaffold(
         appBar: AbubaAppBar(),
@@ -35,12 +50,12 @@ class _FormBriefingState extends State<FormBriefing> {
             onTap: () {
               FocusScope.of(context).requestFocus(FocusNode());
             },
-            child: _buildFormMenu()),
+            child: _buildFormMenu(width)),
       ),
     );
   }
 
-  Widget _buildFormMenu() {
+  Widget _buildFormMenu(double width) {
     return ListView(
       children: <Widget>[
         Padding(
@@ -71,176 +86,185 @@ class _FormBriefingState extends State<FormBriefing> {
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Column(
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'Menu Baru',
-                    style: TextStyle(
-                      color: Colors.green,
+        Container(
+          padding: EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
+          child: ListTile(
+            title: _start
+                ? Container()
+                : Container(
+                    width: 150.0,
+                    child: TextFormField(
+                      textCapitalization: TextCapitalization.words,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        border: UnderlineInputBorder(),
+                        labelText: 'Jumlah Peserta',
+                        labelStyle: TextStyle(fontSize: 14.0),
+                      ),
+                      style: TextStyle(
+                        fontStyle: FontStyle.normal,
+                        color: Colors.black87,
+                        fontSize: 14.0
+                      ),
                     ),
                   ),
-                  Container(
-                    width: 150.0,
-                    child: Radio(value: 'Menu Baru', groupValue: _briefing, onChanged: (String value) {_pilihBriefing(value); }),
-                  )
-                ],
+            trailing: ButtonTheme(
+              minWidth: 50.0,
+              height: 25.0,
+              child: RaisedButton(
+                color: _colorButton,
+                child: Text(
+                  _textButton,
+                  style: TextStyle(
+                      fontSize: 13.0, color: Colors.white),
+                ),
+                onPressed: () {
+                  setState(() {
+                    _start = !_start;
+                    if (_start) {
+                      _textButton = 'START';
+                      _colorButton = Colors.green;
+                    } else {
+                      _textButton = 'END';
+                      _colorButton = Colors.redAccent;
+                    }
+                  });
+                },
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'Menu Baru',
-                    style: TextStyle(
-                      color: Colors.green,
+            ),
+            onTap: null,
+          ),
+        ),
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Flexible(
+              child: ListView.builder(
+                shrinkWrap: true,
+                physics: ScrollPhysics(),
+                itemCount: textList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
+                        child: CheckboxListTile(
+                          value: textListValue[index],
+                          onChanged: (bool value) {
+                            setState(() {
+                              textListValue[index] = !textListValue[index];
+                            });
+                          },
+                          title: new Text(textList[index]),
+                          controlAffinity: ListTileControlAffinity.leading,
+                          secondary: ButtonTheme(
+                            minWidth: 50.0,
+                            height: 25.0,
+                            child: OutlineButton(
+                              child: Text(
+                                'NOTE',
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                  color: AbubaPallate.menuBluebird
+                                ),
+                              ),
+                              borderSide: BorderSide(color: AbubaPallate.menuBluebird, width: 1.0),
+                              highlightedBorderColor: AbubaPallate.menuBluebird,
+                              onPressed: () {
+                                setState(() {
+                                  textListNote[index] = !textListNote[index];
+                                });
+                              },
+                            ),
+                          ),
+                          activeColor: AbubaPallate.green,
+                        ),
+                      ),
+                      textListNote[index]
+                        ? Container(
+                            width: 300.0,
+                            child: TextField(
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: 'Note',
+                                hintStyle: TextStyle(fontSize: 12.0),
+                              ),
+                              maxLines: 3,
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
+                          )
+                        : Container()
+                    ],
+                  );
+                },
+              ),
+            )
+          ],
+        ),
+        _start
+          ? Container()
+          : Container(
+              padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
+              child: ListTile(
+                leading: Container(
+                  width: width / 2,
+                  child: TextFormField(
+                    textCapitalization: TextCapitalization.words,
+                    controller: _controller,
+                    decoration: InputDecoration(
+                      border: UnderlineInputBorder(),
+                      labelText: 'New Data',
+                      labelStyle: TextStyle(fontSize: 14.0),
                     ),
-                  ),
-                  Container(
-                    width: 150.0,
-                    child: Radio(value: 'Menu Baru 2', groupValue: _briefing, onChanged: (String value) {_pilihBriefing(value);}),
-                  )
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'Event',
                     style: TextStyle(
-                      color: Colors.green,
+                      fontStyle: FontStyle.normal,
+                      color: Colors.black87,
+                      fontSize: 14.0
                     ),
+                    onSaved: null,
                   ),
-                  Container(
-                    width: 150.0,
-                    child: Radio(value: 'Event', groupValue: _briefing, onChanged: (String value) {_pilihBriefing(value);}),
-                  )
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'Upselling',
-                    style: TextStyle(
-                      color: Colors.green,
-                    ),
-                  ),
-                  Container(
-                    width: 150.0,
-                    child: Radio(value: 'Upselling', groupValue: _briefing, onChanged: (String value) {_pilihBriefing(value);}),
-                  )
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'Hasil Audit',
-                    style: TextStyle(
-                      color: Colors.green,
-                    ),
-                  ),
-                  Container(
-                    width: 150.0,
-                    child: Radio(value: 'Hasil Audit', groupValue: _briefing, onChanged: (String value) {_pilihBriefing(value);}),
-                  )
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'Pengumuman',
-                    style: TextStyle(
-                      color: Colors.green,
-                    ),
-                  ),
-                  Container(
-                    width: 150.0,
-                    child: Radio(value: 'Pengumuman', groupValue: _briefing, onChanged: (String value) {_pilihBriefing(value);}),
-                  )
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  IconButton(
+                ),
+                title: Padding(
+                  padding: const EdgeInsets.only(right: 5.0),
+                  child: IconButton(
                     icon: Icon(
                       Icons.add_circle,
                       color: Colors.green,
                       size: 30.0,
                     ),
                     onPressed: () {
-
+                      setState(() {
+                        textList.add(_controller.text);
+                        textListValue.add(false);
+                        textListNote.add(false);
+                        _controller.clear();
+                      });
                     },
                   ),
-                ],
-              ),
-              SizedBox(
-                height: 15.0,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  ButtonTheme(
+                ),
+                trailing: Padding(
+                  padding: const EdgeInsets.only(left: 5.0),
+                  child: ButtonTheme(
                     minWidth: 50.0,
                     height: 30.0,
-                    child: RaisedButton(
-                      color: AbubaPallate.menuBluebird,
-                      child: Text(
-                        'Note',
-                        style: TextStyle(fontSize: 13.0, color: Colors.white),
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _note = !_note;
-                        });
-                      },
-                    ),
-                  ),
-                  Padding(padding: EdgeInsets.symmetric(horizontal: 10.0),),
-                  ButtonTheme(
-                    minWidth: 50.0,
-                    height: 30.0,
-                    child: RaisedButton(
+                    child: OutlineButton(
                       child: Text(
                         'SAVE',
-                        style: TextStyle(fontSize: 13.0),
+                        style: TextStyle(
+                          fontSize: 13.0,
+                          color: Colors.green
+                        ),
                       ),
-                      textColor: Colors.white,
-                      color: Colors.green,
-                      onPressed: () {
-
-                      },
+                      borderSide: BorderSide(color: Colors.green, width: 1.0),
+                      highlightedBorderColor: Colors.green,
+                      onPressed: () {},
                     ),
                   ),
-                ],
+                )
               ),
-
-              _note
-                  ? Container(
-                    padding: EdgeInsets.only(bottom: 10.0),
-                    width: 300.0,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Note',
-                        hintStyle: TextStyle(fontSize: 12.0),
-                      ),
-                      maxLines: 3,
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
-                    ),
-                  )
-                  : Container()
-            ],
-          ),
-        ),
+            ),
       ],
     );
   }

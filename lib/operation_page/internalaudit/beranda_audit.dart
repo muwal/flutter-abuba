@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
+import 'package:flutter_abuba/operation_page/internalaudit/form_jadwal_start.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 
@@ -25,28 +26,6 @@ class _MenuAuditState extends State<MenuAudit> {
         appBar: AbubaAppBar(),
         body: _buildLogMenu(),
       ),
-    );
-  }
-
-  void _modalBottomSheetMenu(){
-    showModalBottomSheet(
-        context: context,
-        builder: (builder){
-          return new Container(
-            height: 350.0,
-            color: Colors.transparent, //could change this to Color(0xFF737373),
-            //so you don't have to change MaterialApp canvasColor
-            child: new Container(
-                decoration: new BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: new BorderRadius.only(
-                        topLeft: const Radius.circular(10.0),
-                        topRight: const Radius.circular(10.0))),
-                child: new Center(
-                  child: new Text("This is a modal sheet"),
-                )),
-          );
-        }
     );
   }
 
@@ -398,7 +377,13 @@ class _MenuAuditState extends State<MenuAudit> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () => _modalBottomSheetMenu,
+                    onTap: () {
+                      Navigator.push(context,
+                        MyCustomRoute(
+                          builder: (context) => new FormJadwalStart()
+                        )
+                      );
+                    },
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[

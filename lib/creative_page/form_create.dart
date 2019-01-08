@@ -11,12 +11,12 @@ class FormCreate extends StatefulWidget {
 }
 
 class _FormCreateState extends State<FormCreate> {
-  bool _note      = false;
-  bool _notedua   = false;
-  bool _notetiga  = false;
+  bool _note = false;
+  bool _notedua = false;
+  bool _notetiga = false;
   bool _noteEmpat = false;
-  bool _noteLima  = false;
-  bool _noteEnam  = false;
+  bool _noteLima = false;
+  bool _noteEnam = false;
   TextEditingController controllerNoteSatu = new TextEditingController();
 
   final dateFormat = DateFormat("MMMM d, yyyy");
@@ -77,7 +77,7 @@ class _FormCreateState extends State<FormCreate> {
               children: <Widget>[
                 Padding(
                   padding:
-                  const EdgeInsets.only(right: 20.0, left: 20.0, top: 16.0),
+                      const EdgeInsets.only(right: 20.0, left: 20.0, top: 16.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
@@ -108,15 +108,14 @@ class _FormCreateState extends State<FormCreate> {
                     ),
                     title: Text(
                       'Meningkatkan sales sebanyak 25% lewat upselling',
-                      style: TextStyle(
-                          color: Colors.black54, fontSize: 12.0),
+                      style: TextStyle(color: Colors.black54, fontSize: 12.0),
                     ),
                     subtitle: Padding(
                       padding: const EdgeInsets.only(top: 5.0),
                       child: Text(
                         'Ridwan . Outlet Cipete . 2h',
-                        style: TextStyle(
-                            color: Colors.grey[500], fontSize: 10.0),
+                        style:
+                            TextStyle(color: Colors.grey[500], fontSize: 10.0),
                       ),
                     ),
                     trailing: ButtonTheme(
@@ -357,9 +356,11 @@ class _FormCreateState extends State<FormCreate> {
                           child: Text(
                             'Note',
                             style: TextStyle(
-                                fontSize: 12.0, color: AbubaPallate.menuBluebird),
+                                fontSize: 12.0,
+                                color: AbubaPallate.menuBluebird),
                           ),
-                          borderSide: BorderSide(color: AbubaPallate.menuBluebird),
+                          borderSide:
+                              BorderSide(color: AbubaPallate.menuBluebird),
                           onPressed: () {
                             setState(() {
                               _note = !_note;
@@ -374,18 +375,18 @@ class _FormCreateState extends State<FormCreate> {
                   padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
                   child: _note
                       ? Container(
-                    width: 330.0,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                      ),
-                      controller: controllerNoteSatu,
-                      maxLines: 3,
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
-                    ),
-                  )
+                          width: 330.0,
+                          child: TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                            ),
+                            controller: controllerNoteSatu,
+                            maxLines: 3,
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
+                          ),
+                        )
                       : Container(),
                 ),
                 Padding(
@@ -435,9 +436,11 @@ class _FormCreateState extends State<FormCreate> {
                           child: Text(
                             'Note',
                             style: TextStyle(
-                                fontSize: 12.0, color: AbubaPallate.menuBluebird),
+                                fontSize: 12.0,
+                                color: AbubaPallate.menuBluebird),
                           ),
-                          borderSide: BorderSide(color: AbubaPallate.menuBluebird),
+                          borderSide:
+                              BorderSide(color: AbubaPallate.menuBluebird),
                           onPressed: () {
                             setState(() {
                               _notedua = !_notedua;
@@ -452,18 +455,18 @@ class _FormCreateState extends State<FormCreate> {
                   padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
                   child: _notedua
                       ? Container(
-                    width: 330.0,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                      ),
-                      controller: controllerNoteSatu,
-                      maxLines: 3,
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
-                    ),
-                  )
+                          width: 330.0,
+                          child: TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                            ),
+                            controller: controllerNoteSatu,
+                            maxLines: 3,
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
+                          ),
+                        )
                       : Container(),
                 ),
                 Padding(
@@ -514,9 +517,11 @@ class _FormCreateState extends State<FormCreate> {
                           child: Text(
                             'Note',
                             style: TextStyle(
-                                fontSize: 12.0, color: AbubaPallate.menuBluebird),
+                                fontSize: 12.0,
+                                color: AbubaPallate.menuBluebird),
                           ),
-                          borderSide: BorderSide(color: AbubaPallate.menuBluebird),
+                          borderSide:
+                              BorderSide(color: AbubaPallate.menuBluebird),
                           onPressed: () {
                             setState(() {
                               _notetiga = !_notetiga;
@@ -531,18 +536,18 @@ class _FormCreateState extends State<FormCreate> {
                   padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
                   child: _notetiga
                       ? Container(
-                    width: 330.0,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                      ),
-                      controller: controllerNoteSatu,
-                      maxLines: 3,
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
-                    ),
-                  )
+                          width: 330.0,
+                          child: TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                            ),
+                            controller: controllerNoteSatu,
+                            maxLines: 3,
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
+                          ),
+                        )
                       : Container(),
                 ),
               ],
@@ -715,9 +720,11 @@ class _FormCreateState extends State<FormCreate> {
                           child: Text(
                             'Note',
                             style: TextStyle(
-                                fontSize: 12.0, color: AbubaPallate.menuBluebird),
+                                fontSize: 12.0,
+                                color: AbubaPallate.menuBluebird),
                           ),
-                          borderSide: BorderSide(color: AbubaPallate.menuBluebird),
+                          borderSide:
+                              BorderSide(color: AbubaPallate.menuBluebird),
                           onPressed: () {
                             setState(() {
                               _noteEmpat = !_noteEmpat;
@@ -732,18 +739,18 @@ class _FormCreateState extends State<FormCreate> {
                   padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
                   child: _noteEmpat
                       ? Container(
-                    width: 330.0,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                      ),
-                      controller: controllerNoteSatu,
-                      maxLines: 3,
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
-                    ),
-                  )
+                          width: 330.0,
+                          child: TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                            ),
+                            controller: controllerNoteSatu,
+                            maxLines: 3,
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
+                          ),
+                        )
                       : Container(),
                 ),
                 Padding(
@@ -793,9 +800,11 @@ class _FormCreateState extends State<FormCreate> {
                           child: Text(
                             'Note',
                             style: TextStyle(
-                                fontSize: 12.0, color: AbubaPallate.menuBluebird),
+                                fontSize: 12.0,
+                                color: AbubaPallate.menuBluebird),
                           ),
-                          borderSide: BorderSide(color: AbubaPallate.menuBluebird),
+                          borderSide:
+                              BorderSide(color: AbubaPallate.menuBluebird),
                           onPressed: () {
                             setState(() {
                               _noteLima = !_noteLima;
@@ -810,18 +819,18 @@ class _FormCreateState extends State<FormCreate> {
                   padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
                   child: _noteLima
                       ? Container(
-                    width: 330.0,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                      ),
-                      controller: controllerNoteSatu,
-                      maxLines: 3,
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
-                    ),
-                  )
+                          width: 330.0,
+                          child: TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                            ),
+                            controller: controllerNoteSatu,
+                            maxLines: 3,
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
+                          ),
+                        )
                       : Container(),
                 ),
                 Padding(
@@ -872,9 +881,11 @@ class _FormCreateState extends State<FormCreate> {
                           child: Text(
                             'Note',
                             style: TextStyle(
-                                fontSize: 12.0, color: AbubaPallate.menuBluebird),
+                                fontSize: 12.0,
+                                color: AbubaPallate.menuBluebird),
                           ),
-                          borderSide: BorderSide(color: AbubaPallate.menuBluebird),
+                          borderSide:
+                              BorderSide(color: AbubaPallate.menuBluebird),
                           onPressed: () {
                             setState(() {
                               _noteEnam = !_noteEnam;
@@ -889,18 +900,18 @@ class _FormCreateState extends State<FormCreate> {
                   padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 15.0),
                   child: _noteEnam
                       ? Container(
-                    width: 330.0,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                      ),
-                      controller: controllerNoteSatu,
-                      maxLines: 3,
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
-                    ),
-                  )
+                          width: 330.0,
+                          child: TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                            ),
+                            controller: controllerNoteSatu,
+                            maxLines: 3,
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
+                          ),
+                        )
                       : Container(),
                 ),
               ],
@@ -1011,8 +1022,8 @@ class _FormCreateState extends State<FormCreate> {
                       padding: const EdgeInsets.only(top: 5.0),
                       child: Text(
                         'Ridwan . IT . 3 months ago',
-                        style: TextStyle(
-                            color: Colors.grey[500], fontSize: 10.0),
+                        style:
+                            TextStyle(color: Colors.grey[500], fontSize: 10.0),
                       ),
                     ),
                     onTap: null,
@@ -1041,8 +1052,8 @@ class _FormCreateState extends State<FormCreate> {
                       padding: const EdgeInsets.only(top: 5.0),
                       child: Text(
                         'Kurniawan . HRD . 3 months ago',
-                        style: TextStyle(
-                            color: Colors.grey[500], fontSize: 10.0),
+                        style:
+                            TextStyle(color: Colors.grey[500], fontSize: 10.0),
                       ),
                     ),
                     onTap: null,

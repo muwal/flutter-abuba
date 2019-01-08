@@ -92,41 +92,37 @@ class _RDcreateState extends State<RDcreate>{
             ),
           ),
           Padding(
-            padding:
-            const EdgeInsets.only(top: 20.0, right: 20.0, left: 20.0),
-            child: Row(
-              mainAxisAlignment:
-              MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Container(
-                  width: 250,
-                  child: TextFormField(
-                    textCapitalization:
-                    TextCapitalization.words,
-                    decoration: InputDecoration(
-                      border:
-                      UnderlineInputBorder(),
-                      labelText: 'Komposisi',
-                      labelStyle:
-                      TextStyle(fontSize: 14.0),
-                      hintText: 'Komposisi',
-                    ),
-                    style: TextStyle(
-                        fontStyle: FontStyle.normal,
-                        color: Colors.black87,
-                        fontSize: 14.0),
-                    onSaved: null,
+            padding: const EdgeInsets.only(top: 10.0, left: 5.0, right: 5.0),
+            child: ListTile(
+              title: Container(
+                width: 250,
+                child: TextFormField(
+                  textCapitalization:
+                  TextCapitalization.words,
+                  decoration: InputDecoration(
+                    border:
+                    UnderlineInputBorder(),
+                    labelText: 'Komposisi',
+                    labelStyle:
+                    TextStyle(fontSize: 14.0),
+                    hintText: 'Komposisi',
                   ),
+                  style: TextStyle(
+                      fontStyle: FontStyle.normal,
+                      color: Colors.black87,
+                      fontSize: 14.0),
+                  onSaved: null,
                 ),
-                Container(
-                    width: 50.0,
-                    child: IconButton(
-                      icon: Icon(Icons.add),
-                      color: Colors.blue,
-                      onPressed: () {},
-                    ))
-              ],
-            )
+              ),
+              trailing: Container(
+                width: 50.0,
+                child: IconButton(
+                  icon: Icon(Icons.add),
+                  color: Colors.blue,
+                  onPressed: () {},
+                )
+              )
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 20.0, right: 20.0, left: 20.0),
@@ -195,80 +191,63 @@ class _RDcreateState extends State<RDcreate>{
             ),
           ),
           Padding(
-            padding:
-            const EdgeInsets.only(top: 10.0, right: 20.0, left: 20.0),
-            child: Row(
-              mainAxisAlignment:
-              MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Container(
-                  width: 250,
-                  child: DropdownButtonFormField<
-                      String>(
-                    decoration: InputDecoration(
-                      labelText: 'Kirim Kepada',
-                      labelStyle:
-                      TextStyle(fontSize: 14.0),
-                    ),
-                    value: _selectionPIC,
-                    onChanged: (String value) {
-                      setState(() {
-                        switch (
-                        int.tryParse(value)) {
-                          case 1:
-                            _pic = 'Ironman';
-                            break;
-                          case 2:
-                            _pic = 'Spiderman';
-                            break;
-                          default:
-                            _pic = '-';
-                            break;
-                        }
-                        _selectionPIC = value;
-                      });
-                    },
-                    items: _picJSON.map((Map map) {
-                      return DropdownMenuItem(
-                        value: map['id'].toString(),
-                        child: Text(map['pic']),
-                      );
-                    }).toList(),
+            padding: const EdgeInsets.only(top: 10.0, left: 5.0, right: 5.0),
+            child: ListTile(
+              title: Container(
+                width: 250,
+                child: DropdownButtonFormField<
+                    String>(
+                  decoration: InputDecoration(
+                    labelText: 'Kirim Kepada',
+                    labelStyle:
+                    TextStyle(fontSize: 14.0),
                   ),
+                  value: _selectionPIC,
+                  onChanged: (String value) {
+                    setState(() {
+                      switch (
+                      int.tryParse(value)) {
+                        case 1:
+                          _pic = 'Ironman';
+                          break;
+                        case 2:
+                          _pic = 'Spiderman';
+                          break;
+                        default:
+                          _pic = '-';
+                          break;
+                      }
+                      _selectionPIC = value;
+                    });
+                  },
+                  items: _picJSON.map((Map map) {
+                    return DropdownMenuItem(
+                      value: map['id'].toString(),
+                      child: Text(map['pic']),
+                    );
+                  }).toList(),
                 ),
-                Container(
-                  width: 50.0,
-                  child: IconButton(
-                    icon: Icon(Icons.add),
-                    color: Colors.blue,
-                    onPressed: () {},
-                  )
+              ),
+              trailing: Container(
+                width: 50.0,
+                child: IconButton(
+                  icon: Icon(Icons.add),
+                  color: Colors.blue,
+                  onPressed: () {},
                 )
-              ],
-            )
+              )
+            ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 20.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                ButtonTheme(
-                  height: 30.0,
-                  child: OutlineButton(
-                    child: Text(
-                      'SEND',
-                      style: TextStyle(
-                        color: Colors.green),
-                    ),
-                    borderSide: BorderSide(
-                      color: Colors.green,
-                      width: 1.0),
-                    highlightedBorderColor: Colors.green,
-                    onPressed: () {},
-                  ),
-                ),
-              ],
-            ),
+            padding: EdgeInsets.only(top: 20.0, left: 60.0, right: 60.0, bottom: 20.0),
+            child: RaisedButton(
+              child: Text(
+                'SEND',
+              ),
+              onPressed: () {},
+              textColor: Colors.white,
+              color: Colors.green,
+            )
           ),
         ],
       ),

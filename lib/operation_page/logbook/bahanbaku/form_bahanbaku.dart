@@ -23,6 +23,8 @@ class _FormBahanBakuState extends State<FormBahanBaku> {
 
   @override
   Widget build(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width;
+
     return SafeArea(
       child: Scaffold(
         appBar: AbubaAppBar(),
@@ -30,12 +32,12 @@ class _FormBahanBakuState extends State<FormBahanBaku> {
             onTap: () {
               FocusScope.of(context).requestFocus(FocusNode());
             },
-            child: _buildFormMenu()),
+            child: _buildFormMenu(width)),
       ),
     );
   }
 
-  Widget _buildFormMenu() {
+  Widget _buildFormMenu(double width) {
     return ListView(
       children: <Widget>[
         Padding(
@@ -58,7 +60,7 @@ class _FormBahanBakuState extends State<FormBahanBaku> {
               Padding(
                 padding: EdgeInsets.only(left: 15.0),
                 child: Text(
-                  'Bahan Baku',
+                  'Deployment',
                   style:
                       TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
                 ),
@@ -67,214 +69,146 @@ class _FormBahanBakuState extends State<FormBahanBaku> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Column(
-            children: <Widget>[
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                verticalDirection: VerticalDirection.up,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'Sold Out',
-                    style: TextStyle(
-                      color: Colors.green,
-                    ),
-                  ),
-                  Container(
-                    width: 150.0,
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        isDense: true,
-                        hint: Text('Bahan Baku'),
-                        value: _mySelection,
-                        onChanged: (String newValue) {
-                          setState(() {
-                            switch (int.tryParse(newValue)) {
-                              case 1:
-                                _jenisAcara = 'Bahan Baku 1';
-                                break;
-                              case 2:
-                                _jenisAcara = 'Bahan Baku 2';
-                                break;
-                              default:
-                                _jenisAcara = '-';
-                                break;
-                            }
-                            _mySelection = newValue;
-                          });
-                        },
-                        items: _jenisAcaraJson.map((Map map) {
-                          return new DropdownMenuItem(
-                            value: map['id'].toString(),
-                            child: Text(map['jenis']),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 10.0,
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                verticalDirection: VerticalDirection.up,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'Limit',
-                    style: TextStyle(
-                      color: Colors.green,
-                    ),
-                  ),
-                  Container(
-                    width: 150.0,
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        isDense: true,
-                        hint: Text('Bahan Baku'),
-                        value: _mySelectionsatu,
-                        onChanged: (String newValue) {
-                          setState(() {
-                            switch (int.tryParse(newValue)) {
-                              case 1:
-                                _jenisAcara = 'Bahan Baku 1';
-                                break;
-                              case 2:
-                                _jenisAcara = 'Bahan Baku 2';
-                                break;
-                              default:
-                                _jenisAcara = '-';
-                                break;
-                            }
-                            _mySelectionsatu = newValue;
-                          });
-                        },
-                        items: _jenisAcaraJson.map((Map map) {
-                          return new DropdownMenuItem(
-                            value: map['id'].toString(),
-                            child: Text(map['jenis']),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 10.0,
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                verticalDirection: VerticalDirection.up,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'Sugestion',
-                    style: TextStyle(
-                      color: Colors.green,
-                    ),
-                  ),
-                  Container(
-                    width: 150.0,
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        isDense: true,
-                        hint: Text('Bahan Baku'),
-                        value: _mySelectiondua,
-                        onChanged: (String newValue) {
-                          setState(() {
-                            switch (int.tryParse(newValue)) {
-                              case 1:
-                                _jenisAcara = 'Bahan Baku 1';
-                                break;
-                              case 2:
-                                _jenisAcara = 'Bahan Baku 2';
-                                break;
-                              default:
-                                _jenisAcara = '-';
-                                break;
-                            }
-                            _mySelectiondua = newValue;
-                          });
-                        },
-                        items: _jenisAcaraJson.map((Map map) {
-                          return new DropdownMenuItem(
-                            value: map['id'].toString(),
-                            child: Text(map['jenis']),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                verticalDirection: VerticalDirection.up,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  IconButton(
-                    icon: Icon(
-                      Icons.add_circle,
-                      color: Colors.green,
-                      size: 30.0,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        textList.add(controller.text);
-                        controller.clear();
-                      });
-                    },
-                  ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                verticalDirection: VerticalDirection.up,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'Catatan',
-                    style: TextStyle(color: Colors.green),
-                  ),
-                  Container(
-                    width: 150.0,
-                    child: TextField(
-                      maxLines: 3,
-                      keyboardType: TextInputType.multiline,
-                      decoration: InputDecoration(
-                        hintText: 'Catatan',
-                        hintStyle: TextStyle(fontSize: 12.0),
-                      ),
-                      textCapitalization: TextCapitalization.sentences,
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 15.0,
-              ),
-              ButtonTheme(
-                minWidth: 50.0,
-                height: 30.0,
-                child: RaisedButton(
-                  child: Text(
-                    'SAVE',
-                    style: TextStyle(fontSize: 13.0),
-                  ),
-                  textColor: Colors.white,
-                  color: Colors.green,
-                  onPressed: () {},
-                ),
-              ),
-            ],
+          padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+          child: DropdownButtonFormField(
+            hint: Text('Bahan Baku'),
+            value: _mySelection,
+            onChanged: (String newValue) {
+              setState(() {
+                switch (int.tryParse(newValue)) {
+                  case 1:
+                    _jenisAcara = 'Bahan Baku 1';
+                    break;
+                  case 2:
+                    _jenisAcara = 'Bahan Baku 2';
+                    break;
+                  default:
+                    _jenisAcara = '-';
+                    break;
+                }
+                _mySelection = newValue;
+              });
+            },
+            items: _jenisAcaraJson.map((Map map) {
+              return new DropdownMenuItem(
+                value: map['id'].toString(),
+                child: Text(map['jenis']),
+              );
+            }).toList(),
           ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+          child: DropdownButtonFormField(
+            hint: Text('Limit'),
+            value: _mySelectionsatu,
+            onChanged: (String newValue) {
+              setState(() {
+                switch (int.tryParse(newValue)) {
+                  case 1:
+                    _jenisAcara = 'Bahan Baku 1';
+                    break;
+                  case 2:
+                    _jenisAcara = 'Bahan Baku 2';
+                    break;
+                  default:
+                    _jenisAcara = '-';
+                    break;
+                }
+                _mySelectionsatu = newValue;
+              });
+            },
+            items: _jenisAcaraJson.map((Map map) {
+              return new DropdownMenuItem(
+                value: map['id'].toString(),
+                child: Text(map['jenis']),
+              );
+            }).toList(),
+          ),
+        ),
+        ListTile(
+          title: Padding(
+            padding: const EdgeInsets.only(top: 10.0, left: 5.0),
+            child: DropdownButtonFormField(
+              hint: Text('Suggestion'),
+              value: _mySelectiondua,
+              onChanged: (String newValue) {
+                setState(() {
+                  switch (int.tryParse(newValue)) {
+                    case 1:
+                      _jenisAcara = 'Bahan Baku 1';
+                      break;
+                    case 2:
+                      _jenisAcara = 'Bahan Baku 2';
+                      break;
+                    default:
+                      _jenisAcara = '-';
+                      break;
+                  }
+                  _mySelectiondua = newValue;
+                });
+              },
+              items: _jenisAcaraJson.map((Map map) {
+                return new DropdownMenuItem(
+                  value: map['id'].toString(),
+                  child: Text(map['jenis']),
+                );
+              }).toList(),
+            ),
+          ),
+          trailing: Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+            child: IconButton(
+              icon: Icon(
+                Icons.add_circle,
+                color: Colors.green,
+                size: 30.0,
+              ),
+              onPressed: () {},
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+          child: TextFormField(
+            textCapitalization: TextCapitalization.words,
+            maxLines: 3,
+            keyboardType: TextInputType.multiline,
+            decoration: InputDecoration(
+              border: UnderlineInputBorder(),
+              labelText: 'Catatan',
+              labelStyle: TextStyle(fontSize: 14.0),
+            ),
+            style: TextStyle(
+              fontStyle: FontStyle.normal,
+              color: Colors.black87,
+              fontSize: 14.0
+            ),
+            onSaved: null,
+          ),
+        ),
+        Container(
+          padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 6.0),
+          alignment: Alignment.center,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 5.0),
+            child: ButtonTheme(
+              minWidth: 50.0,
+              height: 30.0,
+              child: OutlineButton(
+                child: Text(
+                  'SAVE',
+                  style: TextStyle(
+                    fontSize: 13.0,
+                    color: Colors.green
+                  ),
+                ),
+                borderSide: BorderSide(color: Colors.green, width: 1.0),
+                highlightedBorderColor: Colors.green,
+                onPressed: () {},
+              ),
+            ),
+          )
         ),
       ],
     );

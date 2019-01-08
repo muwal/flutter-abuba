@@ -114,38 +114,39 @@ class _FormCreateNewState extends State<FormCreateNew>
                 ListView(
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
+                      padding: const EdgeInsets.only(top: 20.0),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Flexible(child: Text('General'))
+                          Container(
+                            width: MediaQuery.of(context).size.width / 2,
+                            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+                            child: DateTimePickerFormField(
+                              format: dateFormat,
+                              onChanged: (dt) => setState(() => dateStart = dt),
+                              dateOnly: true,
+                              style: TextStyle(fontSize: 14.0, color: Colors.black),
+                              decoration: InputDecoration(
+                                  border: UnderlineInputBorder(),
+                                  labelStyle: TextStyle(fontSize: 12.0),
+                                  labelText: 'Start'),
+                            ),
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width / 2,
+                            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+                            child: DateTimePickerFormField(
+                              format: dateFormat,
+                              onChanged: (dt) => setState(() => dateStart = dt),
+                              dateOnly: true,
+                              style: TextStyle(fontSize: 14.0, color: Colors.black),
+                              decoration: InputDecoration(
+                                  border: UnderlineInputBorder(),
+                                  labelStyle: TextStyle(fontSize: 12.0),
+                                  labelText: 'End'),
+                            ),
+                          ),
                         ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
-                      child: DateTimePickerFormField(
-                        format: dateFormat,
-                        onChanged: (dt) => setState(() => dateStart = dt),
-                        dateOnly: true,
-                        style: TextStyle(fontSize: 14.0, color: Colors.black),
-                        decoration: InputDecoration(
-                            border: UnderlineInputBorder(),
-                            labelStyle: TextStyle(fontSize: 12.0),
-                            labelText: 'Start'),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
-                      child: DateTimePickerFormField(
-                        format: dateFormat,
-                        onChanged: (dt) => setState(() => dateStart = dt),
-                        dateOnly: true,
-                        style: TextStyle(fontSize: 14.0, color: Colors.black),
-                        decoration: InputDecoration(
-                            border: UnderlineInputBorder(),
-                            labelStyle: TextStyle(fontSize: 12.0),
-                            labelText: 'End'),
                       ),
                     ),
                     Padding(
@@ -230,18 +231,9 @@ class _FormCreateNewState extends State<FormCreateNew>
                 ListView(
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Flexible(child: Text('Peserta'))
-                        ],
-                      ),
-                    ),
-                    Padding(
                       padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
                       child: TextField(
-                        maxLines: null,
+                        maxLines: 3,
                         keyboardType: TextInputType.multiline,
                         decoration: InputDecoration(
                           labelText: 'What',
@@ -266,77 +258,82 @@ class _FormCreateNewState extends State<FormCreateNew>
                             labelText: 'Due Date'),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 0.0),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: DropdownButton<String>(
-                          isDense: true,
-                          hint: Text(
-                            'Status',
-                            style: TextStyle(fontSize: 12.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Container(
+                          width: MediaQuery.of(context).size.width / 2,
+                          padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 0.0),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            child: DropdownButtonFormField(
+                              hint: Text(
+                                'Status',
+                                style: TextStyle(fontSize: 12.0),
+                              ),
+                              value: _mySelection,
+                              onChanged: (String newValue) {
+                                setState(() {
+                                  switch (int.tryParse(newValue)) {
+                                    case 1:
+                                      _jenisAcara = 'Pernikahan';
+                                      break;
+                                    case 2:
+                                      _jenisAcara = 'Ulang tahun';
+                                      break;
+                                    default:
+                                      _jenisAcara = '-';
+                                      break;
+                                  }
+                                  _mySelection = newValue;
+                                });
+                              },
+                              items: _jenisAcaraJson.map((Map map) {
+                                return new DropdownMenuItem(
+                                  value: map['id'].toString(),
+                                  child: Text(map['jenis']),
+                                );
+                              }).toList(),
+                            ),
                           ),
-                          value: _mySelection,
-                          onChanged: (String newValue) {
-                            setState(() {
-                              switch (int.tryParse(newValue)) {
-                                case 1:
-                                  _jenisAcara = 'Pernikahan';
-                                  break;
-                                case 2:
-                                  _jenisAcara = 'Ulang tahun';
-                                  break;
-                                default:
-                                  _jenisAcara = '-';
-                                  break;
-                              }
-                              _mySelection = newValue;
-                            });
-                          },
-                          items: _jenisAcaraJson.map((Map map) {
-                            return new DropdownMenuItem(
-                              value: map['id'].toString(),
-                              child: Text(map['jenis']),
-                            );
-                          }).toList(),
                         ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 0.0),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: DropdownButton<String>(
-                          isDense: true,
-                          hint: Text(
-                            'Send to',
-                            style: TextStyle(fontSize: 12.0),
+                        Container(
+                          width: MediaQuery.of(context).size.width / 2,
+                          padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 0.0),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            child: DropdownButtonFormField(
+                              hint: Text(
+                                'Send to',
+                                style: TextStyle(fontSize: 12.0),
+                              ),
+                              value: _mySelection,
+                              onChanged: (String newValue) {
+                                setState(() {
+                                  switch (int.tryParse(newValue)) {
+                                    case 1:
+                                      _jenisAcara = 'Pernikahan';
+                                      break;
+                                    case 2:
+                                      _jenisAcara = 'Ulang tahun';
+                                      break;
+                                    default:
+                                      _jenisAcara = '-';
+                                      break;
+                                  }
+                                  _mySelection = newValue;
+                                });
+                              },
+                              items: _jenisAcaraJson.map((Map map) {
+                                return new DropdownMenuItem(
+                                  value: map['id'].toString(),
+                                  child: Text(map['jenis']),
+                                );
+                              }).toList(),
+                            ),
                           ),
-                          value: _mySelection,
-                          onChanged: (String newValue) {
-                            setState(() {
-                              switch (int.tryParse(newValue)) {
-                                case 1:
-                                  _jenisAcara = 'Pernikahan';
-                                  break;
-                                case 2:
-                                  _jenisAcara = 'Ulang tahun';
-                                  break;
-                                default:
-                                  _jenisAcara = '-';
-                                  break;
-                              }
-                              _mySelection = newValue;
-                            });
-                          },
-                          items: _jenisAcaraJson.map((Map map) {
-                            return new DropdownMenuItem(
-                              value: map['id'].toString(),
-                              child: Text(map['jenis']),
-                            );
-                          }).toList(),
                         ),
-                      ),
+                      ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

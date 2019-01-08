@@ -1291,7 +1291,7 @@ class _BerandaOperationState extends State<BerandaOperation> {
               ),
               Container(
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
-                height: 330.0,
+                height: 370.0,
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   children: <Widget>[
@@ -1301,7 +1301,7 @@ class _BerandaOperationState extends State<BerandaOperation> {
                         itemCount: _counterLikeIdea.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Container(
-                            width: MediaQuery.of(context).size.width - 40.0,
+                            width: MediaQuery.of(context).size.width - 100.0,
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
@@ -1557,7 +1557,7 @@ class _BerandaOperationState extends State<BerandaOperation> {
                         itemCount: _counterLikeHappening.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Container(
-                            width: MediaQuery.of(context).size.width - 40.0,
+                            width: MediaQuery.of(context).size.width - 100.0,
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[

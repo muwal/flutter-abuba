@@ -67,13 +67,6 @@ class _MenuNotulenState extends State<MenuNotulen>
     return ListView(
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[Flexible(child: Text('Notulen'))],
-          ),
-        ),
-        Padding(
           padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
           child: TextFormField(
             keyboardType: TextInputType.text,

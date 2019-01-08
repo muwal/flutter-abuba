@@ -75,19 +75,10 @@ class _FormJadwalState extends State<FormJadwal> {
         Padding(
           padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Flexible(child: Text('Waktu'))
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
-          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Container(
-                width: 150.0,
+                width: MediaQuery.of(context).size.width / 2.4,
                 child: DateTimePickerFormField(
                   format: dateFormat,
                   onChanged: (dt) => setState(() => dateStart = dt),
@@ -100,7 +91,7 @@ class _FormJadwalState extends State<FormJadwal> {
                 ),
               ),
               Container(
-                width: 150.0,
+                width: MediaQuery.of(context).size.width / 2.4,
                 child: DateTimePickerFormField(
                   format: dateFormat,
                   onChanged: (dt) => setState(() => dateStart = dt),

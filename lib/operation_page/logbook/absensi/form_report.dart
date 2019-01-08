@@ -1,6 +1,8 @@
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
+import 'package:intl/intl.dart';
 
 import 'detail_report.dart';
 
@@ -10,17 +12,30 @@ class FormReport extends StatefulWidget {
 }
 
 class _FormReportState extends State<FormReport> {
+  String _mySelection;
+  String _shift;
+  List<Map> _shiftJson = [
+    {"id": 1, "shift": "Shift A"},
+    {"id": 2, "shift": "Shift B"}
+  ];
+
+  final dateFormat = DateFormat("MMMM d, yyyy");
+  DateTime dateStart;
+  DateTime dateEnd;
+
   @override
   Widget build(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width;
+
     return SafeArea(
       child: Scaffold(
         appBar: AbubaAppBar(),
-        body: _buildReport(),
+        body: _buildReport(width),
       ),
     );
   }
 
-  Widget _buildReport() {
+  Widget _buildReport(double width) {
     return ListView(
       children: <Widget>[
         Padding(
@@ -29,7 +44,7 @@ class _FormReportState extends State<FormReport> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Text(
-                'Performance',
+                'Absensi',
                 style: TextStyle(color: Colors.black12, fontSize: 12.0),
               ),
               Padding(
@@ -52,7 +67,105 @@ class _FormReportState extends State<FormReport> {
           ),
         ),
         Container(
-          width: MediaQuery.of(context).size.width,
+          color: Colors.white,
+          width: width,
+          child: ExpansionTile(
+            title: Text(
+              'Search',
+              style: TextStyle(
+                fontSize: 14.0,
+              ),
+            ),
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Container(
+                      width: width / 2.5,
+                      child: DateTimePickerFormField(
+                        format: dateFormat,
+                        onChanged: (dt) => setState(() => dateStart = dt),
+                        dateOnly: true,
+                        style: TextStyle(fontSize: 16.0, color: Colors.black),
+                        decoration: InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelStyle: TextStyle(fontSize: 14.0),
+                          labelText: 'From'
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: width / 2.5,
+                      child: DateTimePickerFormField(
+                    format: dateFormat,
+                    onChanged: (dt) => setState(() => dateEnd = dt),
+                    dateOnly: true,
+                    style: TextStyle(fontSize: 16.0, color: Colors.black),
+                    decoration: InputDecoration(
+                      border: UnderlineInputBorder(),
+                      labelStyle: TextStyle(fontSize: 14.0),
+                      labelText: 'To'
+                    ),
+                  ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+                child: DropdownButtonFormField(
+                  hint: Text('Shift', style: TextStyle(fontSize: 14.0)),
+                  value: _mySelection,
+                  onChanged: (String newValue) {
+                    setState(() {
+                      switch (int.tryParse(newValue)) {
+                        case 1:
+                          _shift = 'Shift A';
+                          break;
+                        case 2:
+                          _shift = 'Shift B';
+                          break;
+                        default:
+                          _shift = '-';
+                          break;
+                      }
+                      _mySelection = newValue;
+                    });
+                  },
+                  items: _shiftJson.map((Map map) {
+                    return new DropdownMenuItem(
+                      value: map['id'].toString(),
+                      child: Text(map['shift']),
+                    );
+                  }).toList(),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0, bottom: 20.0),
+                child: ButtonTheme(
+                  minWidth: width / 2.5,
+                  height: 40.0,
+                  child: RaisedButton(
+                    color: Colors.green,
+                    child: Text(
+                      'SEARCH',
+                      style: TextStyle(
+                          fontSize: 13.0, color: Colors.white),
+                    ),
+                    onPressed: () {},
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 20.0,
+        ),
+        Container(
+          width: width,
           color: Colors.white,
           child: Column(
             children: <Widget>[

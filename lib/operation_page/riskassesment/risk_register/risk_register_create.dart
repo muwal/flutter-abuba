@@ -8,32 +8,33 @@ class RiskRegisterCreate extends StatefulWidget {
   _RiskRegisterCreateState createState() => _RiskRegisterCreateState();
 }
 
-class _RiskRegisterCreateState extends State<RiskRegisterCreate> with TickerProviderStateMixin {
+class _RiskRegisterCreateState extends State<RiskRegisterCreate>
+    with TickerProviderStateMixin {
   String _selectionSumber;
   String _sumber;
   List<Map> _sumberJSON = [
-    {"id":1, "sumber":"Human Error"},
-    {"id":2, "sumber":"System Error"},
+    {"id": 1, "sumber": "Human Error"},
+    {"id": 2, "sumber": "System Error"},
   ];
 
   String _selectionPIC;
   String _pic;
   List<Map> _picJSON = [
-    {"id":1, "pic":"Ironman"},
-    {"id":2, "pic":"Spiderman"},
+    {"id": 1, "pic": "Ironman"},
+    {"id": 2, "pic": "Spiderman"},
   ];
 
   String _selectionVerifikator;
   String _verifikator;
   List<Map> _verifikatorJSON = [
-    {"id":1, "verifikator":"Hulk"},
-    {"id":2, "verifikator":"Thor"},
+    {"id": 1, "verifikator": "Hulk"},
+    {"id": 2, "verifikator": "Thor"},
   ];
 
   Color _colorLowSe = Colors.grey;
   Color _colorMedSe = Colors.grey;
   Color _colorHighSe = Colors.grey;
-  
+
   Color _colorLowLi = Colors.grey;
   Color _colorMedLi = Colors.grey;
   Color _colorHighLi = Colors.grey;
@@ -42,11 +43,11 @@ class _RiskRegisterCreateState extends State<RiskRegisterCreate> with TickerProv
   Color _colorRisk = Colors.grey;
 
   List<Map> myList = [
-    {"nomor":1},
-    {"nomor":2},
-    {"nomor":3},
-    {"nomor":4},
-    {"nomor":5},
+    {"nomor": 1},
+    {"nomor": 2},
+    {"nomor": 3},
+    {"nomor": 4},
+    {"nomor": 5},
   ];
 
   TabController _cardController;
@@ -71,47 +72,43 @@ class _RiskRegisterCreateState extends State<RiskRegisterCreate> with TickerProv
 
     return SafeArea(
       child: Scaffold(
-        appBar: AbubaAppBar(),
-        body: Center(
-          child: Column(
-            children: <Widget>[
-              myList.isEmpty
-                ? new Container(
-                    height: 30.0,
-                  )
-                : new Container(
-                    height: 30.0,
-                    child: _tabPageSelector,
-                    alignment: Alignment.center,
-                  ),
-              Expanded(
-                child: TabBarView(
-                  controller: _cardController,
-                  children: myList.isEmpty
-                      ? <Widget>[]
-                      : myList.map((Map map) {
-                        return _buildFormRisk(width);
-                      }).toList()
-                ),
-              )
-            ],
-          ),
-        )
-      ),
+          appBar: AbubaAppBar(),
+          body: Center(
+            child: Column(
+              children: <Widget>[
+                myList.isEmpty
+                    ? new Container(
+                        height: 30.0,
+                      )
+                    : new Container(
+                        height: 30.0,
+                        child: _tabPageSelector,
+                        alignment: Alignment.center,
+                      ),
+                Expanded(
+                  child: TabBarView(
+                      controller: _cardController,
+                      children: myList.isEmpty
+                          ? <Widget>[]
+                          : myList.map((Map map) {
+                              return _buildFormRisk(width);
+                            }).toList()),
+                )
+              ],
+            ),
+          )),
     );
   }
 
   Widget _buildFormRisk(double width) {
     return Scrollbar(
       child: ListView(
-        padding: EdgeInsets.symmetric(
-            horizontal: 20.0, vertical: 10.0),
+        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.only(top: 0.0),
             child: TextFormField(
-              textCapitalization:
-              TextCapitalization.words,
+              textCapitalization: TextCapitalization.words,
               decoration: InputDecoration(
                 border: UnderlineInputBorder(),
                 labelText: 'Jenis',
@@ -159,8 +156,7 @@ class _RiskRegisterCreateState extends State<RiskRegisterCreate> with TickerProv
           Padding(
             padding: const EdgeInsets.only(top: 10.0),
             child: TextFormField(
-              textCapitalization:
-              TextCapitalization.words,
+              textCapitalization: TextCapitalization.words,
               decoration: InputDecoration(
                 border: UnderlineInputBorder(),
                 labelText: 'Dampak',
@@ -174,107 +170,85 @@ class _RiskRegisterCreateState extends State<RiskRegisterCreate> with TickerProv
             ),
           ),
           Padding(
-              padding: EdgeInsets.only(top: 30.0),
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Severity',
-                      style: TextStyle(
-                          color: Colors.black54),
-                      textAlign: TextAlign.start,
-                    ),
+            padding: EdgeInsets.only(top: 30.0),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Severity',
+                    style: TextStyle(color: Colors.black54),
+                    textAlign: TextAlign.start,
                   ),
-                  Container(
-                    padding:
-                    EdgeInsets.only(top: 5.0),
-                    child: Row(
-                      mainAxisAlignment:
-                      MainAxisAlignment
-                          .spaceAround,
-                      children: <Widget>[
-                        ButtonTheme(
-                          height: 30.0,
-                          child: OutlineButton(
-                            child: Text(
-                              'Low',
-                              style: TextStyle(
-                                  color: _colorLowSe),
-                            ),
-                            borderSide: BorderSide(
-                                color: _colorLowSe,
-                                width: 1.0),
-                            highlightedBorderColor:
-                            _colorLowSe,
-                            onPressed: () {
-                              setState(() {
-                                _colorLowSe =
-                                Colors.green[400];
-                                _colorMedSe =
-                                    Colors.grey;
-                                _colorHighSe =
-                                    Colors.grey;
-                              });
-                            },
+                ),
+                Container(
+                  padding: EdgeInsets.only(top: 5.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      ButtonTheme(
+                        height: 30.0,
+                        child: OutlineButton(
+                          child: Text(
+                            'Low',
+                            style: TextStyle(color: _colorLowSe),
                           ),
+                          borderSide:
+                              BorderSide(color: _colorLowSe, width: 1.0),
+                          highlightedBorderColor: _colorLowSe,
+                          onPressed: () {
+                            setState(() {
+                              _colorLowSe = Colors.green[400];
+                              _colorMedSe = Colors.grey;
+                              _colorHighSe = Colors.grey;
+                            });
+                          },
                         ),
-                        ButtonTheme(
-                          height: 30.0,
-                          child: OutlineButton(
-                            child: Text(
-                              'Medium',
-                              style: TextStyle(
-                                  color: _colorMedSe),
-                            ),
-                            borderSide: BorderSide(
-                                color: _colorMedSe,
-                                width: 1.0),
-                            highlightedBorderColor:
-                            _colorMedSe,
-                            onPressed: () {
-                              setState(() {
-                                _colorLowSe =
-                                    Colors.grey;
-                                _colorMedSe = Colors
-                                    .orangeAccent;
-                                _colorHighSe =
-                                    Colors.grey;
-                              });
-                            },
+                      ),
+                      ButtonTheme(
+                        height: 30.0,
+                        child: OutlineButton(
+                          child: Text(
+                            'Medium',
+                            style: TextStyle(color: _colorMedSe),
                           ),
+                          borderSide:
+                              BorderSide(color: _colorMedSe, width: 1.0),
+                          highlightedBorderColor: _colorMedSe,
+                          onPressed: () {
+                            setState(() {
+                              _colorLowSe = Colors.grey;
+                              _colorMedSe = Colors.orangeAccent;
+                              _colorHighSe = Colors.grey;
+                            });
+                          },
                         ),
-                        ButtonTheme(
-                          height: 30.0,
-                          child: OutlineButton(
-                            child: Text(
-                              'High',
-                              style: TextStyle(
-                                  color:
-                                  _colorHighSe),
-                            ),
-                            borderSide: BorderSide(
-                                color: _colorHighSe,
-                                width: 1.0),
-                            highlightedBorderColor:
-                            _colorHighSe,
-                            onPressed: () {
-                              setState(() {
-                                _colorLowSe =
-                                    Colors.grey;
-                                _colorMedSe =
-                                    Colors.grey;
-                                _colorHighSe =
-                                    Colors.redAccent;
-                              });
-                            },
+                      ),
+                      ButtonTheme(
+                        height: 30.0,
+                        child: OutlineButton(
+                          child: Text(
+                            'High',
+                            style: TextStyle(color: _colorHighSe),
                           ),
+                          borderSide:
+                              BorderSide(color: _colorHighSe, width: 1.0),
+                          highlightedBorderColor: _colorHighSe,
+                          onPressed: () {
+                            setState(() {
+                              _colorLowSe = Colors.grey;
+                              _colorMedSe = Colors.grey;
+                              _colorHighSe = Colors.redAccent;
+                            });
+                          },
                         ),
-                      ],
-                    ),
-                  )
-                ],
-              )),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
           Padding(
               padding: EdgeInsets.only(top: 20.0),
               child: Column(
@@ -283,44 +257,33 @@ class _RiskRegisterCreateState extends State<RiskRegisterCreate> with TickerProv
                     alignment: Alignment.centerLeft,
                     child: Text(
                       'Likelihood',
-                      style: TextStyle(
-                          color: Colors.black54),
+                      style: TextStyle(color: Colors.black54),
                       textAlign: TextAlign.start,
                     ),
                   ),
                   Container(
-                    padding:
-                    EdgeInsets.only(top: 5.0),
+                    padding: EdgeInsets.only(top: 5.0),
                     child: Row(
-                      mainAxisAlignment:
-                      MainAxisAlignment
-                          .spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
                         ButtonTheme(
                           height: 30.0,
                           child: OutlineButton(
                             child: Text(
                               'Low',
-                              style: TextStyle(
-                                  color: _colorLowLi),
+                              style: TextStyle(color: _colorLowLi),
                             ),
-                            borderSide: BorderSide(
-                                color: _colorLowLi,
-                                width: 1.0),
-                            highlightedBorderColor:
-                            _colorLowLi,
+                            borderSide:
+                                BorderSide(color: _colorLowLi, width: 1.0),
+                            highlightedBorderColor: _colorLowLi,
                             onPressed: () {
                               setState(() {
-                                _colorLowLi =
-                                Colors.green[400];
-                                _colorMedLi =
-                                    Colors.grey;
-                                _colorHighLi =
-                                    Colors.grey;
+                                _colorLowLi = Colors.green[400];
+                                _colorMedLi = Colors.grey;
+                                _colorHighLi = Colors.grey;
 
                                 _risk = 'Low';
-                                _colorRisk =
-                                Colors.green[400];
+                                _colorRisk = Colors.green[400];
                               });
                             },
                           ),
@@ -330,26 +293,19 @@ class _RiskRegisterCreateState extends State<RiskRegisterCreate> with TickerProv
                           child: OutlineButton(
                             child: Text(
                               'Medium',
-                              style: TextStyle(
-                                  color: _colorMedLi),
+                              style: TextStyle(color: _colorMedLi),
                             ),
-                            borderSide: BorderSide(
-                                color: _colorMedLi,
-                                width: 1.0),
-                            highlightedBorderColor:
-                            _colorMedLi,
+                            borderSide:
+                                BorderSide(color: _colorMedLi, width: 1.0),
+                            highlightedBorderColor: _colorMedLi,
                             onPressed: () {
                               setState(() {
-                                _colorLowLi =
-                                    Colors.grey;
-                                _colorMedLi = Colors
-                                    .orangeAccent;
-                                _colorHighLi =
-                                    Colors.grey;
+                                _colorLowLi = Colors.grey;
+                                _colorMedLi = Colors.orangeAccent;
+                                _colorHighLi = Colors.grey;
 
                                 _risk = 'Medium';
-                                _colorRisk = Colors
-                                    .orangeAccent;
+                                _colorRisk = Colors.orangeAccent;
                               });
                             },
                           ),
@@ -359,27 +315,19 @@ class _RiskRegisterCreateState extends State<RiskRegisterCreate> with TickerProv
                           child: OutlineButton(
                             child: Text(
                               'High',
-                              style: TextStyle(
-                                  color:
-                                  _colorHighLi),
+                              style: TextStyle(color: _colorHighLi),
                             ),
-                            borderSide: BorderSide(
-                                color: _colorHighLi,
-                                width: 1.0),
-                            highlightedBorderColor:
-                            _colorHighLi,
+                            borderSide:
+                                BorderSide(color: _colorHighLi, width: 1.0),
+                            highlightedBorderColor: _colorHighLi,
                             onPressed: () {
                               setState(() {
-                                _colorLowLi =
-                                    Colors.grey;
-                                _colorMedLi =
-                                    Colors.grey;
-                                _colorHighLi =
-                                    Colors.redAccent;
+                                _colorLowLi = Colors.grey;
+                                _colorMedLi = Colors.grey;
+                                _colorHighLi = Colors.redAccent;
 
                                 _risk = 'High';
-                                _colorRisk =
-                                    Colors.redAccent;
+                                _colorRisk = Colors.redAccent;
                               });
                             },
                           ),
@@ -392,23 +340,19 @@ class _RiskRegisterCreateState extends State<RiskRegisterCreate> with TickerProv
           Padding(
             padding: EdgeInsets.only(top: 20.0),
             child: Column(
-              mainAxisAlignment:
-              MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Container(
-                  padding:
-                  EdgeInsets.only(bottom: 10.0),
+                  padding: EdgeInsets.only(bottom: 10.0),
                   alignment: Alignment.centerLeft,
                   child: Text(
                     'Risk',
-                    style: TextStyle(
-                        color: Colors.black54),
+                    style: TextStyle(color: Colors.black54),
                     textAlign: TextAlign.start,
                   ),
                 ),
                 Stack(
-                  alignment: AlignmentDirectional
-                      .centerStart,
+                  alignment: AlignmentDirectional.centerStart,
                   children: <Widget>[
                     Container(
                       color: _colorRisk,
@@ -417,9 +361,7 @@ class _RiskRegisterCreateState extends State<RiskRegisterCreate> with TickerProv
                     Container(
                       child: Text(
                         _risk,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16.0),
+                        style: TextStyle(color: Colors.white, fontSize: 16.0),
                       ),
                       alignment: Alignment.center,
                     )
@@ -431,8 +373,7 @@ class _RiskRegisterCreateState extends State<RiskRegisterCreate> with TickerProv
           Padding(
             padding: const EdgeInsets.only(top: 20.0),
             child: TextFormField(
-              textCapitalization:
-              TextCapitalization.words,
+              textCapitalization: TextCapitalization.words,
               decoration: InputDecoration(
                 border: UnderlineInputBorder(),
                 labelText: 'Pengendalian',
@@ -446,26 +387,20 @@ class _RiskRegisterCreateState extends State<RiskRegisterCreate> with TickerProv
             ),
           ),
           Padding(
-              padding:
-              const EdgeInsets.only(top: 10.0),
+              padding: const EdgeInsets.only(top: 10.0),
               child: Row(
-                mainAxisAlignment:
-                MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Container(
                     width: 250,
                     child: TextFormField(
                       maxLines: 3,
-                      keyboardType:
-                      TextInputType.text,
-                      textCapitalization:
-                      TextCapitalization.words,
+                      keyboardType: TextInputType.text,
+                      textCapitalization: TextCapitalization.words,
                       decoration: InputDecoration(
-                        border:
-                        UnderlineInputBorder(),
+                        border: UnderlineInputBorder(),
                         labelText: 'Deskripsi',
-                        labelStyle:
-                        TextStyle(fontSize: 14.0),
+                        labelStyle: TextStyle(fontSize: 14.0),
                       ),
                       style: TextStyle(
                           fontStyle: FontStyle.normal,
@@ -484,23 +419,18 @@ class _RiskRegisterCreateState extends State<RiskRegisterCreate> with TickerProv
                 ],
               )),
           Padding(
-              padding:
-              const EdgeInsets.only(top: 20.0),
+              padding: const EdgeInsets.only(top: 20.0),
               child: Row(
-                mainAxisAlignment:
-                MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Container(
                     width: 250,
                     child: TextFormField(
-                      textCapitalization:
-                      TextCapitalization.words,
+                      textCapitalization: TextCapitalization.words,
                       decoration: InputDecoration(
-                        border:
-                        UnderlineInputBorder(),
+                        border: UnderlineInputBorder(),
                         labelText: 'Pemantauan',
-                        labelStyle:
-                        TextStyle(fontSize: 14.0),
+                        labelStyle: TextStyle(fontSize: 14.0),
                         hintText: 'Pemantauan',
                       ),
                       style: TextStyle(
@@ -520,26 +450,21 @@ class _RiskRegisterCreateState extends State<RiskRegisterCreate> with TickerProv
                 ],
               )),
           Padding(
-              padding:
-              const EdgeInsets.only(top: 10.0),
+              padding: const EdgeInsets.only(top: 10.0),
               child: Row(
-                mainAxisAlignment:
-                MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Container(
                     width: 250,
-                    child: DropdownButtonFormField<
-                        String>(
+                    child: DropdownButtonFormField<String>(
                       decoration: InputDecoration(
                         labelText: 'PIC',
-                        labelStyle:
-                        TextStyle(fontSize: 14.0),
+                        labelStyle: TextStyle(fontSize: 14.0),
                       ),
                       value: _selectionPIC,
                       onChanged: (String value) {
                         setState(() {
-                          switch (
-                          int.tryParse(value)) {
+                          switch (int.tryParse(value)) {
                             case 1:
                               _pic = 'Ironman';
                               break;
@@ -571,26 +496,21 @@ class _RiskRegisterCreateState extends State<RiskRegisterCreate> with TickerProv
                 ],
               )),
           Padding(
-              padding:
-              const EdgeInsets.only(top: 10.0),
+              padding: const EdgeInsets.only(top: 10.0),
               child: Row(
-                mainAxisAlignment:
-                MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Container(
                     width: 250,
-                    child: DropdownButtonFormField<
-                        String>(
+                    child: DropdownButtonFormField<String>(
                       decoration: InputDecoration(
                         labelText: 'Verifikator',
-                        labelStyle:
-                        TextStyle(fontSize: 14.0),
+                        labelStyle: TextStyle(fontSize: 14.0),
                       ),
                       value: _selectionVerifikator,
                       onChanged: (String value) {
                         setState(() {
-                          switch (
-                          int.tryParse(value)) {
+                          switch (int.tryParse(value)) {
                             case 1:
                               _verifikator = 'Hulk';
                               break;
@@ -601,16 +521,13 @@ class _RiskRegisterCreateState extends State<RiskRegisterCreate> with TickerProv
                               _verifikator = '-';
                               break;
                           }
-                          _selectionVerifikator =
-                              value;
+                          _selectionVerifikator = value;
                         });
                       },
-                      items: _verifikatorJSON
-                          .map((Map map) {
+                      items: _verifikatorJSON.map((Map map) {
                         return DropdownMenuItem(
                           value: map['id'].toString(),
-                          child: Text(
-                              map['verifikator']),
+                          child: Text(map['verifikator']),
                         );
                       }).toList(),
                     ),
@@ -627,8 +544,7 @@ class _RiskRegisterCreateState extends State<RiskRegisterCreate> with TickerProv
           Padding(
             padding: EdgeInsets.only(top: 20.0),
             child: Row(
-              mainAxisAlignment:
-              MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 ButtonTheme(
                   height: 30.0,
@@ -636,15 +552,10 @@ class _RiskRegisterCreateState extends State<RiskRegisterCreate> with TickerProv
                     child: Text(
                       'EDIT',
                       style: TextStyle(
-                          color: Colors.grey,
-                          fontWeight:
-                          FontWeight.w700),
+                          color: Colors.grey, fontWeight: FontWeight.w700),
                     ),
-                    borderSide: BorderSide(
-                        color: Colors.grey,
-                        width: 2.0),
-                    highlightedBorderColor:
-                    Colors.grey,
+                    borderSide: BorderSide(color: Colors.grey, width: 2.0),
+                    highlightedBorderColor: Colors.grey,
                     onPressed: () {},
                   ),
                 ),

@@ -123,14 +123,14 @@ class _InspectionState extends State<Inspection> {
                             minWidth: 40.0,
                             height: 30.0,
                             child: OutlineButton(
-                              child: Icon(Icons.check, color: colorYesWaktu, size: 14.0),
+                              child: Icon(Icons.close, color: colorNoWaktu, size: 14.0),
                               borderSide:
-                                  BorderSide(color: colorYesWaktu, width: 1.0),
-                              highlightedBorderColor: colorYesWaktu,
+                                  BorderSide(color: colorNoWaktu, width: 1.0),
+                              highlightedBorderColor: colorNoWaktu,
                               onPressed: () {
                                 setState(() {
-                                  colorYesWaktu = Colors.green;
-                                  colorNoWaktu = Colors.grey;
+                                  colorYesWaktu = Colors.grey;
+                                  colorNoWaktu = Colors.red;
                                 });
                               },
                             ),
@@ -142,14 +142,14 @@ class _InspectionState extends State<Inspection> {
                             minWidth: 40.0,
                             height: 30.0,
                             child: OutlineButton(
-                              child: Icon(Icons.close, color: colorNoWaktu, size: 14.0),
+                              child: Icon(Icons.check, color: colorYesWaktu, size: 14.0),
                               borderSide:
-                                  BorderSide(color: colorNoWaktu, width: 1.0),
-                              highlightedBorderColor: colorNoWaktu,
+                                  BorderSide(color: colorYesWaktu, width: 1.0),
+                              highlightedBorderColor: colorYesWaktu,
                               onPressed: () {
                                 setState(() {
-                                  colorYesWaktu = Colors.grey;
-                                  colorNoWaktu = Colors.red;
+                                  colorYesWaktu = Colors.green;
+                                  colorNoWaktu = Colors.grey;
                                 });
                               },
                             ),
@@ -179,25 +179,6 @@ class _InspectionState extends State<Inspection> {
                     Row(
                       children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 5.0),
-                          child: ButtonTheme(
-                            minWidth: 40.0,
-                            height: 30.0,
-                            child: OutlineButton(
-                              child: Icon(Icons.check, color: colorYesJumlah, size: 14.0),
-                              borderSide:
-                                  BorderSide(color: colorYesJumlah, width: 1.0),
-                              highlightedBorderColor: colorYesJumlah,
-                              onPressed: () {
-                                setState(() {
-                                  colorYesJumlah = Colors.green;
-                                  colorNoJumlah = Colors.grey;
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                        Padding(
                           padding: EdgeInsets.all(5.0),
                           child: ButtonTheme(
                             minWidth: 40.0,
@@ -211,6 +192,25 @@ class _InspectionState extends State<Inspection> {
                                 setState(() {
                                   colorYesJumlah = Colors.grey;
                                   colorNoJumlah = Colors.red;
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 5.0),
+                          child: ButtonTheme(
+                            minWidth: 40.0,
+                            height: 30.0,
+                            child: OutlineButton(
+                              child: Icon(Icons.check, color: colorYesJumlah, size: 14.0),
+                              borderSide:
+                                  BorderSide(color: colorYesJumlah, width: 1.0),
+                              highlightedBorderColor: colorYesJumlah,
+                              onPressed: () {
+                                setState(() {
+                                  colorYesJumlah = Colors.green;
+                                  colorNoJumlah = Colors.grey;
                                 });
                               },
                             ),
@@ -265,14 +265,14 @@ class _InspectionState extends State<Inspection> {
                             minWidth: 40.0,
                             height: 30.0,
                             child: OutlineButton(
-                              child: Icon(Icons.check, color: colorYesWaktu, size: 14.0),
+                              child: Icon(Icons.close, color: colorNoWaktu, size: 14.0),
                               borderSide:
-                                  BorderSide(color: colorYesWaktu, width: 1.0),
-                              highlightedBorderColor: colorYesWaktu,
+                                  BorderSide(color: colorNoWaktu, width: 1.0),
+                              highlightedBorderColor: colorNoWaktu,
                               onPressed: () {
                                 setState(() {
-                                  colorYesWaktu = Colors.green;
-                                  colorNoWaktu = Colors.grey;
+                                  colorYesWaktu = Colors.grey;
+                                  colorNoWaktu = Colors.red;
                                 });
                               },
                             ),
@@ -284,14 +284,14 @@ class _InspectionState extends State<Inspection> {
                             minWidth: 40.0,
                             height: 30.0,
                             child: OutlineButton(
-                              child: Icon(Icons.close, color: colorNoWaktu, size: 14.0),
+                              child: Icon(Icons.check, color: colorYesWaktu, size: 14.0),
                               borderSide:
-                                  BorderSide(color: colorNoWaktu, width: 1.0),
-                              highlightedBorderColor: colorNoWaktu,
+                                  BorderSide(color: colorYesWaktu, width: 1.0),
+                              highlightedBorderColor: colorYesWaktu,
                               onPressed: () {
                                 setState(() {
-                                  colorYesWaktu = Colors.grey;
-                                  colorNoWaktu = Colors.red;
+                                  colorYesWaktu = Colors.green;
+                                  colorNoWaktu = Colors.grey;
                                 });
                               },
                             ),
@@ -327,14 +327,14 @@ class _InspectionState extends State<Inspection> {
                             minWidth: 40.0,
                             height: 30.0,
                             child: OutlineButton(
-                              child: Icon(Icons.check, color: colorYesJumlah, size: 14.0),
+                              child: Icon(Icons.close, color: colorNoJumlah, size: 14.0),
                               borderSide:
-                                  BorderSide(color: colorYesJumlah, width: 1.0),
-                              highlightedBorderColor: colorYesJumlah,
+                                  BorderSide(color: colorNoJumlah, width: 1.0),
+                              highlightedBorderColor: colorNoJumlah,
                               onPressed: () {
                                 setState(() {
-                                  colorYesJumlah = Colors.green;
-                                  colorNoJumlah = Colors.grey;
+                                  colorYesJumlah = Colors.grey;
+                                  colorNoJumlah = Colors.red;
                                 });
                               },
                             ),
@@ -346,14 +346,14 @@ class _InspectionState extends State<Inspection> {
                             minWidth: 40.0,
                             height: 30.0,
                             child: OutlineButton(
-                              child: Icon(Icons.close, color: colorNoJumlah, size: 14.0),
+                              child: Icon(Icons.check, color: colorYesJumlah, size: 14.0),
                               borderSide:
-                                  BorderSide(color: colorNoJumlah, width: 1.0),
-                              highlightedBorderColor: colorNoJumlah,
+                                  BorderSide(color: colorYesJumlah, width: 1.0),
+                              highlightedBorderColor: colorYesJumlah,
                               onPressed: () {
                                 setState(() {
-                                  colorYesJumlah = Colors.grey;
-                                  colorNoJumlah = Colors.red;
+                                  colorYesJumlah = Colors.green;
+                                  colorNoJumlah = Colors.grey;
                                 });
                               },
                             ),

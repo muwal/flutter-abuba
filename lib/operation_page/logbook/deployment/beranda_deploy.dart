@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
+import 'package:flutter_abuba/operation_page/logbook/deployment/form_analysis.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import 'form_jobdesc.dart';
@@ -145,7 +146,11 @@ class _BerandaDeployState extends State<BerandaDeploy> {
                   ),
                   GestureDetector(
                     onTap: () {
-
+                      Navigator.push(context,
+                        MyCustomRoute(
+                          builder: (context) => new FormAnalysis()
+                        )
+                      );
                     },
                     child: Column(
                       mainAxisSize: MainAxisSize.min,

@@ -3,6 +3,7 @@ import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/creative_page/form_comment.dart';
 import 'package:flutter_abuba/creative_page/form_create.dart';
 import 'package:flutter_abuba/creative_page/form_detail.dart';
+import 'package:flutter_abuba/operation_page/changemanagement/beranda_management.dart';
 import 'package:flutter_abuba/operation_page/correctiveaction/beranda_corrective.dart';
 import 'package:flutter_abuba/operation_page/internalaudit/beranda_audit.dart';
 import 'package:flutter_abuba/operation_page/kpimonitoring/kpi_monitoring_beranda.dart';
@@ -538,63 +539,69 @@ class _MenuHRDState extends State<MenuHRD> {
                       )
                     ],
                   ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Stack(
-                        overflow: Overflow.visible,
-                        children: <Widget>[
-                          Container(
-                            height: 70.0,
-                            width: 70.0,
-                            decoration: BoxDecoration(
-                                color: Colors.transparent,
-                                border:
-                                    Border.all(color: Colors.grey, width: 1.0),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(18.0))),
-                          ),
-                          Positioned(
-                            bottom: 22.5,
-                            left: 25.0,
-                            child: Icon(MdiIcons.heart,
-                                size: 25.0, color: Colors.grey),
-                          ),
-                          Positioned(
-                            top: -5.0,
-                            right: -5.0,
-                            child: Icon(
-                              Icons.brightness_1,
-                              size: 25.0,
-                              color: Colors.redAccent,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MyCustomRoute(builder: (context) => BerandaManagement()));
+                    },
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Stack(
+                          overflow: Overflow.visible,
+                          children: <Widget>[
+                            Container(
+                              height: 70.0,
+                              width: 70.0,
+                              decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  border:
+                                      Border.all(color: Colors.grey, width: 1.0),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(18.0))),
                             ),
-                          ),
-                          Positioned(
-                            top: -1.0,
-                            right: 3.0,
-                            child: Text(
-                              '2',
-                              style: TextStyle(color: Colors.white),
+                            Positioned(
+                              bottom: 22.5,
+                              left: 25.0,
+                              child: Icon(MdiIcons.heart,
+                                  size: 25.0, color: Colors.grey),
                             ),
-                          )
-                        ],
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 10.0),
-                        child: Text(
-                          'MORE',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500, fontSize: 12.0),
+                            Positioned(
+                              top: -5.0,
+                              right: -5.0,
+                              child: Icon(
+                                Icons.brightness_1,
+                                size: 25.0,
+                                color: Colors.redAccent,
+                              ),
+                            ),
+                            Positioned(
+                              top: -1.0,
+                              right: 3.0,
+                              child: Text(
+                                '2',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            )
+                          ],
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 5.0),
-                        child: Text(
-                          '',
-                          style: TextStyle(fontSize: 10.0),
+                        Padding(
+                          padding: EdgeInsets.only(top: 10.0),
+                          child: Text(
+                            'Change',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500, fontSize: 12.0),
+                          ),
                         ),
-                      )
-                    ],
+                        Padding(
+                          padding: EdgeInsets.only(top: 5.0),
+                          child: Text(
+                            'Management',
+                            style: TextStyle(fontSize: 10.0),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -1192,7 +1199,7 @@ class _MenuHRDState extends State<MenuHRD> {
           ),
           Container(
             padding: EdgeInsets.only(left: 20.0, right: 20.0),
-            height: 330.0,
+            height: 370.0,
             width: MediaQuery.of(context).size.width,
             child: Column(
               children: <Widget>[
@@ -1202,7 +1209,7 @@ class _MenuHRDState extends State<MenuHRD> {
                     itemCount: _counterLikeIdea.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
-                        width: MediaQuery.of(context).size.width - 40.0,
+                        width: MediaQuery.of(context).size.width - 100.0,
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
@@ -1458,7 +1465,7 @@ class _MenuHRDState extends State<MenuHRD> {
                     itemCount: _counterLikeHappening.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
-                        width: MediaQuery.of(context).size.width - 40.0,
+                        width: MediaQuery.of(context).size.width - 100.0,
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[

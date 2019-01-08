@@ -51,6 +51,10 @@ class _FormCreateNewState extends State<FormCreateNew>
     {"id": 2, "jenis": "Two"}
   ];
 
+  Color _colorLowSe = Colors.grey;
+  Color _colorMedSe = Colors.grey;
+  Color _colorHighSe = Colors.grey;
+
   Widget _appBar() {
     return AppBar(
       elevation: 0.25,
@@ -117,18 +121,10 @@ class _FormCreateNewState extends State<FormCreateNew>
                 ListView(
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[Flexible(child: Text('1. Problem'))],
-                      ),
-                    ),
-                    Padding(
                       padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 0.0),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
-                        child: DropdownButton<String>(
-                          isDense: true,
+                        child: DropdownButtonFormField(
                           hint: Text(
                             'Category',
                             style: TextStyle(fontSize: 12.0),
@@ -162,7 +158,7 @@ class _FormCreateNewState extends State<FormCreateNew>
                     Padding(
                       padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
                       child: TextField(
-                        maxLines: null,
+                        maxLines: 3,
                         keyboardType: TextInputType.multiline,
                         decoration: InputDecoration(
                           labelText: 'Problem',
@@ -203,74 +199,97 @@ class _FormCreateNewState extends State<FormCreateNew>
                               ),
                             ],
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                width: 100.0,
-                                child: Row(
-                                  children: <Widget>[
-                                    new Radio(
-                                      value: 0,
-                                      groupValue: null,
-                                      onChanged: null,
+                          Container(
+                            padding: EdgeInsets.only(top: 5.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                ButtonTheme(
+                                  height: 30.0,
+                                  child: OutlineButton(
+                                    child: Text(
+                                      'Low',
+                                      style: TextStyle(
+                                          color: _colorLowSe),
                                     ),
-                                    Flexible(
-                                      child: new Text(
-                                        'Low',
-                                        style: new TextStyle(fontSize: 12.0),
-                                      ),
-                                    ),
-                                  ],
+                                    borderSide: BorderSide(
+                                        color: _colorLowSe,
+                                        width: 1.0),
+                                    highlightedBorderColor:
+                                    _colorLowSe,
+                                    onPressed: () {
+                                      setState(() {
+                                        _colorLowSe =
+                                        Colors.green[400];
+                                        _colorMedSe =
+                                            Colors.grey;
+                                        _colorHighSe =
+                                            Colors.grey;
+                                      });
+                                    },
+                                  ),
                                 ),
-                              ),
-                              Container(
-                                width: 100.0,
-                                child: Row(
-                                  children: <Widget>[
-                                    new Radio(
-                                      value: 1,
-                                      groupValue: null,
-                                      onChanged: null,
+                                ButtonTheme(
+                                  height: 30.0,
+                                  child: OutlineButton(
+                                    child: Text(
+                                      'Medium',
+                                      style: TextStyle(
+                                          color: _colorMedSe),
                                     ),
-                                    Flexible(
-                                      child: new Text(
-                                        'Medium',
-                                        style: new TextStyle(
-                                          fontSize: 12.0,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                    borderSide: BorderSide(
+                                        color: _colorMedSe,
+                                        width: 1.0),
+                                    highlightedBorderColor:
+                                    _colorMedSe,
+                                    onPressed: () {
+                                      setState(() {
+                                        _colorLowSe =
+                                            Colors.grey;
+                                        _colorMedSe = Colors
+                                            .orangeAccent;
+                                        _colorHighSe =
+                                            Colors.grey;
+                                      });
+                                    },
+                                  ),
                                 ),
-                              ),
-                              Container(
-                                width: 100.0,
-                                child: Row(
-                                  children: <Widget>[
-                                    new Radio(
-                                      value: 2,
-                                      groupValue: null,
-                                      onChanged: null,
+                                ButtonTheme(
+                                  height: 30.0,
+                                  child: OutlineButton(
+                                    child: Text(
+                                      'High',
+                                      style: TextStyle(
+                                          color:
+                                          _colorHighSe),
                                     ),
-                                    Flexible(
-                                      child: new Text(
-                                        'High',
-                                        style: new TextStyle(fontSize: 12.0),
-                                      ),
-                                    ),
-                                  ],
+                                    borderSide: BorderSide(
+                                        color: _colorHighSe,
+                                        width: 1.0),
+                                    highlightedBorderColor:
+                                    _colorHighSe,
+                                    onPressed: () {
+                                      setState(() {
+                                        _colorLowSe =
+                                            Colors.grey;
+                                        _colorMedSe =
+                                            Colors.grey;
+                                        _colorHighSe =
+                                            Colors.redAccent;
+                                      });
+                                    },
+                                  ),
                                 ),
-                              )
-                            ],
-                          ),
+                              ],
+                            ),
+                          )
                         ],
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
                       child: TextField(
-                        maxLines: null,
+                        maxLines: 3,
                         keyboardType: TextInputType.multiline,
                         decoration: InputDecoration(
                           labelText: 'Remarks (optional)',
@@ -314,20 +333,10 @@ class _FormCreateNewState extends State<FormCreateNew>
                 ListView(
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Flexible(child: Text('2. Root Cause'))
-                        ],
-                      ),
-                    ),
-                    Padding(
                       padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 0.0),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
-                        child: DropdownButton<String>(
-                          isDense: true,
+                        child: DropdownButtonFormField(
                           hint: Text(
                             'What',
                             style: TextStyle(fontSize: 12.0),
@@ -361,7 +370,7 @@ class _FormCreateNewState extends State<FormCreateNew>
                     Padding(
                       padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
                       child: TextField(
-                        maxLines: null,
+                        maxLines: 3,
                         keyboardType: TextInputType.multiline,
                         decoration: InputDecoration(
                           labelText: 'Remarks (optional)',
@@ -425,15 +434,6 @@ class _FormCreateNewState extends State<FormCreateNew>
                 ),
                 ListView(
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Flexible(child: Text('3. Immediate Action'))
-                        ],
-                      ),
-                    ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
                       child: TextField(
@@ -515,18 +515,9 @@ class _FormCreateNewState extends State<FormCreateNew>
                 ListView(
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Flexible(child: Text('4. Recommendation'))
-                        ],
-                      ),
-                    ),
-                    Padding(
                       padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
                       child: TextField(
-                        maxLines: null,
+                        maxLines: 3,
                         keyboardType: TextInputType.multiline,
                         decoration: InputDecoration(
                           labelText: 'What',
@@ -551,77 +542,82 @@ class _FormCreateNewState extends State<FormCreateNew>
                             labelText: 'Due Date'),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 0.0),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: DropdownButton<String>(
-                          isDense: true,
-                          hint: Text(
-                            'Status',
-                            style: TextStyle(fontSize: 12.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Container(
+                          width: MediaQuery.of(context).size.width / 2,
+                          padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 0.0),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            child: DropdownButtonFormField(
+                              hint: Text(
+                                'Status',
+                                style: TextStyle(fontSize: 12.0),
+                              ),
+                              value: _mySelection,
+                              onChanged: (String newValue) {
+                                setState(() {
+                                  switch (int.tryParse(newValue)) {
+                                    case 1:
+                                      _jenisAcara = 'Pernikahan';
+                                      break;
+                                    case 2:
+                                      _jenisAcara = 'Ulang tahun';
+                                      break;
+                                    default:
+                                      _jenisAcara = '-';
+                                      break;
+                                  }
+                                  _mySelection = newValue;
+                                });
+                              },
+                              items: _jenisAcaraJson.map((Map map) {
+                                return new DropdownMenuItem(
+                                  value: map['id'].toString(),
+                                  child: Text(map['jenis']),
+                                );
+                              }).toList(),
+                            ),
                           ),
-                          value: _mySelection,
-                          onChanged: (String newValue) {
-                            setState(() {
-                              switch (int.tryParse(newValue)) {
-                                case 1:
-                                  _jenisAcara = 'Pernikahan';
-                                  break;
-                                case 2:
-                                  _jenisAcara = 'Ulang tahun';
-                                  break;
-                                default:
-                                  _jenisAcara = '-';
-                                  break;
-                              }
-                              _mySelection = newValue;
-                            });
-                          },
-                          items: _jenisAcaraJson.map((Map map) {
-                            return new DropdownMenuItem(
-                              value: map['id'].toString(),
-                              child: Text(map['jenis']),
-                            );
-                          }).toList(),
                         ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 0.0),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: DropdownButton<String>(
-                          isDense: true,
-                          hint: Text(
-                            'Send to',
-                            style: TextStyle(fontSize: 12.0),
+                        Container(
+                          width: MediaQuery.of(context).size.width / 2,
+                          padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 0.0),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            child: DropdownButtonFormField(
+                              hint: Text(
+                                'Send to',
+                                style: TextStyle(fontSize: 12.0),
+                              ),
+                              value: _mySelection,
+                              onChanged: (String newValue) {
+                                setState(() {
+                                  switch (int.tryParse(newValue)) {
+                                    case 1:
+                                      _jenisAcara = 'Pernikahan';
+                                      break;
+                                    case 2:
+                                      _jenisAcara = 'Ulang tahun';
+                                      break;
+                                    default:
+                                      _jenisAcara = '-';
+                                      break;
+                                  }
+                                  _mySelection = newValue;
+                                });
+                              },
+                              items: _jenisAcaraJson.map((Map map) {
+                                return new DropdownMenuItem(
+                                  value: map['id'].toString(),
+                                  child: Text(map['jenis']),
+                                );
+                              }).toList(),
+                            ),
                           ),
-                          value: _mySelection,
-                          onChanged: (String newValue) {
-                            setState(() {
-                              switch (int.tryParse(newValue)) {
-                                case 1:
-                                  _jenisAcara = 'Pernikahan';
-                                  break;
-                                case 2:
-                                  _jenisAcara = 'Ulang tahun';
-                                  break;
-                                default:
-                                  _jenisAcara = '-';
-                                  break;
-                              }
-                              _mySelection = newValue;
-                            });
-                          },
-                          items: _jenisAcaraJson.map((Map map) {
-                            return new DropdownMenuItem(
-                              value: map['id'].toString(),
-                              child: Text(map['jenis']),
-                            );
-                          }).toList(),
                         ),
-                      ),
+                      ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

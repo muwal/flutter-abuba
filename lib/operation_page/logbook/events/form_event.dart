@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
-// import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 import 'package:datetime_picker_formfield/time_picker_formfield.dart';
 import 'package:intl/intl.dart';
@@ -26,6 +25,8 @@ class _FormEventState extends State<FormEvent> {
 
   @override
   Widget build(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width;
+
     return SafeArea(
       child: Scaffold(
         appBar: AbubaAppBar(),
@@ -33,12 +34,12 @@ class _FormEventState extends State<FormEvent> {
             onTap: () {
               FocusScope.of(context).requestFocus(FocusNode());
             },
-            child: _buildFormMenu()),
+            child: _buildFormMenu(width)),
       ),
     );
   }
 
-  Widget _buildFormMenu() {
+  Widget _buildFormMenu(double width) {
     return ListView(
       children: <Widget>[
         Padding(
@@ -69,170 +70,137 @@ class _FormEventState extends State<FormEvent> {
             ],
           ),
         ),
-        _buildCustomForm(),
+        _buildCustomForm(width),
         SizedBox(height: 10.0),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            IconButton(
-              icon: Icon(
-                Icons.add_circle,
-                color: Colors.green,
-                size: 30.0,
-              ),
-              onPressed: () {
-                setState(() {
-                  textList.add(controller.text);
-                  controller.clear();
-                });
-              },
-            ),
-            ButtonTheme(
-              minWidth: 50.0,
-              height: 30.0,
-              child: RaisedButton(
-                child: Text(
-                  'SAVE',
-                  style: TextStyle(fontSize: 13.0),
+        Container(
+          padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 6.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(right: 5.0),
+                child: IconButton(
+                  icon: Icon(
+                    Icons.add_circle,
+                    color: Colors.green,
+                    size: 30.0,
+                  ),
+                  onPressed: () {},
                 ),
-                textColor: Colors.white,
-                color: Colors.green,
-                onPressed: () {},
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.only(left: 5.0),
+                child: ButtonTheme(
+                  minWidth: 50.0,
+                  height: 30.0,
+                  child: OutlineButton(
+                    child: Text(
+                      'SAVE',
+                      style: TextStyle(
+                        fontSize: 13.0,
+                        color: Colors.green
+                      ),
+                    ),
+                    borderSide: BorderSide(color: Colors.green, width: 1.0),
+                    highlightedBorderColor: Colors.green,
+                    onPressed: () {},
+                  ),
+                ),
+              )
+            ],
+          )
         ),
       ],
     );
   }
 
-  Widget _buildCustomForm() {
+  Widget _buildCustomForm(double width) {
     return Column(
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Column(
+          padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+          child: DropdownButtonFormField(
+            hint: Text('Jenis Acara'),
+            value: _mySelection,
+            onChanged: (String newValue) {
+              setState(() {
+                switch (int.tryParse(newValue)) {
+                  case 1:
+                    _jenisAcara = 'Pernikahan';
+                    break;
+                  case 2:
+                    _jenisAcara = 'Ulang tahun';
+                    break;
+                  default:
+                    _jenisAcara = '-';
+                    break;
+                }
+                _mySelection = newValue;
+              });
+            },
+            items: _jenisAcaraJson.map((Map map) {
+              return new DropdownMenuItem(
+                value: map['id'].toString(),
+                child: Text(map['jenis']),
+              );
+            }).toList(),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                verticalDirection: VerticalDirection.up,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'Jenis Acara',
-                    style: TextStyle(
-                      color: Colors.green,
-                    ),
+              Container(
+                width: width / 2.5,
+                child: TextFormField(
+                  textCapitalization: TextCapitalization.words,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    border: UnderlineInputBorder(),
+                    labelText: 'Pack',
+                    labelStyle: TextStyle(fontSize: 14.0),
                   ),
-                  Container(
-                    width: 150.0,
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        isDense: true,
-                        hint: Text('Jenis Acara'),
-                        value: _mySelection,
-                        onChanged: (String newValue) {
-                          setState(() {
-                            switch (int.tryParse(newValue)) {
-                              case 1:
-                                _jenisAcara = 'Pernikahan';
-                                break;
-                              case 2:
-                                _jenisAcara = 'Ulang tahun';
-                                break;
-                              default:
-                                _jenisAcara = '-';
-                                break;
-                            }
-                            _mySelection = newValue;
-                          });
-                        },
-                        items: _jenisAcaraJson.map((Map map) {
-                          return new DropdownMenuItem(
-                            value: map['id'].toString(),
-                            child: Text(map['jenis']),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                  )
-                ],
+                  style: TextStyle(
+                    fontStyle: FontStyle.normal,
+                    color: Colors.black87,
+                    fontSize: 14.0
+                  ),
+                  onSaved: null,
+                ),
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                verticalDirection: VerticalDirection.up,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'Pack',
-                    style: TextStyle(color: Colors.green),
+              Container(
+                width: width / 2.5,
+                child: TimePickerFormField(
+                  format: timeFormat,
+                  onChanged: (t) => setState(() => time = t),
+                  decoration: InputDecoration(
+                    border: UnderlineInputBorder(),
+                    hintText: 'Waktu',
+                    hintStyle: TextStyle(fontSize: 12.0),
                   ),
-                  Container(
-                    width: 150.0,
-                    child: TextField(
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        hintText: 'Pack',
-                        hintStyle: TextStyle(fontSize: 12.0),
-                      ),
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                verticalDirection: VerticalDirection.up,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'Waktu',
-                    style: TextStyle(color: Colors.green),
-                  ),
-                  Container(
-                    width: 150.0,
-                    padding: EdgeInsets.only(top: 5.0),
-                    child: TimePickerFormField(
-                      format: timeFormat,
-                      onChanged: (t) => setState(() => time = t),
-                      decoration: InputDecoration(
-                        border: UnderlineInputBorder(),
-                        hintText: 'Waktu',
-                        hintStyle: TextStyle(fontSize: 12.0),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                verticalDirection: VerticalDirection.up,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'Catatan',
-                    style: TextStyle(color: Colors.green),
-                  ),
-                  Container(
-                    width: 150.0,
-                    child: TextField(
-                      maxLines: 3,
-                      keyboardType: TextInputType.multiline,
-                      decoration: InputDecoration(
-                        hintText: 'Catatan',
-                        hintStyle: TextStyle(fontSize: 12.0),
-                      ),
-                      textCapitalization: TextCapitalization.sentences,
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
-                    ),
-                  )
-                ],
-              ),
+                ),
+              )
             ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+          child: TextFormField(
+            textCapitalization: TextCapitalization.words,
+            maxLines: 3,
+            keyboardType: TextInputType.multiline,
+            decoration: InputDecoration(
+              border: UnderlineInputBorder(),
+              labelText: 'Catatan',
+              labelStyle: TextStyle(fontSize: 14.0),
+            ),
+            style: TextStyle(
+              fontStyle: FontStyle.normal,
+              color: Colors.black87,
+              fontSize: 14.0
+            ),
+            onSaved: null,
           ),
         ),
       ],

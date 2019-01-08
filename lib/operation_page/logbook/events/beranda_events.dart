@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
+import 'package:flutter_abuba/operation_page/logbook/events/form_analysis.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import 'form_event.dart';
@@ -45,7 +46,7 @@ class _BerandaEventsState extends State<BerandaEvents> {
               Padding(
                 padding: EdgeInsets.only(left: 15.0),
                 child: Text(
-                  'Events',
+                  'Event(s)',
                   style:
                       TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
                 ),
@@ -145,6 +146,11 @@ class _BerandaEventsState extends State<BerandaEvents> {
                   ),
                   GestureDetector(
                     onTap: () {
+                      Navigator.push(context,
+                        MyCustomRoute(
+                          builder: (context) => new FormAnalysis()
+                        )
+                      );
                     },
                     child: Column(
                       mainAxisSize: MainAxisSize.min,

@@ -21,10 +21,9 @@ class _FormKitchenState extends State<FormKitchen> {
   bool noteratingVentilasi = false;
   bool noteratingGrasetrap = false;
 
-
-  TextEditingController controllerNoteSatu  = new TextEditingController();
-  TextEditingController controllerNoteDua   = new TextEditingController();
-  TextEditingController controllerNoteTiga  = new TextEditingController();
+  TextEditingController controllerNoteSatu = new TextEditingController();
+  TextEditingController controllerNoteDua = new TextEditingController();
+  TextEditingController controllerNoteTiga = new TextEditingController();
   TextEditingController controllerNoteEmpat = new TextEditingController();
 
   void _showDialogChiller() {
@@ -52,7 +51,6 @@ class _FormKitchenState extends State<FormKitchen> {
 
   @override
   Widget build(BuildContext context) {
-
     return SafeArea(
       child: Scaffold(
         appBar: AbubaAppBar(),
@@ -82,16 +80,16 @@ class _FormKitchenState extends State<FormKitchen> {
                   padding: EdgeInsets.only(left: 15.0),
                   child: Text(
                     '|',
-                    style:
-                        TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
+                    style: TextStyle(
+                        color: AbubaPallate.greenabuba, fontSize: 12.0),
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 15.0),
                   child: Text(
                     'Kitchen',
-                    style:
-                        TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
+                    style: TextStyle(
+                        color: AbubaPallate.greenabuba, fontSize: 12.0),
                   ),
                 ),
               ],
@@ -112,8 +110,8 @@ class _FormKitchenState extends State<FormKitchen> {
                           children: <Widget>[
                             Text(
                               'Upright Chiller',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 14.0),
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 14.0),
                               textAlign: TextAlign.start,
                             ),
                             Padding(
@@ -127,8 +125,8 @@ class _FormKitchenState extends State<FormKitchen> {
                                     style: TextStyle(
                                         fontSize: 10.0, color: Colors.white),
                                   ),
-                                  borderSide:
-                                      BorderSide(color: Colors.white, width: 1.0),
+                                  borderSide: BorderSide(
+                                      color: Colors.white, width: 1.0),
                                   highlightedBorderColor: Colors.white,
                                   onPressed: () {
                                     setState(() {
@@ -154,28 +152,77 @@ class _FormKitchenState extends State<FormKitchen> {
                       ),
                       decoration: BoxDecoration(color: Color(0xFF2F592F))),
                 ),
-                ListTile(
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        'Equipment',
-                        style: TextStyle(color: Colors.grey, fontSize: 12.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Container(
+                      width: 150.0,
+                      child: Row(
+                        children: <Widget>[
+                          Flexible(
+                            child: Text(
+                              'Equipment',
+                              style: TextStyle(
+                                fontSize: 12.0,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.arrow_right),
+                            onPressed: null,
+                          ),
+                        ],
                       ),
-                      SmoothStarRating(
-                        allowHalfRating: false,
-                        onRatingChanged: (v) {
-                          ratingChiller = v;
-                          setState(() {});
-                        },
-                        starCount: 5,
-                        rating: ratingChiller,
-                        size: 30.0,
-                        color: Colors.orangeAccent,
-                        borderColor: Colors.grey,
+                    ),
+                    Container(
+                      width: 150.0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          ButtonTheme(
+                            minWidth: 20.0,
+                            height: 30.0,
+                            child: OutlineButton(
+                              child: Text(
+                                '0',
+                                style: TextStyle(fontSize: 13.0),
+                              ),
+                              borderSide: BorderSide(color: Colors.grey),
+                              textColor: Colors.grey,
+                              onPressed: () {},
+                            ),
+                          ),
+                          ButtonTheme(
+                            minWidth: 20.0,
+                            height: 30.0,
+                            child: OutlineButton(
+                              child: Text(
+                                '1',
+                                style: TextStyle(fontSize: 13.0),
+                              ),
+                              borderSide: BorderSide(color: Colors.grey),
+                              textColor: Colors.grey,
+                              onPressed: () {},
+                            ),
+                          ),
+                          ButtonTheme(
+                            minWidth: 20.0,
+                            height: 30.0,
+                            child: OutlineButton(
+                              child: Text(
+                                '2',
+                                style: TextStyle(fontSize: 13.0),
+                              ),
+                              borderSide: BorderSide(color: Colors.grey),
+                              textColor: Colors.grey,
+                              onPressed: () {},
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    )
+                  ],
                 ),
                 noteratingChiller
                     ? Padding(
@@ -184,12 +231,9 @@ class _FormKitchenState extends State<FormKitchen> {
                           width: MediaQuery.of(context).size.width / 1.1,
                           child: TextField(
                             decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: 'Note',
-                              hintStyle: TextStyle(
-                                fontSize: 12.0
-                              )
-                            ),
+                                border: OutlineInputBorder(),
+                                hintText: 'Note',
+                                hintStyle: TextStyle(fontSize: 12.0)),
                             controller: controllerNoteSatu,
                             maxLines: 3,
                             style: TextStyle(
@@ -210,8 +254,8 @@ class _FormKitchenState extends State<FormKitchen> {
                           children: <Widget>[
                             Text(
                               'Cheesse Freezer',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 14.0),
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 14.0),
                               textAlign: TextAlign.start,
                             ),
                             Padding(
@@ -225,8 +269,8 @@ class _FormKitchenState extends State<FormKitchen> {
                                     style: TextStyle(
                                         fontSize: 10.0, color: Colors.white),
                                   ),
-                                  borderSide:
-                                      BorderSide(color: Colors.white, width: 1.0),
+                                  borderSide: BorderSide(
+                                      color: Colors.white, width: 1.0),
                                   highlightedBorderColor: Colors.white,
                                   onPressed: () {
                                     setState(() {
@@ -250,28 +294,77 @@ class _FormKitchenState extends State<FormKitchen> {
                       ),
                       decoration: BoxDecoration(color: Color(0xFF2F592F))),
                 ),
-                ListTile(
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        'Equipment',
-                        style: TextStyle(color: Colors.grey, fontSize: 12.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Container(
+                      width: 150.0,
+                      child: Row(
+                        children: <Widget>[
+                          Flexible(
+                            child: Text(
+                              'Equipment',
+                              style: TextStyle(
+                                fontSize: 12.0,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.arrow_right),
+                            onPressed: null,
+                          ),
+                        ],
                       ),
-                      SmoothStarRating(
-                        allowHalfRating: false,
-                        onRatingChanged: (v) {
-                          ratingFreezer = v;
-                          setState(() {});
-                        },
-                        starCount: 5,
-                        rating: ratingFreezer,
-                        size: 30.0,
-                        color: Colors.orangeAccent,
-                        borderColor: Colors.grey,
+                    ),
+                    Container(
+                      width: 150.0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          ButtonTheme(
+                            minWidth: 20.0,
+                            height: 30.0,
+                            child: OutlineButton(
+                              child: Text(
+                                '0',
+                                style: TextStyle(fontSize: 13.0),
+                              ),
+                              borderSide: BorderSide(color: Colors.grey),
+                              textColor: Colors.grey,
+                              onPressed: () {},
+                            ),
+                          ),
+                          ButtonTheme(
+                            minWidth: 20.0,
+                            height: 30.0,
+                            child: OutlineButton(
+                              child: Text(
+                                '1',
+                                style: TextStyle(fontSize: 13.0),
+                              ),
+                              borderSide: BorderSide(color: Colors.grey),
+                              textColor: Colors.grey,
+                              onPressed: () {},
+                            ),
+                          ),
+                          ButtonTheme(
+                            minWidth: 20.0,
+                            height: 30.0,
+                            child: OutlineButton(
+                              child: Text(
+                                '2',
+                                style: TextStyle(fontSize: 13.0),
+                              ),
+                              borderSide: BorderSide(color: Colors.grey),
+                              textColor: Colors.grey,
+                              onPressed: () {},
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    )
+                  ],
                 ),
                 noteratingFreezer
                     ? Padding(
@@ -280,12 +373,9 @@ class _FormKitchenState extends State<FormKitchen> {
                           width: MediaQuery.of(context).size.width / 1.1,
                           child: TextField(
                             decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: 'Note',
-                              hintStyle: TextStyle(
-                                fontSize: 12.0
-                              )
-                            ),
+                                border: OutlineInputBorder(),
+                                hintText: 'Note',
+                                hintStyle: TextStyle(fontSize: 12.0)),
                             controller: controllerNoteDua,
                             maxLines: 3,
                             style: TextStyle(
@@ -306,8 +396,8 @@ class _FormKitchenState extends State<FormKitchen> {
                           children: <Widget>[
                             Text(
                               'Ventilasi',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 14.0),
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 14.0),
                               textAlign: TextAlign.start,
                             ),
                             Padding(
@@ -321,12 +411,13 @@ class _FormKitchenState extends State<FormKitchen> {
                                     style: TextStyle(
                                         fontSize: 10.0, color: Colors.white),
                                   ),
-                                  borderSide:
-                                      BorderSide(color: Colors.white, width: 1.0),
+                                  borderSide: BorderSide(
+                                      color: Colors.white, width: 1.0),
                                   highlightedBorderColor: Colors.white,
                                   onPressed: () {
                                     setState(() {
-                                      noteratingVentilasi = !noteratingVentilasi;
+                                      noteratingVentilasi =
+                                          !noteratingVentilasi;
                                     });
                                   },
                                 ),
@@ -346,28 +437,77 @@ class _FormKitchenState extends State<FormKitchen> {
                       ),
                       decoration: BoxDecoration(color: Color(0xFF2F592F))),
                 ),
-                ListTile(
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        'Hiasan',
-                        style: TextStyle(color: Colors.grey, fontSize: 12.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Container(
+                      width: 150.0,
+                      child: Row(
+                        children: <Widget>[
+                          Flexible(
+                            child: Text(
+                              'Hiasan',
+                              style: TextStyle(
+                                fontSize: 12.0,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.arrow_right),
+                            onPressed: null,
+                          ),
+                        ],
                       ),
-                      SmoothStarRating(
-                        allowHalfRating: false,
-                        onRatingChanged: (v) {
-                          ratingVentilasi = v;
-                          setState(() {});
-                        },
-                        starCount: 5,
-                        rating: ratingVentilasi,
-                        size: 30.0,
-                        color: Colors.orangeAccent,
-                        borderColor: Colors.grey,
+                    ),
+                    Container(
+                      width: 150.0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          ButtonTheme(
+                            minWidth: 20.0,
+                            height: 30.0,
+                            child: OutlineButton(
+                              child: Text(
+                                '0',
+                                style: TextStyle(fontSize: 13.0),
+                              ),
+                              borderSide: BorderSide(color: Colors.grey),
+                              textColor: Colors.grey,
+                              onPressed: () {},
+                            ),
+                          ),
+                          ButtonTheme(
+                            minWidth: 20.0,
+                            height: 30.0,
+                            child: OutlineButton(
+                              child: Text(
+                                '1',
+                                style: TextStyle(fontSize: 13.0),
+                              ),
+                              borderSide: BorderSide(color: Colors.grey),
+                              textColor: Colors.grey,
+                              onPressed: () {},
+                            ),
+                          ),
+                          ButtonTheme(
+                            minWidth: 20.0,
+                            height: 30.0,
+                            child: OutlineButton(
+                              child: Text(
+                                '2',
+                                style: TextStyle(fontSize: 13.0),
+                              ),
+                              borderSide: BorderSide(color: Colors.grey),
+                              textColor: Colors.grey,
+                              onPressed: () {},
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    )
+                  ],
                 ),
                 noteratingVentilasi
                     ? Padding(
@@ -376,12 +516,9 @@ class _FormKitchenState extends State<FormKitchen> {
                           width: MediaQuery.of(context).size.width / 1.1,
                           child: TextField(
                             decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: 'Note',
-                              hintStyle: TextStyle(
-                                fontSize: 12.0
-                              )
-                            ),
+                                border: OutlineInputBorder(),
+                                hintText: 'Note',
+                                hintStyle: TextStyle(fontSize: 12.0)),
                             controller: controllerNoteTiga,
                             maxLines: 3,
                             style: TextStyle(
@@ -402,8 +539,8 @@ class _FormKitchenState extends State<FormKitchen> {
                           children: <Widget>[
                             Text(
                               'Grasetrap',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 14.0),
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 14.0),
                               textAlign: TextAlign.start,
                             ),
                             Padding(
@@ -417,12 +554,13 @@ class _FormKitchenState extends State<FormKitchen> {
                                     style: TextStyle(
                                         fontSize: 10.0, color: Colors.white),
                                   ),
-                                  borderSide:
-                                      BorderSide(color: Colors.white, width: 1.0),
+                                  borderSide: BorderSide(
+                                      color: Colors.white, width: 1.0),
                                   highlightedBorderColor: Colors.white,
                                   onPressed: () {
                                     setState(() {
-                                      noteratingGrasetrap = !noteratingGrasetrap;
+                                      noteratingGrasetrap =
+                                          !noteratingGrasetrap;
                                     });
                                   },
                                 ),
@@ -442,28 +580,77 @@ class _FormKitchenState extends State<FormKitchen> {
                       ),
                       decoration: BoxDecoration(color: Color(0xFF2F592F))),
                 ),
-                ListTile(
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        'Greasetrap',
-                        style: TextStyle(color: Colors.grey, fontSize: 12.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Container(
+                      width: 150.0,
+                      child: Row(
+                        children: <Widget>[
+                          Flexible(
+                            child: Text(
+                              'Greasetrap',
+                              style: TextStyle(
+                                fontSize: 12.0,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.arrow_right),
+                            onPressed: null,
+                          ),
+                        ],
                       ),
-                      SmoothStarRating(
-                        allowHalfRating: false,
-                        onRatingChanged: (v) {
-                          ratingGrasetrap = v;
-                          setState(() {});
-                        },
-                        starCount: 5,
-                        rating: ratingGrasetrap,
-                        size: 30.0,
-                        color: Colors.orangeAccent,
-                        borderColor: Colors.grey,
+                    ),
+                    Container(
+                      width: 150.0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          ButtonTheme(
+                            minWidth: 20.0,
+                            height: 30.0,
+                            child: OutlineButton(
+                              child: Text(
+                                '0',
+                                style: TextStyle(fontSize: 13.0),
+                              ),
+                              borderSide: BorderSide(color: Colors.grey),
+                              textColor: Colors.grey,
+                              onPressed: () {},
+                            ),
+                          ),
+                          ButtonTheme(
+                            minWidth: 20.0,
+                            height: 30.0,
+                            child: OutlineButton(
+                              child: Text(
+                                '1',
+                                style: TextStyle(fontSize: 13.0),
+                              ),
+                              borderSide: BorderSide(color: Colors.grey),
+                              textColor: Colors.grey,
+                              onPressed: () {},
+                            ),
+                          ),
+                          ButtonTheme(
+                            minWidth: 20.0,
+                            height: 30.0,
+                            child: OutlineButton(
+                              child: Text(
+                                '2',
+                                style: TextStyle(fontSize: 13.0),
+                              ),
+                              borderSide: BorderSide(color: Colors.grey),
+                              textColor: Colors.grey,
+                              onPressed: () {},
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    )
+                  ],
                 ),
                 noteratingGrasetrap
                     ? Padding(
@@ -472,12 +659,9 @@ class _FormKitchenState extends State<FormKitchen> {
                           width: MediaQuery.of(context).size.width / 1.1,
                           child: TextField(
                             decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: 'Note',
-                              hintStyle: TextStyle(
-                                fontSize: 12.0
-                              )
-                            ),
+                                border: OutlineInputBorder(),
+                                hintText: 'Note',
+                                hintStyle: TextStyle(fontSize: 12.0)),
                             controller: controllerNoteEmpat,
                             maxLines: 3,
                             style: TextStyle(

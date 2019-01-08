@@ -519,8 +519,7 @@ class _FormCreateNewState extends State<FormCreateNew> with SingleTickerProvider
                         ),
                         Container(
                           width: 100.0,
-                          child: DropdownButton<String>(
-                            isDense: true,
+                          child: DropdownButtonFormField(
                             hint: Text(
                               'Search',
                               style: TextStyle(fontSize: 12.0),
@@ -597,8 +596,7 @@ class _FormCreateNewState extends State<FormCreateNew> with SingleTickerProvider
                         ),
                         Container(
                           width: 100.0,
-                          child: DropdownButton<String>(
-                            isDense: true,
+                          child: DropdownButtonFormField(
                             hint: Text(
                               'Search',
                               style: TextStyle(fontSize: 12.0),

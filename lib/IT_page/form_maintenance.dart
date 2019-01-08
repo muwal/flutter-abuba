@@ -13,35 +13,39 @@ class _FormMaintenanceState extends State<FormMaintenance> {
   final _item = ['Computer', 'Printer', 'Kulkas', 'Meja', 'Kursi'];
   final _merek = ['Lenovo', 'HP', 'Panasonic', 'IKEA', 'IKEA'];
 
-  List<String> isiCheckbox = ['Alasan 1', 'Alasan 2', 'Alasan 3', 'Alasan 4', 'Alasan 5'];
+  List<String> isiCheckbox = [
+    'Alasan 1',
+    'Alasan 2',
+    'Alasan 3',
+    'Alasan 4',
+    'Alasan 5'
+  ];
   List<String> valueCheckbox = ['1', '2', '3', '4', '5'];
   List<String> selectedValue = [];
   List<String> selectedAlasan = [];
 
   void _dialogDetail(int index) {
     showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text(_lokasi[index] + ' - ' + _item[index] + ' - ' + _merek[index]),
-          content: Text('Alert Dialog Body'),
-          actions: <Widget>[
-            FlatButton(
-              splashColor: Colors.greenAccent,
-              child: Text(
-                'CLOSE',
-                style: TextStyle(
-                  color: Colors.green
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(
+                _lokasi[index] + ' - ' + _item[index] + ' - ' + _merek[index]),
+            content: Text('Alert Dialog Body'),
+            actions: <Widget>[
+              FlatButton(
+                splashColor: Colors.greenAccent,
+                child: Text(
+                  'CLOSE',
+                  style: TextStyle(color: Colors.green),
                 ),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-        );
-      }
-    );
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
   }
 
   @override
@@ -72,153 +76,146 @@ class _FormMaintenanceState extends State<FormMaintenance> {
         final String merek = _merek[index];
 
         return Dismissible(
-          key: Key(lokasi),
-          onDismissed: (DismissDirection dir) {
-            setState((){
-              this._lokasi.removeAt(index);
-              this._item.removeAt(index);
-              this._merek.removeAt(index);
-            });
+            key: Key(lokasi),
+            onDismissed: (DismissDirection dir) {
+              setState(() {
+                this._lokasi.removeAt(index);
+                this._item.removeAt(index);
+                this._merek.removeAt(index);
+              });
 
-            dir == DismissDirection.startToEnd
-              ? showDialog(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (context) {
-                    return Checkbox(
-                      lokasi: lokasi,
-                      item: item,
-                      merek: merek,
-                      alasan: isiCheckbox,
-                      valueCheck: valueCheckbox,
-                      selectedAlasan: selectedAlasan,
-                      selectedValue: selectedValue,
-                      onSelectedAlasanListChanged: (alasans) {
-                        selectedAlasan = alasans;
-                      },
-                      onCancelResult: (cancelResult) {
-                        setState(() {
-                          this._lokasi.insert(index, cancelResult[0]);
-                          this._item.insert(index, cancelResult[1]);
-                          this._merek.insert(index, cancelResult[2]);
-                        });
-                      },
-                    );
-                  }
-                )
-              : showDialog(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (context) {
-                    return Checkbox(
-                      lokasi: lokasi,
-                      item: item,
-                      merek: merek,
-                      alasan: isiCheckbox,
-                      valueCheck: valueCheckbox,
-                      selectedAlasan: selectedAlasan,
-                      selectedValue: selectedValue,
-                      onSelectedAlasanListChanged: (alasans) {
-                        selectedAlasan = alasans;
-                      },
-                      onCancelResult: (cancelResult) {
-                        setState(() {
-                          this._lokasi.insert(index, cancelResult[0]);
-                          this._item.insert(index, cancelResult[1]);
-                          this._merek.insert(index, cancelResult[2]);
-                        });
-                      },
-                    );
-                  }
-                );
-          },
-          background: Container(
-            color: Colors.green,
-            child: Padding(
-              padding: const EdgeInsets.only(right: 30.0, left: 30.0, bottom: 10.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Container(
-                    height: 30.0,
-                    width: 30.0,
-                    child: Icon(Icons.done, color: Colors.white, size: 14.0),
-                  ),
-                  Text(
-                    'DONE',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.0
-                    ),
-                  )
-                ],
-              ),
-            ),
-            alignment: Alignment.centerLeft,
-          ),
-          secondaryBackground: Container(
-            color: Colors.blueAccent,
-            child: Padding(
-              padding: const EdgeInsets.only(right: 30.0, left: 30.0, bottom: 10.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Container(
-                    height: 30.0,
-                    width: 30.0,
-                    child: Icon(Icons.refresh, color: Colors.white, size: 14.0),
-                  ),
-                  Text(
-                    'SKIP',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.0
-                    ),
-                  )
-                ],
-              ),
-            ),
-            alignment: Alignment.centerRight,
-          ),
-          child: GestureDetector(
-            onTap: () {
-              _dialogDetail(index);
+              dir == DismissDirection.startToEnd
+                  ? showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (context) {
+                        return Checkbox(
+                          lokasi: lokasi,
+                          item: item,
+                          merek: merek,
+                          alasan: isiCheckbox,
+                          valueCheck: valueCheckbox,
+                          selectedAlasan: selectedAlasan,
+                          selectedValue: selectedValue,
+                          onSelectedAlasanListChanged: (alasans) {
+                            selectedAlasan = alasans;
+                          },
+                          onCancelResult: (cancelResult) {
+                            setState(() {
+                              this._lokasi.insert(index, cancelResult[0]);
+                              this._item.insert(index, cancelResult[1]);
+                              this._merek.insert(index, cancelResult[2]);
+                            });
+                          },
+                        );
+                      })
+                  : showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (context) {
+                        return Checkbox(
+                          lokasi: lokasi,
+                          item: item,
+                          merek: merek,
+                          alasan: isiCheckbox,
+                          valueCheck: valueCheckbox,
+                          selectedAlasan: selectedAlasan,
+                          selectedValue: selectedValue,
+                          onSelectedAlasanListChanged: (alasans) {
+                            selectedAlasan = alasans;
+                          },
+                          onCancelResult: (cancelResult) {
+                            setState(() {
+                              this._lokasi.insert(index, cancelResult[0]);
+                              this._item.insert(index, cancelResult[1]);
+                              this._merek.insert(index, cancelResult[2]);
+                            });
+                          },
+                        );
+                      });
             },
-            child: Container(
-              color: Colors.white,
-              child: ListTile(
-                leading: Padding(
-                  padding: EdgeInsets.only(right: 20.0, left: 20.0),
-                  child: Text(_lokasi[index]),
-                ),
-                title: Text(_item[index]),
-                subtitle: Text(_merek[index]),
-                trailing: ButtonTheme(
-                  minWidth: 50.0,
-                  height: 20.0,
-                  child: OutlineButton(
-                    child: Text(
-                      'Detail',
+            background: Container(
+              color: Colors.green,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    right: 30.0, left: 30.0, bottom: 10.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Container(
+                      height: 30.0,
+                      width: 30.0,
+                      child: Icon(Icons.done, color: Colors.white, size: 14.0),
+                    ),
+                    Text(
+                      'DONE',
                       style: TextStyle(
-                          fontSize: 13.0
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14.0),
+                    )
+                  ],
+                ),
+              ),
+              alignment: Alignment.centerLeft,
+            ),
+            secondaryBackground: Container(
+              color: Colors.blueAccent,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    right: 30.0, left: 30.0, bottom: 10.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Container(
+                      height: 30.0,
+                      width: 30.0,
+                      child:
+                          Icon(Icons.refresh, color: Colors.white, size: 14.0),
+                    ),
+                    Text(
+                      'SKIP',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14.0),
+                    )
+                  ],
+                ),
+              ),
+              alignment: Alignment.centerRight,
+            ),
+            child: GestureDetector(
+              onTap: () {
+                _dialogDetail(index);
+              },
+              child: Container(
+                color: Colors.white,
+                child: ListTile(
+                  leading: Padding(
+                    padding: EdgeInsets.only(right: 20.0, left: 20.0),
+                    child: Text(_lokasi[index]),
+                  ),
+                  title: Text(_item[index]),
+                  subtitle: Text(_merek[index]),
+                  trailing: ButtonTheme(
+                    minWidth: 50.0,
+                    height: 20.0,
+                    child: OutlineButton(
+                      child: Text(
+                        'Detail',
+                        style: TextStyle(fontSize: 13.0),
                       ),
+                      borderSide: BorderSide(color: Colors.green, width: 1.0),
+                      highlightedBorderColor: Colors.green,
+                      onPressed: () {
+                        _dialogDetail(index);
+                      },
                     ),
-                    borderSide: BorderSide(
-                        color: Colors.green,
-                        width: 1.0
-                    ),
-                    highlightedBorderColor: Colors.green,
-                    onPressed: () {
-                      _dialogDetail(index);
-                    },
                   ),
                 ),
               ),
-            ),
-          )
-        );
+            ));
       },
     );
   }
@@ -494,7 +491,7 @@ class Checkbox extends StatefulWidget {
 }
 
 class _CheckboxState extends State<Checkbox> {
-  List<String> _tempSelectedAlasan= [];
+  List<String> _tempSelectedAlasan = [];
   List<String> _tempSelectedValueAlasan = [];
 
   bool _note = false;
@@ -503,7 +500,7 @@ class _CheckboxState extends State<Checkbox> {
 
   @override
   void initState() {
-    _tempSelectedAlasan= widget.selectedAlasan;
+    _tempSelectedAlasan = widget.selectedAlasan;
     _tempSelectedValueAlasan = widget.selectedValue;
     super.initState();
   }
@@ -518,30 +515,28 @@ class _CheckboxState extends State<Checkbox> {
             Padding(
               padding: EdgeInsets.all(20.0),
               child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Flexible(
-                      child: Text(
-                        widget.lokasi +
-                            ' - ' +
-                            widget.item +
-                            ' - ' +
-                            widget.merek,
-                        style: TextStyle(fontSize: 18.0, color: Colors.black),
-                        textAlign: TextAlign.left,
-                      ),
+                  child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Flexible(
+                    child: Text(
+                      widget.lokasi +
+                          ' - ' +
+                          widget.item +
+                          ' - ' +
+                          widget.merek,
+                      style: TextStyle(fontSize: 18.0, color: Colors.black),
+                      textAlign: TextAlign.left,
                     ),
-                    FlatButton(
-                      child: Text(
-                        'Add Note',
-                        style: TextStyle(
-                          color: Colors.green,
-                          fontSize: 12.0
-                        ),
-                      ),
-                      onPressed: () {
-                        setState(() {
+                  ),
+                  FlatButton(
+                    child: Text(
+                      'Add Note',
+                      style: TextStyle(color: Colors.green, fontSize: 12.0),
+                    ),
+                    onPressed: () {
+                      setState(
+                        () {
                           if (_note == true) {
                             height = 300.0;
                           } else {
@@ -549,72 +544,78 @@ class _CheckboxState extends State<Checkbox> {
                           }
 
                           _note = !_note;
-                        });
-                      },
-                    ),
-                  ],
-                )
-              ),
+                        },
+                      );
+                    },
+                  ),
+                ],
+              )),
             ),
             Expanded(
               child: Scrollbar(
                 child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: widget.alasan.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final AlasanValue = widget.alasan[index];
-                    final ValueFinal = widget.valueCheck[index];
+                    scrollDirection: Axis.vertical,
+                    itemCount: widget.alasan.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final AlasanValue = widget.alasan[index];
+                      final ValueFinal = widget.valueCheck[index];
 
-                    return Container(
-                      child: CheckboxListTile(
-                          title: Text(AlasanValue),
-                          controlAffinity: ListTileControlAffinity.leading,
-                          activeColor: Colors.green,
-                          value: _tempSelectedAlasan.contains(AlasanValue),
-                          onChanged: (bool value) {
-                            if (value) {
-                              if (!_tempSelectedAlasan.contains(AlasanValue)) {
-                                setState(() {
-                                  _tempSelectedValueAlasan.add(ValueFinal);
-                                  _tempSelectedAlasan.add(AlasanValue);
-                                });
-                              }
-                            } else {
-                              if (_tempSelectedAlasan.contains(AlasanValue)) {
-                                setState(() {
-                                  _tempSelectedAlasan.removeWhere(
+                      return Container(
+                        child: CheckboxListTile(
+                            title: Text(AlasanValue),
+                            controlAffinity: ListTileControlAffinity.leading,
+                            activeColor: Colors.green,
+                            value: _tempSelectedAlasan.contains(AlasanValue),
+                            onChanged: (bool value) {
+                              if (value) {
+                                if (!_tempSelectedAlasan
+                                    .contains(AlasanValue)) {
+                                  setState(
+                                    () {
+                                      _tempSelectedValueAlasan.add(ValueFinal);
+                                      _tempSelectedAlasan.add(AlasanValue);
+                                    },
+                                  );
+                                }
+                              } else {
+                                if (_tempSelectedAlasan.contains(AlasanValue)) {
+                                  setState(
+                                    () {
+                                      _tempSelectedAlasan.removeWhere(
                                           (String city) => city == AlasanValue);
-                                  _tempSelectedValueAlasan.removeWhere(
+                                      _tempSelectedValueAlasan.removeWhere(
                                           (String city) => city == ValueFinal);
-                                });
+                                    },
+                                  );
+                                }
                               }
-                            }
-                            widget.onSelectedAlasanListChanged(_tempSelectedValueAlasan);
-                          }
-                      ),
-                    );
-                  }
-                ),
+                              widget.onSelectedAlasanListChanged(
+                                  _tempSelectedValueAlasan);
+                            }),
+                      );
+                    }),
               ),
             ),
-            _note ? Padding(
-                      padding: EdgeInsets.only(top: 20.0, right: 10.0, left: 10.0),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width / 1.1,
-                        child: TextField(
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Note',
-                          ),
-                          maxLines: 3,
-                          controller: _noteController,
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
+            _note
+                ? Padding(
+                    padding:
+                        EdgeInsets.only(top: 20.0, right: 10.0, left: 10.0),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width / 1.1,
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Note',
+                        ),
+                        maxLines: 3,
+                        controller: _noteController,
+                        style: TextStyle(
+                          color: Colors.black,
                         ),
                       ),
-                    )
-                  : Container(),
+                    ),
+                  )
+                : Container(),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 10.0),
               child: Row(
@@ -626,13 +627,11 @@ class _CheckboxState extends State<Checkbox> {
                       color: Colors.red[300],
                       child: Text(
                         'CANCEL',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12.0
-                        ),
+                        style: TextStyle(color: Colors.white, fontSize: 12.0),
                       ),
                       onPressed: () {
-                        widget.onCancelResult([widget.lokasi, widget.item, widget.merek]);
+                        widget.onCancelResult(
+                            [widget.lokasi, widget.item, widget.merek]);
                         Navigator.of(context).pop();
                       },
                       splashColor: Colors.red[300],
@@ -644,10 +643,7 @@ class _CheckboxState extends State<Checkbox> {
                       color: Colors.green[300],
                       child: Text(
                         'OK',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12.0
-                        ),
+                        style: TextStyle(color: Colors.white, fontSize: 12.0),
                       ),
                       onPressed: () {
                         Navigator.of(context).pop();
