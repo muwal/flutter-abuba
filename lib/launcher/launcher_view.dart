@@ -69,10 +69,12 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
   final GlobalKey<FormFieldState<String>> _passwordFieldKey = new GlobalKey<FormFieldState<String>>();
 
-  @override
-  void initState() {
-    super.initState();
-  }
+  bool _isPressed = false;
+  int state = 0;
+  double width = double.infinity;
+  Animation _animation;
+  Animation _animation2;
+  GlobalKey globalKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +144,12 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                     ),
                     textAlign: TextAlign.end,
                   ),
-                  onPressed: () => {},
+                  onPressed: () {
+                    setState(() {
+                      state = 0;
+                      width = double.infinity;
+                    });
+                  },
                 ),
               ),
             ],
@@ -151,44 +158,116 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
             width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 20.0),
             alignment: Alignment.center,
-            child: new Row(
-              children: <Widget>[
-                new Expanded(
-                  child: new FlatButton(
-                    shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0),
-                    ),
-                    color: AbubaPallate.greenabuba,
-                    onPressed: () => Navigator.pushReplacement(context,
-                        MyCustomRoute(builder: (context) => LandingPage())),
-                    child: new Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 20.0,
-                        horizontal: 20.0,
-                      ),
-                      child: new Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          new Expanded(
-                            child: Text(
-                              "LOGIN",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+            child: PhysicalModel(
+              color: AbubaPallate.greenabuba,
+              elevation: _isPressed ? 6.0 : 4.0,
+              borderRadius: BorderRadius.circular(25.0),
+              child: Container(
+                key: globalKey,
+                height: 48.0,
+                width: width,
+                child: RaisedButton(
+                  padding: EdgeInsets.all(0.0),
+                  shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(25.0),
                   ),
+                  color: AbubaPallate.greenabuba,
+                  child: buildButtonChild(),
+                  onPressed: () {},
+                  onHighlightChanged: (isPressed) {
+                    setState(() {
+                      _isPressed = isPressed;
+                      if (state == 0) {
+                        animateButton();
+                      }
+                    });
+                  },
                 ),
-              ],
+              ),
             ),
           ),
         ],
       ),
     );
+    //   FlatButton(
+    //     shape: new RoundedRectangleBorder(
+    //       borderRadius: new BorderRadius.circular(30.0),
+    //     ),
+    //     color: AbubaPallate.greenabuba,
+    //     onPressed: () => Navigator.pushReplacement(context,
+    //         MyCustomRoute(builder: (context) => LandingPage())),
+    //     child: new Container(
+    //       padding: const EdgeInsets.symmetric(
+    //         vertical: 20.0,
+    //         horizontal: 20.0,
+    //       ),
+    //       child: new Row(
+    //         mainAxisAlignment: MainAxisAlignment.center,
+    //         children: <Widget>[
+    //           new Expanded(
+    //             child: Text(
+    //               "LOGIN",
+    //               textAlign: TextAlign.center,
+    //               style: TextStyle(
+    //                   color: Colors.white,
+    //                   fontWeight: FontWeight.bold),
+    //             ),
+    //           ),
+    //         ],
+    //       ),
+    //     ),
+    //   ),
+  }
+
+  void animateButton() {
+    double initialWidth = globalKey.currentContext.size.width;
+
+    var controller = AnimationController(duration: Duration(milliseconds: 300), vsync: this);
+    _animation = Tween(begin: 0.0, end: 1.0)
+      .animate(controller)
+      ..addListener(() {
+        setState(() {
+          width = initialWidth - ((initialWidth - 48.0) * _animation.value);
+        });
+      });
+    controller.forward();
+
+    setState(() {
+      state = 1;
+    });
+
+    Timer(Duration(milliseconds: 3300), () {
+      // double initialWidth = globalKey.currentContext.size.width;
+
+      // var controller2 = AnimationController(duration: Duration(milliseconds: 300), vsync: this);
+      // _animation2 = Tween(begin: 0.0, end: 1.0)
+      //   .animate(controller2)
+      //   ..addListener(() {
+      //     setState(() {
+      //       width = initialWidth + ((initialWidth) * _animation2.value);
+      //     });
+      //   });
+      // controller2.forward();
+      Navigator.pushReplacement(context,
+        MyCustomRoute(
+          builder: (context) => new LandingPage()
+        )
+      );
+    });
+  }
+
+  Widget buildButtonChild() {
+    if (state == 0) {
+      return Text('Login', style: TextStyle(color: Colors.white, fontSize: 16.0));
+    } else if (state == 1) {
+      return SizedBox(
+        height: 36.0,
+        width: 36.0,
+        child: CircularProgressIndicator(
+          value: null, valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+        ),
+      );
+    }
   }
 }
 

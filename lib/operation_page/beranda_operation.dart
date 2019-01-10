@@ -3,6 +3,7 @@ import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/creative_page/form_comment.dart';
 import 'package:flutter_abuba/creative_page/form_create.dart';
 import 'package:flutter_abuba/creative_page/form_detail.dart';
+import 'package:flutter_abuba/operation_page/incoming/beranda_incoming.dart';
 import 'package:flutter_abuba/operation_page/kpimonitoring/kpi_monitoring_beranda.dart';
 import 'package:flutter_abuba/whats_page/form_comment.dart';
 import 'package:flutter_abuba/whats_page/form_create_happening.dart';
@@ -10,7 +11,6 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 
 import 'package:flutter_abuba/operation_page/logbook/beranda_logbook.dart';
 import 'package:flutter_abuba/operation_page/dailychecklist/beranda_checklist.dart';
-import 'incoming/search.dart';
 import 'kitchen/form_inspection.dart';
 import 'internalaudit/beranda_audit.dart';
 import 'form_temperature.dart';
@@ -18,6 +18,8 @@ import 'correctiveaction/beranda_corrective.dart';
 import 'meeting/beranda_meeting.dart';
 import 'changemanagement/beranda_management.dart';
 import 'riskassesment/beranda_risk_register.dart';
+import 'qcchecklist/beranda_qc.dart';
+import 'documentcontrol/beranda_document.dart';
 
 class BerandaOperation extends StatefulWidget {
   @override
@@ -365,7 +367,7 @@ class _BerandaOperationState extends State<BerandaOperation> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(right: 8.0, left: 8.0, bottom: 15.0),
+              padding: EdgeInsets.only(right: 8.0, left: 8.0, ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
@@ -491,63 +493,69 @@ class _BerandaOperationState extends State<BerandaOperation> {
                       )
                     ],
                   ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Stack(
-                        overflow: Overflow.visible,
-                        children: <Widget>[
-                          Container(
-                            height: 70.0,
-                            width: 70.0,
-                            decoration: BoxDecoration(
-                                color: Colors.transparent,
-                                border:
-                                    Border.all(color: Colors.grey, width: 1.0),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(18.0))),
-                          ),
-                          Positioned(
-                            bottom: 22.5,
-                            left: 25.0,
-                            child: Icon(MdiIcons.heart,
-                                size: 25.0, color: Colors.grey),
-                          ),
-                          Positioned(
-                            top: -5.0,
-                            right: -5.0,
-                            child: Icon(
-                              Icons.brightness_1,
-                              size: 25.0,
-                              color: Colors.redAccent,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MyCustomRoute(builder: (context) => BerandaDocument()));
+                    },
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Stack(
+                          overflow: Overflow.visible,
+                          children: <Widget>[
+                            Container(
+                              height: 70.0,
+                              width: 70.0,
+                              decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  border:
+                                      Border.all(color: Colors.grey, width: 1.0),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(18.0))),
                             ),
-                          ),
-                          Positioned(
-                            top: -1.0,
-                            right: 3.0,
-                            child: Text(
-                              '2',
-                              style: TextStyle(color: Colors.white),
+                            Positioned(
+                              bottom: 22.5,
+                              left: 25.0,
+                              child: Icon(MdiIcons.heart,
+                                  size: 25.0, color: Colors.grey),
                             ),
-                          )
-                        ],
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 10.0),
-                        child: Text(
-                          'Document',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500, fontSize: 12.0),
+                            Positioned(
+                              top: -5.0,
+                              right: -5.0,
+                              child: Icon(
+                                Icons.brightness_1,
+                                size: 25.0,
+                                color: Colors.redAccent,
+                              ),
+                            ),
+                            Positioned(
+                              top: -1.0,
+                              right: 3.0,
+                              child: Text(
+                                '2',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            )
+                          ],
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 5.0),
-                        child: Text(
-                          'Control',
-                          style: TextStyle(fontSize: 10.0),
+                        Padding(
+                          padding: EdgeInsets.only(top: 10.0),
+                          child: Text(
+                            'Document',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500, fontSize: 12.0),
+                          ),
                         ),
-                      )
-                    ],
+                        Padding(
+                          padding: EdgeInsets.only(top: 5.0),
+                          child: Text(
+                            'Control',
+                            style: TextStyle(fontSize: 10.0),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                   GestureDetector(
                     onTap: () {
@@ -607,6 +615,78 @@ class _BerandaOperationState extends State<BerandaOperation> {
                           padding: EdgeInsets.only(top: 5.0),
                           child: Text(
                             'Management',
+                            style: TextStyle(fontSize: 10.0),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(right: 12.0, left: 14.0, bottom: 15.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () => Navigator.push(
+                        context,
+                        MyCustomRoute(
+                            builder: (context) => BerandaQC())),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Stack(
+                          overflow: Overflow.visible,
+                          children: <Widget>[
+                            Container(
+                              height: 70.0,
+                              width: 70.0,
+                              decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  border:
+                                  Border.all(color: Colors.grey, width: 1.0),
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(18.0))),
+                            ),
+                            Positioned(
+                              bottom: 22.5,
+                              left: 25.0,
+                              child: Icon(MdiIcons.heart,
+                                  size: 25.0, color: Colors.grey),
+                            ),
+                            Positioned(
+                              top: -5.0,
+                              right: -5.0,
+                              child: Icon(
+                                Icons.brightness_1,
+                                size: 25.0,
+                                color: Colors.redAccent,
+                              ),
+                            ),
+                            Positioned(
+                              top: -1.0,
+                              right: 3.0,
+                              child: Text(
+                                '2',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            )
+                          ],
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 10.0),
+                          child: Text(
+                            'QC',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500, fontSize: 12.0),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 5.0),
+                          child: Text(
+                            'Checklist',
                             style: TextStyle(fontSize: 10.0),
                           ),
                         )
@@ -806,7 +886,12 @@ class _BerandaOperationState extends State<BerandaOperation> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        showSearch(context: context, delegate: DataSearch());
+                        // showSearch(context: context, delegate: DataSearch());
+                        Navigator.push(context,
+                          MyCustomRoute(
+                            builder: (context) => new BerandaIncoming()
+                          )
+                        );
                       },
                       child: Column(
                         mainAxisSize: MainAxisSize.min,

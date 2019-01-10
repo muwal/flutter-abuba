@@ -172,13 +172,19 @@ class _DetailQualityState extends State<DetailQuality> {
                     Flexible(
                       child: Text(
                         '100',
-                        style: TextStyle(fontSize: 13.0, color: Colors.black54, fontWeight: FontWeight.w600),
+                        style: TextStyle(
+                            fontSize: 13.0,
+                            color: Colors.black54,
+                            fontWeight: FontWeight.w600),
                       ),
                     ),
                     Flexible(
                       child: Text(
                         '4',
-                        style: TextStyle(fontSize: 13.0, color: Colors.black54, fontWeight: FontWeight.w600),
+                        style: TextStyle(
+                            fontSize: 13.0,
+                            color: Colors.black54,
+                            fontWeight: FontWeight.w600),
                       ),
                     )
                   ],
@@ -203,16 +209,9 @@ class _DetailQualityState extends State<DetailQuality> {
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Flexible(
-                      child: Text(
-                        'Datatable',
-                        style: TextStyle(fontSize: 13.0, color: Colors.black54, fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                  ],
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: bodyData(),
                 ),
               ),
             ],
@@ -221,4 +220,67 @@ class _DetailQualityState extends State<DetailQuality> {
       ],
     );
   }
+
+  Widget bodyData() => DataTable(
+        onSelectAll: (b) {},
+        sortColumnIndex: 1,
+        sortAscending: true,
+        columns: <DataColumn>[
+          DataColumn(
+            label: Text("Tanggal"),
+            numeric: false,
+            onSort: (i, b) {
+              print("$i $b");
+              setState(() {
+                names.sort((a, b) => a.firstName.compareTo(b.firstName));
+              });
+            },
+            tooltip: "To display first name of the Name",
+          ),
+          DataColumn(
+            label: Text("Material"),
+            numeric: false,
+            onSort: (i, b) {
+              print("$i $b");
+              setState(
+                () {
+                  names.sort((a, b) => a.firstName.compareTo(b.firstName));
+                },
+              );
+            },
+            tooltip: "To display first name of the Name",
+          ),
+        ],
+        rows: names
+            .map(
+              (name) => DataRow(
+                    cells: [
+                      DataCell(
+                        Text(name.firstName),
+                        showEditIcon: false,
+                        placeholder: false,
+                      ),
+                      DataCell(
+                        Text(name.lastName),
+                        showEditIcon: false,
+                        placeholder: false,
+                      )
+                    ],
+                  ),
+            )
+            .toList(),
+      );
 }
+
+class Name {
+  String firstName;
+  String lastName;
+
+  Name({this.firstName, this.lastName});
+}
+
+var names = <Name>[
+  Name(firstName: "Pawan", lastName: "Kumar"),
+  Name(firstName: "Aakash", lastName: "Tewari"),
+  Name(firstName: "Rohan", lastName: "Singh"),
+];

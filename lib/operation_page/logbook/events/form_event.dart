@@ -120,7 +120,11 @@ class _FormEventState extends State<FormEvent> {
         Padding(
           padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
           child: DropdownButtonFormField(
-            hint: Text('Jenis Acara'),
+            decoration: InputDecoration(
+              border: UnderlineInputBorder(),
+              labelText: 'Jenis Acara',
+              labelStyle: TextStyle(fontSize: 14.0),
+            ),
             value: _mySelection,
             onChanged: (String newValue) {
               setState(() {
@@ -141,7 +145,7 @@ class _FormEventState extends State<FormEvent> {
             items: _jenisAcaraJson.map((Map map) {
               return new DropdownMenuItem(
                 value: map['id'].toString(),
-                child: Text(map['jenis']),
+                child: Text(map['jenis'], style: TextStyle(fontSize: 14.0)),
               );
             }).toList(),
           ),

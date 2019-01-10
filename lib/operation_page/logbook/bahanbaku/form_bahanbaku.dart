@@ -71,7 +71,11 @@ class _FormBahanBakuState extends State<FormBahanBaku> {
         Padding(
           padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
           child: DropdownButtonFormField(
-            hint: Text('Bahan Baku'),
+            decoration: InputDecoration(
+              border: UnderlineInputBorder(),
+              labelText: 'Bahan Baku',
+              labelStyle: TextStyle(fontSize: 14.0),
+            ),
             value: _mySelection,
             onChanged: (String newValue) {
               setState(() {
@@ -92,7 +96,7 @@ class _FormBahanBakuState extends State<FormBahanBaku> {
             items: _jenisAcaraJson.map((Map map) {
               return new DropdownMenuItem(
                 value: map['id'].toString(),
-                child: Text(map['jenis']),
+                child: Text(map['jenis'], style: TextStyle(fontSize: 14.0)),
               );
             }).toList(),
           ),
@@ -100,7 +104,11 @@ class _FormBahanBakuState extends State<FormBahanBaku> {
         Padding(
           padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
           child: DropdownButtonFormField(
-            hint: Text('Limit'),
+            decoration: InputDecoration(
+              border: UnderlineInputBorder(),
+              labelText: 'Limit',
+              labelStyle: TextStyle(fontSize: 14.0),
+            ),
             value: _mySelectionsatu,
             onChanged: (String newValue) {
               setState(() {
@@ -121,7 +129,7 @@ class _FormBahanBakuState extends State<FormBahanBaku> {
             items: _jenisAcaraJson.map((Map map) {
               return new DropdownMenuItem(
                 value: map['id'].toString(),
-                child: Text(map['jenis']),
+                child: Text(map['jenis'], style: TextStyle(fontSize: 14.0)),
               );
             }).toList(),
           ),
@@ -130,7 +138,11 @@ class _FormBahanBakuState extends State<FormBahanBaku> {
           title: Padding(
             padding: const EdgeInsets.only(top: 10.0, left: 5.0),
             child: DropdownButtonFormField(
-              hint: Text('Suggestion'),
+              decoration: InputDecoration(
+              border: UnderlineInputBorder(),
+              labelText: 'Suggestion',
+              labelStyle: TextStyle(fontSize: 14.0),
+            ),
               value: _mySelectiondua,
               onChanged: (String newValue) {
                 setState(() {
@@ -151,7 +163,7 @@ class _FormBahanBakuState extends State<FormBahanBaku> {
               items: _jenisAcaraJson.map((Map map) {
                 return new DropdownMenuItem(
                   value: map['id'].toString(),
-                  child: Text(map['jenis']),
+                  child: Text(map['jenis'], style: TextStyle(fontSize: 14.0)),
                 );
               }).toList(),
             ),

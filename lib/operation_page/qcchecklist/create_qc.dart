@@ -3,26 +3,20 @@ import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
-class FormPenampilan extends StatefulWidget {
+class CreateQC extends StatefulWidget {
   @override
-  _FormPenampilanState createState() => _FormPenampilanState();
+  _CreateQCState createState() => _CreateQCState();
 }
 
-class _FormPenampilanState extends State<FormPenampilan> {
+class _CreateQCState extends State<CreateQC> {
   int _number = 1;
   int _itemCount;
   int _currentIndex;
   bool _autoplay;
   List<Map> _title = [
-    {'title': 'Grooming', 'area':'Penampilan'},
-    {'title': 'Seragam', 'area':'Penampilan'},
-    {'title': 'Aksesoris', 'area':'Penampilan'},
-    {'title': 'Operation', 'area':'Evaluasi'},
-    {'title': 'LSM', 'area':'Evaluasi'},
-    {'title': 'Program Kerja', 'area':'Evaluasi'},
-    {'title': 'LSM', 'area':'Program Kerja'},
-    {'title': 'Tukar Shift', 'area':'Schedule'},
-    {'title': 'Tukar Off', 'area':'Schedule'},
+    {'title': 'Memahami organisasi dan konteksnya', 'area':''},
+    {'title': 'Memahami kebutuhan dan harapan pihak yang berkepentingan', 'area':''},
+    {'title': 'Menentukan ruang lingkup sistem manajemen', 'area':''},
   ];
 
   bool _answer0 = false;
@@ -33,9 +27,9 @@ class _FormPenampilanState extends State<FormPenampilan> {
   Color _answer2Color = Colors.grey;
 
   List<String> isiCheckbox = [
-    'Rambut menggunakan gel',
-    'Rambut laki-laki tidak melibihi telinga',
-    'Rambut disisir rapih',
+    'Apakah organisasi sudah menetapkan internal dan eksternal isu yang berpengaruh terhadap kelangsungan organisasi?',
+    '',
+    '',
   ];
   List<String> valueCheckbox = ['1', '2', '3'];
   List<String> selectedValue = [];
@@ -484,13 +478,13 @@ class _FormPenampilanState extends State<FormPenampilan> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Text(
-                              'Penampilan',
+                              'ISO 9001',
                               style:
                               TextStyle(color: Colors.black54, fontSize: 16.0),
                               textAlign: TextAlign.start,
                             ),
                             Text(
-                              'Operation',
+                              '',
                               style:
                               TextStyle(color: Colors.black54, fontSize: 16.0),
                               textAlign: TextAlign.start,
@@ -501,13 +495,13 @@ class _FormPenampilanState extends State<FormPenampilan> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Text(
-                              'Log Book MOD',
+                              'ISO',
                               style:
                               TextStyle(color: Colors.black54, fontSize: 12.0),
                               textAlign: TextAlign.start,
                             ),
                             Text(
-                              'Department',
+                              '',
                               style:
                               TextStyle(color: Colors.black54, fontSize: 12.0),
                               textAlign: TextAlign.start,

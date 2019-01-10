@@ -3,26 +3,20 @@ import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
-class FormPenampilan extends StatefulWidget {
+class FormDetail extends StatefulWidget {
   @override
-  _FormPenampilanState createState() => _FormPenampilanState();
+  _FormDetailState createState() => _FormDetailState();
 }
 
-class _FormPenampilanState extends State<FormPenampilan> {
+class _FormDetailState extends State<FormDetail> {
   int _number = 1;
   int _itemCount;
   int _currentIndex;
   bool _autoplay;
   List<Map> _title = [
-    {'title': 'Grooming', 'area':'Penampilan'},
-    {'title': 'Seragam', 'area':'Penampilan'},
-    {'title': 'Aksesoris', 'area':'Penampilan'},
-    {'title': 'Operation', 'area':'Evaluasi'},
-    {'title': 'LSM', 'area':'Evaluasi'},
-    {'title': 'Program Kerja', 'area':'Evaluasi'},
-    {'title': 'LSM', 'area':'Program Kerja'},
-    {'title': 'Tukar Shift', 'area':'Schedule'},
-    {'title': 'Tukar Off', 'area':'Schedule'},
+    {'title': 'PEMERIKSAAN PRODUK', 'area':''},
+    {'title': 'Memahami kebutuhan dan harapan pihak yang berkepentingan', 'area':''},
+    {'title': 'Menentukan ruang lingkup sistem manajemen', 'area':''},
   ];
 
   bool _answer0 = false;
@@ -33,9 +27,9 @@ class _FormPenampilanState extends State<FormPenampilan> {
   Color _answer2Color = Colors.grey;
 
   List<String> isiCheckbox = [
-    'Rambut menggunakan gel',
-    'Rambut laki-laki tidak melibihi telinga',
-    'Rambut disisir rapih',
+    'SOP.OPR.02   REV 00',
+    '',
+    '',
   ];
   List<String> valueCheckbox = ['1', '2', '3'];
   List<String> selectedValue = [];
@@ -146,7 +140,7 @@ class _FormPenampilanState extends State<FormPenampilan> {
                                         child: Padding(
                                           padding: EdgeInsets.only(left: 10.0, right: 10.0, top: top, bottom: bottom),
                                           child: Text(
-                                            '${index + 1}. ${isiCheckbox[index]}',
+                                            '${isiCheckbox[index]}',
                                             style: TextStyle(
                                                 color: Colors.black54,
                                                 fontSize: 22.0
@@ -162,141 +156,7 @@ class _FormPenampilanState extends State<FormPenampilan> {
                             )
                           ],
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                            ButtonTheme(
-                              height: 60.0,
-                              minWidth: 70.0,
-                              child: OutlineButton(
-                                child: Text(
-                                  '0',
-                                  style: TextStyle(
-                                      fontSize: 26.0,
-                                      color: _answer0Color),
-                                ),
-                                borderSide: BorderSide(
-                                    color: _answer0Color,
-                                    width: 1.0),
-                                highlightedBorderColor: _answer0Color,
-                                onPressed: () {
-                                  showDialog(
-                                      barrierDismissible: false,
-                                      context: context,
-                                      builder: (context) {
-                                        return Checkbox(
-                                          alasan: isiCheckbox,
-                                          valueCheck: valueCheckbox,
-                                          selectedAlasan: selectedAlasan,
-                                          selectedValue: selectedValue,
-                                          onSelectedAlasanListChanged: (alasans) {
-                                            selectedAlasan = alasans;
-                                          },
-                                          onResult: (finalResult) {
-                                            setState(() {
-                                              if (finalResult[0] == 'yes') {
-                                                _answer0 = true;
-                                                _answer1 = false;
-                                                _answer2 = false;
-                                                _answer0Color = Colors.green;
-                                                _answer1Color = Colors.grey;
-                                                _answer2Color = Colors.grey;
-                                              } else {
-                                                _answer0 = false;
-                                                _answer1 = false;
-                                                _answer2 = false;
-                                                _answer0Color = Colors.grey;
-                                                _answer1Color = Colors.grey;
-                                                _answer2Color = Colors.grey;
-                                              }
-                                            });
-                                          },
-                                        );
-                                      }
-                                  );
-                                },
-                              ),
-                            ),
-                            ButtonTheme(
-                              height: 60.0,
-                              minWidth: 70.0,
-                              child: OutlineButton(
-                                child: Text(
-                                  '1',
-                                  style: TextStyle(
-                                      fontSize: 26.0,
-                                      color: _answer1Color),
-                                ),
-                                borderSide: BorderSide(
-                                    color: _answer1Color,
-                                    width: 1.0),
-                                highlightedBorderColor: _answer1Color,
-                                onPressed: () {
-                                  showDialog(
-                                      barrierDismissible: false,
-                                      context: context,
-                                      builder: (context) {
-                                        return Checkbox(
-                                          alasan: isiCheckbox,
-                                          valueCheck: valueCheckbox,
-                                          selectedAlasan: selectedAlasan,
-                                          selectedValue: selectedValue,
-                                          onSelectedAlasanListChanged: (alasans) {
-                                            selectedAlasan = alasans;
-                                          },
-                                          onResult: (finalResult) {
-                                            setState(() {
-                                              if (finalResult[0] == 'yes') {
-                                                _answer0 = false;
-                                                _answer1 = true;
-                                                _answer2 = false;
-                                                _answer1Color = Colors.green;
-                                                _answer0Color = Colors.grey;
-                                                _answer2Color = Colors.grey;
-                                              } else {
-                                                _answer0 = false;
-                                                _answer1 = false;
-                                                _answer2 = false;
-                                                _answer0Color = Colors.grey;
-                                                _answer1Color = Colors.grey;
-                                                _answer2Color = Colors.grey;
-                                              }
-                                            });
-                                          },
-                                        );
-                                      }
-                                  );
-                                },
-                              ),
-                            ),
-                            ButtonTheme(
-                              height: 60.0,
-                              minWidth: 70.0,
-                              child: OutlineButton(
-                                child: Text(
-                                  '2',
-                                  style: TextStyle(
-                                      fontSize: 26.0,
-                                      color: _answer2Color),
-                                ),
-                                borderSide: BorderSide(
-                                    color: _answer2Color,
-                                    width: 1.0),
-                                highlightedBorderColor: _answer2Color,
-                                onPressed: () {
-                                  setState(() {
-                                    _answer0 = false;
-                                    _answer1 = false;
-                                    _answer2 = true;
-                                    _answer0Color = Colors.grey;
-                                    _answer1Color = Colors.grey;
-                                    _answer2Color = Colors.green;
-                                  });
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
+
                       ],
                     )
                 );
@@ -332,62 +192,8 @@ class _FormPenampilanState extends State<FormPenampilan> {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                ButtonTheme(
-                  minWidth: 50.0,
-                  height: 30.0,
-                  child: RaisedButton(
-                    child: Text(
-                      'SEARCH',
-                      style: TextStyle(fontSize: 13.0),
-                    ),
-                    textColor: Colors.black45,
-                    color: Colors.green[200],
-                    onPressed: () {},
-                  ),
-                ),
-                ButtonTheme(
-                  minWidth: 50.0,
-                  height: 30.0,
-                  child: RaisedButton(
-                    child: Text(
-                      'CAR',
-                      style: TextStyle(fontSize: 13.0),
-                    ),
-                    textColor: Colors.white,
-                    color: Colors.green,
-                    onPressed: () {},
-                  ),
-                ),
-                _number == 5
-                    ? ButtonTheme(
-                  minWidth: 50.0,
-                  height: 30.0,
-                  child: RaisedButton(
-                    child: Text(
-                      'SAVE',
-                      style: TextStyle(fontSize: 13.0),
-                    ),
-                    textColor: Colors.white,
-                    color: Colors.green,
-                    onPressed: () {},
-                  ),
-                )
-                    : ButtonTheme(
-                  minWidth: 50.0,
-                  height: 30.0,
-                  child: RaisedButton(
-                    elevation: 0.0,
-                    child: Text(
-                      'SAVE',
-                      style: TextStyle(fontSize: 13.0),
-                    ),
-                    textColor: Color(0xFF2F592F),
-                    color: Color(0xFF2F592F),
-                    onPressed: () {},
-                  ),
-                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -484,13 +290,13 @@ class _FormPenampilanState extends State<FormPenampilan> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Text(
-                              'Penampilan',
+                              'Detail List',
                               style:
                               TextStyle(color: Colors.black54, fontSize: 16.0),
                               textAlign: TextAlign.start,
                             ),
                             Text(
-                              'Operation',
+                              '',
                               style:
                               TextStyle(color: Colors.black54, fontSize: 16.0),
                               textAlign: TextAlign.start,
@@ -501,13 +307,13 @@ class _FormPenampilanState extends State<FormPenampilan> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Text(
-                              'Log Book MOD',
+                              'Document Control ',
                               style:
                               TextStyle(color: Colors.black54, fontSize: 12.0),
                               textAlign: TextAlign.start,
                             ),
                             Text(
-                              'Department',
+                              '',
                               style:
                               TextStyle(color: Colors.black54, fontSize: 12.0),
                               textAlign: TextAlign.start,

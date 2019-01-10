@@ -27,6 +27,7 @@ dependencies:
   flutter_circular_chart: ^0.1.0
   badges: ^0.0.6
   image_picker: ^0.4.10
+  flutter_swiper: ^1.1.4
 
 dev_dependencies:
   flutter_test:
@@ -48,6 +49,8 @@ flutter:
     - assets/images/logo.png
     - assets/images/logo_splash.png
     - assets/images/logo_light.png
+    - assets/images/map.png
+    - assets/images/map_2.png
   fonts:
     - family: NeoSans
       fonts:

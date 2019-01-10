@@ -111,7 +111,7 @@ class _InspectionState extends State<Inspection> {
                     Flexible(
                       child: Text(
                         'Barang datang tepat waktu',
-                        style: TextStyle(color: Colors.grey, fontSize: 13.0),
+                        style: TextStyle(color: Colors.grey, fontSize: 14.0),
                         overflow: TextOverflow.clip,
                       ),
                     ),
@@ -172,7 +172,7 @@ class _InspectionState extends State<Inspection> {
                     Flexible(
                       child: Text(
                         'Barang datang tepat jumlah',
-                        style: TextStyle(color: Colors.grey, fontSize: 13.0),
+                        style: TextStyle(color: Colors.grey, fontSize: 14.0),
                         overflow: TextOverflow.clip,
                       ),
                     ),
@@ -253,7 +253,7 @@ class _InspectionState extends State<Inspection> {
                     Flexible(
                       child: Text(
                         'CoA',
-                        style: TextStyle(color: Colors.grey, fontSize: 13.0),
+                        style: TextStyle(color: Colors.grey, fontSize: 14.0),
                         overflow: TextOverflow.clip,
                       ),
                     ),
@@ -315,7 +315,7 @@ class _InspectionState extends State<Inspection> {
                     Flexible(
                       child: Text(
                         'Kondisi Kemasan',
-                        style: TextStyle(color: Colors.grey, fontSize: 13.0),
+                        style: TextStyle(color: Colors.grey, fontSize: 14.0),
                         overflow: TextOverflow.clip,
                       ),
                     ),
@@ -389,74 +389,34 @@ class _InspectionState extends State<Inspection> {
                     decoration: BoxDecoration(color: Color(0xFF2F592F))),
               ),
               ListTile(
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  verticalDirection: VerticalDirection.up,
-                  children: <Widget>[
-                    Flexible(
-                      child: Text(
-                        'Suhu',
-                        style: TextStyle(color: Colors.grey, fontSize: 13.0),
-                        overflow: TextOverflow.clip,
-                      ),
+                title: Container(
+                  width: MediaQuery.of(context).size.width / 1.5,
+                  child: TextFormField(
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                        labelText: 'Suhu',
+                        labelStyle: TextStyle(fontSize: 14.0)),
+                    style: TextStyle(
+                      color: Colors.black,
                     ),
-                    Row(
-                      children: <Widget>[
-                        Container(
-                          width: 120.0,
-                          child: TextField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                                hintText: 'Suhu',
-                                hintStyle: TextStyle(fontSize: 12.0)),
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.help_outline),
-                          onPressed: null,
-                        )
-                      ],
-                    )
-                  ],
+                  ),
                 ),
+                trailing: IconButton(icon: Icon(Icons.help_outline), onPressed: null),
               ),
               ListTile(
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  verticalDirection: VerticalDirection.up,
-                  children: <Widget>[
-                    Flexible(
-                      child: Text(
-                        'Berat',
-                        style: TextStyle(color: Colors.grey, fontSize: 13.0),
-                        overflow: TextOverflow.clip,
-                      ),
+                title: Container(
+                  width: MediaQuery.of(context).size.width / 1.5,
+                  child: TextFormField(
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                        labelText: 'Berat',
+                        labelStyle: TextStyle(fontSize: 14.0)),
+                    style: TextStyle(
+                      color: Colors.black,
                     ),
-                    Row(
-                      children: <Widget>[
-                        Container(
-                          width: 120.0,
-                          child: TextField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                                hintText: 'Berat',
-                                hintStyle: TextStyle(fontSize: 12.0)),
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.help_outline),
-                          onPressed: null,
-                        )
-                      ],
-                    )
-                  ],
+                  ),
                 ),
+                trailing: IconButton(icon: Icon(Icons.help_outline), onPressed: null),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
@@ -482,165 +442,78 @@ class _InspectionState extends State<Inspection> {
                 ),
               ),
               ListTile(
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  verticalDirection: VerticalDirection.up,
-                  children: <Widget>[
-                    Flexible(
-                      child: Text(
-                        'Production Date',
-                        style: TextStyle(color: Colors.grey, fontSize: 13.0),
-                        overflow: TextOverflow.clip,
-                      ),
+                title: Container(
+                  width: MediaQuery.of(context).size.width / 1.5,
+                  child: DateTimePickerFormField(
+                    format: dateFormatProduction,
+                    onChanged: (dt) => setState(() => dateProduction = dt),
+                    dateOnly: true,
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      color: Colors.black
                     ),
-                    Row(
-                      children: <Widget>[
-                        Container(
-                          width: 120.0,
-                          child: DateTimePickerFormField(
-                            format: dateFormatProduction,
-                            onChanged: (dt) => setState(() => dateProduction = dt),
-                            dateOnly: true,
-                            style: TextStyle(
-                              fontSize: 12.0,
-                              color: Colors.black
-                            ),
-                            decoration:
-                                InputDecoration(
-                                  border: UnderlineInputBorder(),
-                                  hintText: 'Production Date',
-                                  hintStyle: TextStyle(
-                                    fontSize: 12.0
-                                  )
-                                ),
-                          ),
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.help_outline,
-                              color: Colors.transparent),
-                          onPressed: null,
-                        )
-                      ],
-                    )
-                  ],
+                    decoration: InputDecoration(
+                      border: UnderlineInputBorder(),
+                      labelText: 'Production Date',
+                      labelStyle: TextStyle(
+                        fontSize: 14.0
+                      )
+                    ),
+                  ),
                 ),
+                trailing: IconButton(icon: Icon(Icons.help_outline), onPressed: null),
               ),
               ListTile(
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  verticalDirection: VerticalDirection.up,
-                  children: <Widget>[
-                    Expanded(
-                      child: Text(
-                        'Expiry Date',
-                        style: TextStyle(color: Colors.grey, fontSize: 13.0),
-                        overflow: TextOverflow.clip,
-                      ),
+                title: Container(
+                  width: MediaQuery.of(context).size.width / 1.5,
+                  child: DateTimePickerFormField(
+                    format: dateFormatProduction,
+                    onChanged: (dt) => setState(() => dateExpiry = dt),
+                    dateOnly: true,
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      color: Colors.black
                     ),
-                    Row(
-                      children: <Widget>[
-                        Container(
-                          width: 120.0,
-                          child: DateTimePickerFormField(
-                            format: dateFormatExpiry,
-                            onChanged: (dt) => setState(() => dateExpiry = dt),
-                            dateOnly: true,
-                            style: TextStyle(
-                              fontSize: 12.0,
-                              color: Colors.black
-                            ),
-                            decoration:
-                              InputDecoration(
-                                border: UnderlineInputBorder(),
-                                hintText: 'Expiry Date',
-                                hintStyle: TextStyle(
-                                  fontSize: 12.0
-                                )
-                              ),
-                          ),
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.help_outline,
-                              color: Colors.transparent),
-                          onPressed: null,
-                        )
-                      ],
-                    )
-                  ],
+                    decoration: InputDecoration(
+                      border: UnderlineInputBorder(),
+                      labelText: 'Expiry Date',
+                      labelStyle: TextStyle(
+                        fontSize: 14.0
+                      )
+                    ),
+                  ),
                 ),
+                trailing: IconButton(icon: Icon(Icons.help_outline), onPressed: null),
               ),
               ListTile(
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  verticalDirection: VerticalDirection.up,
-                  children: <Widget>[
-                    Expanded(
-                      child: Text(
-                        'Internal Lot #',
-                        style: TextStyle(color: Colors.grey, fontSize: 13.0),
-                        overflow: TextOverflow.clip,
-                      ),
+                title: Container(
+                  width: MediaQuery.of(context).size.width / 1.5,
+                  child: TextFormField(
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                        labelText: 'Internal Lot #',
+                        labelStyle: TextStyle(fontSize: 14.0)),
+                    style: TextStyle(
+                      color: Colors.black,
                     ),
-                    Row(
-                      children: <Widget>[
-                        Container(
-                          width: 120.0,
-                          child: TextField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                                hintText: 'Internal Lot #',
-                                hintStyle: TextStyle(fontSize: 12.0)),
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                        IconButton(
-                            icon: Icon(Icons.help_outline), onPressed: null)
-                      ],
-                    )
-                  ],
+                  ),
                 ),
+                trailing: IconButton(icon: Icon(Icons.help_outline), onPressed: null),
               ),
               ListTile(
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  verticalDirection: VerticalDirection.up,
-                  children: <Widget>[
-                    Expanded(
-                      child: Text(
-                        'Quantity',
-                        style: TextStyle(color: Colors.grey, fontSize: 13.0),
-                        overflow: TextOverflow.clip,
-                      ),
+                title: Container(
+                  width: MediaQuery.of(context).size.width / 1.5,
+                  child: TextFormField(
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                        labelText: 'Quantity',
+                        labelStyle: TextStyle(fontSize: 14.0)),
+                    style: TextStyle(
+                      color: Colors.black,
                     ),
-                    Row(
-                      children: <Widget>[
-                        Container(
-                          width: 120.0,
-                          child: TextField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                                hintText: 'Quantity',
-                                hintStyle: TextStyle(fontSize: 12.0)),
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.help_outline,
-                              color: Colors.transparent),
-                          onPressed: null,
-                        )
-                      ],
-                    )
-                  ],
+                  ),
                 ),
+                trailing: IconButton(icon: Icon(Icons.help_outline, color: Colors.white), onPressed: null),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
@@ -666,7 +539,7 @@ class _InspectionState extends State<Inspection> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 15.0),
+                padding: const EdgeInsets.only(bottom: 15.0, top: 10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
