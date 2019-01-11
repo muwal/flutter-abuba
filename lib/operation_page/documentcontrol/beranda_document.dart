@@ -3,7 +3,8 @@ import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import 'form_list.dart';
+import 'package:flutter_abuba/operation_page/documentcontrol/list/form_list.dart';
+import 'package:flutter_abuba/operation_page/documentcontrol/review/form_review.dart';
 
 class BerandaDocument extends StatefulWidget {
   @override
@@ -106,7 +107,7 @@ class _BerandaDocumentState extends State<BerandaDocument> {
                       GestureDetector(
                         onTap: () {
                           Navigator.push(context,
-                              MyCustomRoute(builder: (context) => null));
+                              MyCustomRoute(builder: (context) => FormReview()));
                         },
                         child: Stack(
                           overflow: Overflow.visible,
@@ -132,7 +133,7 @@ class _BerandaDocumentState extends State<BerandaDocument> {
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: 10.0),
-                        child: Text('Approval',
+                        child: Text('Review',
                             style: TextStyle(
                                 fontWeight: FontWeight.w500, fontSize: 12.0),
                             softWrap: false,
@@ -142,10 +143,53 @@ class _BerandaDocumentState extends State<BerandaDocument> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MyCustomRoute(
-                              builder: (context) => new FormList()));
+                      Navigator.push(context,
+                          MyCustomRoute(builder: (context) => new FormList()));
+                    },
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Stack(
+                          overflow: Overflow.visible,
+                          children: <Widget>[
+                            Container(
+                              height: 70.0,
+                              width: 70.0,
+                              decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  border: Border.all(
+                                      color: Colors.grey, width: 1.0),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(18.0))),
+                            ),
+                            Positioned(
+                              bottom: 22.5,
+                              left: 25.0,
+                              child: Icon(MdiIcons.heart,
+                                  size: 25.0, color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 10.0),
+                          child: Text(
+                            'Approve',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500, fontSize: 12.0),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MyCustomRoute(builder: (context) => new FormList()));
                     },
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -175,6 +219,86 @@ class _BerandaDocumentState extends State<BerandaDocument> {
                           padding: EdgeInsets.only(top: 10.0),
                           child: Text(
                             'List',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500, fontSize: 12.0),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(context,
+                              MyCustomRoute(builder: (context) => null));
+                        },
+                        child: Stack(
+                          overflow: Overflow.visible,
+                          children: <Widget>[
+                            Container(
+                              height: 70.0,
+                              width: 70.0,
+                              decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  border: Border.all(
+                                      color: Colors.grey, width: 1.0),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(18.0))),
+                            ),
+                            Positioned(
+                              bottom: 22.5,
+                              left: 25.0,
+                              child: Icon(MdiIcons.heart,
+                                  size: 25.0, color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 10.0),
+                        child: Text('Appraisal',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500, fontSize: 12.0),
+                            softWrap: false,
+                            overflow: TextOverflow.ellipsis),
+                      ),
+                    ],
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MyCustomRoute(builder: (context) => new FormList()));
+                    },
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Stack(
+                          overflow: Overflow.visible,
+                          children: <Widget>[
+                            Container(
+                              height: 70.0,
+                              width: 70.0,
+                              decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  border: Border.all(
+                                      color: Colors.grey, width: 1.0),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(18.0))),
+                            ),
+                            Positioned(
+                              bottom: 22.5,
+                              left: 25.0,
+                              child: Icon(MdiIcons.heart,
+                                  size: 25.0, color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 10.0),
+                          child: Text(
+                            'Medical',
                             style: TextStyle(
                                 fontWeight: FontWeight.w500, fontSize: 12.0),
                           ),

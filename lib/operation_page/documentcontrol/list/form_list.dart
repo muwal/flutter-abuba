@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 import 'package:flutter_abuba/constant.dart';
-import 'detail_list.dart';
+import 'package:flutter_abuba/operation_page/documentcontrol/list/detail_list.dart';
 
 class FormList extends StatefulWidget {
   @override
@@ -65,13 +65,28 @@ class _FormListState extends State<FormList> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Flexible(
                         child: Text(
                           'Problem',
                           style: TextStyle(fontSize: 14.0),
                         ),
-                      )
+                      ),
+                      ButtonTheme(
+                        minWidth: 50.0,
+                        height: 20.0,
+                        child: OutlineButton(
+                          child: Text(
+                            'Detail',
+                            style: TextStyle(fontSize: 13.0, color: AbubaPallate.menuBluebird),
+                          ),
+                          borderSide: BorderSide(color: AbubaPallate.menuBluebird, width: 1.0),
+                          highlightedBorderColor: AbubaPallate.menuBluebird,
+                          onPressed: () => Navigator.push(context,
+                              MyCustomRoute(builder: (context) => FormDetail())),
+                        ),
+                      ),
                     ],
                   ),
                   Row(
@@ -101,10 +116,8 @@ class _FormListState extends State<FormList> {
               children: <Widget>[
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MyCustomRoute(
-                            builder: (context) => new FormDetail()));
+                    Navigator.push(context,
+                        MyCustomRoute(builder: (context) => new FormDetail()));
                   },
                   child: Column(
                     children: <Widget>[
@@ -122,7 +135,9 @@ class _FormListState extends State<FormList> {
                                     child: Text(
                                       'Dibuat',
                                       style: TextStyle(
-                                          fontSize: 13.0, color: Colors.black54, fontWeight: FontWeight.w700),
+                                          fontSize: 13.0,
+                                          color: Colors.black54,
+                                          fontWeight: FontWeight.w700),
                                     ),
                                   ),
                                 ],
@@ -137,7 +152,9 @@ class _FormListState extends State<FormList> {
                                     child: Text(
                                       'Diperiksa',
                                       style: TextStyle(
-                                          fontSize: 13.0, color: Colors.black54, fontWeight: FontWeight.w700),
+                                          fontSize: 13.0,
+                                          color: Colors.black54,
+                                          fontWeight: FontWeight.w700),
                                     ),
                                   ),
                                 ],
@@ -152,7 +169,9 @@ class _FormListState extends State<FormList> {
                                     child: Text(
                                       'Disetujui',
                                       style: TextStyle(
-                                          fontSize: 13.0, color: Colors.black54, fontWeight: FontWeight.w700),
+                                          fontSize: 13.0,
+                                          color: Colors.black54,
+                                          fontWeight: FontWeight.w700),
                                     ),
                                   ),
                                 ],
@@ -175,7 +194,9 @@ class _FormListState extends State<FormList> {
                                     child: Text(
                                       'Sony',
                                       style: TextStyle(
-                                          fontSize: 12.0, color: Colors.black54, fontWeight: FontWeight.w500),
+                                          fontSize: 12.0,
+                                          color: Colors.black54,
+                                          fontWeight: FontWeight.w500),
                                     ),
                                   ),
                                 ],
@@ -190,7 +211,9 @@ class _FormListState extends State<FormList> {
                                     child: Text(
                                       'Ridwan',
                                       style: TextStyle(
-                                          fontSize: 12.0, color: Colors.black54, fontWeight: FontWeight.w500),
+                                          fontSize: 12.0,
+                                          color: Colors.black54,
+                                          fontWeight: FontWeight.w500),
                                     ),
                                   ),
                                 ],
@@ -205,7 +228,9 @@ class _FormListState extends State<FormList> {
                                     child: Text(
                                       'M. Ali',
                                       style: TextStyle(
-                                          fontSize: 12.0, color: Colors.black54, fontWeight: FontWeight.w500),
+                                          fontSize: 12.0,
+                                          color: Colors.black54,
+                                          fontWeight: FontWeight.w500),
                                     ),
                                   ),
                                 ],
@@ -214,7 +239,6 @@ class _FormListState extends State<FormList> {
                           ],
                         ),
                       ),
-
                       Padding(
                         padding: const EdgeInsets.only(
                             left: 15.0, right: 15.0, bottom: 0.0),
@@ -230,7 +254,8 @@ class _FormListState extends State<FormList> {
                                     child: Text(
                                       'IT',
                                       style: TextStyle(
-                                          fontSize: 10.0, color: Colors.black54),
+                                          fontSize: 10.0,
+                                          color: Colors.black54),
                                     ),
                                   ),
                                 ],
@@ -245,7 +270,8 @@ class _FormListState extends State<FormList> {
                                     child: Text(
                                       'Audit',
                                       style: TextStyle(
-                                          fontSize: 10.0, color: Colors.black54),
+                                          fontSize: 10.0,
+                                          color: Colors.black54),
                                     ),
                                   ),
                                 ],
@@ -260,7 +286,8 @@ class _FormListState extends State<FormList> {
                                     child: Text(
                                       'Direktur',
                                       style: TextStyle(
-                                          fontSize: 10.0, color: Colors.black54),
+                                          fontSize: 10.0,
+                                          color: Colors.black54),
                                     ),
                                   ),
                                 ],
@@ -284,7 +311,8 @@ class _FormListState extends State<FormList> {
                                     child: Text(
                                       '01/01/2019',
                                       style: TextStyle(
-                                          fontSize: 10.0, color: Colors.black54),
+                                          fontSize: 10.0,
+                                          color: Colors.black54),
                                     ),
                                   ),
                                 ],
@@ -299,7 +327,8 @@ class _FormListState extends State<FormList> {
                                     child: Text(
                                       '01/01/2019',
                                       style: TextStyle(
-                                          fontSize: 10.0, color: Colors.black54),
+                                          fontSize: 10.0,
+                                          color: Colors.black54),
                                     ),
                                   ),
                                 ],
@@ -314,7 +343,8 @@ class _FormListState extends State<FormList> {
                                     child: Text(
                                       '01/01/2019',
                                       style: TextStyle(
-                                          fontSize: 10.0, color: Colors.black54),
+                                          fontSize: 10.0,
+                                          color: Colors.black54),
                                     ),
                                   ),
                                 ],
@@ -336,13 +366,28 @@ class _FormListState extends State<FormList> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Flexible(
                         child: Text(
                           'Menghadapi Instansi Pemerintah',
                           style: TextStyle(fontSize: 14.0),
                         ),
-                      )
+                      ),
+                      ButtonTheme(
+                        minWidth: 50.0,
+                        height: 20.0,
+                        child: OutlineButton(
+                          child: Text(
+                            'Detail',
+                            style: TextStyle(fontSize: 13.0, color: AbubaPallate.menuBluebird),
+                          ),
+                          borderSide: BorderSide(color: AbubaPallate.menuBluebird, width: 1.0),
+                          highlightedBorderColor: AbubaPallate.menuBluebird,
+                          onPressed: () => Navigator.push(context,
+                              MyCustomRoute(builder: (context) => FormDetail())),
+                        ),
+                      ),
                     ],
                   ),
                   Row(
@@ -352,7 +397,7 @@ class _FormListState extends State<FormList> {
                         child: Text(
                           'SOP.OPR.02',
                           style:
-                          TextStyle(fontSize: 12.0, color: Colors.black38),
+                              TextStyle(fontSize: 12.0, color: Colors.black38),
                         ),
                       ),
                       SizedBox(
@@ -362,7 +407,7 @@ class _FormListState extends State<FormList> {
                         child: Text(
                           'Rev 00',
                           style:
-                          TextStyle(fontSize: 12.0, color: Colors.black38),
+                              TextStyle(fontSize: 12.0, color: Colors.black38),
                         ),
                       )
                     ],
@@ -384,7 +429,9 @@ class _FormListState extends State<FormList> {
                               child: Text(
                                 'Dibuat',
                                 style: TextStyle(
-                                    fontSize: 13.0, color: Colors.black54, fontWeight: FontWeight.w700),
+                                    fontSize: 13.0,
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.w700),
                               ),
                             ),
                           ],
@@ -399,7 +446,9 @@ class _FormListState extends State<FormList> {
                               child: Text(
                                 'Diperiksa',
                                 style: TextStyle(
-                                    fontSize: 13.0, color: Colors.black54, fontWeight: FontWeight.w700),
+                                    fontSize: 13.0,
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.w700),
                               ),
                             ),
                           ],
@@ -414,7 +463,9 @@ class _FormListState extends State<FormList> {
                               child: Text(
                                 'Disetujui',
                                 style: TextStyle(
-                                    fontSize: 13.0, color: Colors.black54, fontWeight: FontWeight.w700),
+                                    fontSize: 13.0,
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.w700),
                               ),
                             ),
                           ],
@@ -437,7 +488,9 @@ class _FormListState extends State<FormList> {
                               child: Text(
                                 'Sony',
                                 style: TextStyle(
-                                    fontSize: 12.0, color: Colors.black54, fontWeight: FontWeight.w500),
+                                    fontSize: 12.0,
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.w500),
                               ),
                             ),
                           ],
@@ -452,7 +505,9 @@ class _FormListState extends State<FormList> {
                               child: Text(
                                 'Ridwan',
                                 style: TextStyle(
-                                    fontSize: 12.0, color: Colors.black54, fontWeight: FontWeight.w500),
+                                    fontSize: 12.0,
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.w500),
                               ),
                             ),
                           ],
@@ -467,7 +522,9 @@ class _FormListState extends State<FormList> {
                               child: Text(
                                 'M. Ali',
                                 style: TextStyle(
-                                    fontSize: 12.0, color: Colors.black54, fontWeight: FontWeight.w500),
+                                    fontSize: 12.0,
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.w500),
                               ),
                             ),
                           ],
@@ -476,7 +533,6 @@ class _FormListState extends State<FormList> {
                     ],
                   ),
                 ),
-
                 Padding(
                   padding: const EdgeInsets.only(
                       left: 15.0, right: 15.0, bottom: 0.0),
@@ -595,13 +651,28 @@ class _FormListState extends State<FormList> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Flexible(
                         child: Text(
-                          'Penerimaan Bahan Baku',
+                          'Penerimaan bahan baku',
                           style: TextStyle(fontSize: 14.0),
                         ),
-                      )
+                      ),
+                      ButtonTheme(
+                        minWidth: 50.0,
+                        height: 20.0,
+                        child: OutlineButton(
+                          child: Text(
+                            'Detail',
+                            style: TextStyle(fontSize: 13.0, color: AbubaPallate.menuBluebird),
+                          ),
+                          borderSide: BorderSide(color: AbubaPallate.menuBluebird, width: 1.0),
+                          highlightedBorderColor: AbubaPallate.menuBluebird,
+                          onPressed: () => Navigator.push(context,
+                              MyCustomRoute(builder: (context) => FormDetail())),
+                        ),
+                      ),
                     ],
                   ),
                   Row(
@@ -611,7 +682,7 @@ class _FormListState extends State<FormList> {
                         child: Text(
                           'SOP.OPR.02',
                           style:
-                          TextStyle(fontSize: 12.0, color: Colors.black38),
+                              TextStyle(fontSize: 12.0, color: Colors.black38),
                         ),
                       ),
                       SizedBox(
@@ -621,7 +692,7 @@ class _FormListState extends State<FormList> {
                         child: Text(
                           'Rev 00',
                           style:
-                          TextStyle(fontSize: 12.0, color: Colors.black38),
+                              TextStyle(fontSize: 12.0, color: Colors.black38),
                         ),
                       )
                     ],
@@ -643,7 +714,9 @@ class _FormListState extends State<FormList> {
                               child: Text(
                                 'Dibuat',
                                 style: TextStyle(
-                                    fontSize: 13.0, color: Colors.black54, fontWeight: FontWeight.w700),
+                                    fontSize: 13.0,
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.w700),
                               ),
                             ),
                           ],
@@ -658,7 +731,9 @@ class _FormListState extends State<FormList> {
                               child: Text(
                                 'Diperiksa',
                                 style: TextStyle(
-                                    fontSize: 13.0, color: Colors.black54, fontWeight: FontWeight.w700),
+                                    fontSize: 13.0,
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.w700),
                               ),
                             ),
                           ],
@@ -673,7 +748,9 @@ class _FormListState extends State<FormList> {
                               child: Text(
                                 'Disetujui',
                                 style: TextStyle(
-                                    fontSize: 13.0, color: Colors.black54, fontWeight: FontWeight.w700),
+                                    fontSize: 13.0,
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.w700),
                               ),
                             ),
                           ],
@@ -696,7 +773,9 @@ class _FormListState extends State<FormList> {
                               child: Text(
                                 'Sony',
                                 style: TextStyle(
-                                    fontSize: 12.0, color: Colors.black54, fontWeight: FontWeight.w500),
+                                    fontSize: 12.0,
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.w500),
                               ),
                             ),
                           ],
@@ -711,7 +790,9 @@ class _FormListState extends State<FormList> {
                               child: Text(
                                 'Ridwan',
                                 style: TextStyle(
-                                    fontSize: 12.0, color: Colors.black54, fontWeight: FontWeight.w500),
+                                    fontSize: 12.0,
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.w500),
                               ),
                             ),
                           ],
@@ -726,7 +807,9 @@ class _FormListState extends State<FormList> {
                               child: Text(
                                 'M. Ali',
                                 style: TextStyle(
-                                    fontSize: 12.0, color: Colors.black54, fontWeight: FontWeight.w500),
+                                    fontSize: 12.0,
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.w500),
                               ),
                             ),
                           ],
@@ -735,7 +818,6 @@ class _FormListState extends State<FormList> {
                     ],
                   ),
                 ),
-
                 Padding(
                   padding: const EdgeInsets.only(
                       left: 15.0, right: 15.0, bottom: 0.0),
@@ -847,7 +929,6 @@ class _FormListState extends State<FormList> {
               ],
             ),
           ),
-
           Container(
             color: Colors.white,
             child: ExpansionTile(
@@ -855,13 +936,28 @@ class _FormListState extends State<FormList> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Flexible(
                         child: Text(
                           'Customer Handling',
                           style: TextStyle(fontSize: 14.0),
                         ),
-                      )
+                      ),
+                      ButtonTheme(
+                        minWidth: 50.0,
+                        height: 20.0,
+                        child: OutlineButton(
+                          child: Text(
+                            'Detail',
+                            style: TextStyle(fontSize: 13.0, color: AbubaPallate.menuBluebird),
+                          ),
+                          borderSide: BorderSide(color: AbubaPallate.menuBluebird, width: 1.0),
+                          highlightedBorderColor: AbubaPallate.menuBluebird,
+                          onPressed: () => Navigator.push(context,
+                              MyCustomRoute(builder: (context) => FormDetail())),
+                        ),
+                      ),
                     ],
                   ),
                   Row(
@@ -871,7 +967,7 @@ class _FormListState extends State<FormList> {
                         child: Text(
                           'SOP.OPR.02',
                           style:
-                          TextStyle(fontSize: 12.0, color: Colors.black38),
+                              TextStyle(fontSize: 12.0, color: Colors.black38),
                         ),
                       ),
                       SizedBox(
@@ -881,7 +977,7 @@ class _FormListState extends State<FormList> {
                         child: Text(
                           'Rev 00',
                           style:
-                          TextStyle(fontSize: 12.0, color: Colors.black38),
+                              TextStyle(fontSize: 12.0, color: Colors.black38),
                         ),
                       )
                     ],
@@ -903,7 +999,9 @@ class _FormListState extends State<FormList> {
                               child: Text(
                                 'Dibuat',
                                 style: TextStyle(
-                                    fontSize: 13.0, color: Colors.black54, fontWeight: FontWeight.w700),
+                                    fontSize: 13.0,
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.w700),
                               ),
                             ),
                           ],
@@ -918,7 +1016,9 @@ class _FormListState extends State<FormList> {
                               child: Text(
                                 'Diperiksa',
                                 style: TextStyle(
-                                    fontSize: 13.0, color: Colors.black54, fontWeight: FontWeight.w700),
+                                    fontSize: 13.0,
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.w700),
                               ),
                             ),
                           ],
@@ -933,7 +1033,9 @@ class _FormListState extends State<FormList> {
                               child: Text(
                                 'Disetujui',
                                 style: TextStyle(
-                                    fontSize: 13.0, color: Colors.black54, fontWeight: FontWeight.w700),
+                                    fontSize: 13.0,
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.w700),
                               ),
                             ),
                           ],
@@ -956,7 +1058,9 @@ class _FormListState extends State<FormList> {
                               child: Text(
                                 'Sony',
                                 style: TextStyle(
-                                    fontSize: 12.0, color: Colors.black54, fontWeight: FontWeight.w500),
+                                    fontSize: 12.0,
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.w500),
                               ),
                             ),
                           ],
@@ -971,7 +1075,9 @@ class _FormListState extends State<FormList> {
                               child: Text(
                                 'Ridwan',
                                 style: TextStyle(
-                                    fontSize: 12.0, color: Colors.black54, fontWeight: FontWeight.w500),
+                                    fontSize: 12.0,
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.w500),
                               ),
                             ),
                           ],
@@ -986,7 +1092,9 @@ class _FormListState extends State<FormList> {
                               child: Text(
                                 'M. Ali',
                                 style: TextStyle(
-                                    fontSize: 12.0, color: Colors.black54, fontWeight: FontWeight.w500),
+                                    fontSize: 12.0,
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.w500),
                               ),
                             ),
                           ],
@@ -995,7 +1103,6 @@ class _FormListState extends State<FormList> {
                     ],
                   ),
                 ),
-
                 Padding(
                   padding: const EdgeInsets.only(
                       left: 15.0, right: 15.0, bottom: 0.0),
@@ -1107,7 +1214,6 @@ class _FormListState extends State<FormList> {
               ],
             ),
           ),
-
           Container(
             color: Colors.white,
             child: ExpansionTile(
@@ -1115,13 +1221,28 @@ class _FormListState extends State<FormList> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Flexible(
                         child: Text(
                           'Service Sequence',
                           style: TextStyle(fontSize: 14.0),
                         ),
-                      )
+                      ),
+                      ButtonTheme(
+                        minWidth: 50.0,
+                        height: 20.0,
+                        child: OutlineButton(
+                          child: Text(
+                            'Detail',
+                            style: TextStyle(fontSize: 13.0, color: AbubaPallate.menuBluebird),
+                          ),
+                          borderSide: BorderSide(color: AbubaPallate.menuBluebird, width: 1.0),
+                          highlightedBorderColor: AbubaPallate.menuBluebird,
+                          onPressed: () => Navigator.push(context,
+                              MyCustomRoute(builder: (context) => FormDetail())),
+                        ),
+                      ),
                     ],
                   ),
                   Row(
@@ -1131,7 +1252,7 @@ class _FormListState extends State<FormList> {
                         child: Text(
                           'SOP.OPR.02',
                           style:
-                          TextStyle(fontSize: 12.0, color: Colors.black38),
+                              TextStyle(fontSize: 12.0, color: Colors.black38),
                         ),
                       ),
                       SizedBox(
@@ -1141,7 +1262,7 @@ class _FormListState extends State<FormList> {
                         child: Text(
                           'Rev 00',
                           style:
-                          TextStyle(fontSize: 12.0, color: Colors.black38),
+                              TextStyle(fontSize: 12.0, color: Colors.black38),
                         ),
                       )
                     ],
@@ -1163,7 +1284,9 @@ class _FormListState extends State<FormList> {
                               child: Text(
                                 'Dibuat',
                                 style: TextStyle(
-                                    fontSize: 13.0, color: Colors.black54, fontWeight: FontWeight.w700),
+                                    fontSize: 13.0,
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.w700),
                               ),
                             ),
                           ],
@@ -1178,7 +1301,9 @@ class _FormListState extends State<FormList> {
                               child: Text(
                                 'Diperiksa',
                                 style: TextStyle(
-                                    fontSize: 13.0, color: Colors.black54, fontWeight: FontWeight.w700),
+                                    fontSize: 13.0,
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.w700),
                               ),
                             ),
                           ],
@@ -1193,7 +1318,9 @@ class _FormListState extends State<FormList> {
                               child: Text(
                                 'Disetujui',
                                 style: TextStyle(
-                                    fontSize: 13.0, color: Colors.black54, fontWeight: FontWeight.w700),
+                                    fontSize: 13.0,
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.w700),
                               ),
                             ),
                           ],
@@ -1216,7 +1343,9 @@ class _FormListState extends State<FormList> {
                               child: Text(
                                 'Sony',
                                 style: TextStyle(
-                                    fontSize: 12.0, color: Colors.black54, fontWeight: FontWeight.w500),
+                                    fontSize: 12.0,
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.w500),
                               ),
                             ),
                           ],
@@ -1231,7 +1360,9 @@ class _FormListState extends State<FormList> {
                               child: Text(
                                 'Ridwan',
                                 style: TextStyle(
-                                    fontSize: 12.0, color: Colors.black54, fontWeight: FontWeight.w500),
+                                    fontSize: 12.0,
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.w500),
                               ),
                             ),
                           ],
@@ -1246,7 +1377,9 @@ class _FormListState extends State<FormList> {
                               child: Text(
                                 'M. Ali',
                                 style: TextStyle(
-                                    fontSize: 12.0, color: Colors.black54, fontWeight: FontWeight.w500),
+                                    fontSize: 12.0,
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.w500),
                               ),
                             ),
                           ],
@@ -1255,7 +1388,6 @@ class _FormListState extends State<FormList> {
                     ],
                   ),
                 ),
-
                 Padding(
                   padding: const EdgeInsets.only(
                       left: 15.0, right: 15.0, bottom: 0.0),
