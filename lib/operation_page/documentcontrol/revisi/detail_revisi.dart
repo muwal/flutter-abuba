@@ -3,6 +3,8 @@ import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'dart:math' as math;
 
+import 'review_revisi.dart';
+
 class FormDetail extends StatefulWidget {
   @override
   _FormDetailState createState() => _FormDetailState();
@@ -1430,9 +1432,8 @@ class _FormDetailState extends State<FormDetail> with TickerProviderStateMixin {
                                               highlightedBorderColor:
                                                   AbubaPallate.menuBluebird,
                                               onPressed: () {
-                                                setState(() {
-                                                  _showDialog();
-                                                });
+                                                Navigator.push(context,
+                                                    MyCustomRoute(builder: (context) => ReviewRevisi()));
                                               },
                                             ),
                                           ),
