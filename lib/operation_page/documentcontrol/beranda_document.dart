@@ -5,6 +5,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 
 import 'package:flutter_abuba/operation_page/documentcontrol/list/form_list.dart';
 import 'package:flutter_abuba/operation_page/documentcontrol/review/form_review.dart';
+import 'revisi/form_revisi.dart';
 
 class BerandaDocument extends StatefulWidget {
   @override
@@ -226,15 +227,15 @@ class _BerandaDocumentState extends State<BerandaDocument> {
                       ],
                     ),
                   ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(context,
-                              MyCustomRoute(builder: (context) => null));
-                        },
-                        child: Stack(
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MyCustomRoute(builder: (context) => new FormRevisi()));
+                    },
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Stack(
                           overflow: Overflow.visible,
                           children: <Widget>[
                             Container(
@@ -255,16 +256,16 @@ class _BerandaDocumentState extends State<BerandaDocument> {
                             ),
                           ],
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 10.0),
-                        child: Text('Appraisal',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12.0),
-                            softWrap: false,
-                            overflow: TextOverflow.ellipsis),
-                      ),
-                    ],
+                        Padding(
+                          padding: EdgeInsets.only(top: 10.0),
+                          child: Text('Revisi',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500, fontSize: 12.0),
+                              softWrap: false,
+                              overflow: TextOverflow.ellipsis),
+                        ),
+                      ],
+                    ),
                   ),
                   GestureDetector(
                     onTap: () {

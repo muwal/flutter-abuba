@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
-import 'detail_list.dart';
+import 'package:flutter_abuba/operation_page/documentcontrol/list/detail_list.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 class ResultSearch extends StatefulWidget {
@@ -16,7 +16,6 @@ class _ResultSearchState extends State<ResultSearch> {
   int _itemCount;
   int _currentIndex = 0;
   List<Map> _title = [
-    {'title': 'COVER', 'title_dalam':'PEMERIKSAAN PRODUK', 'subtitle_kiri': 'SOP.OPR.02', 'subtitle_kanan': 'Rev 00'},
     {'title': 'TUJUAN', 'title_dalam' : ' '},
     {'title': 'RUANG LINGKUP', 'title_dalam':' '},
     {'title': 'REFERENSI', 'title_dalam':' '},
@@ -38,7 +37,7 @@ class _ResultSearchState extends State<ResultSearch> {
     'a. Memastikan agar material dan produk diperiksa',
     'b. Menjamin spesifikasi produk yang diproses sesuai dengan standar perusahaan',
   ];
-  
+
   List<String> isiRisiko = [
     'a. Risiko terjadinya ketidaksesuaian spesifikasi produk',
     'b. Penurunan kualitas produk yang akan ataupun yang sudah diproduksi',
@@ -64,46 +63,49 @@ class _ResultSearchState extends State<ResultSearch> {
 
   @override
   Widget build(BuildContext context) {
+    Color backgroundColor = Theme.of(context).cardColor;
+    Color foregroundColor = Theme.of(context).accentColor;
+
     return SafeArea(
       child: Scaffold(
         appBar: _appBar(widget.indexSelected),
         backgroundColor: Colors.white,
         body: GestureDetector(
-          onTap: () {
-            FocusScope.of(context).requestFocus(FocusNode());
-          },
-          child: ListView(
-            shrinkWrap: true,
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 30.0),
-                    color: Colors.white,
-                    alignment: Alignment.center,
-                    child: Column(
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+            onTap: () {
+              FocusScope.of(context).requestFocus(FocusNode());
+            },
+            child: ListView(
+              shrinkWrap: true,
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    Container(
+                        padding: EdgeInsets.symmetric(horizontal: 30.0),
+                        color: Colors.white,
+                        alignment: Alignment.center,
+                        child: Column(
                           children: <Widget>[
-                            Flexible(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10.0),
-                                child: Text(
-                                  _title[widget.indexSelected]['title_dalam'],
-                                  style: TextStyle(
-                                      color: Color(0xFF2F592F),
-                                      fontSize: 24.0,
-                                      fontWeight: FontWeight.bold
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Flexible(
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                                    child: Text(
+                                      _title[widget.indexSelected]['title_dalam'],
+                                      style: TextStyle(
+                                          color: Color(0xFF2F592F),
+                                          fontSize: 24.0,
+                                          fontWeight: FontWeight.bold
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
                                   ),
-                                  textAlign: TextAlign.center,
                                 ),
-                              ),
+                              ],
                             ),
-                          ],
-                        ),
-                        widget.indexSelected == 0
-                          ? Column(
+                            widget.indexSelected == 0
+                                ? Column(
                               children: <Widget>[
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -148,7 +150,7 @@ class _ResultSearchState extends State<ResultSearch> {
                                           child: Text(
                                             'PROSEDUR',
                                             style: TextStyle(
-                                              fontSize: 16.0,
+                                                fontSize: 16.0,
                                                 color: AbubaPallate.menuBluebird),
                                           ),
                                           borderSide: BorderSide(
@@ -165,9 +167,9 @@ class _ResultSearchState extends State<ResultSearch> {
                                 )
                               ],
                             )
-                          : Container(),
-                        widget.indexSelected == 1
-                          ? Column(
+                                : Container(),
+                            widget.indexSelected == 1
+                                ? Column(
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
                                 Flexible(
@@ -194,8 +196,8 @@ class _ResultSearchState extends State<ResultSearch> {
                                               child: Text(
                                                 '${isiTujuan[index]}',
                                                 style: TextStyle(
-                                                  color: Colors.black54,
-                                                  fontSize: 22.0
+                                                    color: Colors.black54,
+                                                    fontSize: 22.0
                                                 ),
                                                 textAlign: TextAlign.start,
                                               ),
@@ -208,66 +210,66 @@ class _ResultSearchState extends State<ResultSearch> {
                                 )
                               ],
                             )
-                          : Container(),
-                        widget.indexSelected == 2
-                          ? Row(
-                            children: <Widget>[
-                              Flexible(
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
-                                  child: Text(
-                                    'Prosedur ini berlaku untuk seluruh material dari proses incoming / inproses / outgoing proses',
-                                    style: TextStyle(
-                                      color: Colors.black54,
-                                      fontSize: 22.0
+                                : Container(),
+                            widget.indexSelected == 2
+                                ? Row(
+                              children: <Widget>[
+                                Flexible(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
+                                    child: Text(
+                                      'Prosedur ini berlaku untuk seluruh material dari proses incoming / inproses / outgoing proses',
+                                      style: TextStyle(
+                                          color: Colors.black54,
+                                          fontSize: 22.0
+                                      ),
+                                      textAlign: TextAlign.start,
                                     ),
-                                    textAlign: TextAlign.start,
                                   ),
                                 ),
-                              ),
-                            ],
-                          )
-                          : Container(),
-                        widget.indexSelected == 3
-                          ? Row(
-                            children: <Widget>[
-                              Flexible(
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
-                                  child: Text(
-                                    'ISO 9001 : 2015',
-                                    style: TextStyle(
-                                      color: Colors.black54,
-                                      fontSize: 22.0
+                              ],
+                            )
+                                : Container(),
+                            widget.indexSelected == 3
+                                ? Row(
+                              children: <Widget>[
+                                Flexible(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
+                                    child: Text(
+                                      'ISO 9001 : 2015',
+                                      style: TextStyle(
+                                          color: Colors.black54,
+                                          fontSize: 22.0
+                                      ),
+                                      textAlign: TextAlign.start,
                                     ),
-                                    textAlign: TextAlign.start,
                                   ),
                                 ),
-                              ),
-                            ],
-                          )
-                          : Container(),
-                        widget.indexSelected == 4
-                          ? Row(
-                            children: <Widget>[
-                              Flexible(
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
-                                  child: Text(
-                                    'ISO : Sistem manajemen untuk meningkatkan mutu',
-                                    style: TextStyle(
-                                      color: Colors.black54,
-                                      fontSize: 22.0
+                              ],
+                            )
+                                : Container(),
+                            widget.indexSelected == 4
+                                ? Row(
+                              children: <Widget>[
+                                Flexible(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
+                                    child: Text(
+                                      'ISO : Sistem manajemen untuk meningkatkan mutu',
+                                      style: TextStyle(
+                                          color: Colors.black54,
+                                          fontSize: 22.0
+                                      ),
+                                      textAlign: TextAlign.start,
                                     ),
-                                    textAlign: TextAlign.start,
                                   ),
                                 ),
-                              ),
-                            ],
-                          )
-                          : Container(),
-                        widget.indexSelected == 5
-                          ? Column(
+                              ],
+                            )
+                                : Container(),
+                            widget.indexSelected == 5
+                                ? Column(
                               children: <Widget>[
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -339,8 +341,8 @@ class _ResultSearchState extends State<ResultSearch> {
                                         child: Text(
                                           'Pengukuran suhu secara manual diganti dengan thermometer otomatis',
                                           style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 22.0
+                                              color: Colors.black54,
+                                              fontSize: 22.0
                                           ),
                                           textAlign: TextAlign.start,
                                         ),
@@ -350,10 +352,10 @@ class _ResultSearchState extends State<ResultSearch> {
                                 )
                               ],
                             )
-                          : Container(),
-                        widget.indexSelected == 6
-                          ? Column(
-                            mainAxisSize: MainAxisSize.min,
+                                : Container(),
+                            widget.indexSelected == 6
+                                ? Column(
+                              mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
                                 Row(
                                   children: <Widget>[
@@ -363,8 +365,8 @@ class _ResultSearchState extends State<ResultSearch> {
                                         child: Text(
                                           'Kegagalan dalam penerapan procedure ini dapat menyebabkan.',
                                           style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 22.0
+                                              color: Colors.black54,
+                                              fontSize: 22.0
                                           ),
                                           textAlign: TextAlign.start,
                                         ),
@@ -396,8 +398,8 @@ class _ResultSearchState extends State<ResultSearch> {
                                               child: Text(
                                                 '${isiRisiko[index]}',
                                                 style: TextStyle(
-                                                  color: Colors.black54,
-                                                  fontSize: 22.0
+                                                    color: Colors.black54,
+                                                    fontSize: 22.0
                                                 ),
                                                 textAlign: TextAlign.start,
                                               ),
@@ -410,10 +412,10 @@ class _ResultSearchState extends State<ResultSearch> {
                                 )
                               ],
                             )
-                          : Container(),
-                        widget.indexSelected == 7
-                          ? Column(
-                            mainAxisSize: MainAxisSize.min,
+                                : Container(),
+                            widget.indexSelected == 7
+                                ? Column(
+                              mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
                                 Row(
                                   children: <Widget>[
@@ -423,8 +425,8 @@ class _ResultSearchState extends State<ResultSearch> {
                                         child: Text(
                                           'Melakukan pemeriksaan kualitas sesuai spesifikasi produk',
                                           style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 22.0
+                                              color: Colors.black54,
+                                              fontSize: 22.0
                                           ),
                                           textAlign: TextAlign.start,
                                         ),
@@ -434,11 +436,24 @@ class _ResultSearchState extends State<ResultSearch> {
                                 ),
                               ],
                             )
-                          : Container(),
-                        widget.indexSelected == 8
-                          ? Column(
-                            mainAxisSize: MainAxisSize.min,
+                                : Container(),
+                            widget.indexSelected == 8
+                                ? Column(
+                              mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
+                                Center(
+                                  child: Container(
+                                      width: 130.0,
+                                      height: 130.0,
+                                      color: Colors.transparent,
+                                      child: FloatingActionButton(
+                                        backgroundColor: Colors.green[200],
+                                        shape: _DiamondBorder(),
+                                        onPressed: () {},
+                                        child: Icon(Icons.help_outline, color: Colors.white, size: 80.0),
+                                      )
+                                  ),
+                                ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
@@ -448,8 +463,8 @@ class _ResultSearchState extends State<ResultSearch> {
                                         child: Text(
                                           'Apakah produk sesuai spesifikasi',
                                           style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 22.0
+                                              color: Colors.black54,
+                                              fontSize: 26.0
                                           ),
                                           textAlign: TextAlign.start,
                                         ),
@@ -468,7 +483,7 @@ class _ResultSearchState extends State<ResultSearch> {
                                           child: Text(
                                             'TIDAK',
                                             style: TextStyle(
-                                              fontSize: 14.0,
+                                                fontSize: 16.0,
                                                 color: Colors.redAccent),
                                           ),
                                           borderSide: BorderSide(
@@ -476,7 +491,7 @@ class _ResultSearchState extends State<ResultSearch> {
                                               width: 1.0),
                                           highlightedBorderColor: Colors.redAccent,
                                           onPressed: () {
-                                            
+
                                           },
                                         ),
                                       ),
@@ -486,7 +501,7 @@ class _ResultSearchState extends State<ResultSearch> {
                                           child: Text(
                                             'YA',
                                             style: TextStyle(
-                                              fontSize: 14.0,
+                                                fontSize: 16.0,
                                                 color: AbubaPallate.greenabuba),
                                           ),
                                           borderSide: BorderSide(
@@ -503,10 +518,10 @@ class _ResultSearchState extends State<ResultSearch> {
                                 )
                               ],
                             )
-                          : Container(),
-                        widget.indexSelected == 9
-                          ? Column(
-                            mainAxisSize: MainAxisSize.min,
+                                : Container(),
+                            widget.indexSelected == 9
+                                ? Column(
+                              mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
                                 Flexible(
                                   child: ListView.builder(
@@ -532,8 +547,8 @@ class _ResultSearchState extends State<ResultSearch> {
                                               child: Text(
                                                 '${index + 1}. ${isiProsedurPage9[index]}',
                                                 style: TextStyle(
-                                                  color: Colors.black54,
-                                                  fontSize: 22.0
+                                                    color: Colors.black54,
+                                                    fontSize: 22.0
                                                 ),
                                                 textAlign: TextAlign.start,
                                               ),
@@ -546,10 +561,10 @@ class _ResultSearchState extends State<ResultSearch> {
                                 )
                               ],
                             )
-                          : Container(),
-                        widget.indexSelected == 10
-                          ? Column(
-                            mainAxisSize: MainAxisSize.min,
+                                : Container(),
+                            widget.indexSelected == 10
+                                ? Column(
+                              mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
                                 Row(
                                   children: <Widget>[
@@ -559,8 +574,8 @@ class _ResultSearchState extends State<ResultSearch> {
                                         child: Text(
                                           'Menyortir produk yang tidak sesuai spesifikasi',
                                           style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 22.0
+                                              color: Colors.black54,
+                                              fontSize: 22.0
                                           ),
                                           textAlign: TextAlign.start,
                                         ),
@@ -570,10 +585,10 @@ class _ResultSearchState extends State<ResultSearch> {
                                 ),
                               ],
                             )
-                          : Container(),
-                        widget.indexSelected == 11
-                          ? Column(
-                            mainAxisSize: MainAxisSize.min,
+                                : Container(),
+                            widget.indexSelected == 11
+                                ? Column(
+                              mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
                                 Row(
                                   children: <Widget>[
@@ -583,8 +598,8 @@ class _ResultSearchState extends State<ResultSearch> {
                                         child: Text(
                                           'Mencatat produk yang tidak sesuai spesifikasi',
                                           style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 22.0
+                                              color: Colors.black54,
+                                              fontSize: 22.0
                                           ),
                                           textAlign: TextAlign.start,
                                         ),
@@ -594,10 +609,10 @@ class _ResultSearchState extends State<ResultSearch> {
                                 ),
                               ],
                             )
-                          : Container(),
-                        widget.indexSelected == 12
-                          ? Column(
-                            mainAxisSize: MainAxisSize.min,
+                                : Container(),
+                            widget.indexSelected == 12
+                                ? Column(
+                              mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
                                 Row(
                                   children: <Widget>[
@@ -607,8 +622,8 @@ class _ResultSearchState extends State<ResultSearch> {
                                         child: Text(
                                           'Info produk yang disortir kepada supplier',
                                           style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 22.0
+                                              color: Colors.black54,
+                                              fontSize: 22.0
                                           ),
                                           textAlign: TextAlign.start,
                                         ),
@@ -618,10 +633,10 @@ class _ResultSearchState extends State<ResultSearch> {
                                 ),
                               ],
                             )
-                          : Container(),
-                        widget.indexSelected == 13
-                          ? Column(
-                            mainAxisSize: MainAxisSize.min,
+                                : Container(),
+                            widget.indexSelected == 13
+                                ? Column(
+                              mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
                                 Row(
                                   children: <Widget>[
@@ -631,8 +646,8 @@ class _ResultSearchState extends State<ResultSearch> {
                                         child: Text(
                                           'Mengembalikan produk yang disortir kepada kurir',
                                           style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 22.0
+                                              color: Colors.black54,
+                                              fontSize: 22.0
                                           ),
                                           textAlign: TextAlign.start,
                                         ),
@@ -642,10 +657,10 @@ class _ResultSearchState extends State<ResultSearch> {
                                 ),
                               ],
                             )
-                          : Container(),
-                        widget.indexSelected == 14
-                          ? Column(
-                            mainAxisSize: MainAxisSize.min,
+                                : Container(),
+                            widget.indexSelected == 14
+                                ? Column(
+                              mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
                                 Row(
                                   children: <Widget>[
@@ -655,8 +670,8 @@ class _ResultSearchState extends State<ResultSearch> {
                                         child: Text(
                                           'Mengembalikan produk yang disortir kepada kurir',
                                           style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 22.0
+                                              color: Colors.black54,
+                                              fontSize: 22.0
                                           ),
                                           textAlign: TextAlign.start,
                                         ),
@@ -666,10 +681,10 @@ class _ResultSearchState extends State<ResultSearch> {
                                 ),
                               ],
                             )
-                          : Container(),
-                        widget.indexSelected == 15
-                          ? Column(
-                            mainAxisSize: MainAxisSize.min,
+                                : Container(),
+                            widget.indexSelected == 15
+                                ? Column(
+                              mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
                                 Flexible(
                                   child: ListView.builder(
@@ -695,8 +710,8 @@ class _ResultSearchState extends State<ResultSearch> {
                                               child: Text(
                                                 '${index + 1}. ${isiProsedurPage9[index]}',
                                                 style: TextStyle(
-                                                  color: Colors.black54,
-                                                  fontSize: 22.0
+                                                    color: Colors.black54,
+                                                    fontSize: 22.0
                                                 ),
                                                 textAlign: TextAlign.start,
                                               ),
@@ -709,17 +724,17 @@ class _ResultSearchState extends State<ResultSearch> {
                                 )
                               ],
                             )
-                          : Container(),
-                      ],
-                    )
-                  ),
-                  SizedBox(
-                    height: 5.0,
-                  ),
-                ],
-              ),
-            ],
-          )
+                                : Container(),
+                          ],
+                        )
+                    ),
+                    SizedBox(
+                      height: 5.0,
+                    ),
+                  ],
+                ),
+              ],
+            )
         ),
         bottomNavigationBar: _bottomBar(),
       ),
@@ -732,8 +747,8 @@ class _ResultSearchState extends State<ResultSearch> {
       height: 55.0,
       child: Container(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.0),
-            child: Center()
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
+              child: Center()
           ),
           decoration: BoxDecoration(
               color: Color(0xFF2F592F)
@@ -748,9 +763,9 @@ class _ResultSearchState extends State<ResultSearch> {
         icon: Icon(Icons.close),
         onPressed: () {
           Navigator.pushReplacement(context,
-            MyCustomRoute(
-              builder: (context) => FormDetail()
-            )
+              MyCustomRoute(
+                  builder: (context) => FormDetail()
+              )
           );
         },
       ),
@@ -841,5 +856,38 @@ class _ResultSearchState extends State<ResultSearch> {
         ),
       ),
     );
+  }
+}
+
+class _DiamondBorder extends ShapeBorder {
+  const _DiamondBorder();
+
+  @override
+  EdgeInsetsGeometry get dimensions {
+    return const EdgeInsets.only();
+  }
+
+  @override
+  Path getInnerPath(Rect rect, { TextDirection textDirection }) {
+    return getOuterPath(rect, textDirection: textDirection);
+  }
+
+  @override
+  Path getOuterPath(Rect rect, { TextDirection textDirection }) {
+    return Path()
+      ..moveTo(rect.left + rect.width / 2.0, rect.top)
+      ..lineTo(rect.right, rect.top + rect.height / 2.0)
+      ..lineTo(rect.left + rect.width  / 2.0, rect.bottom)
+      ..lineTo(rect.left, rect.top + rect.height / 2.0)
+      ..close();
+  }
+
+  @override
+  void paint(Canvas canvas, Rect rect, { TextDirection textDirection }) {}
+
+  // This border doesn't support scaling.
+  @override
+  ShapeBorder scale(double t) {
+    return null;
   }
 }

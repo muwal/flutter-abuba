@@ -81,7 +81,7 @@ class _FormDetailState extends State<FormDetail> {
               color: Colors.blue,
               padding: EdgeInsets.all(12.0),
               child: new Text(
-                "COVER",
+                "REVIEW",
                 style: TextStyle(color: Colors.white),
               ),
             ),
