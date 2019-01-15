@@ -32,22 +32,7 @@ class _FormDetailState extends State<FormDetail> with TickerProviderStateMixin {
     {'title': '7. PROSEDUR', 'title_dalam':' ', 'isi': '1. Menerima produk\n\n2. Menandatangani dokumen'},
   ];
 
-  List<String> isiRisiko = [
-    'a. Risiko terjadinya ketidaksesuaian spesifikasi produk',
-    'b. Penurunan kualitas produk yang akan ataupun yang sudah diproduksi',
-  ];
-
-  List<String> isiProsedurPage9 = [
-    'Menerima produk',
-    'Menandatangani dokument',
-  ];
-
-  int _indexBantu = 0;
-
   AnimationController _controller2;
-
-  static const List<IconData> icons = const [ Icons.edit, Icons.delete, Icons.add ];
-  static const List<String> iconsTooltip = const ['Edit', 'Delete', 'Add'];
   static const List<IconData> iconsEdit = const [ Icons.save, Icons.cancel ];
   static const List<String> iconsEditTooltip = const ['Update', 'Cancel'];
 
@@ -75,6 +60,8 @@ class _FormDetailState extends State<FormDetail> with TickerProviderStateMixin {
   TextEditingController _controllerProsedur8 = TextEditingController();
   TextEditingController _controllerProsedur9 = TextEditingController();
 
+  int _indexBantu = 0;
+
   @override
   void initState() {
     _controllerCover.text = _title[0]['title_dalam'];
@@ -99,10 +86,12 @@ class _FormDetailState extends State<FormDetail> with TickerProviderStateMixin {
     _controllerProsedur7.text = _title[13]['isi'];
     _controllerProsedur8.text = _title[14]['isi'];
     _controllerProsedur9.text = _title[15]['isi'];
+
     _controller2 = new AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
+
     _currentIndex = 0;
     _itemCount = _title.length;
     _controller = new SwiperController();
@@ -119,12 +108,11 @@ class _FormDetailState extends State<FormDetail> with TickerProviderStateMixin {
 
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomPadding: false,
         appBar: _appBar(),
         backgroundColor: Colors.white,
         floatingActionButton: Column(
           mainAxisSize: MainAxisSize.min,
-          children: List.generate(_editCover ? iconsEdit.length : icons.length, (int index) {
+          children: List.generate(iconsEdit.length, (int index) {
             Widget child = Container(
               height: 70.0,
               width: 56.0,
@@ -133,17 +121,17 @@ class _FormDetailState extends State<FormDetail> with TickerProviderStateMixin {
                 scale: CurvedAnimation(
                   parent: _controller2,
                   curve: Interval(
-                      0.0,
-                      1.0 - index / (_editCover ? iconsEdit.length : icons.length) / 2.0,
-                      curve: Curves.easeOut
+                    0.0,
+                    1.0 - index / (iconsEdit.length) / 2.0,
+                    curve: Curves.easeOut
                   ),
                 ),
                 child: FloatingActionButton(
                   heroTag: null,
-                  tooltip: _editCover ? iconsEditTooltip[index] : iconsTooltip[index],
+                  tooltip: iconsEditTooltip[index],
                   backgroundColor: backgroundColor,
                   mini: true,
-                  child: Icon(_editCover ? iconsEdit[index] : icons[index], color: foregroundColor),
+                  child: Icon(iconsEdit[index], color: foregroundColor),
                   onPressed: () {
                     if (_editCover) {
                       if (iconsEditTooltip[index] == 'Cancel') {
@@ -179,13 +167,6 @@ class _FormDetailState extends State<FormDetail> with TickerProviderStateMixin {
                           _editCover = !_editCover;
                         });
                       }
-                    } else {
-                      if (iconsTooltip[index] == 'Edit') {
-                        setState(() {
-                          _controller2.reverse();
-                          _editCover = !_editCover;
-                        });
-                      }
                     }
                   },
                 ),
@@ -206,10 +187,17 @@ class _FormDetailState extends State<FormDetail> with TickerProviderStateMixin {
                 },
               ),
               onPressed: () {
-                if (_controller2.isDismissed) {
-                  _controller2.forward();
+                if (_editCover) {
+                  if (_controller2.isDismissed) { 
+                    _controller2.forward();
+                  } else {
+                    _controller2.reverse();
+                  }
                 } else {
-                  _controller2.reverse();
+                  setState(() {
+                    _controller2.reverse();
+                    _editCover = !_editCover;
+                  });
                 }
               },
             ),
@@ -220,13 +208,16 @@ class _FormDetailState extends State<FormDetail> with TickerProviderStateMixin {
             onTap: () {
               FocusScope.of(context).requestFocus(FocusNode());
             },
-            child: Column(
-              children: <Widget>[
-                Swiper(
-                  itemBuilder: (BuildContext context, int index) {
-                    _indexBantu = index - 1;
+            child: ListView(
+            shrinkWrap: true,
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  Swiper(
+                    itemBuilder: (BuildContext context, int index) {
+                      _indexBantu = index - 1;
 
-                    return Container(
+                      return Container(
                       color: Colors.white,
                       alignment: Alignment.topCenter,
                       child: ListView(
@@ -237,1228 +228,1228 @@ class _FormDetailState extends State<FormDetail> with TickerProviderStateMixin {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   _editCover && index == 0
-                                      ? Container(
-                                    width: MediaQuery.of(context).size.width / 2,
-                                    child: TextFormField(
-                                      decoration: InputDecoration(
-                                        border: UnderlineInputBorder(),
-                                        hintText: 'Title Cover',
-                                        hintStyle: TextStyle(fontSize: 14.0),
-                                      ),
-                                      controller: _controllerCover,
-                                      style: TextStyle(
-                                          fontStyle: FontStyle.normal,
-                                          color: Colors.black87,
-                                          fontSize: 14.0
-                                      ),
-                                      onSaved: null,
-                                    ),
-                                  )
-                                      : Flexible(
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 10.0),
-                                      child: Text(
-                                        _title[index]['title_dalam'],
-                                        style: TextStyle(
-                                            color: Color(0xFF2F592F),
-                                            fontSize: 24.0,
-                                            fontWeight: FontWeight.bold
+                                    ? Container(
+                                        width: MediaQuery.of(context).size.width / 2,
+                                        child: TextFormField(
+                                          decoration: InputDecoration(
+                                            border: UnderlineInputBorder(),
+                                            hintText: 'Title Cover',
+                                            hintStyle: TextStyle(fontSize: 14.0),
+                                          ),
+                                          controller: _controllerCover,
+                                          style: TextStyle(
+                                            fontStyle: FontStyle.normal,
+                                            color: Colors.black87,
+                                            fontSize: 14.0
+                                          ),
+                                          onSaved: null,
                                         ),
-                                        textAlign: TextAlign.center,
+                                      )
+                                    : Flexible(
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                                          child: Text(
+                                            _title[index]['title_dalam'],
+                                            style: TextStyle(
+                                                color: Color(0xFF2F592F),
+                                                fontSize: 24.0,
+                                                fontWeight: FontWeight.bold
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  ),
                                 ],
                               ),
                               index == 0
                                   ? Column(
-                                children: <Widget>[
-                                  _editCover
-                                      ? Padding(
-                                    padding: EdgeInsets.only(top: 15.0),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
-                                        Container(
-                                          width: MediaQuery.of(context).size.width / 2.5,
-                                          child: TextFormField(
-                                            decoration: InputDecoration(
-                                              border: UnderlineInputBorder(),
-                                              hintText: 'Subtitle Kiri',
-                                              hintStyle: TextStyle(fontSize: 14.0),
+                                        _editCover
+                                          ? Padding(
+                                              padding: EdgeInsets.only(top: 15.0),
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: <Widget>[
+                                                  Container(
+                                                    width: MediaQuery.of(context).size.width / 2.5,
+                                                    child: TextFormField(
+                                                      decoration: InputDecoration(
+                                                        border: UnderlineInputBorder(),
+                                                        hintText: 'Subtitle Kiri',
+                                                        hintStyle: TextStyle(fontSize: 14.0),
+                                                      ),
+                                                      controller: _controllerCoverSubtitleKiri,
+                                                      style: TextStyle(
+                                                        fontStyle: FontStyle.normal,
+                                                        color: Colors.black87,
+                                                        fontSize: 14.0
+                                                      ),
+                                                      onSaved: null,
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    width: MediaQuery.of(context).size.width / 2.5,
+                                                    child: TextFormField(
+                                                      decoration: InputDecoration(
+                                                        border: UnderlineInputBorder(),
+                                                        hintText: 'Subtitle Kanan',
+                                                        hintStyle: TextStyle(fontSize: 14.0),
+                                                      ),
+                                                      controller: _controllerCoverSubtitleKanan,
+                                                      style: TextStyle(
+                                                        fontStyle: FontStyle.normal,
+                                                        color: Colors.black87,
+                                                        fontSize: 14.0
+                                                      ),
+                                                      onSaved: null,
+                                                    ),
+                                                  )
+                                                ],
+                                              ), 
+                                            )
+                                          : Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                              children: <Widget>[
+                                                Flexible(
+                                                  child: Padding(
+                                                    padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+                                                    child: Text(
+                                                      _title[index]['subtitle_kiri'],
+                                                      style: TextStyle(
+                                                          color: Colors.black54,
+                                                          fontSize: 18.0
+                                                      ),
+                                                      textAlign: TextAlign.start,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Flexible(
+                                                  child: Padding(
+                                                    padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+                                                    child: Text(
+                                                      _title[index]['subtitle_kanan'],
+                                                      style: TextStyle(
+                                                          color: Colors.black54,
+                                                          fontSize: 18.0
+                                                      ),
+                                                      textAlign: TextAlign.start,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            controller: _controllerCoverSubtitleKiri,
-                                            style: TextStyle(
-                                                fontStyle: FontStyle.normal,
-                                                color: Colors.black87,
-                                                fontSize: 14.0
-                                            ),
-                                            onSaved: null,
-                                          ),
-                                        ),
-                                        Container(
-                                          width: MediaQuery.of(context).size.width / 2.5,
-                                          child: TextFormField(
-                                            decoration: InputDecoration(
-                                              border: UnderlineInputBorder(),
-                                              hintText: 'Subtitle Kanan',
-                                              hintStyle: TextStyle(fontSize: 14.0),
-                                            ),
-                                            controller: _controllerCoverSubtitleKanan,
-                                            style: TextStyle(
-                                                fontStyle: FontStyle.normal,
-                                                color: Colors.black87,
-                                                fontSize: 14.0
-                                            ),
-                                            onSaved: null,
+                                        Padding(
+                                          padding: const EdgeInsets.only(right: 80.0, top: 50.0),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.end,
+                                            children: <Widget>[
+                                              ButtonTheme(
+                                                height: 30.0,
+                                                minWidth: 50.0,
+                                                child: OutlineButton(
+                                                  child: Text(
+                                                    'PROSEDUR',
+                                                    style: TextStyle(
+                                                        fontSize: 16.0,
+                                                        color: AbubaPallate.menuBluebird),
+                                                  ),
+                                                  borderSide: BorderSide(
+                                                      color: AbubaPallate.menuBluebird,
+                                                      width: 1.0),
+                                                  highlightedBorderColor: AbubaPallate.menuBluebird,
+                                                  onPressed: () {
+                                                    _controller.next(animation: true);
+                                                  },
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         )
                                       ],
-                                    ),
-                                  )
-                                      : Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: <Widget>[
-                                      Flexible(
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
-                                          child: Text(
-                                            _title[index]['subtitle_kiri'],
-                                            style: TextStyle(
-                                                color: Colors.black54,
-                                                fontSize: 18.0
-                                            ),
-                                            textAlign: TextAlign.start,
-                                          ),
-                                        ),
-                                      ),
-                                      Flexible(
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
-                                          child: Text(
-                                            _title[index]['subtitle_kanan'],
-                                            style: TextStyle(
-                                                color: Colors.black54,
-                                                fontSize: 18.0
-                                            ),
-                                            textAlign: TextAlign.start,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 80.0, top: 50.0),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: <Widget>[
-                                        ButtonTheme(
-                                          height: 30.0,
-                                          minWidth: 50.0,
-                                          child: OutlineButton(
-                                            child: Text(
-                                              'PROSEDUR',
-                                              style: TextStyle(
-                                                  fontSize: 16.0,
-                                                  color: AbubaPallate.menuBluebird),
-                                            ),
-                                            borderSide: BorderSide(
-                                                color: AbubaPallate.menuBluebird,
-                                                width: 1.0),
-                                            highlightedBorderColor: AbubaPallate.menuBluebird,
-                                            onPressed: () {
-                                              _controller.next(animation: true);
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              )
+                                    )
                                   : Container(),
                               index == 1
-                                  ? Row(
-                                children: <Widget>[
-                                  _editCover
-                                      ? Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
-                                    child: TextFormField(
-                                      maxLines: 5,
-                                      keyboardType: TextInputType.multiline,
-                                      decoration: InputDecoration(
-                                        border: UnderlineInputBorder(),
-                                        labelText: 'Tujuan',
-                                        labelStyle: TextStyle(fontSize: 14.0),
-                                      ),
-                                      style: TextStyle(
-                                          fontStyle: FontStyle.normal,
-                                          color: Colors.black87,
-                                          fontSize: 14.0
-                                      ),
-                                      onSaved: null,
-                                      controller: _controllerTujuan,
-                                    ),
+                                ? Row(
+                                    children: <Widget>[
+                                      _editCover
+                                        ? Container(
+                                            width: MediaQuery.of(context).size.width,
+                                            padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+                                            child: TextFormField(
+                                              maxLines: 5,
+                                              keyboardType: TextInputType.multiline,
+                                              decoration: InputDecoration(
+                                                border: UnderlineInputBorder(),
+                                                labelText: 'Tujuan',
+                                                labelStyle: TextStyle(fontSize: 14.0),
+                                              ),
+                                              style: TextStyle(
+                                                fontStyle: FontStyle.normal,
+                                                color: Colors.black87,
+                                                fontSize: 14.0
+                                              ),
+                                              onSaved: null,
+                                              controller: _controllerTujuan,
+                                            ),
+                                          )
+                                        : Flexible(
+                                            child: Padding(
+                                              padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
+                                              child: Text(
+                                                _title[index]['isi'],
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontSize: 26.0
+                                                ),
+                                                textAlign: TextAlign.start,
+                                              ),
+                                            ),
+                                          ),
+                                    ],
                                   )
-                                      : Flexible(
-                                    child: Padding(
-                                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
-                                      child: Text(
-                                        _title[index]['isi'],
-                                        style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 26.0
-                                        ),
-                                        textAlign: TextAlign.start,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              )
-                                  : Container(),
+                                : Container(),
                               index == 2
-                                  ? Row(
-                                children: <Widget>[
-                                  _editCover
-                                      ? Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
-                                    child: TextFormField(
-                                      maxLines: 5,
-                                      decoration: InputDecoration(
-                                        border: UnderlineInputBorder(),
-                                        hintText: 'Isi Ruang Lingkup',
-                                        hintStyle: TextStyle(fontSize: 14.0),
-                                      ),
-                                      controller: _controllerRuangLingkup,
-                                      style: TextStyle(
-                                          fontStyle: FontStyle.normal,
-                                          color: Colors.black87,
-                                          fontSize: 14.0
-                                      ),
-                                      onSaved: null,
-                                    ),
-                                  )
-                                      : Flexible(
-                                    child: Padding(
-                                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
-                                      child: Text(
-                                        _title[index]['isi'],
-                                        style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 26.0
-                                        ),
-                                        textAlign: TextAlign.start,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              )
-                                  : Container(),
+                                ? Row(
+                                    children: <Widget>[
+                                      _editCover
+                                        ? Container(
+                                            width: MediaQuery.of(context).size.width,
+                                            padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+                                            child: TextFormField(
+                                              maxLines: 5,
+                                              decoration: InputDecoration(
+                                                border: UnderlineInputBorder(),
+                                                hintText: 'Isi Ruang Lingkup',
+                                                hintStyle: TextStyle(fontSize: 14.0),
+                                              ),
+                                              controller: _controllerRuangLingkup,
+                                              style: TextStyle(
+                                                fontStyle: FontStyle.normal,
+                                                color: Colors.black87,
+                                                fontSize: 14.0
+                                              ),
+                                              onSaved: null,
+                                            ),
+                                          )
+                                        : Flexible(
+                                            child: Padding(
+                                              padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
+                                              child: Text(
+                                                _title[index]['isi'],
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontSize: 26.0
+                                                ),
+                                                textAlign: TextAlign.start,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                : Container(),
                               index == 3
                                   ? Row(
-                                children: <Widget>[
-                                  _editCover
-                                      ? Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
-                                    child: TextFormField(
-                                      maxLines: 5,
-                                      decoration: InputDecoration(
-                                        border: UnderlineInputBorder(),
-                                        hintText: 'Referensi',
-                                        hintStyle: TextStyle(fontSize: 14.0),
-                                      ),
-                                      controller: _controllerReferensi,
-                                      style: TextStyle(
-                                          fontStyle: FontStyle.normal,
-                                          color: Colors.black87,
-                                          fontSize: 14.0
-                                      ),
-                                      onSaved: null,
-                                    ),
-                                  )
-                                      : Flexible(
-                                    child: Padding(
-                                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
-                                      child: Text(
-                                        _title[index]['isi'],
-                                        style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 26.0
-                                        ),
-                                        textAlign: TextAlign.start,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              )
+                                    children: <Widget>[
+                                      _editCover
+                                        ? Container(
+                                            width: MediaQuery.of(context).size.width,
+                                            padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+                                            child: TextFormField(
+                                              maxLines: 5,
+                                              decoration: InputDecoration(
+                                                border: UnderlineInputBorder(),
+                                                hintText: 'Referensi',
+                                                hintStyle: TextStyle(fontSize: 14.0),
+                                              ),
+                                              controller: _controllerReferensi,
+                                              style: TextStyle(
+                                                fontStyle: FontStyle.normal,
+                                                color: Colors.black87,
+                                                fontSize: 14.0
+                                              ),
+                                              onSaved: null,
+                                            ),
+                                          )
+                                        : Flexible(
+                                            child: Padding(
+                                              padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
+                                              child: Text(
+                                                _title[index]['isi'],
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontSize: 26.0
+                                                ),
+                                                textAlign: TextAlign.start,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      )
                                   : Container(),
                               index == 4
                                   ? Row(
-                                children: <Widget>[
-                                  _editCover
-                                      ? Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
-                                    child: TextFormField(
-                                      maxLines: 5,
-                                      decoration: InputDecoration(
-                                        border: UnderlineInputBorder(),
-                                        hintText: 'Istilah',
-                                        hintStyle: TextStyle(fontSize: 14.0),
-                                      ),
-                                      controller: _controllerIstilah,
-                                      style: TextStyle(
-                                          fontStyle: FontStyle.normal,
-                                          color: Colors.black87,
-                                          fontSize: 14.0
-                                      ),
-                                      onSaved: null,
-                                    ),
-                                  )
-                                      : Flexible(
-                                    child: Padding(
-                                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
-                                      child: Text(
-                                        _title[index]['isi'],
-                                        style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 26.0
-                                        ),
-                                        textAlign: TextAlign.start,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              )
+                                    children: <Widget>[
+                                      _editCover
+                                        ? Container(
+                                            width: MediaQuery.of(context).size.width,
+                                            padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+                                            child: TextFormField(
+                                              maxLines: 5,
+                                              decoration: InputDecoration(
+                                                border: UnderlineInputBorder(),
+                                                hintText: 'Istilah',
+                                                hintStyle: TextStyle(fontSize: 14.0),
+                                              ),
+                                              controller: _controllerIstilah,
+                                              style: TextStyle(
+                                                fontStyle: FontStyle.normal,
+                                                color: Colors.black87,
+                                                fontSize: 14.0
+                                              ),
+                                              onSaved: null,
+                                            ),
+                                          )
+                                        : Flexible(
+                                            child: Padding(
+                                              padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
+                                              child: Text(
+                                                _title[index]['isi'],
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontSize: 26.0
+                                                ),
+                                                textAlign: TextAlign.start,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      )
                                   : Container(),
                               index == 5
                                   ? _editCover
-                                  ? Column(
-                                children: <Widget>[
-                                  Padding(
-                                    padding: EdgeInsets.only(top: 15.0),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Container(
-                                          width: MediaQuery.of(context).size.width / 2.5,
-                                          child: TextFormField(
-                                            decoration: InputDecoration(
-                                              border: UnderlineInputBorder(),
-                                              hintText: 'REV 01',
-                                              hintStyle: TextStyle(fontSize: 14.0),
-                                            ),
-                                            controller: _controllerRevisi,
-                                            style: TextStyle(
+                                    ? Column(
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: EdgeInsets.only(top: 15.0),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: <Widget>[
+                                                Container(
+                                                  width: MediaQuery.of(context).size.width / 2.5,
+                                                  child: TextFormField(
+                                                    decoration: InputDecoration(
+                                                      border: UnderlineInputBorder(),
+                                                      hintText: 'REV 01',
+                                                      hintStyle: TextStyle(fontSize: 14.0),
+                                                    ),
+                                                    controller: _controllerRevisi,
+                                                    style: TextStyle(
+                                                      fontStyle: FontStyle.normal,
+                                                      color: Colors.black87,
+                                                      fontSize: 14.0
+                                                    ),
+                                                    onSaved: null,
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: MediaQuery.of(context).size.width / 2.5,
+                                                  child: TextFormField(
+                                                    decoration: InputDecoration(
+                                                      border: UnderlineInputBorder(),
+                                                      hintText: 'Tanggal Revisi',
+                                                      hintStyle: TextStyle(fontSize: 14.0),
+                                                    ),
+                                                    controller: _controllerTglRevisi,
+                                                    style: TextStyle(
+                                                      fontStyle: FontStyle.normal,
+                                                      color: Colors.black87,
+                                                      fontSize: 14.0
+                                                    ),
+                                                    onSaved: null,
+                                                  ),
+                                                )
+                                              ],
+                                            ), 
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(top: 15.0),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: <Widget>[
+                                                Container(
+                                                  width: MediaQuery.of(context).size.width / 2.5,
+                                                  child: TextFormField(
+                                                    decoration: InputDecoration(
+                                                      border: UnderlineInputBorder(),
+                                                      hintText: 'Bab',
+                                                      hintStyle: TextStyle(fontSize: 14.0),
+                                                    ),
+                                                    controller: _controllerBab,
+                                                    style: TextStyle(
+                                                      fontStyle: FontStyle.normal,
+                                                      color: Colors.black87,
+                                                      fontSize: 14.0
+                                                    ),
+                                                    onSaved: null,
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: MediaQuery.of(context).size.width / 2.5,
+                                                  child: TextFormField(
+                                                    decoration: InputDecoration(
+                                                      border: UnderlineInputBorder(),
+                                                      hintText: 'Revisi Oleh',
+                                                      hintStyle: TextStyle(fontSize: 14.0),
+                                                    ),
+                                                    controller: _controllerOleh,
+                                                    style: TextStyle(
+                                                      fontStyle: FontStyle.normal,
+                                                      color: Colors.black87,
+                                                      fontSize: 14.0
+                                                    ),
+                                                    onSaved: null,
+                                                  ),
+                                                )
+                                              ],
+                                            ), 
+                                          ),
+                                          Container(
+                                            width: MediaQuery.of(context).size.width,
+                                            padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+                                            child: TextFormField(
+                                              maxLines: 5,
+                                              decoration: InputDecoration(
+                                                border: UnderlineInputBorder(),
+                                                hintText: 'Catatan Revisi',
+                                                hintStyle: TextStyle(fontSize: 14.0),
+                                              ),
+                                              controller: _controllerCatatanRevisi,
+                                              style: TextStyle(
                                                 fontStyle: FontStyle.normal,
                                                 color: Colors.black87,
                                                 fontSize: 14.0
+                                              ),
+                                              onSaved: null,
                                             ),
-                                            onSaved: null,
+                                          )
+                                        ], 
+                                      )
+                                    : Column(
+                                        children: <Widget>[
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Flexible(
+                                                child: Padding(
+                                                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                                                  child: Text(
+                                                    _title[index]['revisi'],
+                                                    style: TextStyle(
+                                                        color: AbubaPallate.greenabuba,
+                                                        fontSize: 16.0
+                                                    ),
+                                                    textAlign: TextAlign.start,
+                                                  ),
+                                                ),
+                                              ),
+                                              Flexible(
+                                                child: Padding(
+                                                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                                                  child: Text(
+                                                  _title[index]['tgl_revisi'],
+                                                    style: TextStyle(
+                                                        color: AbubaPallate.greenabuba,
+                                                        fontSize: 16.0
+                                                    ),
+                                                    textAlign: TextAlign.start,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        ),
-                                        Container(
-                                          width: MediaQuery.of(context).size.width / 2.5,
-                                          child: TextFormField(
-                                            decoration: InputDecoration(
-                                              border: UnderlineInputBorder(),
-                                              hintText: 'Tanggal Revisi',
-                                              hintStyle: TextStyle(fontSize: 14.0),
-                                            ),
-                                            controller: _controllerTglRevisi,
-                                            style: TextStyle(
-                                                fontStyle: FontStyle.normal,
-                                                color: Colors.black87,
-                                                fontSize: 14.0
-                                            ),
-                                            onSaved: null,
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Flexible(
+                                                child: Padding(
+                                                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                                                  child: Text(
+                                                    _title[index]['bab'],
+                                                    style: TextStyle(
+                                                        color: AbubaPallate.greenabuba,
+                                                        fontSize: 16.0
+                                                    ),
+                                                    textAlign: TextAlign.start,
+                                                  ),
+                                                ),
+                                              ),
+                                              Flexible(
+                                                child: Padding(
+                                                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                                                  child: Text(
+                                                    _title[index]['oleh'],
+                                                    style: TextStyle(
+                                                        color: AbubaPallate.greenabuba,
+                                                        fontSize: 16.0
+                                                    ),
+                                                    textAlign: TextAlign.start,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(top: 15.0),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Container(
-                                          width: MediaQuery.of(context).size.width / 2.5,
-                                          child: TextFormField(
-                                            decoration: InputDecoration(
-                                              border: UnderlineInputBorder(),
-                                              hintText: 'Bab',
-                                              hintStyle: TextStyle(fontSize: 14.0),
-                                            ),
-                                            controller: _controllerBab,
-                                            style: TextStyle(
-                                                fontStyle: FontStyle.normal,
-                                                color: Colors.black87,
-                                                fontSize: 14.0
-                                            ),
-                                            onSaved: null,
-                                          ),
-                                        ),
-                                        Container(
-                                          width: MediaQuery.of(context).size.width / 2.5,
-                                          child: TextFormField(
-                                            decoration: InputDecoration(
-                                              border: UnderlineInputBorder(),
-                                              hintText: 'Revisi Oleh',
-                                              hintStyle: TextStyle(fontSize: 14.0),
-                                            ),
-                                            controller: _controllerOleh,
-                                            style: TextStyle(
-                                                fontStyle: FontStyle.normal,
-                                                color: Colors.black87,
-                                                fontSize: 14.0
-                                            ),
-                                            onSaved: null,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
-                                    child: TextFormField(
-                                      maxLines: 5,
-                                      decoration: InputDecoration(
-                                        border: UnderlineInputBorder(),
-                                        hintText: 'Catatan Revisi',
-                                        hintStyle: TextStyle(fontSize: 14.0),
-                                      ),
-                                      controller: _controllerCatatanRevisi,
-                                      style: TextStyle(
-                                          fontStyle: FontStyle.normal,
-                                          color: Colors.black87,
-                                          fontSize: 14.0
-                                      ),
-                                      onSaved: null,
-                                    ),
-                                  )
-                                ],
-                              )
-                                  : Column(
-                                children: <Widget>[
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Flexible(
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(horizontal: 10.0),
-                                          child: Text(
-                                            _title[index]['revisi'],
-                                            style: TextStyle(
-                                                color: AbubaPallate.greenabuba,
-                                                fontSize: 16.0
-                                            ),
-                                            textAlign: TextAlign.start,
-                                          ),
-                                        ),
-                                      ),
-                                      Flexible(
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(horizontal: 10.0),
-                                          child: Text(
-                                            _title[index]['tgl_revisi'],
-                                            style: TextStyle(
-                                                color: AbubaPallate.greenabuba,
-                                                fontSize: 16.0
-                                            ),
-                                            textAlign: TextAlign.start,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Flexible(
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(horizontal: 10.0),
-                                          child: Text(
-                                            _title[index]['bab'],
-                                            style: TextStyle(
-                                                color: AbubaPallate.greenabuba,
-                                                fontSize: 16.0
-                                            ),
-                                            textAlign: TextAlign.start,
-                                          ),
-                                        ),
-                                      ),
-                                      Flexible(
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(horizontal: 10.0),
-                                          child: Text(
-                                            _title[index]['oleh'],
-                                            style: TextStyle(
-                                                color: AbubaPallate.greenabuba,
-                                                fontSize: 16.0
-                                            ),
-                                            textAlign: TextAlign.start,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: <Widget>[
-                                      Flexible(
-                                        child: Padding(
-                                          padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 40.0, bottom: 10.0),
-                                          child: Text(
-                                            _title[index]['isi'],
-                                            style: TextStyle(
-                                                color: Colors.black54,
-                                                fontSize: 26.0
-                                            ),
-                                            textAlign: TextAlign.start,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              )
+                                          Row(
+                                            children: <Widget>[
+                                              Flexible(
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 40.0, bottom: 10.0),
+                                                  child: Text(
+                                                    _title[index]['isi'],
+                                                    style: TextStyle(
+                                                        color: Colors.black54,
+                                                        fontSize: 26.0
+                                                    ),
+                                                    textAlign: TextAlign.start,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      )
                                   : Container(),
                               index == 6
-                                  ? Row(
-                                children: <Widget>[
-                                  _editCover
-                                      ? Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
-                                    child: TextFormField(
-                                      maxLines: 5,
-                                      decoration: InputDecoration(
-                                        border: UnderlineInputBorder(),
-                                        hintText: 'Risiko',
-                                        hintStyle: TextStyle(fontSize: 14.0),
-                                      ),
-                                      controller: _controllerRisiko,
-                                      style: TextStyle(
-                                          fontStyle: FontStyle.normal,
-                                          color: Colors.black87,
-                                          fontSize: 14.0
-                                      ),
-                                      onSaved: null,
-                                    ),
-                                  )
-                                      : Flexible(
-                                    child: Padding(
-                                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 40.0, bottom: 10.0),
-                                      child: Text(
-                                        _title[index]['isi'],
-                                        style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 26.0
-                                        ),
-                                        textAlign: TextAlign.start,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              )
-                                  : Container(),
-                              index == 7
-                                  ? Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  Center(
-                                    child: Container(
-                                      width: 150.0,
-                                      height: 30.0,
-                                      color: Colors.grey[200],
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Flexible(
-                                            child: Text('MOD', style: TextStyle(color: Colors.black54),),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Center(
-                                    child: Container(
-                                      width: 150.0,
-                                      height: 60.0,
-                                      color: Colors.grey[500],
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Flexible(
-                                            child: Text(''),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Row(
+                                ? Row(
                                     children: <Widget>[
                                       _editCover
-                                          ? Container(
-                                        width: MediaQuery.of(context).size.width,
-                                        padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
-                                        child: TextFormField(
-                                          maxLines: 5,
-                                          decoration: InputDecoration(
-                                            border: UnderlineInputBorder(),
-                                            hintText: 'Prosedur',
-                                            hintStyle: TextStyle(fontSize: 14.0),
-                                          ),
-                                          controller: _controllerProsedur1,
-                                          style: TextStyle(
-                                              fontStyle: FontStyle.normal,
-                                              color: Colors.black87,
-                                              fontSize: 14.0
-                                          ),
-                                          onSaved: null,
-                                        ),
-                                      )
-                                          : Flexible(
-                                        child: Padding(
-                                          padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 40.0, bottom: 10.0),
-                                          child: Text(
-                                            _title[index]['isi'],
-                                            style: TextStyle(
-                                                color: Colors.black54,
-                                                fontSize: 26.0
+                                        ? Container(
+                                            width: MediaQuery.of(context).size.width,
+                                            padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+                                            child: TextFormField(
+                                              maxLines: 5,
+                                              decoration: InputDecoration(
+                                                border: UnderlineInputBorder(),
+                                                hintText: 'Risiko',
+                                                hintStyle: TextStyle(fontSize: 14.0),
+                                              ),
+                                              controller: _controllerRisiko,
+                                              style: TextStyle(
+                                                fontStyle: FontStyle.normal,
+                                                color: Colors.black87,
+                                                fontSize: 14.0
+                                              ),
+                                              onSaved: null,
                                             ),
-                                            textAlign: TextAlign.start,
+                                          )
+                                        : Flexible(
+                                            child: Padding(
+                                              padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 40.0, bottom: 10.0),
+                                              child: Text(
+                                                _title[index]['isi'],
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontSize: 26.0
+                                                ),
+                                                textAlign: TextAlign.start,
+                                              ),
+                                            ),
+                                          ),
+                                    ],
+                                  )
+                                : Container(),
+                              index == 7
+                                ? Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Center(
+                                        child: Container(
+                                          width: 150.0,
+                                          height: 30.0,
+                                          color: Colors.grey[200],
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              Flexible(
+                                                child: Text('MOD', style: TextStyle(color: Colors.black54),),
+                                              )
+                                            ],
                                           ),
                                         ),
                                       ),
+                                      Center(
+                                        child: Container(
+                                          width: 150.0,
+                                          height: 60.0,
+                                          color: Colors.grey[500],
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              Flexible(
+                                                child: Text(''),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Row(
+                                        children: <Widget>[
+                                          _editCover
+                                            ? Container(
+                                                width: MediaQuery.of(context).size.width,
+                                                padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+                                                child: TextFormField(
+                                                  maxLines: 5,
+                                                  decoration: InputDecoration(
+                                                    border: UnderlineInputBorder(),
+                                                    hintText: 'Prosedur',
+                                                    hintStyle: TextStyle(fontSize: 14.0),
+                                                  ),
+                                                  controller: _controllerProsedur1,
+                                                  style: TextStyle(
+                                                    fontStyle: FontStyle.normal,
+                                                    color: Colors.black87,
+                                                    fontSize: 14.0
+                                                  ),
+                                                  onSaved: null,
+                                                ),
+                                              )
+                                            : Flexible(
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 40.0, bottom: 10.0),
+                                                  child: Text(
+                                                    _title[index]['isi'],
+                                                    style: TextStyle(
+                                                        color: Colors.black54,
+                                                        fontSize: 26.0
+                                                    ),
+                                                    textAlign: TextAlign.start,
+                                                  ),
+                                                ),
+                                              ),
+                                        ],
+                                      ),
                                     ],
-                                  ),
-                                ],
-                              )
-                                  : Container(),
+                                  )
+                                : Container(),
                               index == 8
                                   ? Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  Center(
-                                    child: Container(
-                                        width: 130.0,
-                                        height: 130.0,
-                                        color: Colors.transparent,
-                                        child: FloatingActionButton(
-                                          backgroundColor: Colors.green[200],
-                                          shape: _DiamondBorder(),
-                                          onPressed: () {},
-                                          child: Icon(Icons.help_outline, color: Colors.white, size: 80.0),
-                                        )
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      _editCover
-                                          ? Container(
-                                        width: MediaQuery.of(context).size.width,
-                                        padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
-                                        child: TextFormField(
-                                          maxLines: 5,
-                                          decoration: InputDecoration(
-                                            border: UnderlineInputBorder(),
-                                            hintText: 'Prosedur',
-                                            hintStyle: TextStyle(fontSize: 14.0),
-                                          ),
-                                          controller: _controllerProsedur2,
-                                          style: TextStyle(
-                                              fontStyle: FontStyle.normal,
-                                              color: Colors.black87,
-                                              fontSize: 14.0
-                                          ),
-                                          onSaved: null,
-                                        ),
-                                      )
-                                          : Flexible(
-                                        child: Padding(
-                                          padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 40.0, bottom: 10.0),
-                                          child: Text(
-                                            _title[index]['isi'],
-                                            style: TextStyle(
-                                                color: Colors.black54,
-                                                fontSize: 26.0
-                                            ),
-                                            textAlign: TextAlign.start,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 50.0),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      mainAxisSize: MainAxisSize.min,
                                       children: <Widget>[
-                                        ButtonTheme(
-                                          height: 30.0,
-                                          child: OutlineButton(
-                                            child: Text(
-                                              'TIDAK',
-                                              style: TextStyle(
-                                                  fontSize: 16.0,
-                                                  color: Colors.redAccent),
-                                            ),
-                                            borderSide: BorderSide(
-                                                color: Colors.redAccent,
-                                                width: 1.0),
-                                            highlightedBorderColor: Colors.redAccent,
-                                            onPressed: () {
+                                        Center(
+                                          child: Container(
+                                            width: 130.0,
+                                            height: 130.0,
+                                            color: Colors.transparent,
+                                            child: FloatingActionButton(
+                                              backgroundColor: Colors.green[200],
+                                              shape: _DiamondBorder(),
+                                              onPressed: () {},
+                                              child: Icon(Icons.help_outline, color: Colors.white, size: 80.0),
+                                            )
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            _editCover
+                                              ? Container(
+                                                  width: MediaQuery.of(context).size.width,
+                                                  padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+                                                  child: TextFormField(
+                                                    maxLines: 5,
+                                                    decoration: InputDecoration(
+                                                      border: UnderlineInputBorder(),
+                                                      hintText: 'Prosedur',
+                                                      hintStyle: TextStyle(fontSize: 14.0),
+                                                    ),
+                                                    controller: _controllerProsedur2,
+                                                    style: TextStyle(
+                                                      fontStyle: FontStyle.normal,
+                                                      color: Colors.black87,
+                                                      fontSize: 14.0
+                                                    ),
+                                                    onSaved: null,
+                                                  ),
+                                                )
+                                              : Flexible(
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 40.0, bottom: 10.0),
+                                                    child: Text(
+                                                      _title[index]['isi'],
+                                                      style: TextStyle(
+                                                          color: Colors.black54,
+                                                          fontSize: 26.0
+                                                      ),
+                                                      textAlign: TextAlign.start,
+                                                    ),
+                                                  ),
+                                                ),
+                                          ],
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(top: 50.0),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                            children: <Widget>[
+                                              ButtonTheme(
+                                                height: 30.0,
+                                                child: OutlineButton(
+                                                  child: Text(
+                                                    'TIDAK',
+                                                    style: TextStyle(
+                                                        fontSize: 16.0,
+                                                        color: Colors.redAccent),
+                                                  ),
+                                                  borderSide: BorderSide(
+                                                      color: Colors.redAccent,
+                                                      width: 1.0),
+                                                  highlightedBorderColor: Colors.redAccent,
+                                                  onPressed: () {
 
-                                            },
+                                                  },
+                                                ),
+                                              ),
+                                              ButtonTheme(
+                                                height: 30.0,
+                                                child: OutlineButton(
+                                                  child: Text(
+                                                    'YA',
+                                                    style: TextStyle(
+                                                        fontSize: 16.0,
+                                                        color: AbubaPallate.greenabuba),
+                                                  ),
+                                                  borderSide: BorderSide(
+                                                      color: AbubaPallate.greenabuba,
+                                                      width: 1.0),
+                                                  highlightedBorderColor: AbubaPallate.greenabuba,
+                                                  onPressed: () {
+                                                    _controller.next(animation: true);
+                                                  },
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        ),
-                                        ButtonTheme(
-                                          height: 30.0,
-                                          child: OutlineButton(
-                                            child: Text(
-                                              'YA',
-                                              style: TextStyle(
-                                                  fontSize: 16.0,
-                                                  color: AbubaPallate.greenabuba),
-                                            ),
-                                            borderSide: BorderSide(
-                                                color: AbubaPallate.greenabuba,
-                                                width: 1.0),
-                                            highlightedBorderColor: AbubaPallate.greenabuba,
-                                            onPressed: () {
-                                              _controller.next(animation: true);
-                                            },
-                                          ),
-                                        ),
+                                        )
                                       ],
-                                    ),
-                                  )
-                                ],
-                              )
+                                    )
                                   : Container(),
                               index == 9
                                   ? Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  Center(
-                                    child: Container(
-                                      width: 150.0,
-                                      height: 30.0,
-                                      color: Colors.grey[200],
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Flexible(
-                                            child: Text('MOD', style: TextStyle(color: Colors.black54),),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Center(
-                                    child: Container(
-                                      width: 150.0,
-                                      height: 60.0,
-                                      color: Colors.green[300],
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Flexible(
-                                            child: Text(''),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Row(
-                                    children: <Widget>[
-                                      _editCover
-                                          ? Container(
-                                        width: MediaQuery.of(context).size.width,
-                                        padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
-                                        child: TextFormField(
-                                          maxLines: 5,
-                                          decoration: InputDecoration(
-                                            border: UnderlineInputBorder(),
-                                            hintText: 'Prosedur',
-                                            hintStyle: TextStyle(fontSize: 14.0),
-                                          ),
-                                          controller: _controllerProsedur3,
-                                          style: TextStyle(
-                                              fontStyle: FontStyle.normal,
-                                              color: Colors.black87,
-                                              fontSize: 14.0
-                                          ),
-                                          onSaved: null,
-                                        ),
-                                      )
-                                          : Flexible(
-                                        child: Padding(
-                                          padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
-                                          child: Text(
-                                            _title[index]['isi'],
-                                            style: TextStyle(
-                                                color: Colors.black54,
-                                                fontSize: 26.0
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        Center(
+                                          child: Container(
+                                            width: 150.0,
+                                            height: 30.0,
+                                            color: Colors.grey[200],
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Flexible(
+                                                  child: Text('MOD', style: TextStyle(color: Colors.black54),),
+                                                )
+                                              ],
                                             ),
-                                            textAlign: TextAlign.start,
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              )
+                                        Center(
+                                          child: Container(
+                                            width: 150.0,
+                                            height: 60.0,
+                                            color: Colors.green[300],
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Flexible(
+                                                  child: Text(''),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Row(
+                                          children: <Widget>[
+                                            _editCover
+                                              ? Container(
+                                                  width: MediaQuery.of(context).size.width,
+                                                  padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+                                                  child: TextFormField(
+                                                    maxLines: 5,
+                                                    decoration: InputDecoration(
+                                                      border: UnderlineInputBorder(),
+                                                      hintText: 'Prosedur',
+                                                      hintStyle: TextStyle(fontSize: 14.0),
+                                                    ),
+                                                    controller: _controllerProsedur3,
+                                                    style: TextStyle(
+                                                      fontStyle: FontStyle.normal,
+                                                      color: Colors.black87,
+                                                      fontSize: 14.0
+                                                    ),
+                                                    onSaved: null,
+                                                  ),
+                                                )
+                                              : Flexible(
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
+                                                    child: Text(
+                                                      _title[index]['isi'],
+                                                      style: TextStyle(
+                                                          color: Colors.black54,
+                                                          fontSize: 26.0
+                                                      ),
+                                                      textAlign: TextAlign.start,
+                                                    ),
+                                                  ),
+                                                ),
+                                          ],
+                                        ),
+                                      ],
+                                    )
                                   : Container(),
                               index == 10
                                   ? Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  Center(
-                                    child: Container(
-                                      width: 150.0,
-                                      height: 30.0,
-                                      color: Colors.grey[200],
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Flexible(
-                                            child: Text('MOD', style: TextStyle(color: Colors.black54),),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Center(
-                                    child: Container(
-                                      width: 150.0,
-                                      height: 60.0,
-                                      color: Colors.red[400],
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Flexible(
-                                            child: Text(''),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Row(
-                                    children: <Widget>[
-                                      _editCover
-                                          ? Container(
-                                        width: MediaQuery.of(context).size.width,
-                                        padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
-                                        child: TextFormField(
-                                          maxLines: 5,
-                                          decoration: InputDecoration(
-                                            border: UnderlineInputBorder(),
-                                            hintText: 'Prosedur',
-                                            hintStyle: TextStyle(fontSize: 14.0),
-                                          ),
-                                          controller: _controllerProsedur4,
-                                          style: TextStyle(
-                                              fontStyle: FontStyle.normal,
-                                              color: Colors.black87,
-                                              fontSize: 14.0
-                                          ),
-                                          onSaved: null,
-                                        ),
-                                      )
-                                          : Flexible(
-                                        child: Padding(
-                                          padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 40.0, bottom: 10.0),
-                                          child: Text(
-                                            _title[index]['isi'],
-                                            style: TextStyle(
-                                                color: Colors.black54,
-                                                fontSize: 26.0
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        Center(
+                                          child: Container(
+                                            width: 150.0,
+                                            height: 30.0,
+                                            color: Colors.grey[200],
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Flexible(
+                                                  child: Text('MOD', style: TextStyle(color: Colors.black54),),
+                                                )
+                                              ],
                                             ),
-                                            textAlign: TextAlign.start,
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              )
+                                        Center(
+                                          child: Container(
+                                            width: 150.0,
+                                            height: 60.0,
+                                            color: Colors.red[400],
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Flexible(
+                                                  child: Text(''),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Row(
+                                          children: <Widget>[
+                                            _editCover
+                                              ? Container(
+                                                  width: MediaQuery.of(context).size.width,
+                                                  padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+                                                  child: TextFormField(
+                                                    maxLines: 5,
+                                                    decoration: InputDecoration(
+                                                      border: UnderlineInputBorder(),
+                                                      hintText: 'Prosedur',
+                                                      hintStyle: TextStyle(fontSize: 14.0),
+                                                    ),
+                                                    controller: _controllerProsedur4,
+                                                    style: TextStyle(
+                                                      fontStyle: FontStyle.normal,
+                                                      color: Colors.black87,
+                                                      fontSize: 14.0
+                                                    ),
+                                                    onSaved: null,
+                                                  ),
+                                                )
+                                              : Flexible(
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 40.0, bottom: 10.0),
+                                                    child: Text(
+                                                      _title[index]['isi'],
+                                                      style: TextStyle(
+                                                          color: Colors.black54,
+                                                          fontSize: 26.0
+                                                      ),
+                                                      textAlign: TextAlign.start,
+                                                    ),
+                                                  ),
+                                                ),
+                                          ],
+                                        ),
+                                      ],
+                                    )
                                   : Container(),
                               index == 11
                                   ? Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  Center(
-                                    child: Container(
-                                      width: 150.0,
-                                      height: 30.0,
-                                      color: Colors.grey[200],
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Flexible(
-                                            child: Text('MOD', style: TextStyle(color: Colors.black54),),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Center(
-                                    child: Container(
-                                      width: 150.0,
-                                      height: 60.0,
-                                      color: Colors.grey[500],
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Flexible(
-                                            child: Text(''),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Row(
-                                    children: <Widget>[
-                                      _editCover
-                                          ? Container(
-                                        width: MediaQuery.of(context).size.width,
-                                        padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
-                                        child: TextFormField(
-                                          maxLines: 5,
-                                          decoration: InputDecoration(
-                                            border: UnderlineInputBorder(),
-                                            hintText: 'Prosedur',
-                                            hintStyle: TextStyle(fontSize: 14.0),
-                                          ),
-                                          controller: _controllerProsedur5,
-                                          style: TextStyle(
-                                              fontStyle: FontStyle.normal,
-                                              color: Colors.black87,
-                                              fontSize: 14.0
-                                          ),
-                                          onSaved: null,
-                                        ),
-                                      )
-                                          : Flexible(
-                                        child: Padding(
-                                          padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 40.0, bottom: 10.0),
-                                          child: Text(
-                                            _title[index]['isi'],
-                                            style: TextStyle(
-                                                color: Colors.black54,
-                                                fontSize: 26.0
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        Center(
+                                          child: Container(
+                                            width: 150.0,
+                                            height: 30.0,
+                                            color: Colors.grey[200],
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Flexible(
+                                                  child: Text('MOD', style: TextStyle(color: Colors.black54),),
+                                                )
+                                              ],
                                             ),
-                                            textAlign: TextAlign.start,
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              )
+                                        Center(
+                                          child: Container(
+                                            width: 150.0,
+                                            height: 60.0,
+                                            color: Colors.grey[500],
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Flexible(
+                                                  child: Text(''),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Row(
+                                          children: <Widget>[
+                                            _editCover
+                                              ? Container(
+                                                  width: MediaQuery.of(context).size.width,
+                                                  padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+                                                  child: TextFormField(
+                                                    maxLines: 5,
+                                                    decoration: InputDecoration(
+                                                      border: UnderlineInputBorder(),
+                                                      hintText: 'Prosedur',
+                                                      hintStyle: TextStyle(fontSize: 14.0),
+                                                    ),
+                                                    controller: _controllerProsedur5,
+                                                    style: TextStyle(
+                                                      fontStyle: FontStyle.normal,
+                                                      color: Colors.black87,
+                                                      fontSize: 14.0
+                                                    ),
+                                                    onSaved: null,
+                                                  ),
+                                                )
+                                              : Flexible(
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 40.0, bottom: 10.0),
+                                                    child: Text(
+                                                      _title[index]['isi'],
+                                                      style: TextStyle(
+                                                          color: Colors.black54,
+                                                          fontSize: 26.0
+                                                      ),
+                                                      textAlign: TextAlign.start,
+                                                    ),
+                                                  ),
+                                                ),
+                                          ],
+                                        ),
+                                      ],
+                                    )
                                   : Container(),
                               index == 12
                                   ? Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  Center(
-                                    child: Container(
-                                      width: 150.0,
-                                      height: 30.0,
-                                      color: Colors.grey[200],
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Flexible(
-                                            child: Text('MOD', style: TextStyle(color: Colors.black54),),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Center(
-                                    child: Container(
-                                      width: 150.0,
-                                      height: 60.0,
-                                      color: Colors.grey[500],
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Flexible(
-                                            child: Text(''),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Row(
-                                    children: <Widget>[
-                                      _editCover
-                                          ? Container(
-                                        width: MediaQuery.of(context).size.width,
-                                        padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
-                                        child: TextFormField(
-                                          maxLines: 5,
-                                          decoration: InputDecoration(
-                                            border: UnderlineInputBorder(),
-                                            hintText: 'Prosedur',
-                                            hintStyle: TextStyle(fontSize: 14.0),
-                                          ),
-                                          controller: _controllerProsedur6,
-                                          style: TextStyle(
-                                              fontStyle: FontStyle.normal,
-                                              color: Colors.black87,
-                                              fontSize: 14.0
-                                          ),
-                                          onSaved: null,
-                                        ),
-                                      )
-                                          : Flexible(
-                                        child: Padding(
-                                          padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 40.0, bottom: 10.0),
-                                          child: Text(
-                                            _title[index]['isi'],
-                                            style: TextStyle(
-                                                color: Colors.black54,
-                                                fontSize: 26.0
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        Center(
+                                          child: Container(
+                                            width: 150.0,
+                                            height: 30.0,
+                                            color: Colors.grey[200],
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Flexible(
+                                                  child: Text('MOD', style: TextStyle(color: Colors.black54),),
+                                                )
+                                              ],
                                             ),
-                                            textAlign: TextAlign.start,
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              )
+                                        Center(
+                                          child: Container(
+                                            width: 150.0,
+                                            height: 60.0,
+                                            color: Colors.grey[500],
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Flexible(
+                                                  child: Text(''),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Row(
+                                          children: <Widget>[
+                                            _editCover
+                                              ? Container(
+                                                  width: MediaQuery.of(context).size.width,
+                                                  padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+                                                  child: TextFormField(
+                                                    maxLines: 5,
+                                                    decoration: InputDecoration(
+                                                      border: UnderlineInputBorder(),
+                                                      hintText: 'Prosedur',
+                                                      hintStyle: TextStyle(fontSize: 14.0),
+                                                    ),
+                                                    controller: _controllerProsedur6,
+                                                    style: TextStyle(
+                                                      fontStyle: FontStyle.normal,
+                                                      color: Colors.black87,
+                                                      fontSize: 14.0
+                                                    ),
+                                                    onSaved: null,
+                                                  ),
+                                                )
+                                              : Flexible(
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 40.0, bottom: 10.0),
+                                                    child: Text(
+                                                      _title[index]['isi'],
+                                                      style: TextStyle(
+                                                          color: Colors.black54,
+                                                          fontSize: 26.0
+                                                      ),
+                                                      textAlign: TextAlign.start,
+                                                    ),
+                                                  ),
+                                                ),
+                                          ],
+                                        ),
+                                      ],
+                                    )
                                   : Container(),
                               index == 13
                                   ? Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  Center(
-                                    child: Container(
-                                      width: 150.0,
-                                      height: 30.0,
-                                      color: Colors.grey[200],
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Flexible(
-                                            child: Text('MOD', style: TextStyle(color: Colors.black54),),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Center(
-                                    child: Container(
-                                      width: 150.0,
-                                      height: 60.0,
-                                      color: Colors.grey[500],
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Flexible(
-                                            child: Text(''),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Row(
-                                    children: <Widget>[
-                                      _editCover
-                                          ? Container(
-                                        width: MediaQuery.of(context).size.width,
-                                        padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
-                                        child: TextFormField(
-                                          maxLines: 5,
-                                          decoration: InputDecoration(
-                                            border: UnderlineInputBorder(),
-                                            hintText: 'Prosedur',
-                                            hintStyle: TextStyle(fontSize: 14.0),
-                                          ),
-                                          controller: _controllerProsedur7,
-                                          style: TextStyle(
-                                              fontStyle: FontStyle.normal,
-                                              color: Colors.black87,
-                                              fontSize: 14.0
-                                          ),
-                                          onSaved: null,
-                                        ),
-                                      )
-                                          : Flexible(
-                                        child: Padding(
-                                          padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 40.0, bottom: 10.0),
-                                          child: Text(
-                                            _title[index]['isi'],
-                                            style: TextStyle(
-                                                color: Colors.black54,
-                                                fontSize: 26.0
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        Center(
+                                          child: Container(
+                                            width: 150.0,
+                                            height: 30.0,
+                                            color: Colors.grey[200],
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Flexible(
+                                                  child: Text('MOD', style: TextStyle(color: Colors.black54),),
+                                                )
+                                              ],
                                             ),
-                                            textAlign: TextAlign.start,
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              )
+                                        Center(
+                                          child: Container(
+                                            width: 150.0,
+                                            height: 60.0,
+                                            color: Colors.grey[500],
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Flexible(
+                                                  child: Text(''),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Row(
+                                          children: <Widget>[
+                                            _editCover
+                                              ? Container(
+                                                  width: MediaQuery.of(context).size.width,
+                                                  padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+                                                  child: TextFormField(
+                                                    maxLines: 5,
+                                                    decoration: InputDecoration(
+                                                      border: UnderlineInputBorder(),
+                                                      hintText: 'Prosedur',
+                                                      hintStyle: TextStyle(fontSize: 14.0),
+                                                    ),
+                                                    controller: _controllerProsedur7,
+                                                    style: TextStyle(
+                                                      fontStyle: FontStyle.normal,
+                                                      color: Colors.black87,
+                                                      fontSize: 14.0
+                                                    ),
+                                                    onSaved: null,
+                                                  ),
+                                                )
+                                              : Flexible(
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 40.0, bottom: 10.0),
+                                                    child: Text(
+                                                      _title[index]['isi'],
+                                                      style: TextStyle(
+                                                          color: Colors.black54,
+                                                          fontSize: 26.0
+                                                      ),
+                                                      textAlign: TextAlign.start,
+                                                    ),
+                                                  ),
+                                                ),
+                                          ],
+                                        ),
+                                      ],
+                                    )
                                   : Container(),
                               index == 14
                                   ? Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  Center(
-                                    child: Container(
-                                      width: 150.0,
-                                      height: 30.0,
-                                      color: Colors.grey[200],
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Flexible(
-                                            child: Text('MOD', style: TextStyle(color: Colors.black54),),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Center(
-                                    child: Container(
-                                      width: 150.0,
-                                      height: 60.0,
-                                      color: Colors.grey[500],
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Flexible(
-                                            child: Text(''),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Row(
-                                    children: <Widget>[
-                                      _editCover
-                                          ? Container(
-                                        width: MediaQuery.of(context).size.width,
-                                        padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
-                                        child: TextFormField(
-                                          maxLines: 5,
-                                          decoration: InputDecoration(
-                                            border: UnderlineInputBorder(),
-                                            hintText: 'Prosedur',
-                                            hintStyle: TextStyle(fontSize: 14.0),
-                                          ),
-                                          controller: _controllerProsedur8,
-                                          style: TextStyle(
-                                              fontStyle: FontStyle.normal,
-                                              color: Colors.black87,
-                                              fontSize: 14.0
-                                          ),
-                                          onSaved: null,
-                                        ),
-                                      )
-                                          : Flexible(
-                                        child: Padding(
-                                          padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 40.0, bottom: 10.0),
-                                          child: Text(
-                                            _title[index]['isi'],
-                                            style: TextStyle(
-                                                color: Colors.black54,
-                                                fontSize: 26.0
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        Center(
+                                          child: Container(
+                                            width: 150.0,
+                                            height: 30.0,
+                                            color: Colors.grey[200],
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Flexible(
+                                                  child: Text('MOD', style: TextStyle(color: Colors.black54),),
+                                                )
+                                              ],
                                             ),
-                                            textAlign: TextAlign.start,
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              )
+                                        Center(
+                                          child: Container(
+                                            width: 150.0,
+                                            height: 60.0,
+                                            color: Colors.grey[500],
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Flexible(
+                                                  child: Text(''),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Row(
+                                          children: <Widget>[
+                                            _editCover
+                                              ? Container(
+                                                  width: MediaQuery.of(context).size.width,
+                                                  padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+                                                  child: TextFormField(
+                                                    maxLines: 5,
+                                                    decoration: InputDecoration(
+                                                      border: UnderlineInputBorder(),
+                                                      hintText: 'Prosedur',
+                                                      hintStyle: TextStyle(fontSize: 14.0),
+                                                    ),
+                                                    controller: _controllerProsedur8,
+                                                    style: TextStyle(
+                                                      fontStyle: FontStyle.normal,
+                                                      color: Colors.black87,
+                                                      fontSize: 14.0
+                                                    ),
+                                                    onSaved: null,
+                                                  ),
+                                                )
+                                              : Flexible(
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 40.0, bottom: 10.0),
+                                                    child: Text(
+                                                      _title[index]['isi'],
+                                                      style: TextStyle(
+                                                          color: Colors.black54,
+                                                          fontSize: 26.0
+                                                      ),
+                                                      textAlign: TextAlign.start,
+                                                    ),
+                                                  ),
+                                                ),
+                                          ],
+                                        ),
+                                      ],
+                                    )
                                   : Container(),
                               index == 15
                                   ? Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  Center(
-                                    child: Container(
-                                      width: 150.0,
-                                      height: 30.0,
-                                      color: Colors.grey[200],
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Flexible(
-                                            child: Text('MOD', style: TextStyle(color: Colors.black54),),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Center(
-                                    child: Container(
-                                      width: 150.0,
-                                      height: 60.0,
-                                      color: Colors.grey[500],
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Flexible(
-                                            child: Text(''),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Row(
-                                    children: <Widget>[
-                                      _editCover
-                                          ? Container(
-                                        width: MediaQuery.of(context).size.width,
-                                        padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
-                                        child: TextFormField(
-                                          maxLines: 5,
-                                          decoration: InputDecoration(
-                                            border: UnderlineInputBorder(),
-                                            hintText: 'Prosedur',
-                                            hintStyle: TextStyle(fontSize: 14.0),
-                                          ),
-                                          controller: _controllerProsedur9,
-                                          style: TextStyle(
-                                              fontStyle: FontStyle.normal,
-                                              color: Colors.black87,
-                                              fontSize: 14.0
-                                          ),
-                                          onSaved: null,
-                                        ),
-                                      )
-                                          : Flexible(
-                                        child: Padding(
-                                          padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 40.0, bottom: 10.0),
-                                          child: Text(
-                                            _title[index]['isi'],
-                                            style: TextStyle(
-                                                color: Colors.black54,
-                                                fontSize: 26.0
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        Center(
+                                          child: Container(
+                                            width: 150.0,
+                                            height: 30.0,
+                                            color: Colors.grey[200],
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Flexible(
+                                                  child: Text('MOD', style: TextStyle(color: Colors.black54),),
+                                                )
+                                              ],
                                             ),
-                                            textAlign: TextAlign.start,
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              )
+                                        Center(
+                                          child: Container(
+                                            width: 150.0,
+                                            height: 60.0,
+                                            color: Colors.grey[500],
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Flexible(
+                                                  child: Text(''),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Row(
+                                          children: <Widget>[
+                                            _editCover
+                                              ? Container(
+                                                  width: MediaQuery.of(context).size.width,
+                                                  padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+                                                  child: TextFormField(
+                                                    maxLines: 5,
+                                                    decoration: InputDecoration(
+                                                      border: UnderlineInputBorder(),
+                                                      hintText: 'Prosedur',
+                                                      hintStyle: TextStyle(fontSize: 14.0),
+                                                    ),
+                                                    controller: _controllerProsedur9,
+                                                    style: TextStyle(
+                                                      fontStyle: FontStyle.normal,
+                                                      color: Colors.black87,
+                                                      fontSize: 14.0
+                                                    ),
+                                                    onSaved: null,
+                                                  ),
+                                                )
+                                              : Flexible(
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 40.0, bottom: 10.0),
+                                                    child: Text(
+                                                      _title[index]['isi'],
+                                                      style: TextStyle(
+                                                          color: Colors.black54,
+                                                          fontSize: 26.0
+                                                      ),
+                                                      textAlign: TextAlign.start,
+                                                    ),
+                                                  ),
+                                                ),
+                                          ],
+                                        ),
+                                      ],
+                                    )
                                   : Container(),
                             ],
                           ),
@@ -1467,25 +1458,29 @@ class _FormDetailState extends State<FormDetail> with TickerProviderStateMixin {
                         physics: ScrollPhysics(),
                       ),
                     );
-                  },
-                  controller: _controller,
-                  itemCount: _title.length,
-                  itemWidth: MediaQuery.of(context).size.width,
-                  itemHeight: MediaQuery.of(context).size.height - 250.0,
-                  index: _currentIndex,
-                  layout: SwiperLayout.TINDER,
-                  onIndexChanged: (int index) {
-                    setState(() {
-                      _currentIndex = index;
-                      _number = index + 1;
-                    });
-                  },
-                ),
-                SizedBox(
-                  height: 5.0,
-                ),
-              ],
-            )
+                    },
+                    controller: _controller,
+                    itemCount: _title.length,
+                    itemWidth: MediaQuery.of(context).size.width,
+                    itemHeight: MediaQuery.of(context).size.height - 250.0,
+                    index: _currentIndex,
+                    layout: SwiperLayout.TINDER,
+                    onIndexChanged: (int index) {
+                      setState(
+                        () {
+                          _currentIndex = index;
+                          _number = index + 1;
+                        },
+                      );
+                    },
+                  ),
+                  SizedBox(
+                    height: 5.0,
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
         bottomNavigationBar: _bottomBar(),
       ),

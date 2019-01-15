@@ -190,19 +190,25 @@ class _FormRevisiState extends State<FormRevisi> {
                                 ),
                               ],
                             ),
-
                             ButtonTheme(
                               minWidth: 50.0,
                               height: 20.0,
                               child: OutlineButton(
                                 child: Text(
                                   'Revisi',
-                                  style: TextStyle(fontSize: 13.0, color: AbubaPallate.menuBluebird),
+                                  style: TextStyle(
+                                      fontSize: 13.0,
+                                      color: AbubaPallate.menuBluebird),
                                 ),
-                                borderSide: BorderSide(color: AbubaPallate.menuBluebird, width: 1.0),
-                                highlightedBorderColor: AbubaPallate.menuBluebird,
-                                onPressed: () => Navigator.push(context,
-                                    MyCustomRoute(builder: (context) => FormDetail())),
+                                borderSide: BorderSide(
+                                    color: AbubaPallate.menuBluebird,
+                                    width: 1.0),
+                                highlightedBorderColor:
+                                    AbubaPallate.menuBluebird,
+                                onPressed: () => Navigator.push(
+                                    context,
+                                    MyCustomRoute(
+                                        builder: (context) => FormDetail())),
                               ),
                             ),
                           ],
@@ -314,8 +320,7 @@ class _FormRevisiState extends State<FormRevisi> {
                                   child: Text(
                                     'IT',
                                     style: TextStyle(
-                                        fontSize: 10.0,
-                                        color: Colors.black54),
+                                        fontSize: 10.0, color: Colors.black54),
                                   ),
                                 ),
                               ],
@@ -330,8 +335,7 @@ class _FormRevisiState extends State<FormRevisi> {
                                   child: Text(
                                     '01/01/2019',
                                     style: TextStyle(
-                                        fontSize: 10.0,
-                                        color: Colors.black54),
+                                        fontSize: 10.0, color: Colors.black54),
                                   ),
                                 ),
                               ],
@@ -339,19 +343,23 @@ class _FormRevisiState extends State<FormRevisi> {
                           ),
                         ],
                       ),
-
                       ButtonTheme(
                         minWidth: 50.0,
                         height: 20.0,
                         child: OutlineButton(
                           child: Text(
                             'Revisi',
-                            style: TextStyle(fontSize: 13.0, color: AbubaPallate.menuBluebird),
+                            style: TextStyle(
+                                fontSize: 13.0,
+                                color: AbubaPallate.menuBluebird),
                           ),
-                          borderSide: BorderSide(color: AbubaPallate.menuBluebird, width: 1.0),
+                          borderSide: BorderSide(
+                              color: AbubaPallate.menuBluebird, width: 1.0),
                           highlightedBorderColor: AbubaPallate.menuBluebird,
-                          onPressed: () => Navigator.push(context,
-                              MyCustomRoute(builder: (context) => FormDetail())),
+                          onPressed: () => Navigator.push(
+                              context,
+                              MyCustomRoute(
+                                  builder: (context) => FormDetail())),
                         ),
                       ),
                     ],
@@ -460,8 +468,7 @@ class _FormRevisiState extends State<FormRevisi> {
                                   child: Text(
                                     'IT',
                                     style: TextStyle(
-                                        fontSize: 10.0,
-                                        color: Colors.black54),
+                                        fontSize: 10.0, color: Colors.black54),
                                   ),
                                 ),
                               ],
@@ -476,8 +483,7 @@ class _FormRevisiState extends State<FormRevisi> {
                                   child: Text(
                                     '01/01/2019',
                                     style: TextStyle(
-                                        fontSize: 10.0,
-                                        color: Colors.black54),
+                                        fontSize: 10.0, color: Colors.black54),
                                   ),
                                 ),
                               ],
@@ -485,19 +491,23 @@ class _FormRevisiState extends State<FormRevisi> {
                           ),
                         ],
                       ),
-
                       ButtonTheme(
                         minWidth: 50.0,
                         height: 20.0,
                         child: OutlineButton(
                           child: Text(
                             'Revisi',
-                            style: TextStyle(fontSize: 13.0, color: AbubaPallate.menuBluebird),
+                            style: TextStyle(
+                                fontSize: 13.0,
+                                color: AbubaPallate.menuBluebird),
                           ),
-                          borderSide: BorderSide(color: AbubaPallate.menuBluebird, width: 1.0),
+                          borderSide: BorderSide(
+                              color: AbubaPallate.menuBluebird, width: 1.0),
                           highlightedBorderColor: AbubaPallate.menuBluebird,
-                          onPressed: () => Navigator.push(context,
-                              MyCustomRoute(builder: (context) => FormDetail())),
+                          onPressed: () => Navigator.push(
+                              context,
+                              MyCustomRoute(
+                                  builder: (context) => FormDetail())),
                         ),
                       ),
                     ],
@@ -606,8 +616,7 @@ class _FormRevisiState extends State<FormRevisi> {
                                   child: Text(
                                     'IT',
                                     style: TextStyle(
-                                        fontSize: 10.0,
-                                        color: Colors.black54),
+                                        fontSize: 10.0, color: Colors.black54),
                                   ),
                                 ),
                               ],
@@ -622,8 +631,7 @@ class _FormRevisiState extends State<FormRevisi> {
                                   child: Text(
                                     '01/01/2019',
                                     style: TextStyle(
-                                        fontSize: 10.0,
-                                        color: Colors.black54),
+                                        fontSize: 10.0, color: Colors.black54),
                                   ),
                                 ),
                               ],
@@ -631,19 +639,23 @@ class _FormRevisiState extends State<FormRevisi> {
                           ),
                         ],
                       ),
-
                       ButtonTheme(
                         minWidth: 50.0,
                         height: 20.0,
                         child: OutlineButton(
                           child: Text(
                             'Revisi',
-                            style: TextStyle(fontSize: 13.0, color: AbubaPallate.menuBluebird),
+                            style: TextStyle(
+                                fontSize: 13.0,
+                                color: AbubaPallate.menuBluebird),
                           ),
-                          borderSide: BorderSide(color: AbubaPallate.menuBluebird, width: 1.0),
+                          borderSide: BorderSide(
+                              color: AbubaPallate.menuBluebird, width: 1.0),
                           highlightedBorderColor: AbubaPallate.menuBluebird,
-                          onPressed: () => Navigator.push(context,
-                              MyCustomRoute(builder: (context) => FormDetail())),
+                          onPressed: () => Navigator.push(
+                              context,
+                              MyCustomRoute(
+                                  builder: (context) => FormDetail())),
                         ),
                       ),
                     ],
@@ -752,8 +764,7 @@ class _FormRevisiState extends State<FormRevisi> {
                                   child: Text(
                                     'IT',
                                     style: TextStyle(
-                                        fontSize: 10.0,
-                                        color: Colors.black54),
+                                        fontSize: 10.0, color: Colors.black54),
                                   ),
                                 ),
                               ],
@@ -768,8 +779,7 @@ class _FormRevisiState extends State<FormRevisi> {
                                   child: Text(
                                     '01/01/2019',
                                     style: TextStyle(
-                                        fontSize: 10.0,
-                                        color: Colors.black54),
+                                        fontSize: 10.0, color: Colors.black54),
                                   ),
                                 ),
                               ],
@@ -777,19 +787,23 @@ class _FormRevisiState extends State<FormRevisi> {
                           ),
                         ],
                       ),
-
                       ButtonTheme(
                         minWidth: 50.0,
                         height: 20.0,
                         child: OutlineButton(
                           child: Text(
                             'Revisi',
-                            style: TextStyle(fontSize: 13.0, color: AbubaPallate.menuBluebird),
+                            style: TextStyle(
+                                fontSize: 13.0,
+                                color: AbubaPallate.menuBluebird),
                           ),
-                          borderSide: BorderSide(color: AbubaPallate.menuBluebird, width: 1.0),
+                          borderSide: BorderSide(
+                              color: AbubaPallate.menuBluebird, width: 1.0),
                           highlightedBorderColor: AbubaPallate.menuBluebird,
-                          onPressed: () => Navigator.push(context,
-                              MyCustomRoute(builder: (context) => FormDetail())),
+                          onPressed: () => Navigator.push(
+                              context,
+                              MyCustomRoute(
+                                  builder: (context) => FormDetail())),
                         ),
                       ),
                     ],
