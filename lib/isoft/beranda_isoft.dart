@@ -1,25 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_abuba/isoft/R_D/beranda_RD.dart';
 import 'package:flutter_abuba/creative_page/form_comment.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:flutter_abuba/beranda/beranda_appbar.dart';
+import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 import 'package:flutter_abuba/constant.dart';
 
+import 'package:flutter_abuba/isoft/operation_page/beranda_operation.dart';
+import 'package:flutter_abuba/isoft/IT_page/beranda_IT.dart';
 import 'package:flutter_abuba/isoft/more_page/beranda_more.dart';
+import 'package:flutter_abuba/isoft/hrd_page/beranda_hrd.dart';
 import 'package:flutter_abuba/whats_page/form_comment.dart';
 import 'package:flutter_abuba/whats_page/form_create_happening.dart';
 import 'package:flutter_abuba/creative_page/form_detail.dart';
 import 'package:flutter_abuba/creative_page/form_create.dart';
-import 'package:flutter_abuba/sixsigma/beranda_sigma.dart';
+import 'package:flutter_abuba/isoft/finance_page/beranda_finance.dart';
+import 'package:flutter_abuba/isoft/kitchen_page/beranda_kitchen.dart';
 
-import 'package:flutter_abuba/isoft/beranda_isoft.dart';
-
-class BerandaPage extends StatefulWidget {
+class BerandaIsoft extends StatefulWidget {
   @override
-  _BerandaPageState createState() => _BerandaPageState();
+  _BerandaIsoftState createState() => _BerandaIsoftState();
 }
 
-class _BerandaPageState extends State<BerandaPage> {
+class _BerandaIsoftState extends State<BerandaIsoft> {
   List<bool> _alreadyOKHappening = [false, false, true];
   List<int> _counterOKHappening = [200, 150, 500];
   List<bool> _likeHappening = [false, true, false];
@@ -186,134 +189,7 @@ class _BerandaPageState extends State<BerandaPage> {
                           onTap: () => Navigator.push(
                               context,
                               MyCustomRoute(
-                                  builder: (context) => BerandaIsoft())),
-                          child:Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              Stack(
-                                overflow: Overflow.visible,
-                                children: <Widget>[
-                                  Container(
-                                    height: 70.0,
-                                    width: 70.0,
-                                    decoration: BoxDecoration(
-                                        color: Colors.transparent,
-                                        border: Border.all(
-                                            color: Colors.grey, width: 1.0),
-                                        borderRadius:
-                                        BorderRadius.all(Radius.circular(18.0))),
-                                  ),
-                                  Positioned(
-                                    bottom: 22.5,
-                                    left: 25.0,
-                                    child: Icon(MdiIcons.heart,
-                                        size: 25.0, color: Colors.grey),
-                                  ),
-                                  Positioned(
-                                    top: -5.0,
-                                    right: -5.0,
-                                    child: Icon(
-                                      Icons.brightness_1,
-                                      size: 25.0,
-                                      color: Colors.redAccent,
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: -1.0,
-                                    right: 3.0,
-                                    child: Text(
-                                      '2',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  )
-                                ],
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(top: 10.0),
-                                child: Text(
-                                  'Isoft',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500, fontSize: 12.0),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(top: 5.0),
-                                child: Text(
-                                  '',
-                                  style: TextStyle(fontSize: 10.0),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MyCustomRoute(
-                                    builder: (context) => BerandaSigma()));
-                          },
-                          child:Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              Stack(
-                                overflow: Overflow.visible,
-                                children: <Widget>[
-                                  Container(
-                                    height: 70.0,
-                                    width: 70.0,
-                                    decoration: BoxDecoration(
-                                        color: Colors.transparent,
-                                        border: Border.all(
-                                            color: Colors.grey, width: 1.0),
-                                        borderRadius:
-                                        BorderRadius.all(Radius.circular(18.0))),
-                                  ),
-                                  Positioned(
-                                    bottom: 22.5,
-                                    left: 25.0,
-                                    child: Icon(MdiIcons.heart,
-                                        size: 25.0, color: Colors.grey),
-                                  ),
-                                  Positioned(
-                                    top: -5.0,
-                                    right: -5.0,
-                                    child: Icon(
-                                      Icons.brightness_1,
-                                      size: 25.0,
-                                      color: Colors.redAccent,
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: -1.0,
-                                    right: 3.0,
-                                    child: Text(
-                                      '2',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  )
-                                ],
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(top: 10.0),
-                                child: Text(
-                                  'Six Sigma',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500, fontSize: 12.0),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(top: 5.0),
-                                child: Text(
-                                  '',
-                                  style: TextStyle(fontSize: 10.0),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {},
+                                  builder: (context) => BerandaOperation())),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
@@ -327,8 +203,8 @@ class _BerandaPageState extends State<BerandaPage> {
                                         color: Colors.transparent,
                                         border: Border.all(
                                             color: Colors.grey, width: 1.0),
-                                        borderRadius:
-                                        BorderRadius.all(Radius.circular(18.0))),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(18.0))),
                                   ),
                                   Positioned(
                                     bottom: 22.5,
@@ -358,18 +234,126 @@ class _BerandaPageState extends State<BerandaPage> {
                               Padding(
                                 padding: EdgeInsets.only(top: 10.0),
                                 child: Text(
-                                  'Mystery',
+                                  'OPERATION',
                                   style: TextStyle(
-                                      fontWeight: FontWeight.w500, fontSize: 12.0),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12.0),
                                 ),
                               ),
+                            ],
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(context,
+                                MyCustomRoute(builder: (context) => BerandaKitchen()));
+                          },
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Stack(
+                                overflow: Overflow.visible,
+                                children: <Widget>[
+                                  Container(
+                                    height: 70.0,
+                                    width: 70.0,
+                                    decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        border: Border.all(
+                                            color: Colors.grey, width: 1.0),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(18.0))),
+                                  ),
+                                  Positioned(
+                                    bottom: 22.5,
+                                    left: 25.0,
+                                    child: Icon(MdiIcons.heart,
+                                        size: 25.0, color: Colors.grey),
+                                  ),
+                                  Positioned(
+                                    top: -5.0,
+                                    right: -5.0,
+                                    child: Icon(
+                                      Icons.brightness_1,
+                                      size: 25.0,
+                                      color: Colors.redAccent,
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: -1.0,
+                                    right: 3.0,
+                                    child: Text(
+                                      '2',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  )
+                                ],
+                              ),
                               Padding(
-                                padding: EdgeInsets.only(top: 5.0),
+                                padding: EdgeInsets.only(top: 10.0),
                                 child: Text(
-                                  'Shopper',
-                                  style: TextStyle(fontSize: 10.0),
+                                  'KITCHEN',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12.0),
                                 ),
-                              )
+                              ),
+                            ],
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () => Navigator.push(context,
+                              MyCustomRoute(builder: (context) => MenuIT())),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Stack(
+                                overflow: Overflow.visible,
+                                children: <Widget>[
+                                  Container(
+                                    height: 70.0,
+                                    width: 70.0,
+                                    decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        border: Border.all(
+                                            color: Colors.grey, width: 1.0),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(18.0))),
+                                  ),
+                                  Positioned(
+                                    bottom: 22.5,
+                                    left: 25.0,
+                                    child: Icon(MdiIcons.heart,
+                                        size: 25.0, color: Colors.grey),
+                                  ),
+                                  Positioned(
+                                    top: -5.0,
+                                    right: -5.0,
+                                    child: Icon(
+                                      Icons.brightness_1,
+                                      size: 25.0,
+                                      color: Colors.redAccent,
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: -1.0,
+                                    right: 3.0,
+                                    child: Text(
+                                      '2',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(top: 10.0),
+                                child: Text(
+                                  'IT',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12.0),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -386,8 +370,8 @@ class _BerandaPageState extends State<BerandaPage> {
                                       color: Colors.transparent,
                                       border: Border.all(
                                           color: Colors.grey, width: 1.0),
-                                      borderRadius:
-                                      BorderRadius.all(Radius.circular(18.0))),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(18.0))),
                                 ),
                                 Positioned(
                                   bottom: 22.5,
@@ -417,18 +401,12 @@ class _BerandaPageState extends State<BerandaPage> {
                             Padding(
                               padding: EdgeInsets.only(top: 10.0),
                               child: Text(
-                                'Inventory',
+                                'AUDIT',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.w500, fontSize: 12.0),
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12.0),
                               ),
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 5.0),
-                              child: Text(
-                                '',
-                                style: TextStyle(fontSize: 10.0),
-                              ),
-                            )
                           ],
                         ),
                       ],
@@ -440,7 +418,8 @@ class _BerandaPageState extends State<BerandaPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () => Navigator.push(context,
+                              MyCustomRoute(builder: (context) => MenuHRD())),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
@@ -454,8 +433,8 @@ class _BerandaPageState extends State<BerandaPage> {
                                         color: Colors.transparent,
                                         border: Border.all(
                                             color: Colors.grey, width: 1.0),
-                                        borderRadius:
-                                        BorderRadius.all(Radius.circular(18.0))),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(18.0))),
                                   ),
                                   Positioned(
                                     bottom: 22.5,
@@ -485,24 +464,21 @@ class _BerandaPageState extends State<BerandaPage> {
                               Padding(
                                 padding: EdgeInsets.only(top: 10.0),
                                 child: Text(
-                                  'Online',
+                                  'HRD',
                                   style: TextStyle(
-                                      fontWeight: FontWeight.w500, fontSize: 12.0),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12.0),
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsets.only(top: 5.0),
-                                child: Text(
-                                  'Training',
-                                  style: TextStyle(fontSize: 10.0),
-                                ),
-                              )
                             ],
                           ),
                         ),
                         GestureDetector(
                           onTap: () {
-
+                            Navigator.push(
+                                context,
+                                MyCustomRoute(
+                                    builder: (context) => BerandaFinance()));
                           },
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -517,8 +493,8 @@ class _BerandaPageState extends State<BerandaPage> {
                                         color: Colors.transparent,
                                         border: Border.all(
                                             color: Colors.grey, width: 1.0),
-                                        borderRadius:
-                                        BorderRadius.all(Radius.circular(18.0))),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(18.0))),
                                   ),
                                   Positioned(
                                     bottom: 22.5,
@@ -548,24 +524,19 @@ class _BerandaPageState extends State<BerandaPage> {
                               Padding(
                                 padding: EdgeInsets.only(top: 10.0),
                                 child: Text(
-                                  'Appraisal',
+                                  'FINANCE',
                                   style: TextStyle(
-                                      fontWeight: FontWeight.w500, fontSize: 12.0),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12.0),
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsets.only(top: 5.0),
-                                child: Text(
-                                  'Performance',
-                                  style: TextStyle(fontSize: 10.0),
-                                ),
-                              )
                             ],
                           ),
                         ),
                         GestureDetector(
                           onTap: () {
-
+                            Navigator.push(context,
+                                MyCustomRoute(builder: (context) => MenuRD()));
                           },
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -579,15 +550,15 @@ class _BerandaPageState extends State<BerandaPage> {
                                     decoration: BoxDecoration(
                                         color: Colors.transparent,
                                         border: Border.all(
-                                            color: Colors.transparent, width: 1.0),
-                                        borderRadius:
-                                        BorderRadius.all(Radius.circular(18.0))),
+                                            color: Colors.grey, width: 1.0),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(18.0))),
                                   ),
                                   Positioned(
                                     bottom: 22.5,
                                     left: 25.0,
                                     child: Icon(MdiIcons.heart,
-                                        size: 25.0, color: Colors.transparent),
+                                        size: 25.0, color: Colors.grey),
                                   ),
                                   Positioned(
                                     top: -5.0,
@@ -595,7 +566,7 @@ class _BerandaPageState extends State<BerandaPage> {
                                     child: Icon(
                                       Icons.brightness_1,
                                       size: 25.0,
-                                      color: Colors.transparent,
+                                      color: Colors.redAccent,
                                     ),
                                   ),
                                   Positioned(
@@ -603,7 +574,7 @@ class _BerandaPageState extends State<BerandaPage> {
                                     right: 3.0,
                                     child: Text(
                                       '2',
-                                      style: TextStyle(color: Colors.transparent),
+                                      style: TextStyle(color: Colors.white),
                                     ),
                                   )
                                 ],
@@ -611,18 +582,12 @@ class _BerandaPageState extends State<BerandaPage> {
                               Padding(
                                 padding: EdgeInsets.only(top: 10.0),
                                 child: Text(
-                                  '',
+                                  'R&D',
                                   style: TextStyle(
-                                      fontWeight: FontWeight.w500, fontSize: 12.0),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12.0),
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsets.only(top: 5.0),
-                                child: Text(
-                                  '',
-                                  style: TextStyle(fontSize: 10.0),
-                                ),
-                              )
                             ],
                           ),
                         ),
@@ -643,7 +608,7 @@ class _BerandaPageState extends State<BerandaPage> {
                                     decoration: BoxDecoration(
                                         color: Colors.transparent,
                                         border: Border.all(
-                                            color: Colors.transparent, width: 1.0),
+                                            color: Colors.grey, width: 1.0),
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(18.0))),
                                   ),
@@ -651,7 +616,7 @@ class _BerandaPageState extends State<BerandaPage> {
                                     bottom: 22.5,
                                     left: 25.0,
                                     child: Icon(MdiIcons.heart,
-                                        size: 25.0, color: Colors.transparent),
+                                        size: 25.0, color: Colors.grey),
                                   ),
                                   Positioned(
                                     top: -5.0,
@@ -659,7 +624,7 @@ class _BerandaPageState extends State<BerandaPage> {
                                     child: Icon(
                                       Icons.brightness_1,
                                       size: 25.0,
-                                      color: Colors.transparent,
+                                      color: Colors.redAccent,
                                     ),
                                   ),
                                   Positioned(
@@ -667,7 +632,7 @@ class _BerandaPageState extends State<BerandaPage> {
                                     right: 3.0,
                                     child: Text(
                                       '2',
-                                      style: TextStyle(color: Colors.transparent),
+                                      style: TextStyle(color: Colors.white),
                                     ),
                                   )
                                 ],
@@ -675,7 +640,7 @@ class _BerandaPageState extends State<BerandaPage> {
                               Padding(
                                 padding: EdgeInsets.only(top: 10.0),
                                 child: Text(
-                                  '',
+                                  'MORE',
                                   style: TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 12.0),
