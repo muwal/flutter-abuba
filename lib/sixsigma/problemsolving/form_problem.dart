@@ -1,40 +1,469 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:intl/intl.dart';
 
 class FormProblem extends StatefulWidget {
+  FormProblem({Key key}) : super(key: key);
+
   @override
   _FormProblemState createState() => _FormProblemState();
 }
 
-class _FormProblemState extends State<FormProblem> {
+class _FormProblemState extends State<FormProblem>
+    with SingleTickerProviderStateMixin {
   int _number = 1;
   int _itemCount;
   int _currentIndex;
   bool _autoplay;
+
+  bool _notedua = false;
+  TextEditingController controllerNoteDua = new TextEditingController();
+
+  bool _notetiga = false;
+  TextEditingController controllerNoteTiga = new TextEditingController();
+
+  bool _noteempat = false;
+  TextEditingController controllerNoteEmpat = new TextEditingController();
+
+  bool _notelima = false;
+  TextEditingController controllerNoteLima = new TextEditingController();
+
+  bool _noteenam = false;
+  TextEditingController controllerNoteEnam = new TextEditingController();
+
+  bool _notetujuh = false;
+  TextEditingController controllerNoteTujuh = new TextEditingController();
+
+  bool _notedelapan = false;
+  TextEditingController controllerNoteDelapan = new TextEditingController();
+
+  bool _notesembilan = false;
+  TextEditingController controllerNoteSembilan = new TextEditingController();
+
+  bool _notesepuluh = false;
+  TextEditingController controllerNoteSepuluh = new TextEditingController();
+
+  bool _notesebelas = false;
+  TextEditingController controllerNoteSebelas = new TextEditingController();
+
+  final dateFormat = DateFormat("MMMM d, yyyy");
+  DateTime dateStart;
+
+  String _mySelection;
+  String _shift;
+  List<Map> _shiftJson = [
+    {"id": 1, "shift": "Customer Complain"},
+    {"id": 2, "shift": "Alat Rusak"}
+  ];
+
   List<Map> _title = [
     {
-      'title': 'COVER',
-      'title_dalam': 'PEMERIKSAAN PRODUK',
-      'subtitle_kiri': '',
-      'subtitle_kanan': ''
+      'title': '1. Identify Problem',
+      'title_dalam': ' ',
+      'isi':
+          '1. Sebutkan dengan jelas masalah yang akan diselesaikan\n\n2. Gunakan metode 5W2H. Who ? What ? Why ? Where ? When ? How ? How Many ?',
+      'select': 'false',
+      'checkbox': 'false',
+      'note': 'false',
+      'paham': 'false',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
     },
-    {'title': '1. TUJUAN', 'title_dalam': ' '},
-    {'title': '2. RUANG LINGKUP', 'title_dalam': ' '},
-    {'title': '3. REFERENSI', 'title_dalam': ' '},
-    {'title': '4. ISTILAH', 'title_dalam': ' '},
-    {'title': '5. CATATAN REVISI', 'title_dalam': ' '},
-    {'title': '6. RISIKO', 'title_dalam': ' '},
-    {'title': '7. PROSEDUR', 'title_dalam': ' '},
-    {'title': '7. PROSEDUR', 'title_dalam': ' '},
-    {'title': '7. PROSEDUR', 'title_dalam': ' '},
-    {'title': '7. PROSEDUR', 'title_dalam': ' '},
-    {'title': '7. PROSEDUR', 'title_dalam': ' '},
-    {'title': '7. PROSEDUR', 'title_dalam': ' '},
-    {'title': '7. PROSEDUR', 'title_dalam': ' '},
-    {'title': '7. PROSEDUR', 'title_dalam': ' '},
-    {'title': '7. PROSEDUR', 'title_dalam': ' '},
+    {
+      'title': '1. Identify Problem',
+      'title_dalam': 'WHAT',
+      'isi': 'Apa masalah yang sedang terjadi',
+      'select': 'true',
+      'checkbox': 'false',
+      'note': 'true',
+      'paham': 'false',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '1. Identify Problem',
+      'title_dalam': 'WHO',
+      'isi': 'Siapa yang terlibat dengan masalah ini',
+      'select': 'true',
+      'checkbox': 'false',
+      'note': 'false',
+      'paham': 'false',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '1. Identify Problem',
+      'title_dalam': 'WHEN',
+      'isi': 'Kapan masalah ini terjadi',
+      'select': 'true',
+      'checkbox': 'false',
+      'note': 'true',
+      'paham': 'false',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '1. Identify Problem',
+      'title_dalam': 'WHERE',
+      'isi': 'Dimana lokasi masalah ditemukan',
+      'select': 'true',
+      'checkbox': 'false',
+      'note': 'true',
+      'paham': 'false',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '1. Identify Problem',
+      'title_dalam': 'WHY',
+      'isi':
+          'Mengapa temuan / issue ini bisa menjadi masalah ? Apa konsekuensi dari masalah ini',
+      'select': 'true',
+      'checkbox': 'false',
+      'note': 'true',
+      'paham': 'false',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '1. Identify Problem',
+      'title_dalam': 'HOW SEVERE',
+      'isi': 'Seberapa parah akibat yang ditimbulkan dari masalaha',
+      'select': 'true',
+      'checkbox': 'false',
+      'note': 'true',
+      'paham': 'false',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '2. Identify Team',
+      'title_dalam': 'TEAM',
+      'isi':
+          'Apakah untuk menyelesaikan masalah ini perlu dibentuk tim khusus ?',
+      'select': 'false',
+      'checkbox': 'false',
+      'note': 'false',
+      'paham': 'false',
+      'image': 'false',
+      'pilhan_yes_no': 'true'
+    },
+    {
+      'title': '2. Identify Team',
+      'title_dalam': 'TEAM',
+      'isi':
+          'Pilih anggota tim dari berbagai departemen yang memiliki wewenang untuk menyelesaikan masalah',
+      'select': 'false',
+      'checkbox': 'false',
+      'note': 'false',
+      'paham': 'true',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '2. Identify Team',
+      'title_dalam': 'TEAM',
+      'isi':
+          'Harus jelas siapa yang menjadi Champion, Leader, Record Keeper dan Participants',
+      'select': 'false',
+      'checkbox': 'false',
+      'note': 'false',
+      'paham': 'true',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '2. Identify Team',
+      'title_dalam': 'CHAMPION',
+      'isi':
+          'Mentor, mengarahkan dan membantu tim menjelaskan ke pihak management',
+      'select': 'false',
+      'checkbox': 'false',
+      'note': 'false',
+      'paham': 'false',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '2. Identify Team',
+      'title_dalam': 'LEADER',
+      'isi':
+          'Bertanggungjawab pada pelaksana teknis, mengadakan meeting, menyiapkan fasilitas pada team dan report kepada champion',
+      'select': 'false',
+      'checkbox': 'false',
+      'note': 'false',
+      'paham': 'false',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '2. Identify Team',
+      'title_dalam': 'RECORD KEEPER',
+      'isi':
+          'Mencatat perkembangan penyelesaian masalah dan membuat minute of meeting',
+      'select': 'false',
+      'checkbox': 'false',
+      'note': 'false',
+      'paham': 'false',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '2. Identify Team',
+      'title_dalam': 'PARTICIPANTS',
+      'isi':
+          'Memberi ide, menjalankan tugas dan melaporkan perkembangan kepada leader secara tepat waktu',
+      'select': 'false',
+      'checkbox': 'false',
+      'note': 'false',
+      'paham': 'false',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '3. Immediate Action',
+      'title_dalam': 'WAKTU PELAKSANAAN',
+      'isi': 'Kapan tindakan tersebut akan dilaksanakan',
+      'select': 'true',
+      'checkbox': 'false',
+      'note': 'false',
+      'paham': 'false',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '3. Immediate Action',
+      'title_dalam': 'PELAKSANA',
+      'isi': 'Siapa yang akan melakukan tindakan segera tersebut',
+      'select': 'true',
+      'checkbox': 'false',
+      'note': 'false',
+      'paham': 'false',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '3. Immediate Action',
+      'title_dalam': 'INGAT !',
+      'isi':
+          'Tindakan segera hanyalah action sementara sebelum corrective action dilakukan',
+      'select': 'false',
+      'checkbox': 'false',
+      'note': 'false',
+      'paham': 'true',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '4. Root Cause',
+      'title_dalam': 'BRAINSTORMING',
+      'isi':
+          'Gunakan Fishbone diagram, Pareto dan 5 Why method untuk mencari tahu akar masalah',
+      'select': 'false',
+      'checkbox': 'false',
+      'note': 'false',
+      'paham': 'true',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '4. Root Cause',
+      'title_dalam': 'FISHBONE DIAGRAM',
+      'isi':
+          'Gunakan Fishbone diagram, Pareto dan 5 Why method untuk mencari tahu akar masalah',
+      'select': 'false',
+      'checkbox': 'false',
+      'note': 'false',
+      'paham': 'false',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '5. Corrective Action Plan',
+      'title_dalam': 'WHAT',
+      'isi':
+          'Apa tindakan permanen yang akan dilakukan untuk menyelesaikan masalah tersebut ?',
+      'select': 'true',
+      'checkbox': 'false',
+      'note': 'true',
+      'paham': 'false',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '5. Corrective Action Plan',
+      'title_dalam': 'WHO',
+      'isi': 'Siapa penanggungjawab dari tindakan permanen tersbut',
+      'select': 'true',
+      'checkbox': 'false',
+      'note': 'true',
+      'paham': 'false',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '5. Corrective Action Plan',
+      'title_dalam': 'WHEN',
+      'isi': 'Kapan tindakan permanen itu akan dijalankan',
+      'select': 'true',
+      'checkbox': 'false',
+      'note': 'true',
+      'paham': 'false',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '5. Corrective Action Plan',
+      'title_dalam': 'BUKTI',
+      'isi':
+          'Lampirkan dokumen atau foto yang menunjukan bahwa tindakan permanen sudah dilakukan',
+      'select': 'false',
+      'checkbox': 'false',
+      'note': 'true',
+      'paham': 'false',
+      'image': 'true',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '5. Corrective Action Plan',
+      'title_dalam': 'EFFECTIVENESS',
+      'isi':
+          'Bagaimana cara mengukur efektifitas dari tindakan permanen tersebut',
+      'select': 'true',
+      'checkbox': 'false',
+      'note': 'true',
+      'paham': 'false',
+      'imaga': 'true',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '5. Corrective Action Plan',
+      'title_dalam': 'VERIFICATION',
+      'isi':
+          'Tindakan untuk memastikan bahwa action plan sudah dijalankan dan efektif',
+      'select': 'false',
+      'checkbox': 'false',
+      'note': 'false',
+      'paham': 'true',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '5. Corrective Action Plan',
+      'title_dalam': 'VERIFICATION - WHO',
+      'isi': 'Siapa yang bertanggungjawab melakukan verifikasi',
+      'select': 'true',
+      'checkbox': 'false',
+      'note': 'false',
+      'paham': 'false',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '5. Corrective Action Plan',
+      'title_dalam': 'VERIFICATION - WHEN',
+      'isi':
+          'Kapan verifikasi akan dilakukan ? Sebaiknya tidak lebih dari 7 hari setelah implementasi tindakan permanen',
+      'select': 'true',
+      'checkbox': 'false',
+      'note': 'false',
+      'paham': 'false',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '5. Corrective Action Plan',
+      'title_dalam': 'VALIDATION',
+      'isi':
+          'Tindakan untuk memastikan bahwa action plan sudah berjalan sesuai rencana dan masalah tidak muncul lagi setelah minimal 6 bulan sejak implementasi',
+      'select': 'false',
+      'checkbox': 'false',
+      'note': 'false',
+      'paham': 'true',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '5. Corrective Action Plan',
+      'title_dalam': 'VALIDATION - WHO',
+      'isi': 'Siapa yang bertanggungjawab melakukan validasi',
+      'select': 'true',
+      'checkbox': 'false',
+      'note': 'false',
+      'paham': 'false',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '5. Corrective Action Plan',
+      'title_dalam': 'VALIDATION - WHEN',
+      'isi':
+          'Kapan validasi akan dilakukan ? Sebaiknya dilakukan setelah 6 bulan pelaksanaan action palan',
+      'select': 'true',
+      'checkbox': 'false',
+      'note': 'false',
+      'paham': 'false',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '6. Complete Action Plan',
+      'title_dalam': 'COMPLETE',
+      'isi':
+          'Pastikan semua action plan dijalankan sesuai recana,\n\nApabila ada action plan yang belum dijalankan, jangan dulu dilakukan verifikasi',
+      'select': 'false',
+      'checkbox': 'false',
+      'note': 'false',
+      'paham': 'true',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '6. Complete Action Plan',
+      'title_dalam': 'LEADER - RIDWAN',
+      'isi': ' ',
+      'select': 'false',
+      'checkbox': 'true',
+      'note': 'false',
+      'paham': 'false',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '6. Complete Action Plan',
+      'title_dalam': 'RECORD KEEPER - YANI',
+      'isi': ' ',
+      'select': 'false',
+      'checkbox': 'true',
+      'note': 'false',
+      'paham': 'false',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '6. Complete Action Plan',
+      'title_dalam': 'PARTICIPANT - SONY',
+      'isi': ' ',
+      'select': 'false',
+      'checkbox': 'true',
+      'note': 'false',
+      'paham': 'false',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
+    },
+    {
+      'title': '6. Complete Action Plan',
+      'title_dalam': 'PARTICIPANT - SONY',
+      'isi': ' ',
+      'select': 'false',
+      'checkbox': 'true',
+      'note': 'false',
+      'paham': 'false',
+      'image': 'false',
+      'pilhan_yes_no': 'false'
+    },
   ];
 
   List<String> isiTujuan = [
@@ -153,7 +582,7 @@ class _FormProblemState extends State<FormProblem> {
                                       _title[index]['title_dalam'],
                                       style: TextStyle(
                                           color: Color(0xFF2F592F),
-                                          fontSize: 24.0,
+                                          fontSize: 32.0,
                                           fontWeight: FontWeight.bold),
                                       textAlign: TextAlign.center,
                                     ),
@@ -174,21 +603,7 @@ class _FormProblemState extends State<FormProblem> {
                                                   horizontal: 10.0,
                                                   vertical: 20.0),
                                               child: Text(
-                                                _title[index]['subtitle_kiri'],
-                                                style: TextStyle(
-                                                    color: Colors.black54,
-                                                    fontSize: 18.0),
-                                                textAlign: TextAlign.start,
-                                              ),
-                                            ),
-                                          ),
-                                          Flexible(
-                                            child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 10.0,
-                                                  vertical: 20.0),
-                                              child: Text(
-                                                _title[index]['subtitle_kanan'],
+                                                _title[index]['isi'],
                                                 style: TextStyle(
                                                     color: Colors.black54,
                                                     fontSize: 18.0),
@@ -198,42 +613,6 @@ class _FormProblemState extends State<FormProblem> {
                                           ),
                                         ],
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            right: 50.0, top: 50.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: <Widget>[
-                                            ButtonTheme(
-                                              height: 30.0,
-                                              minWidth: 50.0,
-                                              child: OutlineButton(
-                                                child: Text(
-                                                  'Review',
-                                                  style: TextStyle(
-                                                      fontSize: 16.0,
-                                                      color: AbubaPallate
-                                                          .menuBluebird),
-                                                ),
-                                                borderSide: BorderSide(
-                                                    color: AbubaPallate
-                                                        .menuBluebird,
-                                                    width: 1.0),
-                                                highlightedBorderColor:
-                                                    AbubaPallate.menuBluebird,
-                                                onPressed: () {
-                                                  setState(
-                                                    () {
-                                                      _showDialog();
-                                                    },
-                                                  );
-                                                },
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      )
                                     ],
                                   )
                                 : Container(),
@@ -242,81 +621,95 @@ class _FormProblemState extends State<FormProblem> {
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
                                       Flexible(
-                                        child: ListView.builder(
-                                          shrinkWrap: true,
-                                          physics: ScrollPhysics(),
-                                          itemCount: isiTujuan.length,
-                                          itemBuilder: (BuildContext context,
-                                              int index) {
-                                            double top;
-                                            double bottom;
-                                            if (index == 0) {
-                                              top = 30.0;
-                                              bottom = 0.0;
-                                            } else {
-                                              top = 20.0;
-                                              bottom = 0.0;
-                                            }
-
-                                            return Row(
-                                              children: <Widget>[
-                                                Flexible(
-                                                  child: Padding(
-                                                    padding: EdgeInsets.only(
-                                                        left: 10.0,
-                                                        right: 10.0,
-                                                        top: top,
-                                                        bottom: bottom),
-                                                    child: Text(
-                                                      '${isiTujuan[index]}',
-                                                      style: TextStyle(
-                                                          color: Colors.black54,
-                                                          fontSize: 26.0),
-                                                      textAlign:
-                                                          TextAlign.start,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            );
-                                          },
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 10.0, vertical: 20.0),
+                                          child: Text(
+                                            _title[index]['isi'],
+                                            style: TextStyle(
+                                                color: Colors.black54,
+                                                fontSize: 28.0),
+                                            textAlign: TextAlign.center,
+                                          ),
                                         ),
                                       ),
-                                      SizedBox(
-                                        height: 25.0,
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 10.0, bottom: 10.0),
+                                        child: DropdownButtonFormField(
+                                          hint: Text('Customer Complain',
+                                              style: TextStyle(fontSize: 14.0)),
+                                          value: _mySelection,
+                                          onChanged: (String newValue) {
+                                            setState(() {
+                                              switch (int.tryParse(newValue)) {
+                                                case 1:
+                                                  _shift = 'Customer Complain';
+                                                  break;
+                                                case 2:
+                                                  _shift = 'Alat Rusak';
+                                                  break;
+                                                default:
+                                                  _shift = '-';
+                                                  break;
+                                              }
+                                              _mySelection = newValue;
+                                            });
+                                          },
+                                          items: _shiftJson.map((Map map) {
+                                            return new DropdownMenuItem(
+                                              value: map['id'].toString(),
+                                              child: Text(map['shift']),
+                                            );
+                                          }).toList(),
+                                        ),
                                       ),
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.end,
                                         children: <Widget>[
                                           ButtonTheme(
-                                            height: 30.0,
-                                            minWidth: 50.0,
-                                            child: OutlineButton(
+                                            minWidth: 30.0,
+                                            height: 25.0,
+                                            child: RaisedButton(
+                                              color: AbubaPallate.menuBluebird,
                                               child: Text(
-                                                'Review',
+                                                'Note',
                                                 style: TextStyle(
-                                                    fontSize: 16.0,
-                                                    color: AbubaPallate
-                                                        .menuBluebird),
+                                                    fontSize: 12.0,
+                                                    color: Colors.white),
                                               ),
-                                              borderSide: BorderSide(
-                                                  color:
-                                                      AbubaPallate.menuBluebird,
-                                                  width: 1.0),
-                                              highlightedBorderColor:
-                                                  AbubaPallate.menuBluebird,
                                               onPressed: () {
-                                                setState(
-                                                  () {
-                                                    _showDialog();
-                                                  },
-                                                );
+                                                setState(() {
+                                                  _notedua = !_notedua;
+                                                });
                                               },
                                             ),
                                           ),
                                         ],
-                                      )
+                                      ),
+                                      _notedua
+                                          ? Container(
+                                              padding: const EdgeInsets.only(
+                                                  top: 10.0),
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              child: TextField(
+                                                decoration: InputDecoration(
+                                                    border:
+                                                        OutlineInputBorder(),
+                                                    hintText: 'Note',
+                                                    hintStyle: TextStyle(
+                                                        fontSize: 12.0)),
+                                                maxLines: 3,
+                                                controller: controllerNoteDua,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            )
+                                          : Container()
                                     ],
                                   )
                                 : Container(),
@@ -327,57 +720,51 @@ class _FormProblemState extends State<FormProblem> {
                                         children: <Widget>[
                                           Flexible(
                                             child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: 10.0,
-                                                  right: 10.0,
-                                                  top: 10.0,
-                                                  bottom: 10.0),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.0,
+                                                  vertical: 20.0),
                                               child: Text(
-                                                'Prosedur ini berlaku untuk seluruh material dari proses incoming / inproses / outgoing proses',
+                                                _title[index]['isi'],
                                                 style: TextStyle(
                                                     color: Colors.black54,
-                                                    fontSize: 26.0),
-                                                textAlign: TextAlign.start,
+                                                    fontSize: 28.0),
+                                                textAlign: TextAlign.center,
                                               ),
                                             ),
                                           ),
                                         ],
                                       ),
-                                      SizedBox(
-                                        height: 25.0,
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 10.0, bottom: 10.0),
+                                        child: DropdownButtonFormField(
+                                          hint: Text('Customer Complain',
+                                              style: TextStyle(fontSize: 14.0)),
+                                          value: _mySelection,
+                                          onChanged: (String newValue) {
+                                            setState(() {
+                                              switch (int.tryParse(newValue)) {
+                                                case 1:
+                                                  _shift = 'A';
+                                                  break;
+                                                case 2:
+                                                  _shift = 'B';
+                                                  break;
+                                                default:
+                                                  _shift = '-';
+                                                  break;
+                                              }
+                                              _mySelection = newValue;
+                                            });
+                                          },
+                                          items: _shiftJson.map((Map map) {
+                                            return new DropdownMenuItem(
+                                              value: map['id'].toString(),
+                                              child: Text(map['shift']),
+                                            );
+                                          }).toList(),
+                                        ),
                                       ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: <Widget>[
-                                          ButtonTheme(
-                                            height: 30.0,
-                                            minWidth: 50.0,
-                                            child: OutlineButton(
-                                              child: Text(
-                                                'Review',
-                                                style: TextStyle(
-                                                    fontSize: 16.0,
-                                                    color: AbubaPallate
-                                                        .menuBluebird),
-                                              ),
-                                              borderSide: BorderSide(
-                                                  color:
-                                                      AbubaPallate.menuBluebird,
-                                                  width: 1.0),
-                                              highlightedBorderColor:
-                                                  AbubaPallate.menuBluebird,
-                                              onPressed: () {
-                                                setState(
-                                                  () {
-                                                    _showDialog();
-                                                  },
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ],
-                                      )
                                     ],
                                   )
                                 : Container(),
@@ -388,57 +775,97 @@ class _FormProblemState extends State<FormProblem> {
                                         children: <Widget>[
                                           Flexible(
                                             child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: 10.0,
-                                                  right: 10.0,
-                                                  top: 10.0,
-                                                  bottom: 10.0),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.0,
+                                                  vertical: 20.0),
                                               child: Text(
-                                                'ISO 9001 : 2015',
+                                                _title[index]['isi'],
                                                 style: TextStyle(
                                                     color: Colors.black54,
-                                                    fontSize: 26.0),
-                                                textAlign: TextAlign.start,
+                                                    fontSize: 28.0),
+                                                textAlign: TextAlign.center,
                                               ),
                                             ),
                                           ),
                                         ],
                                       ),
-                                      SizedBox(
-                                        height: 25.0,
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 10.0, bottom: 10.0),
+                                        child: DropdownButtonFormField(
+                                          hint: Text('Shift',
+                                              style: TextStyle(fontSize: 14.0)),
+                                          value: _mySelection,
+                                          onChanged: (String newValue) {
+                                            setState(() {
+                                              switch (int.tryParse(newValue)) {
+                                                case 1:
+                                                  _shift = 'A';
+                                                  break;
+                                                case 2:
+                                                  _shift = 'B';
+                                                  break;
+                                                default:
+                                                  _shift = '-';
+                                                  break;
+                                              }
+                                              _mySelection = newValue;
+                                            });
+                                          },
+                                          items: _shiftJson.map((Map map) {
+                                            return new DropdownMenuItem(
+                                              value: map['id'].toString(),
+                                              child: Text(map['shift']),
+                                            );
+                                          }).toList(),
+                                        ),
                                       ),
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.end,
                                         children: <Widget>[
                                           ButtonTheme(
-                                            height: 30.0,
-                                            minWidth: 50.0,
-                                            child: OutlineButton(
+                                            minWidth: 30.0,
+                                            height: 25.0,
+                                            child: RaisedButton(
+                                              color: AbubaPallate.menuBluebird,
                                               child: Text(
-                                                'Review',
+                                                'Note',
                                                 style: TextStyle(
-                                                    fontSize: 16.0,
-                                                    color: AbubaPallate
-                                                        .menuBluebird),
+                                                    fontSize: 12.0,
+                                                    color: Colors.white),
                                               ),
-                                              borderSide: BorderSide(
-                                                  color:
-                                                      AbubaPallate.menuBluebird,
-                                                  width: 1.0),
-                                              highlightedBorderColor:
-                                                  AbubaPallate.menuBluebird,
                                               onPressed: () {
-                                                setState(
-                                                  () {
-                                                    _showDialog();
-                                                  },
-                                                );
+                                                setState(() {
+                                                  _notetiga = !_notetiga;
+                                                });
                                               },
                                             ),
                                           ),
                                         ],
-                                      )
+                                      ),
+                                      _notetiga
+                                          ? Container(
+                                              padding: const EdgeInsets.only(
+                                                  top: 10.0),
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              child: TextField(
+                                                decoration: InputDecoration(
+                                                    border:
+                                                        OutlineInputBorder(),
+                                                    hintText: 'Note',
+                                                    hintStyle: TextStyle(
+                                                        fontSize: 12.0)),
+                                                maxLines: 3,
+                                                controller: controllerNoteTiga,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            )
+                                          : Container()
                                     ],
                                   )
                                 : Container(),
@@ -449,55 +876,66 @@ class _FormProblemState extends State<FormProblem> {
                                         children: <Widget>[
                                           Flexible(
                                             child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: 10.0,
-                                                  right: 10.0,
-                                                  top: 10.0,
-                                                  bottom: 10.0),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.0,
+                                                  vertical: 20.0),
                                               child: Text(
-                                                'ISO : Sistem manajemen untuk meningkatkan mutu',
+                                                _title[index]['isi'],
                                                 style: TextStyle(
                                                     color: Colors.black54,
-                                                    fontSize: 26.0),
-                                                textAlign: TextAlign.start,
+                                                    fontSize: 28.0),
+                                                textAlign: TextAlign.center,
                                               ),
                                             ),
                                           ),
                                         ],
-                                      ),
-                                      SizedBox(
-                                        height: 25.0,
                                       ),
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.end,
                                         children: <Widget>[
                                           ButtonTheme(
-                                            height: 30.0,
-                                            minWidth: 50.0,
-                                            child: OutlineButton(
+                                            minWidth: 30.0,
+                                            height: 25.0,
+                                            child: RaisedButton(
+                                              color: AbubaPallate.menuBluebird,
                                               child: Text(
-                                                'Review',
+                                                'Note',
                                                 style: TextStyle(
-                                                    fontSize: 16.0,
-                                                    color: AbubaPallate
-                                                        .menuBluebird),
+                                                    fontSize: 12.0,
+                                                    color: Colors.white),
                                               ),
-                                              borderSide: BorderSide(
-                                                  color:
-                                                      AbubaPallate.menuBluebird,
-                                                  width: 1.0),
-                                              highlightedBorderColor:
-                                                  AbubaPallate.menuBluebird,
                                               onPressed: () {
                                                 setState(() {
-                                                  _showDialog();
+                                                  _noteempat = !_noteempat;
                                                 });
                                               },
                                             ),
                                           ),
                                         ],
-                                      )
+                                      ),
+                                      _noteempat
+                                          ? Container(
+                                              padding: const EdgeInsets.only(
+                                                  top: 10.0),
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              child: TextField(
+                                                decoration: InputDecoration(
+                                                    border:
+                                                        OutlineInputBorder(),
+                                                    hintText: 'Note',
+                                                    hintStyle: TextStyle(
+                                                        fontSize: 12.0)),
+                                                maxLines: 3,
+                                                controller: controllerNoteEmpat,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            )
+                                          : Container()
                                     ],
                                   )
                                 : Container(),
@@ -505,93 +943,100 @@ class _FormProblemState extends State<FormProblem> {
                                 ? Column(
                                     children: <Widget>[
                                       Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
                                           Flexible(
                                             child: Padding(
                                               padding: EdgeInsets.symmetric(
-                                                  horizontal: 10.0),
+                                                  horizontal: 10.0,
+                                                  vertical: 20.0),
                                               child: Text(
-                                                'REV 01',
-                                                style: TextStyle(
-                                                    color:
-                                                        AbubaPallate.greenabuba,
-                                                    fontSize: 16.0),
-                                                textAlign: TextAlign.start,
-                                              ),
-                                            ),
-                                          ),
-                                          Flexible(
-                                            child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 10.0),
-                                              child: Text(
-                                                '17 January 2018',
-                                                style: TextStyle(
-                                                    color:
-                                                        AbubaPallate.greenabuba,
-                                                    fontSize: 16.0),
-                                                textAlign: TextAlign.start,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Flexible(
-                                            child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 10.0),
-                                              child: Text(
-                                                'Bab 6',
-                                                style: TextStyle(
-                                                    color:
-                                                        AbubaPallate.greenabuba,
-                                                    fontSize: 16.0),
-                                                textAlign: TextAlign.start,
-                                              ),
-                                            ),
-                                          ),
-                                          Flexible(
-                                            child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 10.0),
-                                              child: Text(
-                                                'Ridwan Kamil',
-                                                style: TextStyle(
-                                                    color:
-                                                        AbubaPallate.greenabuba,
-                                                    fontSize: 16.0),
-                                                textAlign: TextAlign.start,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: <Widget>[
-                                          Flexible(
-                                            child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: 10.0,
-                                                  right: 10.0,
-                                                  top: 40.0,
-                                                  bottom: 10.0),
-                                              child: Text(
-                                                'Pengukuran suhu secara manual diganti dengan thermometer otomatis',
+                                                _title[index]['isi'],
                                                 style: TextStyle(
                                                     color: Colors.black54,
-                                                    fontSize: 26.0),
-                                                textAlign: TextAlign.start,
+                                                    fontSize: 28.0),
+                                                textAlign: TextAlign.center,
                                               ),
                                             ),
                                           ),
                                         ],
-                                      )
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 10.0, bottom: 10.0),
+                                        child: DropdownButtonFormField(
+                                          hint: Text('Shift',
+                                              style: TextStyle(fontSize: 14.0)),
+                                          value: _mySelection,
+                                          onChanged: (String newValue) {
+                                            setState(() {
+                                              switch (int.tryParse(newValue)) {
+                                                case 1:
+                                                  _shift = 'A';
+                                                  break;
+                                                case 2:
+                                                  _shift = 'B';
+                                                  break;
+                                                default:
+                                                  _shift = '-';
+                                                  break;
+                                              }
+                                              _mySelection = newValue;
+                                            });
+                                          },
+                                          items: _shiftJson.map((Map map) {
+                                            return new DropdownMenuItem(
+                                              value: map['id'].toString(),
+                                              child: Text(map['shift']),
+                                            );
+                                          }).toList(),
+                                        ),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: <Widget>[
+                                          ButtonTheme(
+                                            minWidth: 30.0,
+                                            height: 25.0,
+                                            child: RaisedButton(
+                                              color: AbubaPallate.menuBluebird,
+                                              child: Text(
+                                                'Note',
+                                                style: TextStyle(
+                                                    fontSize: 12.0,
+                                                    color: Colors.white),
+                                              ),
+                                              onPressed: () {
+                                                setState(() {
+                                                  _notelima = !_notelima;
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      _notelima
+                                          ? Container(
+                                              padding: const EdgeInsets.only(
+                                                  top: 10.0),
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              child: TextField(
+                                                decoration: InputDecoration(
+                                                    border:
+                                                        OutlineInputBorder(),
+                                                    hintText: 'Note',
+                                                    hintStyle: TextStyle(
+                                                        fontSize: 12.0)),
+                                                maxLines: 3,
+                                                controller: controllerNoteLima,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            )
+                                          : Container()
                                     ],
                                   )
                                 : Container(),
@@ -603,63 +1048,97 @@ class _FormProblemState extends State<FormProblem> {
                                         children: <Widget>[
                                           Flexible(
                                             child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: 10.0,
-                                                  right: 10.0,
-                                                  top: 40.0,
-                                                  bottom: 10.0),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.0,
+                                                  vertical: 20.0),
                                               child: Text(
-                                                'Kegagalan dalam penerapan procedure ini dapat menyebabkan.',
+                                                _title[index]['isi'],
                                                 style: TextStyle(
                                                     color: Colors.black54,
-                                                    fontSize: 26.0),
-                                                textAlign: TextAlign.start,
+                                                    fontSize: 28.0),
+                                                textAlign: TextAlign.center,
                                               ),
                                             ),
                                           ),
                                         ],
                                       ),
-                                      Flexible(
-                                        child: ListView.builder(
-                                          shrinkWrap: true,
-                                          physics: ScrollPhysics(),
-                                          itemCount: isiRisiko.length,
-                                          itemBuilder: (BuildContext context,
-                                              int index) {
-                                            double top;
-                                            double bottom;
-                                            if (index == 0) {
-                                              top = 30.0;
-                                              bottom = 0.0;
-                                            } else {
-                                              top = 20.0;
-                                              bottom = 0.0;
-                                            }
-
-                                            return Row(
-                                              children: <Widget>[
-                                                Flexible(
-                                                  child: Padding(
-                                                    padding: EdgeInsets.only(
-                                                        left: 10.0,
-                                                        right: 10.0,
-                                                        top: top,
-                                                        bottom: bottom),
-                                                    child: Text(
-                                                      '${isiRisiko[index]}',
-                                                      style: TextStyle(
-                                                          color: Colors.black54,
-                                                          fontSize: 26.0),
-                                                      textAlign:
-                                                          TextAlign.start,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            );
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 10.0, bottom: 10.0),
+                                        child: DropdownButtonFormField(
+                                          hint: Text('Shift',
+                                              style: TextStyle(fontSize: 14.0)),
+                                          value: _mySelection,
+                                          onChanged: (String newValue) {
+                                            setState(() {
+                                              switch (int.tryParse(newValue)) {
+                                                case 1:
+                                                  _shift = 'A';
+                                                  break;
+                                                case 2:
+                                                  _shift = 'B';
+                                                  break;
+                                                default:
+                                                  _shift = '-';
+                                                  break;
+                                              }
+                                              _mySelection = newValue;
+                                            });
                                           },
+                                          items: _shiftJson.map((Map map) {
+                                            return new DropdownMenuItem(
+                                              value: map['id'].toString(),
+                                              child: Text(map['shift']),
+                                            );
+                                          }).toList(),
                                         ),
-                                      )
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: <Widget>[
+                                          ButtonTheme(
+                                            minWidth: 30.0,
+                                            height: 25.0,
+                                            child: RaisedButton(
+                                              color: AbubaPallate.menuBluebird,
+                                              child: Text(
+                                                'Note',
+                                                style: TextStyle(
+                                                    fontSize: 12.0,
+                                                    color: Colors.white),
+                                              ),
+                                              onPressed: () {
+                                                setState(() {
+                                                  _noteenam = !_noteenam;
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      _noteenam
+                                          ? Container(
+                                              padding: const EdgeInsets.only(
+                                                  top: 10.0),
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              child: TextField(
+                                                decoration: InputDecoration(
+                                                    border:
+                                                        OutlineInputBorder(),
+                                                    hintText: 'Note',
+                                                    hintStyle: TextStyle(
+                                                        fontSize: 12.0)),
+                                                maxLines: 3,
+                                                controller: controllerNoteEnam,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            )
+                                          : Container()
                                     ],
                                   )
                                 : Container(),
@@ -667,101 +1146,19 @@ class _FormProblemState extends State<FormProblem> {
                                 ? Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
-                                      Center(
-                                        child: Container(
-                                          width: 150.0,
-                                          height: 30.0,
-                                          color: Colors.grey[200],
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Flexible(
-                                                child: Text(
-                                                  'MOD',
-                                                  style: TextStyle(
-                                                      color: Colors.black54),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Center(
-                                        child: Container(
-                                          width: 150.0,
-                                          height: 60.0,
-                                          color: Colors.grey[500],
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Flexible(
-                                                child: Text(''),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
                                       Row(
                                         children: <Widget>[
                                           Flexible(
                                             child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: 10.0,
-                                                  right: 10.0,
-                                                  top: 40.0,
-                                                  bottom: 10.0),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.0,
+                                                  vertical: 20.0),
                                               child: Text(
-                                                'Melakukan pemeriksaan kualitas sesuai spesifikasi produk',
+                                                _title[index]['isi'],
                                                 style: TextStyle(
                                                     color: Colors.black54,
-                                                    fontSize: 26.0),
-                                                textAlign: TextAlign.start,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  )
-                                : Container(),
-                            index == 8
-                                ? Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      Center(
-                                        child: Container(
-                                          width: 130.0,
-                                          height: 130.0,
-                                          color: Colors.transparent,
-                                          child: FloatingActionButton(
-                                            backgroundColor: Colors.green[200],
-                                            shape: _DiamondBorder(),
-                                            onPressed: () {},
-                                            child: Icon(Icons.help_outline,
-                                                color: Colors.white,
-                                                size: 80.0),
-                                          ),
-                                        ),
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Flexible(
-                                            child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: 10.0,
-                                                  right: 10.0,
-                                                  top: 40.0,
-                                                  bottom: 10.0),
-                                              child: Text(
-                                                'Apakah produk sesuai spesifikasi',
-                                                style: TextStyle(
-                                                    color: Colors.black54,
-                                                    fontSize: 26.0),
-                                                textAlign: TextAlign.start,
+                                                    fontSize: 28.0),
+                                                textAlign: TextAlign.center,
                                               ),
                                             ),
                                           ),
@@ -769,7 +1166,7 @@ class _FormProblemState extends State<FormProblem> {
                                       ),
                                       Padding(
                                         padding:
-                                            const EdgeInsets.only(top: 50.0),
+                                            const EdgeInsets.only(top: 30.0),
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceAround,
@@ -807,6 +1204,56 @@ class _FormProblemState extends State<FormProblem> {
                                                     width: 1.0),
                                                 highlightedBorderColor:
                                                     AbubaPallate.greenabuba,
+                                                onPressed: () {},
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                : Container(),
+                            index == 8
+                                ? Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Flexible(
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.0,
+                                                  vertical: 20.0),
+                                              child: Text(
+                                                _title[index]['isi'],
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontSize: 28.0),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 20.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: <Widget>[
+                                            ButtonTheme(
+                                              height: 40.0,
+                                              child: RaisedButton(
+                                                child: Text(
+                                                  'PAHAM',
+                                                  style: TextStyle(
+                                                      fontSize: 16.0,
+                                                      color: Colors.white),
+                                                ),
+                                                color: Colors.blue,
                                                 onPressed: () {
                                                   _controller.next(
                                                       animation: true);
@@ -816,39 +1263,6 @@ class _FormProblemState extends State<FormProblem> {
                                           ],
                                         ),
                                       ),
-                                      SizedBox(
-                                        height: 25.0,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: <Widget>[
-                                          ButtonTheme(
-                                            height: 30.0,
-                                            minWidth: 50.0,
-                                            child: OutlineButton(
-                                              child: Text(
-                                                'Review',
-                                                style: TextStyle(
-                                                    fontSize: 16.0,
-                                                    color: AbubaPallate
-                                                        .menuBluebird),
-                                              ),
-                                              borderSide: BorderSide(
-                                                  color:
-                                                      AbubaPallate.menuBluebird,
-                                                  width: 1.0),
-                                              highlightedBorderColor:
-                                                  AbubaPallate.menuBluebird,
-                                              onPressed: () {
-                                                setState(() {
-                                                  _showDialog();
-                                                });
-                                              },
-                                            ),
-                                          ),
-                                        ],
-                                      )
                                     ],
                                   )
                                 : Container(),
@@ -856,83 +1270,52 @@ class _FormProblemState extends State<FormProblem> {
                                 ? Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
-                                      Center(
-                                        child: Container(
-                                          width: 150.0,
-                                          height: 30.0,
-                                          color: Colors.grey[200],
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Flexible(
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Flexible(
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.0,
+                                                  vertical: 20.0),
+                                              child: Text(
+                                                _title[index]['isi'],
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontSize: 28.0),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 20.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: <Widget>[
+                                            ButtonTheme(
+                                              height: 40.0,
+                                              child: RaisedButton(
                                                 child: Text(
-                                                  'MOD',
+                                                  'PAHAM',
                                                   style: TextStyle(
-                                                      color: Colors.black54),
+                                                      fontSize: 16.0,
+                                                      color: Colors.white),
                                                 ),
-                                              )
-                                            ],
-                                          ),
+                                                color: Colors.blue,
+                                                onPressed: () {
+                                                  _controller.next(
+                                                      animation: true);
+                                                },
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                      Center(
-                                        child: Container(
-                                          width: 150.0,
-                                          height: 60.0,
-                                          color: Colors.green[300],
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Flexible(
-                                                child: Text(''),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Flexible(
-                                        child: ListView.builder(
-                                          shrinkWrap: true,
-                                          physics: ScrollPhysics(),
-                                          itemCount: isiProsedurPage9.length,
-                                          itemBuilder: (BuildContext context,
-                                              int index) {
-                                            double top;
-                                            double bottom;
-                                            if (index == 0) {
-                                              top = 30.0;
-                                              bottom = 0.0;
-                                            } else {
-                                              top = 20.0;
-                                              bottom = 0.0;
-                                            }
-
-                                            return Row(
-                                              children: <Widget>[
-                                                Flexible(
-                                                  child: Padding(
-                                                    padding: EdgeInsets.only(
-                                                        left: 10.0,
-                                                        right: 10.0,
-                                                        top: top,
-                                                        bottom: bottom),
-                                                    child: Text(
-                                                      '${index + 1}. ${isiProsedurPage9[index]}',
-                                                      style: TextStyle(
-                                                          color: Colors.black54,
-                                                          fontSize: 26.0),
-                                                      textAlign:
-                                                          TextAlign.start,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        ),
-                                      )
                                     ],
                                   )
                                 : Container(),
@@ -940,61 +1323,56 @@ class _FormProblemState extends State<FormProblem> {
                                 ? Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
-                                      Center(
-                                        child: Container(
-                                          width: 150.0,
-                                          height: 30.0,
-                                          color: Colors.grey[200],
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Flexible(
-                                                child: Text(
-                                                  'MOD',
-                                                  style: TextStyle(
-                                                      color: Colors.black54),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Center(
-                                        child: Container(
-                                          width: 150.0,
-                                          height: 60.0,
-                                          color: Colors.red[400],
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Flexible(
-                                                child: Text(''),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
                                       Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: <Widget>[
                                           Flexible(
                                             child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: 10.0,
-                                                  right: 10.0,
-                                                  top: 40.0,
-                                                  bottom: 10.0),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.0,
+                                                  vertical: 20.0),
                                               child: Text(
-                                                'Menyortir produk yang tidak sesuai spesifikasi',
+                                                _title[index]['isi'],
                                                 style: TextStyle(
                                                     color: Colors.black54,
-                                                    fontSize: 26.0),
-                                                textAlign: TextAlign.start,
+                                                    fontSize: 28.0),
+                                                textAlign: TextAlign.center,
                                               ),
                                             ),
                                           ),
                                         ],
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 10.0, bottom: 10.0),
+                                        child: DropdownButtonFormField(
+                                          hint: Text('Shift',
+                                              style: TextStyle(fontSize: 14.0)),
+                                          value: _mySelection,
+                                          onChanged: (String newValue) {
+                                            setState(() {
+                                              switch (int.tryParse(newValue)) {
+                                                case 1:
+                                                  _shift = 'A';
+                                                  break;
+                                                case 2:
+                                                  _shift = 'B';
+                                                  break;
+                                                default:
+                                                  _shift = '-';
+                                                  break;
+                                              }
+                                              _mySelection = newValue;
+                                            });
+                                          },
+                                          items: _shiftJson.map((Map map) {
+                                            return new DropdownMenuItem(
+                                              value: map['id'].toString(),
+                                              child: Text(map['shift']),
+                                            );
+                                          }).toList(),
+                                        ),
                                       ),
                                     ],
                                   )
@@ -1003,61 +1381,56 @@ class _FormProblemState extends State<FormProblem> {
                                 ? Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
-                                      Center(
-                                        child: Container(
-                                          width: 150.0,
-                                          height: 30.0,
-                                          color: Colors.grey[200],
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Flexible(
-                                                child: Text(
-                                                  'MOD',
-                                                  style: TextStyle(
-                                                      color: Colors.black54),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Center(
-                                        child: Container(
-                                          width: 150.0,
-                                          height: 60.0,
-                                          color: Colors.grey[500],
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Flexible(
-                                                child: Text(''),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
                                       Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: <Widget>[
                                           Flexible(
                                             child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: 10.0,
-                                                  right: 10.0,
-                                                  top: 40.0,
-                                                  bottom: 10.0),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.0,
+                                                  vertical: 20.0),
                                               child: Text(
-                                                'Mencatat produk yang tidak sesuai spesifikasi',
+                                                _title[index]['isi'],
                                                 style: TextStyle(
                                                     color: Colors.black54,
-                                                    fontSize: 26.0),
-                                                textAlign: TextAlign.start,
+                                                    fontSize: 28.0),
+                                                textAlign: TextAlign.center,
                                               ),
                                             ),
                                           ),
                                         ],
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 10.0, bottom: 10.0),
+                                        child: DropdownButtonFormField(
+                                          hint: Text('Shift',
+                                              style: TextStyle(fontSize: 14.0)),
+                                          value: _mySelection,
+                                          onChanged: (String newValue) {
+                                            setState(() {
+                                              switch (int.tryParse(newValue)) {
+                                                case 1:
+                                                  _shift = 'A';
+                                                  break;
+                                                case 2:
+                                                  _shift = 'B';
+                                                  break;
+                                                default:
+                                                  _shift = '-';
+                                                  break;
+                                              }
+                                              _mySelection = newValue;
+                                            });
+                                          },
+                                          items: _shiftJson.map((Map map) {
+                                            return new DropdownMenuItem(
+                                              value: map['id'].toString(),
+                                              child: Text(map['shift']),
+                                            );
+                                          }).toList(),
+                                        ),
                                       ),
                                     ],
                                   )
@@ -1066,61 +1439,56 @@ class _FormProblemState extends State<FormProblem> {
                                 ? Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
-                                      Center(
-                                        child: Container(
-                                          width: 150.0,
-                                          height: 30.0,
-                                          color: Colors.grey[200],
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Flexible(
-                                                child: Text(
-                                                  'MOD',
-                                                  style: TextStyle(
-                                                      color: Colors.black54),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Center(
-                                        child: Container(
-                                          width: 150.0,
-                                          height: 60.0,
-                                          color: Colors.grey[500],
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Flexible(
-                                                child: Text(''),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
                                       Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: <Widget>[
                                           Flexible(
                                             child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: 10.0,
-                                                  right: 10.0,
-                                                  top: 40.0,
-                                                  bottom: 10.0),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.0,
+                                                  vertical: 20.0),
                                               child: Text(
-                                                'Info produk yang disortir kepada supplier',
+                                                _title[index]['isi'],
                                                 style: TextStyle(
                                                     color: Colors.black54,
-                                                    fontSize: 26.0),
-                                                textAlign: TextAlign.start,
+                                                    fontSize: 28.0),
+                                                textAlign: TextAlign.center,
                                               ),
                                             ),
                                           ),
                                         ],
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 10.0, bottom: 10.0),
+                                        child: DropdownButtonFormField(
+                                          hint: Text('Shift',
+                                              style: TextStyle(fontSize: 14.0)),
+                                          value: _mySelection,
+                                          onChanged: (String newValue) {
+                                            setState(() {
+                                              switch (int.tryParse(newValue)) {
+                                                case 1:
+                                                  _shift = 'A';
+                                                  break;
+                                                case 2:
+                                                  _shift = 'B';
+                                                  break;
+                                                default:
+                                                  _shift = '-';
+                                                  break;
+                                              }
+                                              _mySelection = newValue;
+                                            });
+                                          },
+                                          items: _shiftJson.map((Map map) {
+                                            return new DropdownMenuItem(
+                                              value: map['id'].toString(),
+                                              child: Text(map['shift']),
+                                            );
+                                          }).toList(),
+                                        ),
                                       ),
                                     ],
                                   )
@@ -1129,61 +1497,56 @@ class _FormProblemState extends State<FormProblem> {
                                 ? Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
-                                      Center(
-                                        child: Container(
-                                          width: 150.0,
-                                          height: 30.0,
-                                          color: Colors.grey[200],
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Flexible(
-                                                child: Text(
-                                                  'MOD',
-                                                  style: TextStyle(
-                                                      color: Colors.black54),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Center(
-                                        child: Container(
-                                          width: 150.0,
-                                          height: 60.0,
-                                          color: Colors.grey[500],
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Flexible(
-                                                child: Text(''),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
                                       Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: <Widget>[
                                           Flexible(
                                             child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: 10.0,
-                                                  right: 10.0,
-                                                  top: 40.0,
-                                                  bottom: 10.0),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.0,
+                                                  vertical: 20.0),
                                               child: Text(
-                                                'Mengembalikan produk yang disortir kepada kurir',
+                                                _title[index]['isi'],
                                                 style: TextStyle(
                                                     color: Colors.black54,
-                                                    fontSize: 26.0),
-                                                textAlign: TextAlign.start,
+                                                    fontSize: 28.0),
+                                                textAlign: TextAlign.center,
                                               ),
                                             ),
                                           ),
                                         ],
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 10.0, bottom: 10.0),
+                                        child: DropdownButtonFormField(
+                                          hint: Text('Shift',
+                                              style: TextStyle(fontSize: 14.0)),
+                                          value: _mySelection,
+                                          onChanged: (String newValue) {
+                                            setState(() {
+                                              switch (int.tryParse(newValue)) {
+                                                case 1:
+                                                  _shift = 'A';
+                                                  break;
+                                                case 2:
+                                                  _shift = 'B';
+                                                  break;
+                                                default:
+                                                  _shift = '-';
+                                                  break;
+                                              }
+                                              _mySelection = newValue;
+                                            });
+                                          },
+                                          items: _shiftJson.map((Map map) {
+                                            return new DropdownMenuItem(
+                                              value: map['id'].toString(),
+                                              child: Text(map['shift']),
+                                            );
+                                          }).toList(),
+                                        ),
                                       ),
                                     ],
                                   )
@@ -1192,61 +1555,43 @@ class _FormProblemState extends State<FormProblem> {
                                 ? Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
-                                      Center(
-                                        child: Container(
-                                          width: 150.0,
-                                          height: 30.0,
-                                          color: Colors.grey[200],
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Flexible(
-                                                child: Text(
-                                                  'MOD',
-                                                  style: TextStyle(
-                                                      color: Colors.black54),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Center(
-                                        child: Container(
-                                          width: 150.0,
-                                          height: 60.0,
-                                          color: Colors.grey[500],
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Flexible(
-                                                child: Text(''),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
                                       Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: <Widget>[
                                           Flexible(
                                             child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: 10.0,
-                                                  right: 10.0,
-                                                  top: 40.0,
-                                                  bottom: 10.0),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.0,
+                                                  vertical: 20.0),
                                               child: Text(
-                                                'Mengembalikan produk yang disortir kepada kurir',
+                                                _title[index]['isi'],
                                                 style: TextStyle(
                                                     color: Colors.black54,
-                                                    fontSize: 26.0),
-                                                textAlign: TextAlign.start,
+                                                    fontSize: 28.0),
+                                                textAlign: TextAlign.center,
                                               ),
                                             ),
                                           ),
                                         ],
+                                      ),
+                                      Container(
+                                        width:
+                                        MediaQuery.of(context).size.width,
+                                        child: DateTimePickerFormField(
+                                          format: dateFormat,
+                                          onChanged: (dt) =>
+                                              setState(() => dateStart = dt),
+                                          dateOnly: true,
+                                          style: TextStyle(
+                                              fontSize: 16.0,
+                                              color: Colors.black),
+                                          decoration: InputDecoration(
+                                              border: UnderlineInputBorder(),
+                                              labelStyle:
+                                              TextStyle(fontSize: 14.0),
+                                              labelText: 'Start'),
+                                        ),
                                       ),
                                     ],
                                   )
@@ -1255,137 +1600,1005 @@ class _FormProblemState extends State<FormProblem> {
                                 ? Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
-                                      Center(
-                                        child: Container(
-                                          width: 150.0,
-                                          height: 30.0,
-                                          color: Colors.grey[200],
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Flexible(
-                                                child: Text(
-                                                  'MOD',
-                                                  style: TextStyle(
-                                                      color: Colors.black54),
-                                                ),
-                                              )
-                                            ],
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Flexible(
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.0,
+                                                  vertical: 20.0),
+                                              child: Text(
+                                                _title[index]['isi'],
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontSize: 28.0),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
                                           ),
-                                        ),
+                                        ],
                                       ),
-                                      Center(
-                                        child: Container(
-                                          width: 150.0,
-                                          height: 60.0,
-                                          color: Colors.grey[500],
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Flexible(
-                                                child: Text(''),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Flexible(
-                                        child: ListView.builder(
-                                          shrinkWrap: true,
-                                          physics: ScrollPhysics(),
-                                          itemCount: isiProsedurPage9.length,
-                                          itemBuilder: (BuildContext context,
-                                              int index) {
-                                            double top;
-                                            double bottom;
-                                            if (index == 0) {
-                                              top = 30.0;
-                                              bottom = 0.0;
-                                            } else {
-                                              top = 20.0;
-                                              bottom = 0.0;
-                                            }
-
-                                            return Row(
-                                              children: <Widget>[
-                                                Flexible(
-                                                  child: Padding(
-                                                    padding: EdgeInsets.only(
-                                                        left: 10.0,
-                                                        right: 10.0,
-                                                        top: top,
-                                                        bottom: bottom),
-                                                    child: Text(
-                                                      '${index + 1}. ${isiProsedurPage9[index]}',
-                                                      style: TextStyle(
-                                                          color: Colors.black54,
-                                                          fontSize: 26.0),
-                                                      textAlign:
-                                                          TextAlign.start,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            );
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 10.0, bottom: 10.0),
+                                        child: DropdownButtonFormField(
+                                          hint: Text('Shift',
+                                              style: TextStyle(fontSize: 14.0)),
+                                          value: _mySelection,
+                                          onChanged: (String newValue) {
+                                            setState(() {
+                                              switch (int.tryParse(newValue)) {
+                                                case 1:
+                                                  _shift = 'A';
+                                                  break;
+                                                case 2:
+                                                  _shift = 'B';
+                                                  break;
+                                                default:
+                                                  _shift = '-';
+                                                  break;
+                                              }
+                                              _mySelection = newValue;
+                                            });
                                           },
+                                          items: _shiftJson.map((Map map) {
+                                            return new DropdownMenuItem(
+                                              value: map['id'].toString(),
+                                              child: Text(map['shift']),
+                                            );
+                                          }).toList(),
                                         ),
                                       ),
-                                      SizedBox(
-                                        height: 25.0,
+                                    ],
+                                  )
+                                : Container(),
+                            index == 16
+                                ? Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Flexible(
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.0,
+                                                  vertical: 20.0),
+                                              child: Text(
+                                                _title[index]['isi'],
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontSize: 28.0),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 20.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: <Widget>[
+                                            ButtonTheme(
+                                              height: 40.0,
+                                              child: RaisedButton(
+                                                child: Text(
+                                                  'PAHAM',
+                                                  style: TextStyle(
+                                                      fontSize: 16.0,
+                                                      color: Colors.white),
+                                                ),
+                                                color: Colors.blue,
+                                                onPressed: () {
+                                                  _controller.next(
+                                                      animation: true);
+                                                },
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                : Container(),
+                            index == 17
+                                ? Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Flexible(
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.0,
+                                                  vertical: 20.0),
+                                              child: Text(
+                                                _title[index]['isi'],
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontSize: 28.0),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 20.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: <Widget>[
+                                            ButtonTheme(
+                                              height: 40.0,
+                                              child: RaisedButton(
+                                                child: Text(
+                                                  'PAHAM',
+                                                  style: TextStyle(
+                                                      fontSize: 16.0,
+                                                      color: Colors.white),
+                                                ),
+                                                color: Colors.blue,
+                                                onPressed: () {
+                                                  _controller.next(
+                                                      animation: true);
+                                                },
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                : Container(),
+                            index == 18
+                                ? Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Flexible(
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.0,
+                                                  vertical: 20.0),
+                                              child: Text(
+                                                _title[index]['isi'],
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontSize: 28.0),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  )
+                                : Container(),
+                            index == 19
+                                ? Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Flexible(
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.0,
+                                                  vertical: 20.0),
+                                              child: Text(
+                                                _title[index]['isi'],
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontSize: 28.0),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 10.0, bottom: 10.0),
+                                        child: DropdownButtonFormField(
+                                          hint: Text('Shift',
+                                              style: TextStyle(fontSize: 14.0)),
+                                          value: _mySelection,
+                                          onChanged: (String newValue) {
+                                            setState(() {
+                                              switch (int.tryParse(newValue)) {
+                                                case 1:
+                                                  _shift = 'A';
+                                                  break;
+                                                case 2:
+                                                  _shift = 'B';
+                                                  break;
+                                                default:
+                                                  _shift = '-';
+                                                  break;
+                                              }
+                                              _mySelection = newValue;
+                                            });
+                                          },
+                                          items: _shiftJson.map((Map map) {
+                                            return new DropdownMenuItem(
+                                              value: map['id'].toString(),
+                                              child: Text(map['shift']),
+                                            );
+                                          }).toList(),
+                                        ),
                                       ),
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.end,
                                         children: <Widget>[
                                           ButtonTheme(
-                                            height: 30.0,
-                                            minWidth: 50.0,
-                                            child: OutlineButton(
-                                              child: Text(
-                                                'Review',
-                                                style: TextStyle(
-                                                    fontSize: 16.0,
-                                                    color: AbubaPallate
-                                                        .menuBluebird),
-                                              ),
-                                              borderSide: BorderSide(
-                                                  color:
-                                                      AbubaPallate.menuBluebird,
-                                                  width: 1.0),
-                                              highlightedBorderColor:
-                                                  AbubaPallate.menuBluebird,
-                                              onPressed: () {
-                                                setState(
-                                                  () {
-                                                    _showDialog();
-                                                  },
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 5.0,
-                                          ),
-                                          ButtonTheme(
-                                            height: 30.0,
-                                            minWidth: 50.0,
+                                            minWidth: 30.0,
+                                            height: 25.0,
                                             child: RaisedButton(
+                                              color: AbubaPallate.menuBluebird,
                                               child: Text(
-                                                'Save',
+                                                'Note',
                                                 style: TextStyle(
-                                                    fontSize: 13.0,
+                                                    fontSize: 12.0,
                                                     color: Colors.white),
                                               ),
-                                              color: AbubaPallate.greenabuba,
                                               onPressed: () {
-
+                                                setState(() {
+                                                  _notetujuh = !_notetujuh;
+                                                });
                                               },
                                             ),
                                           ),
                                         ],
-                                      )
+                                      ),
+                                      _notetujuh
+                                          ? Container(
+                                              padding: const EdgeInsets.only(
+                                                  top: 10.0),
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              child: TextField(
+                                                decoration: InputDecoration(
+                                                    border:
+                                                        OutlineInputBorder(),
+                                                    hintText: 'Note',
+                                                    hintStyle: TextStyle(
+                                                        fontSize: 12.0)),
+                                                maxLines: 3,
+                                                controller: controllerNoteTujuh,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            )
+                                          : Container()
+                                    ],
+                                  )
+                                : Container(),
+                            index == 20
+                                ? Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Flexible(
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.0,
+                                                  vertical: 20.0),
+                                              child: Text(
+                                                _title[index]['isi'],
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontSize: 28.0),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 10.0, bottom: 10.0),
+                                        child: DropdownButtonFormField(
+                                          hint: Text('Shift',
+                                              style: TextStyle(fontSize: 14.0)),
+                                          value: _mySelection,
+                                          onChanged: (String newValue) {
+                                            setState(() {
+                                              switch (int.tryParse(newValue)) {
+                                                case 1:
+                                                  _shift = 'A';
+                                                  break;
+                                                case 2:
+                                                  _shift = 'B';
+                                                  break;
+                                                default:
+                                                  _shift = '-';
+                                                  break;
+                                              }
+                                              _mySelection = newValue;
+                                            });
+                                          },
+                                          items: _shiftJson.map((Map map) {
+                                            return new DropdownMenuItem(
+                                              value: map['id'].toString(),
+                                              child: Text(map['shift']),
+                                            );
+                                          }).toList(),
+                                        ),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: <Widget>[
+                                          ButtonTheme(
+                                            minWidth: 30.0,
+                                            height: 25.0,
+                                            child: RaisedButton(
+                                              color: AbubaPallate.menuBluebird,
+                                              child: Text(
+                                                'Note',
+                                                style: TextStyle(
+                                                    fontSize: 12.0,
+                                                    color: Colors.white),
+                                              ),
+                                              onPressed: () {
+                                                setState(() {
+                                                  _notedelapan = !_notedelapan;
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      _notedelapan
+                                          ? Container(
+                                              padding: const EdgeInsets.only(
+                                                  top: 10.0),
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              child: TextField(
+                                                decoration: InputDecoration(
+                                                    border:
+                                                        OutlineInputBorder(),
+                                                    hintText: 'Note',
+                                                    hintStyle: TextStyle(
+                                                        fontSize: 12.0)),
+                                                maxLines: 3,
+                                                controller:
+                                                    controllerNoteDelapan,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            )
+                                          : Container()
+                                    ],
+                                  )
+                                : Container(),
+                              index == 21
+                                ? Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Flexible(
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.0,
+                                                  vertical: 20.0),
+                                              child: Text(
+                                                _title[index]['isi'],
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontSize: 28.0),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Container(
+                                        width:
+                                        MediaQuery.of(context).size.width,
+                                        child: DateTimePickerFormField(
+                                          format: dateFormat,
+                                          onChanged: (dt) =>
+                                              setState(() => dateStart = dt),
+                                          dateOnly: true,
+                                          style: TextStyle(
+                                              fontSize: 16.0,
+                                              color: Colors.black),
+                                          decoration: InputDecoration(
+                                              border: UnderlineInputBorder(),
+                                              labelStyle:
+                                              TextStyle(fontSize: 14.0),
+                                              labelText: 'Start'),
+                                        ),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: <Widget>[
+                                          ButtonTheme(
+                                            minWidth: 30.0,
+                                            height: 25.0,
+                                            child: RaisedButton(
+                                              color: AbubaPallate.menuBluebird,
+                                              child: Text(
+                                                'Note',
+                                                style: TextStyle(
+                                                    fontSize: 12.0,
+                                                    color: Colors.white),
+                                              ),
+                                              onPressed: () {
+                                                setState(() {
+                                                  _notesembilan =
+                                                      !_notesembilan;
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      _notesembilan
+                                          ? Container(
+                                              padding: const EdgeInsets.only(
+                                                  top: 10.0),
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              child: TextField(
+                                                decoration: InputDecoration(
+                                                    border:
+                                                        OutlineInputBorder(),
+                                                    hintText: 'Note',
+                                                    hintStyle: TextStyle(
+                                                        fontSize: 12.0)),
+                                                maxLines: 3,
+                                                controller:
+                                                    controllerNoteSembilan,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            )
+                                          : Container()
+                                    ],
+                                  )
+                                : Container(),
+                            index == 22
+                                ? Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Flexible(
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.0,
+                                                  vertical: 20.0),
+                                              child: Text(
+                                                _title[index]['isi'],
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontSize: 28.0),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: <Widget>[
+                                          ButtonTheme(
+                                            minWidth: 30.0,
+                                            height: 25.0,
+                                            child: RaisedButton(
+                                              color: AbubaPallate.menuBluebird,
+                                              child: Text(
+                                                'Note',
+                                                style: TextStyle(
+                                                    fontSize: 12.0,
+                                                    color: Colors.white),
+                                              ),
+                                              onPressed: () {
+                                                setState(() {
+                                                  _notesepuluh = !_notesepuluh;
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      _notesepuluh
+                                          ? Container(
+                                              padding: const EdgeInsets.only(
+                                                  top: 10.0),
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              child: TextField(
+                                                decoration: InputDecoration(
+                                                    border:
+                                                        OutlineInputBorder(),
+                                                    hintText: 'Note',
+                                                    hintStyle: TextStyle(
+                                                        fontSize: 12.0)),
+                                                maxLines: 3,
+                                                controller:
+                                                    controllerNoteSepuluh,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            )
+                                          : Container()
+                                    ],
+                                  )
+                                : Container(),
+                            index == 23
+                                ? Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Flexible(
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.0,
+                                                  vertical: 20.0),
+                                              child: Text(
+                                                _title[index]['isi'],
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontSize: 28.0),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: <Widget>[
+                                          ButtonTheme(
+                                            minWidth: 30.0,
+                                            height: 25.0,
+                                            child: RaisedButton(
+                                              color: AbubaPallate.menuBluebird,
+                                              child: Text(
+                                                'Note',
+                                                style: TextStyle(
+                                                    fontSize: 12.0,
+                                                    color: Colors.white),
+                                              ),
+                                              onPressed: () {
+                                                setState(() {
+                                                  _notesebelas = !_notesebelas;
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      _notesebelas
+                                          ? Container(
+                                              padding: const EdgeInsets.only(
+                                                  top: 10.0),
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              child: TextField(
+                                                decoration: InputDecoration(
+                                                    border:
+                                                        OutlineInputBorder(),
+                                                    hintText: 'Note',
+                                                    hintStyle: TextStyle(
+                                                        fontSize: 12.0)),
+                                                maxLines: 3,
+                                                controller:
+                                                    controllerNoteSebelas,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            )
+                                          : Container()
+                                    ],
+                                  )
+                                : Container(),
+                            index == 24
+                                ? Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Flexible(
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.0,
+                                                  vertical: 20.0),
+                                              child: Text(
+                                                _title[index]['isi'],
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontSize: 28.0),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 20.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: <Widget>[
+                                            ButtonTheme(
+                                              height: 40.0,
+                                              child: RaisedButton(
+                                                child: Text(
+                                                  'PAHAM',
+                                                  style: TextStyle(
+                                                      fontSize: 16.0,
+                                                      color: Colors.white),
+                                                ),
+                                                color: Colors.blue,
+                                                onPressed: () {
+                                                  _controller.next(
+                                                      animation: true);
+                                                },
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                : Container(),
+                            index == 25
+                                ? Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Flexible(
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.0,
+                                                  vertical: 20.0),
+                                              child: Text(
+                                                _title[index]['isi'],
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontSize: 28.0),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 10.0, bottom: 10.0),
+                                        child: DropdownButtonFormField(
+                                          hint: Text('Shift',
+                                              style: TextStyle(fontSize: 14.0)),
+                                          value: _mySelection,
+                                          onChanged: (String newValue) {
+                                            setState(() {
+                                              switch (int.tryParse(newValue)) {
+                                                case 1:
+                                                  _shift = 'A';
+                                                  break;
+                                                case 2:
+                                                  _shift = 'B';
+                                                  break;
+                                                default:
+                                                  _shift = '-';
+                                                  break;
+                                              }
+                                              _mySelection = newValue;
+                                            });
+                                          },
+                                          items: _shiftJson.map((Map map) {
+                                            return new DropdownMenuItem(
+                                              value: map['id'].toString(),
+                                              child: Text(map['shift']),
+                                            );
+                                          }).toList(),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                : Container(),
+                            index == 26
+                                ? Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Flexible(
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.0,
+                                                  vertical: 20.0),
+                                              child: Text(
+                                                _title[index]['isi'],
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontSize: 28.0),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Container(
+                                        width:
+                                        MediaQuery.of(context).size.width,
+                                        child: DateTimePickerFormField(
+                                          format: dateFormat,
+                                          onChanged: (dt) =>
+                                              setState(() => dateStart = dt),
+                                          dateOnly: true,
+                                          style: TextStyle(
+                                              fontSize: 16.0,
+                                              color: Colors.black),
+                                          decoration: InputDecoration(
+                                              border: UnderlineInputBorder(),
+                                              labelStyle:
+                                              TextStyle(fontSize: 14.0),
+                                              labelText: 'Start'),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                : Container(),
+                            index == 27
+                                ? Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Flexible(
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.0,
+                                                  vertical: 20.0),
+                                              child: Text(
+                                                _title[index]['isi'],
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontSize: 28.0),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 20.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: <Widget>[
+                                            ButtonTheme(
+                                              height: 40.0,
+                                              child: RaisedButton(
+                                                child: Text(
+                                                  'PAHAM',
+                                                  style: TextStyle(
+                                                      fontSize: 16.0,
+                                                      color: Colors.white),
+                                                ),
+                                                color: Colors.blue,
+                                                onPressed: () {
+                                                  _controller.next(
+                                                      animation: true);
+                                                },
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                : Container(),
+                            index == 28
+                                ? Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Flexible(
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.0,
+                                                  vertical: 20.0),
+                                              child: Text(
+                                                _title[index]['isi'],
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontSize: 28.0),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 10.0, bottom: 10.0),
+                                        child: DropdownButtonFormField(
+                                          hint: Text('Shift',
+                                              style: TextStyle(fontSize: 14.0)),
+                                          value: _mySelection,
+                                          onChanged: (String newValue) {
+                                            setState(() {
+                                              switch (int.tryParse(newValue)) {
+                                                case 1:
+                                                  _shift = 'A';
+                                                  break;
+                                                case 2:
+                                                  _shift = 'B';
+                                                  break;
+                                                default:
+                                                  _shift = '-';
+                                                  break;
+                                              }
+                                              _mySelection = newValue;
+                                            });
+                                          },
+                                          items: _shiftJson.map((Map map) {
+                                            return new DropdownMenuItem(
+                                              value: map['id'].toString(),
+                                              child: Text(map['shift']),
+                                            );
+                                          }).toList(),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                : Container(),
+                            index == 29
+                                ? Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Flexible(
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.0,
+                                                  vertical: 20.0),
+                                              child: Text(
+                                                _title[index]['isi'],
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontSize: 28.0),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        child: DateTimePickerFormField(
+                                          format: dateFormat,
+                                          onChanged: (dt) =>
+                                              setState(() => dateStart = dt),
+                                          dateOnly: true,
+                                          style: TextStyle(
+                                              fontSize: 16.0,
+                                              color: Colors.black),
+                                          decoration: InputDecoration(
+                                              border: UnderlineInputBorder(),
+                                              labelStyle:
+                                                  TextStyle(fontSize: 14.0),
+                                              labelText: 'Start'),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                : Container(),
+                            index == 30
+                                ? Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Flexible(
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.0,
+                                                  vertical: 20.0),
+                                              child: Text(
+                                                _title[index]['isi'],
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontSize: 28.0),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 20.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: <Widget>[
+                                            ButtonTheme(
+                                              height: 40.0,
+                                              child: RaisedButton(
+                                                child: Text(
+                                                  'PAHAM',
+                                                  style: TextStyle(
+                                                      fontSize: 16.0,
+                                                      color: Colors.white),
+                                                ),
+                                                color: Colors.blue,
+                                                onPressed: () {
+                                                  _controller.next(
+                                                      animation: true);
+                                                },
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                     ],
                                   )
                                 : Container(),
@@ -1430,26 +2643,8 @@ class _FormProblemState extends State<FormProblem> {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                _number - 1 == 15 || _number - 1 == 9
-                    ? Container(
-                        child: ButtonTheme(
-                          minWidth: 50.0,
-                          height: 30.0,
-                          child: RaisedButton(
-                            child: Text(
-                              'SELESAI',
-                              style: TextStyle(fontSize: 13.0),
-                            ),
-                            textColor: Colors.black45,
-                            color: Colors.green[200],
-                            onPressed: () {},
-                          ),
-                        ),
-                        alignment: Alignment.centerLeft,
-                      )
-                    : Container(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -1571,38 +2766,5 @@ class _FormProblemState extends State<FormProblem> {
         ),
       ),
     );
-  }
-}
-
-class _DiamondBorder extends ShapeBorder {
-  const _DiamondBorder();
-
-  @override
-  EdgeInsetsGeometry get dimensions {
-    return const EdgeInsets.only();
-  }
-
-  @override
-  Path getInnerPath(Rect rect, {TextDirection textDirection}) {
-    return getOuterPath(rect, textDirection: textDirection);
-  }
-
-  @override
-  Path getOuterPath(Rect rect, {TextDirection textDirection}) {
-    return Path()
-      ..moveTo(rect.left + rect.width / 2.0, rect.top)
-      ..lineTo(rect.right, rect.top + rect.height / 2.0)
-      ..lineTo(rect.left + rect.width / 2.0, rect.bottom)
-      ..lineTo(rect.left, rect.top + rect.height / 2.0)
-      ..close();
-  }
-
-  @override
-  void paint(Canvas canvas, Rect rect, {TextDirection textDirection}) {}
-
-  // This border doesn't support scaling.
-  @override
-  ShapeBorder scale(double t) {
-    return null;
   }
 }
