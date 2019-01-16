@@ -789,6 +789,24 @@ class _FormProblemState extends State<FormProblem>
                                           ),
                                         ],
                                       ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        child: DateTimePickerFormField(
+                                          format: dateFormat,
+                                          onChanged: (dt) =>
+                                              setState(() => dateStart = dt),
+                                          dateOnly: true,
+                                          style: TextStyle(
+                                              fontSize: 16.0,
+                                              color: Colors.black),
+                                          decoration: InputDecoration(
+                                              border: UnderlineInputBorder(),
+                                              labelStyle:
+                                                  TextStyle(fontSize: 14.0),
+                                              labelText: 'Calendar'),
+                                        ),
+                                      ),
                                       Padding(
                                         padding: EdgeInsets.only(
                                             top: 10.0, bottom: 10.0),
@@ -797,27 +815,32 @@ class _FormProblemState extends State<FormProblem>
                                               style: TextStyle(fontSize: 14.0)),
                                           value: _mySelection,
                                           onChanged: (String newValue) {
-                                            setState(() {
-                                              switch (int.tryParse(newValue)) {
-                                                case 1:
-                                                  _shift = 'A';
-                                                  break;
-                                                case 2:
-                                                  _shift = 'B';
-                                                  break;
-                                                default:
-                                                  _shift = '-';
-                                                  break;
-                                              }
-                                              _mySelection = newValue;
-                                            });
-                                          },
-                                          items: _shiftJson.map((Map map) {
-                                            return new DropdownMenuItem(
-                                              value: map['id'].toString(),
-                                              child: Text(map['shift']),
+                                            setState(
+                                              () {
+                                                switch (
+                                                    int.tryParse(newValue)) {
+                                                  case 1:
+                                                    _shift = 'A';
+                                                    break;
+                                                  case 2:
+                                                    _shift = 'B';
+                                                    break;
+                                                  default:
+                                                    _shift = '-';
+                                                    break;
+                                                }
+                                                _mySelection = newValue;
+                                              },
                                             );
-                                          }).toList(),
+                                          },
+                                          items: _shiftJson.map(
+                                            (Map map) {
+                                              return new DropdownMenuItem(
+                                                value: map['id'].toString(),
+                                                child: Text(map['shift']),
+                                              );
+                                            },
+                                          ).toList(),
                                         ),
                                       ),
                                       Row(
@@ -836,9 +859,11 @@ class _FormProblemState extends State<FormProblem>
                                                     color: Colors.white),
                                               ),
                                               onPressed: () {
-                                                setState(() {
-                                                  _notetiga = !_notetiga;
-                                                });
+                                                setState(
+                                                  () {
+                                                    _notetiga = !_notetiga;
+                                                  },
+                                                );
                                               },
                                             ),
                                           ),
@@ -906,9 +931,11 @@ class _FormProblemState extends State<FormProblem>
                                                     color: Colors.white),
                                               ),
                                               onPressed: () {
-                                                setState(() {
-                                                  _noteempat = !_noteempat;
-                                                });
+                                                setState(
+                                                  () {
+                                                    _noteempat = !_noteempat;
+                                                  },
+                                                );
                                               },
                                             ),
                                           ),
@@ -968,20 +995,23 @@ class _FormProblemState extends State<FormProblem>
                                               style: TextStyle(fontSize: 14.0)),
                                           value: _mySelection,
                                           onChanged: (String newValue) {
-                                            setState(() {
-                                              switch (int.tryParse(newValue)) {
-                                                case 1:
-                                                  _shift = 'A';
-                                                  break;
-                                                case 2:
-                                                  _shift = 'B';
-                                                  break;
-                                                default:
-                                                  _shift = '-';
-                                                  break;
-                                              }
-                                              _mySelection = newValue;
-                                            });
+                                            setState(
+                                              () {
+                                                switch (
+                                                    int.tryParse(newValue)) {
+                                                  case 1:
+                                                    _shift = 'A';
+                                                    break;
+                                                  case 2:
+                                                    _shift = 'B';
+                                                    break;
+                                                  default:
+                                                    _shift = '-';
+                                                    break;
+                                                }
+                                                _mySelection = newValue;
+                                              },
+                                            );
                                           },
                                           items: _shiftJson.map((Map map) {
                                             return new DropdownMenuItem(
@@ -1007,9 +1037,11 @@ class _FormProblemState extends State<FormProblem>
                                                     color: Colors.white),
                                               ),
                                               onPressed: () {
-                                                setState(() {
-                                                  _notelima = !_notelima;
-                                                });
+                                                setState(
+                                                  () {
+                                                    _notelima = !_notelima;
+                                                  },
+                                                );
                                               },
                                             ),
                                           ),
@@ -1070,27 +1102,32 @@ class _FormProblemState extends State<FormProblem>
                                               style: TextStyle(fontSize: 14.0)),
                                           value: _mySelection,
                                           onChanged: (String newValue) {
-                                            setState(() {
-                                              switch (int.tryParse(newValue)) {
-                                                case 1:
-                                                  _shift = 'A';
-                                                  break;
-                                                case 2:
-                                                  _shift = 'B';
-                                                  break;
-                                                default:
-                                                  _shift = '-';
-                                                  break;
-                                              }
-                                              _mySelection = newValue;
-                                            });
-                                          },
-                                          items: _shiftJson.map((Map map) {
-                                            return new DropdownMenuItem(
-                                              value: map['id'].toString(),
-                                              child: Text(map['shift']),
+                                            setState(
+                                              () {
+                                                switch (
+                                                    int.tryParse(newValue)) {
+                                                  case 1:
+                                                    _shift = 'A';
+                                                    break;
+                                                  case 2:
+                                                    _shift = 'B';
+                                                    break;
+                                                  default:
+                                                    _shift = '-';
+                                                    break;
+                                                }
+                                                _mySelection = newValue;
+                                              },
                                             );
-                                          }).toList(),
+                                          },
+                                          items: _shiftJson.map(
+                                            (Map map) {
+                                              return new DropdownMenuItem(
+                                                value: map['id'].toString(),
+                                                child: Text(map['shift']),
+                                              );
+                                            },
+                                          ).toList(),
                                         ),
                                       ),
                                       Row(
@@ -1109,9 +1146,11 @@ class _FormProblemState extends State<FormProblem>
                                                     color: Colors.white),
                                               ),
                                               onPressed: () {
-                                                setState(() {
-                                                  _noteenam = !_noteenam;
-                                                });
+                                                setState(
+                                                  () {
+                                                    _noteenam = !_noteenam;
+                                                  },
+                                                );
                                               },
                                             ),
                                           ),
@@ -1577,7 +1616,7 @@ class _FormProblemState extends State<FormProblem>
                                       ),
                                       Container(
                                         width:
-                                        MediaQuery.of(context).size.width,
+                                            MediaQuery.of(context).size.width,
                                         child: DateTimePickerFormField(
                                           format: dateFormat,
                                           onChanged: (dt) =>
@@ -1589,7 +1628,7 @@ class _FormProblemState extends State<FormProblem>
                                           decoration: InputDecoration(
                                               border: UnderlineInputBorder(),
                                               labelStyle:
-                                              TextStyle(fontSize: 14.0),
+                                                  TextStyle(fontSize: 14.0),
                                               labelText: 'Start'),
                                         ),
                                       ),
@@ -1996,7 +2035,7 @@ class _FormProblemState extends State<FormProblem>
                                     ],
                                   )
                                 : Container(),
-                              index == 21
+                            index == 21
                                 ? Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
@@ -2022,7 +2061,7 @@ class _FormProblemState extends State<FormProblem>
                                       ),
                                       Container(
                                         width:
-                                        MediaQuery.of(context).size.width,
+                                            MediaQuery.of(context).size.width,
                                         child: DateTimePickerFormField(
                                           format: dateFormat,
                                           onChanged: (dt) =>
@@ -2034,7 +2073,7 @@ class _FormProblemState extends State<FormProblem>
                                           decoration: InputDecoration(
                                               border: UnderlineInputBorder(),
                                               labelStyle:
-                                              TextStyle(fontSize: 14.0),
+                                                  TextStyle(fontSize: 14.0),
                                               labelText: 'Start'),
                                         ),
                                       ),
@@ -2374,7 +2413,7 @@ class _FormProblemState extends State<FormProblem>
                                       ),
                                       Container(
                                         width:
-                                        MediaQuery.of(context).size.width,
+                                            MediaQuery.of(context).size.width,
                                         child: DateTimePickerFormField(
                                           format: dateFormat,
                                           onChanged: (dt) =>
@@ -2386,7 +2425,7 @@ class _FormProblemState extends State<FormProblem>
                                           decoration: InputDecoration(
                                               border: UnderlineInputBorder(),
                                               labelStyle:
-                                              TextStyle(fontSize: 14.0),
+                                                  TextStyle(fontSize: 14.0),
                                               labelText: 'Start'),
                                         ),
                                       ),
