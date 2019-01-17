@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:datetime_picker_formfield/time_picker_formfield.dart';
 import 'package:intl/intl.dart';
 
 class FormProblem extends StatefulWidget {
@@ -17,6 +18,9 @@ class _FormProblemState extends State<FormProblem>
   int _itemCount;
   int _currentIndex;
   bool _autoplay;
+
+  final timeFormat = DateFormat("h:mm a");
+  TimeOfDay time;
 
   bool _notedua = false;
   TextEditingController controllerNoteDua = new TextEditingController();
@@ -481,6 +485,20 @@ class _FormProblemState extends State<FormProblem>
     'Menandatangani dokument',
   ];
 
+  List<String> textList = [
+    'Action Plan 1',
+    'Action Plan 2',
+    'Action Plan 3',
+  ];
+
+  List<bool> textListValue = [
+    false,
+    false,
+    false,
+    false,
+    false,
+  ];
+
   int _indexBantu = 0;
 
   @override
@@ -805,6 +823,21 @@ class _FormProblemState extends State<FormProblem>
                                               labelStyle:
                                                   TextStyle(fontSize: 14.0),
                                               labelText: 'Calendar'),
+                                        ),
+                                      ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        child: TimePickerFormField(
+                                          format: timeFormat,
+                                          onChanged: (t) =>
+                                              setState(() => time = t),
+                                          decoration: InputDecoration(
+                                            border: UnderlineInputBorder(),
+                                            hintText: 'Waktu',
+                                            hintStyle:
+                                                TextStyle(fontSize: 12.0),
+                                          ),
                                         ),
                                       ),
                                       Padding(
@@ -2641,6 +2674,194 @@ class _FormProblemState extends State<FormProblem>
                                     ],
                                   )
                                 : Container(),
+                            index == 31
+                                ? Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Flexible(
+                                        child: ListView.builder(
+                                          shrinkWrap: true,
+                                          physics: ScrollPhysics(),
+                                          itemCount: textList.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return Column(
+                                              children: <Widget>[
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 10.0,
+                                                          left: 10.0,
+                                                          right: 10.0),
+                                                  child: CheckboxListTile(
+                                                    value: textListValue[index],
+                                                    onChanged: (bool value) {
+                                                      setState(() {
+                                                        textListValue[index] =
+                                                            !textListValue[
+                                                                index];
+                                                      });
+                                                    },
+                                                    title: new Text(
+                                                        textList[index]),
+                                                    controlAffinity:
+                                                        ListTileControlAffinity
+                                                            .leading,
+                                                    activeColor:
+                                                        AbubaPallate.green,
+                                                    subtitle:
+                                                        Text('07/01/2019'),
+                                                  ),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                : Container(),
+                            index == 32
+                                ? Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Flexible(
+                                        child: ListView.builder(
+                                          shrinkWrap: true,
+                                          physics: ScrollPhysics(),
+                                          itemCount: textList.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return Column(
+                                              children: <Widget>[
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 10.0,
+                                                          left: 10.0,
+                                                          right: 10.0),
+                                                  child: CheckboxListTile(
+                                                    value: textListValue[index],
+                                                    onChanged: (bool value) {
+                                                      setState(() {
+                                                        textListValue[index] =
+                                                            !textListValue[
+                                                                index];
+                                                      });
+                                                    },
+                                                    title: new Text(
+                                                        textList[index]),
+                                                    controlAffinity:
+                                                        ListTileControlAffinity
+                                                            .leading,
+                                                    activeColor:
+                                                        AbubaPallate.green,
+                                                    subtitle:
+                                                        Text('07/01/2019'),
+                                                  ),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                : Container(),
+                            index == 33
+                                ? Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Flexible(
+                                        child: ListView.builder(
+                                          shrinkWrap: true,
+                                          physics: ScrollPhysics(),
+                                          itemCount: textList.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return Column(
+                                              children: <Widget>[
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 10.0,
+                                                          left: 10.0,
+                                                          right: 10.0),
+                                                  child: CheckboxListTile(
+                                                    value: textListValue[index],
+                                                    onChanged: (bool value) {
+                                                      setState(() {
+                                                        textListValue[index] =
+                                                            !textListValue[
+                                                                index];
+                                                      });
+                                                    },
+                                                    title: new Text(
+                                                        textList[index]),
+                                                    controlAffinity:
+                                                        ListTileControlAffinity
+                                                            .leading,
+                                                    activeColor:
+                                                        AbubaPallate.green,
+                                                    subtitle:
+                                                        Text('07/01/2019'),
+                                                  ),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                : Container(),
+                            index == 34
+                                ? Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Flexible(
+                                        child: ListView.builder(
+                                          shrinkWrap: true,
+                                          physics: ScrollPhysics(),
+                                          itemCount: textList.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return Column(
+                                              children: <Widget>[
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 10.0,
+                                                          left: 10.0,
+                                                          right: 10.0),
+                                                  child: CheckboxListTile(
+                                                    value: textListValue[index],
+                                                    onChanged: (bool value) {
+                                                      setState(() {
+                                                        textListValue[index] =
+                                                            !textListValue[
+                                                                index];
+                                                      });
+                                                    },
+                                                    title: new Text(
+                                                        textList[index]),
+                                                    controlAffinity:
+                                                        ListTileControlAffinity
+                                                            .leading,
+                                                    activeColor:
+                                                        AbubaPallate.green,
+                                                    subtitle:
+                                                        Text('07/01/2019'),
+                                                  ),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                : Container(),
                           ],
                         ),
                       );
@@ -2694,13 +2915,27 @@ class _FormProblemState extends State<FormProblem>
                       },
                       tooltip: 'Previous',
                     ),
-                    IconButton(
-                      icon: Icon(Icons.arrow_forward_ios, color: Colors.white),
-                      onPressed: () {
-                        _controller.next(animation: true);
-                      },
-                      tooltip: 'Next',
-                    ),
+                    _currentIndex == 8 ||
+                            _currentIndex == 9 ||
+                            _currentIndex == 16 ||
+                            _currentIndex == 17 ||
+                            _currentIndex == 24 ||
+                            _currentIndex == 27 ||
+                            _currentIndex == 30
+                        ? IconButton(
+                            icon: Icon(Icons.arrow_forward_ios,
+                                color: Color(0xFF2F592F)),
+                            onPressed: () {},
+                            tooltip: 'Next',
+                          )
+                        : IconButton(
+                            icon: Icon(Icons.arrow_forward_ios,
+                                color: Colors.white),
+                            onPressed: () {
+                              _controller.next(animation: true);
+                            },
+                            tooltip: 'Next',
+                          ),
                   ],
                 )
               ],
