@@ -55,12 +55,138 @@ class _FormProblemState extends State<FormProblem>
   final dateFormat = DateFormat("MMMM d, yyyy");
   DateTime dateStart;
 
-  String _mySelection;
+  String _whatSelection;
+  String _what;
+  List<Map> _whatJson = [
+    {"id": 1, "what": "Customer Complain"},
+    {"id": 2, "what": "Alat Rusak"},
+    {"id": 3, "what": "Disiplin Karyawan"},
+  ];
+
+  String _whoSelection;
+  String _who;
+  List<Map> _whoJson = [
+    {"id": 1, "who": "Robert - Cashier"},
+    {"id": 2, "who": "Susan - Cashier"},
+    {"id": 3, "who": "Alberto - Cashier"},
+  ];
+
+  String _shiftSelection;
   String _shift;
   List<Map> _shiftJson = [
-    {"id": 1, "shift": "Customer Complain"},
-    {"id": 2, "shift": "Alat Rusak"}
+    {"id": 1, "shift": "Shift Pagi"},
+    {"id": 2, "shift": "Shift Siang"},
   ];
+
+  String _departmentSelection;
+  String _department;
+  List<Map> _departmentJson = [
+    {"id": 1, "department": "Department"},
+    {"id": 2, "department": "Divisi"},
+    {"id": 3, "department": "Area"},
+  ];
+
+  String _divisiSelection;
+  String _divisi;
+  List<Map> _divisiJson = [
+    {"id": 1, "divisi": "Divisi 1"},
+    {"id": 2, "divisi": "Divisi 2"},
+    {"id": 3, "divisi": "Divisi 3"},
+  ];
+
+  String _areaSelection;
+  String _area;
+  List<Map> _areaJson = [
+    {"id": 1, "area": "Dapur"},
+    {"id": 2, "area": "Cashier"},
+    {"id": 3, "area": "Ruang VIP"},
+  ];
+
+  String _whySelection;
+  String _why;
+  List<Map> _whyJson = [
+    {"id": 1, "why": "Loss Revenue"},
+    {"id": 2, "why": "High Turnover"},
+  ];
+
+  String _championSelection;
+  String _champion;
+  List<Map> _championJson = [
+    {"id": 1, "champion": "Rizal - HRD"},
+    {"id": 2, "champion": "Ridwan - HRD"},
+    {"id": 3, "champion": "-"},
+  ];
+
+  String _leaderSelection;
+  String _leader;
+  List<Map> _leaderJson = [
+    {"id": 1, "leader": "Rizal - HRD"},
+    {"id": 2, "leader": "Ridwan - HRD"},
+    {"id": 3, "leader": "-"},
+  ];
+
+  String _recordSelection;
+  String _record;
+  List<Map> _recordJson = [
+    {"id": 1, "record": "Yani - QA"},
+    {"id": 2, "record": "Ridwan - HRD"},
+    {"id": 3, "record": "-"},
+  ];
+
+  String _participantSelection;
+  String _participant;
+  List<Map> _participantJson = [
+    {"id": 1, "participant": "Sony - IT"},
+    {"id": 2, "participant": "Ridwan - HRD"},
+    {"id": 3, "participant": "-"},
+  ];
+
+  String _tindakanSelection;
+  String _tindakan;
+  List<Map> _tindakanJson = [
+    {"id": 1, "tindakan": "Ganti Menu"},
+    {"id": 2, "tindakan": "Sortir"},
+    {"id": 3, "tindakan": "Briefing"},
+  ];
+
+  String _pelaksanaSelection;
+  String _pelaksana;
+  List<Map> _pelaksanaJson = [
+    {"id": 1, "pelaksana": "Sulastri - Cashier"},
+    {"id": 2, "pelaksana": "Sule - Cashier"},
+    {"id": 3, "pelaksana": "-"},
+  ];
+
+  String _whatCorrectSelection;
+  String _whatCorrect;
+  List<Map> _whatCorrectJson = [
+    {"id": 1, "whatCorrect": "Coordination"},
+    {"id": 2, "whatCorrect": "Training"},
+    {"id": 3, "whatCorrect": "Review"},
+  ];
+
+  String _whoCorrectSelection;
+  String _whoCorrect;
+  List<Map> _whoCorrectJson = [
+    {"id": 1, "whoCorrect": "Ridwan - QA"},
+    {"id": 2, "whoCorrect": "Rizal - QA"},
+    {"id": 3, "whoCorrect": "Rani - QA"},
+  ];
+
+  String _effectivinessSelection;
+  String _effectiviness;
+  List<Map> _effectivinessJson = [
+    {"id": 1, "effectiviness": "Pareto"},
+    {"id": 2, "effectiviness": "Check Sheet"},
+    {"id": 3, "effectiviness": "Trend"},
+  ];
+
+
+  Color _colorLowSe = Colors.grey;
+  Color _colorMedSe = Colors.grey;
+  Color _colorHighSe = Colors.grey;
+
+  String _mySelection;
 
   List<Map> _title = [
     {
@@ -655,29 +781,34 @@ class _FormProblemState extends State<FormProblem>
                                         padding: EdgeInsets.only(
                                             top: 10.0, bottom: 10.0),
                                         child: DropdownButtonFormField(
-                                          hint: Text('Customer Complain',
-                                              style: TextStyle(fontSize: 14.0)),
-                                          value: _mySelection,
+                                          value: _whatSelection,
                                           onChanged: (String newValue) {
                                             setState(() {
                                               switch (int.tryParse(newValue)) {
                                                 case 1:
-                                                  _shift = 'Customer Complain';
+                                                  _what = 'Customer Complaint';
                                                   break;
                                                 case 2:
-                                                  _shift = 'Alat Rusak';
+                                                  _what = 'Alat Rusak';
+                                                  break;
+                                                case 3:
+                                                  _what = 'Disiplin Karyawan';
                                                   break;
                                                 default:
-                                                  _shift = '-';
+                                                  _what = '-';
                                                   break;
                                               }
-                                              _mySelection = newValue;
+                                              _whatSelection = newValue;
                                             });
                                           },
-                                          items: _shiftJson.map((Map map) {
+                                          decoration: InputDecoration(
+                                            labelText: 'What',
+                                            labelStyle: TextStyle(fontSize: 14.0),
+                                          ),
+                                          items: _whatJson.map((Map map) {
                                             return new DropdownMenuItem(
                                               value: map['id'].toString(),
-                                              child: Text(map['shift']),
+                                              child: Text(map['what']),
                                             );
                                           }).toList(),
                                         ),
@@ -756,29 +887,34 @@ class _FormProblemState extends State<FormProblem>
                                         padding: EdgeInsets.only(
                                             top: 10.0, bottom: 10.0),
                                         child: DropdownButtonFormField(
-                                          hint: Text('Customer Complain',
-                                              style: TextStyle(fontSize: 14.0)),
-                                          value: _mySelection,
+                                          value: _whoSelection,
                                           onChanged: (String newValue) {
                                             setState(() {
                                               switch (int.tryParse(newValue)) {
                                                 case 1:
-                                                  _shift = 'A';
+                                                  _who = 'Robert - Cashier';
                                                   break;
                                                 case 2:
-                                                  _shift = 'B';
+                                                  _who = 'Susan - Cashier';
+                                                  break;
+                                                case 3:
+                                                  _who = 'Alberto - Cashier';
                                                   break;
                                                 default:
-                                                  _shift = '-';
+                                                  _who = '-';
                                                   break;
                                               }
-                                              _mySelection = newValue;
+                                              _whoSelection = newValue;
                                             });
                                           },
-                                          items: _shiftJson.map((Map map) {
+                                          decoration: InputDecoration(
+                                            labelText: 'Who',
+                                            labelStyle: TextStyle(fontSize: 14.0),
+                                          ),
+                                          items: _whoJson.map((Map map) {
                                             return new DropdownMenuItem(
                                               value: map['id'].toString(),
-                                              child: Text(map['shift']),
+                                              child: Text(map['who']),
                                             );
                                           }).toList(),
                                         ),
@@ -844,36 +980,33 @@ class _FormProblemState extends State<FormProblem>
                                         padding: EdgeInsets.only(
                                             top: 10.0, bottom: 10.0),
                                         child: DropdownButtonFormField(
-                                          hint: Text('Shift',
-                                              style: TextStyle(fontSize: 14.0)),
-                                          value: _mySelection,
+                                          value: _shiftSelection,
                                           onChanged: (String newValue) {
-                                            setState(
-                                              () {
-                                                switch (
-                                                    int.tryParse(newValue)) {
-                                                  case 1:
-                                                    _shift = 'A';
-                                                    break;
-                                                  case 2:
-                                                    _shift = 'B';
-                                                    break;
-                                                  default:
-                                                    _shift = '-';
-                                                    break;
-                                                }
-                                                _mySelection = newValue;
-                                              },
-                                            );
+                                            setState(() {
+                                              switch (int.tryParse(newValue)) {
+                                                case 1:
+                                                  _shift = 'Shift Page';
+                                                  break;
+                                                case 2:
+                                                  _shift = 'Shift Siang';
+                                                  break;
+                                                default:
+                                                  _shift = '-';
+                                                  break;
+                                              }
+                                              _shiftSelection = newValue;
+                                            });
                                           },
-                                          items: _shiftJson.map(
-                                            (Map map) {
-                                              return new DropdownMenuItem(
-                                                value: map['id'].toString(),
-                                                child: Text(map['shift']),
-                                              );
-                                            },
-                                          ).toList(),
+                                          decoration: InputDecoration(
+                                            labelText: 'Shift',
+                                            labelStyle: TextStyle(fontSize: 14.0),
+                                          ),
+                                          items: _shiftJson.map((Map map) {
+                                            return new DropdownMenuItem(
+                                              value: map['id'].toString(),
+                                              child: Text(map['shift']),
+                                            );
+                                          }).toList(),
                                         ),
                                       ),
                                       Row(
@@ -947,6 +1080,41 @@ class _FormProblemState extends State<FormProblem>
                                             ),
                                           ),
                                         ],
+                                      ),
+                                      Container(
+                                        width: MediaQuery.of(context).size.width,
+                                        child: DropdownButtonFormField(
+                                          value: _departmentSelection,
+                                          onChanged: (String newValue) {
+                                            setState(() {
+                                              switch (int.tryParse(newValue)) {
+                                                case 1:
+                                                  _department = 'Department';
+                                                  break;
+                                                case 2:
+                                                  _department = 'Divisi';
+                                                  break;
+                                                case 3:
+                                                  _department = 'Area';
+                                                  break;
+                                                default:
+                                                  _department = '-';
+                                                  break;
+                                              }
+                                              _departmentSelection = newValue;
+                                            });
+                                          },
+                                          decoration: InputDecoration(
+                                            labelText: 'Lokasi',
+                                            labelStyle: TextStyle(fontSize: 14.0),
+                                          ),
+                                          items: _departmentJson.map((Map map) {
+                                            return new DropdownMenuItem(
+                                              value: map['id'].toString(),
+                                              child: Text(map['department']),
+                                            );
+                                          }).toList(),
+                                        ),
                                       ),
                                       Row(
                                         mainAxisAlignment:
@@ -1024,32 +1192,31 @@ class _FormProblemState extends State<FormProblem>
                                         padding: EdgeInsets.only(
                                             top: 10.0, bottom: 10.0),
                                         child: DropdownButtonFormField(
-                                          hint: Text('Shift',
-                                              style: TextStyle(fontSize: 14.0)),
-                                          value: _mySelection,
+                                          value: _whySelection,
                                           onChanged: (String newValue) {
-                                            setState(
-                                              () {
-                                                switch (
-                                                    int.tryParse(newValue)) {
-                                                  case 1:
-                                                    _shift = 'A';
-                                                    break;
-                                                  case 2:
-                                                    _shift = 'B';
-                                                    break;
-                                                  default:
-                                                    _shift = '-';
-                                                    break;
-                                                }
-                                                _mySelection = newValue;
-                                              },
-                                            );
+                                            setState(() {
+                                              switch (int.tryParse(newValue)) {
+                                                case 1:
+                                                  _why = 'Loss Revenue';
+                                                  break;
+                                                case 2:
+                                                  _why = 'High Turnover';
+                                                  break;
+                                                default:
+                                                  _why = '-';
+                                                  break;
+                                              }
+                                              _whySelection = newValue;
+                                            });
                                           },
-                                          items: _shiftJson.map((Map map) {
+                                          decoration: InputDecoration(
+                                            labelText: 'Why',
+                                            labelStyle: TextStyle(fontSize: 14.0),
+                                          ),
+                                          items: _whyJson.map((Map map) {
                                             return new DropdownMenuItem(
                                               value: map['id'].toString(),
-                                              child: Text(map['shift']),
+                                              child: Text(map['why']),
                                             );
                                           }).toList(),
                                         ),
@@ -1128,40 +1295,98 @@ class _FormProblemState extends State<FormProblem>
                                         ],
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 10.0, bottom: 10.0),
-                                        child: DropdownButtonFormField(
-                                          hint: Text('Shift',
-                                              style: TextStyle(fontSize: 14.0)),
-                                          value: _mySelection,
-                                          onChanged: (String newValue) {
-                                            setState(
-                                              () {
-                                                switch (
-                                                    int.tryParse(newValue)) {
-                                                  case 1:
-                                                    _shift = 'A';
-                                                    break;
-                                                  case 2:
-                                                    _shift = 'B';
-                                                    break;
-                                                  default:
-                                                    _shift = '-';
-                                                    break;
-                                                }
-                                                _mySelection = newValue;
-                                              },
-                                            );
-                                          },
-                                          items: _shiftJson.map(
-                                            (Map map) {
-                                              return new DropdownMenuItem(
-                                                value: map['id'].toString(),
-                                                child: Text(map['shift']),
-                                              );
-                                            },
-                                          ).toList(),
-                                        ),
+                                          padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                                          child: Column(
+                                            children: <Widget>[
+                                              Container(
+                                                padding:
+                                                EdgeInsets.only(top: 5.0),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceAround,
+                                                  children: <Widget>[
+                                                    ButtonTheme(
+                                                      height: 30.0,
+                                                      child: OutlineButton(
+                                                        child: Text(
+                                                          'Low',
+                                                          style: TextStyle(
+                                                              color: _colorLowSe),
+                                                        ),
+                                                        borderSide: BorderSide(
+                                                            color: _colorLowSe,
+                                                            width: 1.0),
+                                                        highlightedBorderColor:
+                                                        _colorLowSe,
+                                                        onPressed: () {
+                                                          setState(() {
+                                                            _colorLowSe =
+                                                            Colors.green[400];
+                                                            _colorMedSe =
+                                                                Colors.grey;
+                                                            _colorHighSe =
+                                                                Colors.grey;
+                                                          });
+                                                        },
+                                                      ),
+                                                    ),
+                                                    ButtonTheme(
+                                                      height: 30.0,
+                                                      child: OutlineButton(
+                                                        child: Text(
+                                                          'Medium',
+                                                          style: TextStyle(
+                                                              color: _colorMedSe),
+                                                        ),
+                                                        borderSide: BorderSide(
+                                                            color: _colorMedSe,
+                                                            width: 1.0),
+                                                        highlightedBorderColor:
+                                                        _colorMedSe,
+                                                        onPressed: () {
+                                                          setState(() {
+                                                            _colorLowSe =
+                                                                Colors.grey;
+                                                            _colorMedSe = Colors
+                                                                .orangeAccent;
+                                                            _colorHighSe =
+                                                                Colors.grey;
+                                                          });
+                                                        },
+                                                      ),
+                                                    ),
+                                                    ButtonTheme(
+                                                      height: 30.0,
+                                                      child: OutlineButton(
+                                                        child: Text(
+                                                          'High',
+                                                          style: TextStyle(
+                                                              color:
+                                                              _colorHighSe),
+                                                        ),
+                                                        borderSide: BorderSide(
+                                                            color: _colorHighSe,
+                                                            width: 1.0),
+                                                        highlightedBorderColor:
+                                                        _colorHighSe,
+                                                        onPressed: () {
+                                                          setState(() {
+                                                            _colorLowSe =
+                                                                Colors.grey;
+                                                            _colorMedSe =
+                                                                Colors.grey;
+                                                            _colorHighSe =
+                                                                Colors.redAccent;
+                                                          });
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              )
+                                            ],
+                                          )
                                       ),
                                       Row(
                                         mainAxisAlignment:
@@ -1419,29 +1644,31 @@ class _FormProblemState extends State<FormProblem>
                                         padding: EdgeInsets.only(
                                             top: 10.0, bottom: 10.0),
                                         child: DropdownButtonFormField(
-                                          hint: Text('Shift',
-                                              style: TextStyle(fontSize: 14.0)),
-                                          value: _mySelection,
+                                          value: _championSelection,
                                           onChanged: (String newValue) {
                                             setState(() {
                                               switch (int.tryParse(newValue)) {
                                                 case 1:
-                                                  _shift = 'A';
+                                                  _champion = 'Rizal - HRD';
                                                   break;
                                                 case 2:
-                                                  _shift = 'B';
+                                                  _champion = 'Ridwan - HRD';
                                                   break;
                                                 default:
-                                                  _shift = '-';
+                                                  _champion = '-';
                                                   break;
                                               }
-                                              _mySelection = newValue;
+                                              _championSelection = newValue;
                                             });
                                           },
-                                          items: _shiftJson.map((Map map) {
+                                          decoration: InputDecoration(
+                                            labelText: 'Champion',
+                                            labelStyle: TextStyle(fontSize: 14.0),
+                                          ),
+                                          items: _championJson.map((Map map) {
                                             return new DropdownMenuItem(
                                               value: map['id'].toString(),
-                                              child: Text(map['shift']),
+                                              child: Text(map['champion']),
                                             );
                                           }).toList(),
                                         ),
@@ -1477,29 +1704,31 @@ class _FormProblemState extends State<FormProblem>
                                         padding: EdgeInsets.only(
                                             top: 10.0, bottom: 10.0),
                                         child: DropdownButtonFormField(
-                                          hint: Text('Shift',
-                                              style: TextStyle(fontSize: 14.0)),
-                                          value: _mySelection,
+                                          value: _leaderSelection,
                                           onChanged: (String newValue) {
                                             setState(() {
                                               switch (int.tryParse(newValue)) {
                                                 case 1:
-                                                  _shift = 'A';
+                                                  _leader = 'Rizal - HRD';
                                                   break;
                                                 case 2:
-                                                  _shift = 'B';
+                                                  _leader = 'Ridwan - HRD';
                                                   break;
                                                 default:
-                                                  _shift = '-';
+                                                  _leader = '-';
                                                   break;
                                               }
-                                              _mySelection = newValue;
+                                              _leaderSelection = newValue;
                                             });
                                           },
-                                          items: _shiftJson.map((Map map) {
+                                          decoration: InputDecoration(
+                                            labelText: 'Champion',
+                                            labelStyle: TextStyle(fontSize: 14.0),
+                                          ),
+                                          items: _leaderJson.map((Map map) {
                                             return new DropdownMenuItem(
                                               value: map['id'].toString(),
-                                              child: Text(map['shift']),
+                                              child: Text(map['leader']),
                                             );
                                           }).toList(),
                                         ),
@@ -1535,29 +1764,31 @@ class _FormProblemState extends State<FormProblem>
                                         padding: EdgeInsets.only(
                                             top: 10.0, bottom: 10.0),
                                         child: DropdownButtonFormField(
-                                          hint: Text('Shift',
-                                              style: TextStyle(fontSize: 14.0)),
-                                          value: _mySelection,
+                                          value: _recordSelection,
                                           onChanged: (String newValue) {
                                             setState(() {
                                               switch (int.tryParse(newValue)) {
                                                 case 1:
-                                                  _shift = 'A';
+                                                  _record = 'Rizal - HRD';
                                                   break;
                                                 case 2:
-                                                  _shift = 'B';
+                                                  _record = 'Ridwan - HRD';
                                                   break;
                                                 default:
-                                                  _shift = '-';
+                                                  _record = '-';
                                                   break;
                                               }
-                                              _mySelection = newValue;
+                                              _recordSelection = newValue;
                                             });
                                           },
-                                          items: _shiftJson.map((Map map) {
+                                          decoration: InputDecoration(
+                                            labelText: 'Record Keeper',
+                                            labelStyle: TextStyle(fontSize: 14.0),
+                                          ),
+                                          items: _recordJson.map((Map map) {
                                             return new DropdownMenuItem(
                                               value: map['id'].toString(),
-                                              child: Text(map['shift']),
+                                              child: Text(map['record']),
                                             );
                                           }).toList(),
                                         ),
@@ -1593,29 +1824,31 @@ class _FormProblemState extends State<FormProblem>
                                         padding: EdgeInsets.only(
                                             top: 10.0, bottom: 10.0),
                                         child: DropdownButtonFormField(
-                                          hint: Text('Shift',
-                                              style: TextStyle(fontSize: 14.0)),
-                                          value: _mySelection,
+                                          value: _participantSelection,
                                           onChanged: (String newValue) {
                                             setState(() {
                                               switch (int.tryParse(newValue)) {
                                                 case 1:
-                                                  _shift = 'A';
+                                                  _participant = 'Rizal - HRD';
                                                   break;
                                                 case 2:
-                                                  _shift = 'B';
+                                                  _participant = 'Ridwan - HRD';
                                                   break;
                                                 default:
-                                                  _shift = '-';
+                                                  _participant = '-';
                                                   break;
                                               }
-                                              _mySelection = newValue;
+                                              _participantSelection = newValue;
                                             });
                                           },
-                                          items: _shiftJson.map((Map map) {
+                                          decoration: InputDecoration(
+                                            labelText: 'Participants',
+                                            labelStyle: TextStyle(fontSize: 14.0),
+                                          ),
+                                          items: _participantJson.map((Map map) {
                                             return new DropdownMenuItem(
                                               value: map['id'].toString(),
-                                              child: Text(map['shift']),
+                                              child: Text(map['participant']),
                                             );
                                           }).toList(),
                                         ),
@@ -1696,29 +1929,31 @@ class _FormProblemState extends State<FormProblem>
                                         padding: EdgeInsets.only(
                                             top: 10.0, bottom: 10.0),
                                         child: DropdownButtonFormField(
-                                          hint: Text('Shift',
-                                              style: TextStyle(fontSize: 14.0)),
-                                          value: _mySelection,
+                                          value: _pelaksanaSelection,
                                           onChanged: (String newValue) {
                                             setState(() {
                                               switch (int.tryParse(newValue)) {
                                                 case 1:
-                                                  _shift = 'A';
+                                                  _pelaksana = 'Rizal - HRD';
                                                   break;
                                                 case 2:
-                                                  _shift = 'B';
+                                                  _pelaksana = 'Ridwan - HRD';
                                                   break;
                                                 default:
-                                                  _shift = '-';
+                                                  _pelaksana = '-';
                                                   break;
                                               }
-                                              _mySelection = newValue;
+                                              _pelaksanaSelection = newValue;
                                             });
                                           },
-                                          items: _shiftJson.map((Map map) {
+                                          decoration: InputDecoration(
+                                            labelText: 'Pelaksana',
+                                            labelStyle: TextStyle(fontSize: 14.0),
+                                          ),
+                                          items: _pelaksanaJson.map((Map map) {
                                             return new DropdownMenuItem(
                                               value: map['id'].toString(),
-                                              child: Text(map['shift']),
+                                              child: Text(map['pelaksana']),
                                             );
                                           }).toList(),
                                         ),
@@ -1887,29 +2122,31 @@ class _FormProblemState extends State<FormProblem>
                                         padding: EdgeInsets.only(
                                             top: 10.0, bottom: 10.0),
                                         child: DropdownButtonFormField(
-                                          hint: Text('Shift',
-                                              style: TextStyle(fontSize: 14.0)),
-                                          value: _mySelection,
+                                          value: _whatCorrectSelection,
                                           onChanged: (String newValue) {
                                             setState(() {
                                               switch (int.tryParse(newValue)) {
                                                 case 1:
-                                                  _shift = 'A';
+                                                  _whatCorrect = 'Rizal - HRD';
                                                   break;
                                                 case 2:
-                                                  _shift = 'B';
+                                                  _whatCorrect = 'Ridwan - HRD';
                                                   break;
                                                 default:
-                                                  _shift = '-';
+                                                  _whatCorrect = '-';
                                                   break;
                                               }
-                                              _mySelection = newValue;
+                                              _whatCorrectSelection = newValue;
                                             });
                                           },
-                                          items: _shiftJson.map((Map map) {
+                                          decoration: InputDecoration(
+                                            labelText: 'What',
+                                            labelStyle: TextStyle(fontSize: 14.0),
+                                          ),
+                                          items: _whatCorrectJson.map((Map map) {
                                             return new DropdownMenuItem(
                                               value: map['id'].toString(),
-                                              child: Text(map['shift']),
+                                              child: Text(map['whatCorrect']),
                                             );
                                           }).toList(),
                                         ),
@@ -1991,29 +2228,31 @@ class _FormProblemState extends State<FormProblem>
                                         padding: EdgeInsets.only(
                                             top: 10.0, bottom: 10.0),
                                         child: DropdownButtonFormField(
-                                          hint: Text('Shift',
-                                              style: TextStyle(fontSize: 14.0)),
-                                          value: _mySelection,
+                                          value: _whoCorrectSelection,
                                           onChanged: (String newValue) {
                                             setState(() {
                                               switch (int.tryParse(newValue)) {
                                                 case 1:
-                                                  _shift = 'A';
+                                                  _whoCorrect= 'Rizal - HRD';
                                                   break;
                                                 case 2:
-                                                  _shift = 'B';
+                                                  _whoCorrect = 'Ridwan - HRD';
                                                   break;
                                                 default:
-                                                  _shift = '-';
+                                                  _whoCorrect = '-';
                                                   break;
                                               }
-                                              _mySelection = newValue;
+                                              _whoCorrectSelection = newValue;
                                             });
                                           },
-                                          items: _shiftJson.map((Map map) {
+                                          decoration: InputDecoration(
+                                            labelText: 'Who',
+                                            labelStyle: TextStyle(fontSize: 14.0),
+                                          ),
+                                          items: _whoCorrectJson.map((Map map) {
                                             return new DropdownMenuItem(
                                               value: map['id'].toString(),
-                                              child: Text(map['shift']),
+                                              child: Text(map['whoCorrect']),
                                             );
                                           }).toList(),
                                         ),
@@ -2259,6 +2498,39 @@ class _FormProblemState extends State<FormProblem>
                                           ),
                                         ],
                                       ),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 10.0, bottom: 10.0),
+                                        child: DropdownButtonFormField(
+                                          value: _effectivinessSelection,
+                                          onChanged: (String newValue) {
+                                            setState(() {
+                                              switch (int.tryParse(newValue)) {
+                                                case 1:
+                                                  _effectiviness= 'Rizal - HRD';
+                                                  break;
+                                                case 2:
+                                                  _effectiviness = 'Ridwan - HRD';
+                                                  break;
+                                                default:
+                                                  _effectiviness = '-';
+                                                  break;
+                                              }
+                                              _effectivinessSelection = newValue;
+                                            });
+                                          },
+                                          decoration: InputDecoration(
+                                            labelText: 'Effectiviness',
+                                            labelStyle: TextStyle(fontSize: 14.0),
+                                          ),
+                                          items: _effectivinessJson.map((Map map) {
+                                            return new DropdownMenuItem(
+                                              value: map['id'].toString(),
+                                              child: Text(map['effectiviness']),
+                                            );
+                                          }).toList(),
+                                        ),
+                                      ),
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.end,
@@ -2390,29 +2662,31 @@ class _FormProblemState extends State<FormProblem>
                                         padding: EdgeInsets.only(
                                             top: 10.0, bottom: 10.0),
                                         child: DropdownButtonFormField(
-                                          hint: Text('Shift',
-                                              style: TextStyle(fontSize: 14.0)),
-                                          value: _mySelection,
+                                          value: _whoCorrectSelection,
                                           onChanged: (String newValue) {
                                             setState(() {
                                               switch (int.tryParse(newValue)) {
                                                 case 1:
-                                                  _shift = 'A';
+                                                  _whoCorrect= 'Rizal - HRD';
                                                   break;
                                                 case 2:
-                                                  _shift = 'B';
+                                                  _whoCorrect = 'Ridwan - HRD';
                                                   break;
                                                 default:
-                                                  _shift = '-';
+                                                  _whoCorrect = '-';
                                                   break;
                                               }
-                                              _mySelection = newValue;
+                                              _whoCorrectSelection = newValue;
                                             });
                                           },
-                                          items: _shiftJson.map((Map map) {
+                                          decoration: InputDecoration(
+                                            labelText: 'Who',
+                                            labelStyle: TextStyle(fontSize: 14.0),
+                                          ),
+                                          items: _whoCorrectJson.map((Map map) {
                                             return new DropdownMenuItem(
                                               value: map['id'].toString(),
-                                              child: Text(map['shift']),
+                                              child: Text(map['whoCorrect']),
                                             );
                                           }).toList(),
                                         ),
@@ -2546,29 +2820,31 @@ class _FormProblemState extends State<FormProblem>
                                         padding: EdgeInsets.only(
                                             top: 10.0, bottom: 10.0),
                                         child: DropdownButtonFormField(
-                                          hint: Text('Shift',
-                                              style: TextStyle(fontSize: 14.0)),
-                                          value: _mySelection,
+                                          value: _whoCorrectSelection,
                                           onChanged: (String newValue) {
                                             setState(() {
                                               switch (int.tryParse(newValue)) {
                                                 case 1:
-                                                  _shift = 'A';
+                                                  _whoCorrect= 'Rizal - HRD';
                                                   break;
                                                 case 2:
-                                                  _shift = 'B';
+                                                  _whoCorrect = 'Ridwan - HRD';
                                                   break;
                                                 default:
-                                                  _shift = '-';
+                                                  _whoCorrect = '-';
                                                   break;
                                               }
-                                              _mySelection = newValue;
+                                              _whoCorrectSelection = newValue;
                                             });
                                           },
-                                          items: _shiftJson.map((Map map) {
+                                          decoration: InputDecoration(
+                                            labelText: 'Who',
+                                            labelStyle: TextStyle(fontSize: 14.0),
+                                          ),
+                                          items: _whoCorrectJson.map((Map map) {
                                             return new DropdownMenuItem(
                                               value: map['id'].toString(),
-                                              child: Text(map['shift']),
+                                              child: Text(map['whoCorrect']),
                                             );
                                           }).toList(),
                                         ),
