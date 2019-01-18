@@ -70,6 +70,7 @@ class _FormProblemState extends State<FormProblem>
     {"id": 2, "who": "Susan - Cashier"},
     {"id": 3, "who": "Alberto - Cashier"},
   ];
+  List<String> _whoSelected = [];
 
   String _shiftSelection;
   String _shift;
@@ -140,6 +141,7 @@ class _FormProblemState extends State<FormProblem>
     {"id": 2, "participant": "Ridwan - HRD"},
     {"id": 3, "participant": "-"},
   ];
+  List<String> _participantSelected = [];
 
   String _tindakanSelection;
   String _tindakan;
@@ -694,6 +696,7 @@ class _FormProblemState extends State<FormProblem>
 
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomPadding: false,
         appBar: _appBar(),
         backgroundColor: Colors.white,
         body: GestureDetector(
@@ -864,26 +867,27 @@ class _FormProblemState extends State<FormProblem>
                                 : Container(),
                             index == 2
                                 ? Column(
-                                    children: <Widget>[
-                                      Row(
-                                        children: <Widget>[
-                                          Flexible(
-                                            child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 10.0,
-                                                  vertical: 20.0),
-                                              child: Text(
-                                                _title[index]['isi'],
-                                                style: TextStyle(
-                                                    color: Colors.black54,
-                                                    fontSize: 28.0),
-                                                textAlign: TextAlign.center,
-                                              ),
+                                  children: <Widget>[
+                                    Row(
+                                      children: <Widget>[
+                                        Flexible(
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 10.0,
+                                                vertical: 20.0),
+                                            child: Text(
+                                              _title[index]['isi'],
+                                              style: TextStyle(
+                                                  color: Colors.black54,
+                                                  fontSize: 28.0),
+                                              textAlign: TextAlign.center,
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                      Padding(
+                                        ),
+                                      ],
+                                    ),
+                                    ListTile(
+                                      title: Padding(
                                         padding: EdgeInsets.only(
                                             top: 10.0, bottom: 10.0),
                                         child: DropdownButtonFormField(
@@ -920,8 +924,41 @@ class _FormProblemState extends State<FormProblem>
                                           }).toList(),
                                         ),
                                       ),
-                                    ],
-                                  )
+                                      trailing: IconButton(
+                                        icon: Icon(Icons.add, color: AbubaPallate.greenabuba),
+                                        onPressed: () {
+                                          setState(() {
+                                            _whoSelected.add(_who);
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                    Column(
+                                      children: <Widget>[
+                                        SingleChildScrollView(
+                                          physics: ScrollPhysics(),
+                                          child: Padding(
+                                            padding: EdgeInsets.only(top: 10.0, bottom: 20.0),
+                                            child: Wrap(
+                                              spacing: 4.0,
+                                              runSpacing: 2.0,
+                                              runAlignment: WrapAlignment.start,
+                                              direction: Axis.horizontal,
+                                              children: _whoSelected.map((String name) => Chip(
+                                                label: Text(name),
+                                                onDeleted: () {
+                                                  setState(() {
+                                                    _whoSelected.remove(name);
+                                                  });
+                                                },
+                                              )).toList(),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                )
                                 : Container(),
                             index == 3
                                 ? Column(
@@ -945,6 +982,8 @@ class _FormProblemState extends State<FormProblem>
                                         ],
                                       ),
                                       Container(
+                                        padding: EdgeInsets.only(
+                                            top: 10.0),
                                         width:
                                             MediaQuery.of(context).size.width,
                                         child: DateTimePickerFormField(
@@ -963,6 +1002,8 @@ class _FormProblemState extends State<FormProblem>
                                         ),
                                       ),
                                       Container(
+                                        padding: EdgeInsets.only(
+                                            top: 10.0),
                                         width:
                                             MediaQuery.of(context).size.width,
                                         child: TimePickerFormField(
@@ -1914,41 +1955,76 @@ class _FormProblemState extends State<FormProblem>
                                           ),
                                         ],
                                       ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 10.0, bottom: 10.0),
-                                        child: DropdownButtonFormField(
-                                          value: _participantSelection,
-                                          onChanged: (String newValue) {
+                                      ListTile(
+                                        title: Padding(
+                                          padding: EdgeInsets.only(
+                                              top: 10.0, bottom: 10.0),
+                                          child: DropdownButtonFormField(
+                                            value: _participantSelection,
+                                            onChanged: (String newValue) {
+                                              setState(() {
+                                                switch (int.tryParse(newValue)) {
+                                                  case 1:
+                                                    _participant = 'Rizal - HRD';
+                                                    break;
+                                                  case 2:
+                                                    _participant = 'Ridwan - HRD';
+                                                    break;
+                                                  default:
+                                                    _participant = '-';
+                                                    break;
+                                                }
+                                                _participantSelection = newValue;
+                                              });
+                                            },
+                                            decoration: InputDecoration(
+                                              labelText: 'Participants',
+                                              labelStyle:
+                                              TextStyle(fontSize: 14.0),
+                                            ),
+                                            items:
+                                            _participantJson.map((Map map) {
+                                              return new DropdownMenuItem(
+                                                value: map['id'].toString(),
+                                                child: Text(map['participant']),
+                                              );
+                                            }).toList(),
+                                          ),
+                                        ),
+                                        trailing: IconButton(
+                                          icon: Icon(Icons.add, color: AbubaPallate.greenabuba),
+                                          onPressed: () {
                                             setState(() {
-                                              switch (int.tryParse(newValue)) {
-                                                case 1:
-                                                  _participant = 'Rizal - HRD';
-                                                  break;
-                                                case 2:
-                                                  _participant = 'Ridwan - HRD';
-                                                  break;
-                                                default:
-                                                  _participant = '-';
-                                                  break;
-                                              }
-                                              _participantSelection = newValue;
+                                              _participantSelected.add(_participant);
                                             });
                                           },
-                                          decoration: InputDecoration(
-                                            labelText: 'Participants',
-                                            labelStyle:
-                                                TextStyle(fontSize: 14.0),
-                                          ),
-                                          items:
-                                              _participantJson.map((Map map) {
-                                            return new DropdownMenuItem(
-                                              value: map['id'].toString(),
-                                              child: Text(map['participant']),
-                                            );
-                                          }).toList(),
                                         ),
                                       ),
+                                      Column(
+                                        children: <Widget>[
+                                          SingleChildScrollView(
+                                            physics: ScrollPhysics(),
+                                            child: Padding(
+                                              padding: EdgeInsets.only(top: 10.0, bottom: 20.0),
+                                              child: Wrap(
+                                                spacing: 4.0,
+                                                runSpacing: 2.0,
+                                                runAlignment: WrapAlignment.start,
+                                                direction: Axis.horizontal,
+                                                children: _participantSelected.map((String name) => Chip(
+                                                  label: Text(name),
+                                                  onDeleted: () {
+                                                    setState(() {
+                                                      _participantSelected.remove(name);
+                                                    });
+                                                  },
+                                                )).toList(),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      )
+
                                     ],
                                   )
                                 : Container(),
@@ -3253,7 +3329,7 @@ class _FormProblemState extends State<FormProblem>
                     autoplay: _autoplay,
                     itemCount: _title.length,
                     itemWidth: MediaQuery.of(context).size.width,
-                    itemHeight: _currentIndex == 4
+                    itemHeight: _currentIndex == 4 || _currentIndex == 2 || _currentIndex == 13
                         ? MediaQuery.of(context).size.height - 150.0
                         : MediaQuery.of(context).size.height - 250.0,
                     index: _currentIndex,
