@@ -181,7 +181,6 @@ class _FormProblemState extends State<FormProblem>
     {"id": 3, "effectiviness": "Trend"},
   ];
 
-
   Color _colorLowSe = Colors.grey;
   Color _colorMedSe = Colors.grey;
   Color _colorHighSe = Colors.grey;
@@ -803,7 +802,8 @@ class _FormProblemState extends State<FormProblem>
                                           },
                                           decoration: InputDecoration(
                                             labelText: 'What',
-                                            labelStyle: TextStyle(fontSize: 14.0),
+                                            labelStyle:
+                                                TextStyle(fontSize: 14.0),
                                           ),
                                           items: _whatJson.map((Map map) {
                                             return new DropdownMenuItem(
@@ -909,7 +909,8 @@ class _FormProblemState extends State<FormProblem>
                                           },
                                           decoration: InputDecoration(
                                             labelText: 'Who',
-                                            labelStyle: TextStyle(fontSize: 14.0),
+                                            labelStyle:
+                                                TextStyle(fontSize: 14.0),
                                           ),
                                           items: _whoJson.map((Map map) {
                                             return new DropdownMenuItem(
@@ -999,7 +1000,8 @@ class _FormProblemState extends State<FormProblem>
                                           },
                                           decoration: InputDecoration(
                                             labelText: 'Shift',
-                                            labelStyle: TextStyle(fontSize: 14.0),
+                                            labelStyle:
+                                                TextStyle(fontSize: 14.0),
                                           ),
                                           items: _shiftJson.map((Map map) {
                                             return new DropdownMenuItem(
@@ -1081,21 +1083,25 @@ class _FormProblemState extends State<FormProblem>
                                           ),
                                         ],
                                       ),
-                                      Container(
-                                        width: MediaQuery.of(context).size.width,
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 10.0,
+                                            bottom: 10.0,
+                                            left: 0.0,
+                                            right: 0.0),
                                         child: DropdownButtonFormField(
                                           value: _departmentSelection,
                                           onChanged: (String newValue) {
                                             setState(() {
                                               switch (int.tryParse(newValue)) {
                                                 case 1:
-                                                  _department = 'Department';
+                                                  _department = 'HRD';
                                                   break;
                                                 case 2:
-                                                  _department = 'Divisi';
+                                                  _department = 'Operation';
                                                   break;
                                                 case 3:
-                                                  _department = 'Area';
+                                                  _department = 'Marketing';
                                                   break;
                                                 default:
                                                   _department = '-';
@@ -1105,13 +1111,94 @@ class _FormProblemState extends State<FormProblem>
                                             });
                                           },
                                           decoration: InputDecoration(
-                                            labelText: 'Lokasi',
-                                            labelStyle: TextStyle(fontSize: 14.0),
+                                            labelText: 'Department',
+                                            labelStyle:
+                                                TextStyle(fontSize: 14.0),
                                           ),
                                           items: _departmentJson.map((Map map) {
                                             return new DropdownMenuItem(
                                               value: map['id'].toString(),
                                               child: Text(map['department']),
+                                            );
+                                          }).toList(),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 10.0,
+                                            bottom: 10.0,
+                                            left: 0.0,
+                                            right: 0.0),
+                                        child: DropdownButtonFormField(
+                                          value: _divisiSelection,
+                                          onChanged: (String newValue) {
+                                            setState(() {
+                                              switch (int.tryParse(newValue)) {
+                                                case 1:
+                                                  _divisi = 'Divisi 1';
+                                                  break;
+                                                case 2:
+                                                  _divisi = 'Divisi 2';
+                                                  break;
+                                                case 3:
+                                                  _divisi = 'Divisi 3';
+                                                  break;
+                                                default:
+                                                  _divisi = '-';
+                                                  break;
+                                              }
+                                              _divisiSelection = newValue;
+                                            });
+                                          },
+                                          decoration: InputDecoration(
+                                            labelText: 'Divisi',
+                                            labelStyle:
+                                                TextStyle(fontSize: 14.0),
+                                          ),
+                                          items: _divisiJson.map((Map map) {
+                                            return new DropdownMenuItem(
+                                              value: map['id'].toString(),
+                                              child: Text(map['divisi']),
+                                            );
+                                          }).toList(),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 10.0,
+                                            bottom: 10.0,
+                                            left: 0.0,
+                                            right: 0.0),
+                                        child: DropdownButtonFormField(
+                                          value: _areaSelection,
+                                          onChanged: (String newValue) {
+                                            setState(() {
+                                              switch (int.tryParse(newValue)) {
+                                                case 1:
+                                                  _area = 'Dapur';
+                                                  break;
+                                                case 2:
+                                                  _area = 'Cashier';
+                                                  break;
+                                                case 3:
+                                                  _area = 'Ruang VIP';
+                                                  break;
+                                                default:
+                                                  _area = '-';
+                                                  break;
+                                              }
+                                              _areaSelection = newValue;
+                                            });
+                                          },
+                                          decoration: InputDecoration(
+                                            labelText: 'Area',
+                                            labelStyle:
+                                                TextStyle(fontSize: 14.0),
+                                          ),
+                                          items: _areaJson.map((Map map) {
+                                            return new DropdownMenuItem(
+                                              value: map['id'].toString(),
+                                              child: Text(map['area']),
                                             );
                                           }).toList(),
                                         ),
@@ -1211,7 +1298,8 @@ class _FormProblemState extends State<FormProblem>
                                           },
                                           decoration: InputDecoration(
                                             labelText: 'Why',
-                                            labelStyle: TextStyle(fontSize: 14.0),
+                                            labelStyle:
+                                                TextStyle(fontSize: 14.0),
                                           ),
                                           items: _whyJson.map((Map map) {
                                             return new DropdownMenuItem(
@@ -1295,16 +1383,17 @@ class _FormProblemState extends State<FormProblem>
                                         ],
                                       ),
                                       Padding(
-                                          padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                                          padding: EdgeInsets.only(
+                                              top: 10.0, bottom: 10.0),
                                           child: Column(
                                             children: <Widget>[
                                               Container(
                                                 padding:
-                                                EdgeInsets.only(top: 5.0),
+                                                    EdgeInsets.only(top: 5.0),
                                                 child: Row(
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceAround,
+                                                      MainAxisAlignment
+                                                          .spaceAround,
                                                   children: <Widget>[
                                                     ButtonTheme(
                                                       height: 30.0,
@@ -1312,17 +1401,18 @@ class _FormProblemState extends State<FormProblem>
                                                         child: Text(
                                                           'Low',
                                                           style: TextStyle(
-                                                              color: _colorLowSe),
+                                                              color:
+                                                                  _colorLowSe),
                                                         ),
                                                         borderSide: BorderSide(
                                                             color: _colorLowSe,
                                                             width: 1.0),
                                                         highlightedBorderColor:
-                                                        _colorLowSe,
+                                                            _colorLowSe,
                                                         onPressed: () {
                                                           setState(() {
-                                                            _colorLowSe =
-                                                            Colors.green[400];
+                                                            _colorLowSe = Colors
+                                                                .green[400];
                                                             _colorMedSe =
                                                                 Colors.grey;
                                                             _colorHighSe =
@@ -1337,13 +1427,14 @@ class _FormProblemState extends State<FormProblem>
                                                         child: Text(
                                                           'Medium',
                                                           style: TextStyle(
-                                                              color: _colorMedSe),
+                                                              color:
+                                                                  _colorMedSe),
                                                         ),
                                                         borderSide: BorderSide(
                                                             color: _colorMedSe,
                                                             width: 1.0),
                                                         highlightedBorderColor:
-                                                        _colorMedSe,
+                                                            _colorMedSe,
                                                         onPressed: () {
                                                           setState(() {
                                                             _colorLowSe =
@@ -1363,13 +1454,13 @@ class _FormProblemState extends State<FormProblem>
                                                           'High',
                                                           style: TextStyle(
                                                               color:
-                                                              _colorHighSe),
+                                                                  _colorHighSe),
                                                         ),
                                                         borderSide: BorderSide(
                                                             color: _colorHighSe,
                                                             width: 1.0),
                                                         highlightedBorderColor:
-                                                        _colorHighSe,
+                                                            _colorHighSe,
                                                         onPressed: () {
                                                           setState(() {
                                                             _colorLowSe =
@@ -1377,7 +1468,8 @@ class _FormProblemState extends State<FormProblem>
                                                             _colorMedSe =
                                                                 Colors.grey;
                                                             _colorHighSe =
-                                                                Colors.redAccent;
+                                                                Colors
+                                                                    .redAccent;
                                                           });
                                                         },
                                                       ),
@@ -1386,8 +1478,7 @@ class _FormProblemState extends State<FormProblem>
                                                 ),
                                               )
                                             ],
-                                          )
-                                      ),
+                                          )),
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.end,
@@ -1663,7 +1754,8 @@ class _FormProblemState extends State<FormProblem>
                                           },
                                           decoration: InputDecoration(
                                             labelText: 'Champion',
-                                            labelStyle: TextStyle(fontSize: 14.0),
+                                            labelStyle:
+                                                TextStyle(fontSize: 14.0),
                                           ),
                                           items: _championJson.map((Map map) {
                                             return new DropdownMenuItem(
@@ -1723,7 +1815,8 @@ class _FormProblemState extends State<FormProblem>
                                           },
                                           decoration: InputDecoration(
                                             labelText: 'Champion',
-                                            labelStyle: TextStyle(fontSize: 14.0),
+                                            labelStyle:
+                                                TextStyle(fontSize: 14.0),
                                           ),
                                           items: _leaderJson.map((Map map) {
                                             return new DropdownMenuItem(
@@ -1783,7 +1876,8 @@ class _FormProblemState extends State<FormProblem>
                                           },
                                           decoration: InputDecoration(
                                             labelText: 'Record Keeper',
-                                            labelStyle: TextStyle(fontSize: 14.0),
+                                            labelStyle:
+                                                TextStyle(fontSize: 14.0),
                                           ),
                                           items: _recordJson.map((Map map) {
                                             return new DropdownMenuItem(
@@ -1843,9 +1937,11 @@ class _FormProblemState extends State<FormProblem>
                                           },
                                           decoration: InputDecoration(
                                             labelText: 'Participants',
-                                            labelStyle: TextStyle(fontSize: 14.0),
+                                            labelStyle:
+                                                TextStyle(fontSize: 14.0),
                                           ),
-                                          items: _participantJson.map((Map map) {
+                                          items:
+                                              _participantJson.map((Map map) {
                                             return new DropdownMenuItem(
                                               value: map['id'].toString(),
                                               child: Text(map['participant']),
@@ -1948,7 +2044,8 @@ class _FormProblemState extends State<FormProblem>
                                           },
                                           decoration: InputDecoration(
                                             labelText: 'Pelaksana',
-                                            labelStyle: TextStyle(fontSize: 14.0),
+                                            labelStyle:
+                                                TextStyle(fontSize: 14.0),
                                           ),
                                           items: _pelaksanaJson.map((Map map) {
                                             return new DropdownMenuItem(
@@ -2141,9 +2238,11 @@ class _FormProblemState extends State<FormProblem>
                                           },
                                           decoration: InputDecoration(
                                             labelText: 'What',
-                                            labelStyle: TextStyle(fontSize: 14.0),
+                                            labelStyle:
+                                                TextStyle(fontSize: 14.0),
                                           ),
-                                          items: _whatCorrectJson.map((Map map) {
+                                          items:
+                                              _whatCorrectJson.map((Map map) {
                                             return new DropdownMenuItem(
                                               value: map['id'].toString(),
                                               child: Text(map['whatCorrect']),
@@ -2233,7 +2332,7 @@ class _FormProblemState extends State<FormProblem>
                                             setState(() {
                                               switch (int.tryParse(newValue)) {
                                                 case 1:
-                                                  _whoCorrect= 'Rizal - HRD';
+                                                  _whoCorrect = 'Rizal - HRD';
                                                   break;
                                                 case 2:
                                                   _whoCorrect = 'Ridwan - HRD';
@@ -2247,7 +2346,8 @@ class _FormProblemState extends State<FormProblem>
                                           },
                                           decoration: InputDecoration(
                                             labelText: 'Who',
-                                            labelStyle: TextStyle(fontSize: 14.0),
+                                            labelStyle:
+                                                TextStyle(fontSize: 14.0),
                                           ),
                                           items: _whoCorrectJson.map((Map map) {
                                             return new DropdownMenuItem(
@@ -2507,23 +2607,28 @@ class _FormProblemState extends State<FormProblem>
                                             setState(() {
                                               switch (int.tryParse(newValue)) {
                                                 case 1:
-                                                  _effectiviness= 'Rizal - HRD';
+                                                  _effectiviness =
+                                                      'Rizal - HRD';
                                                   break;
                                                 case 2:
-                                                  _effectiviness = 'Ridwan - HRD';
+                                                  _effectiviness =
+                                                      'Ridwan - HRD';
                                                   break;
                                                 default:
                                                   _effectiviness = '-';
                                                   break;
                                               }
-                                              _effectivinessSelection = newValue;
+                                              _effectivinessSelection =
+                                                  newValue;
                                             });
                                           },
                                           decoration: InputDecoration(
                                             labelText: 'Effectiviness',
-                                            labelStyle: TextStyle(fontSize: 14.0),
+                                            labelStyle:
+                                                TextStyle(fontSize: 14.0),
                                           ),
-                                          items: _effectivinessJson.map((Map map) {
+                                          items:
+                                              _effectivinessJson.map((Map map) {
                                             return new DropdownMenuItem(
                                               value: map['id'].toString(),
                                               child: Text(map['effectiviness']),
@@ -2667,7 +2772,7 @@ class _FormProblemState extends State<FormProblem>
                                             setState(() {
                                               switch (int.tryParse(newValue)) {
                                                 case 1:
-                                                  _whoCorrect= 'Rizal - HRD';
+                                                  _whoCorrect = 'Rizal - HRD';
                                                   break;
                                                 case 2:
                                                   _whoCorrect = 'Ridwan - HRD';
@@ -2681,7 +2786,8 @@ class _FormProblemState extends State<FormProblem>
                                           },
                                           decoration: InputDecoration(
                                             labelText: 'Who',
-                                            labelStyle: TextStyle(fontSize: 14.0),
+                                            labelStyle:
+                                                TextStyle(fontSize: 14.0),
                                           ),
                                           items: _whoCorrectJson.map((Map map) {
                                             return new DropdownMenuItem(
@@ -2825,7 +2931,7 @@ class _FormProblemState extends State<FormProblem>
                                             setState(() {
                                               switch (int.tryParse(newValue)) {
                                                 case 1:
-                                                  _whoCorrect= 'Rizal - HRD';
+                                                  _whoCorrect = 'Rizal - HRD';
                                                   break;
                                                 case 2:
                                                   _whoCorrect = 'Ridwan - HRD';
@@ -2839,7 +2945,8 @@ class _FormProblemState extends State<FormProblem>
                                           },
                                           decoration: InputDecoration(
                                             labelText: 'Who',
-                                            labelStyle: TextStyle(fontSize: 14.0),
+                                            labelStyle:
+                                                TextStyle(fontSize: 14.0),
                                           ),
                                           items: _whoCorrectJson.map((Map map) {
                                             return new DropdownMenuItem(
@@ -3146,7 +3253,9 @@ class _FormProblemState extends State<FormProblem>
                     autoplay: _autoplay,
                     itemCount: _title.length,
                     itemWidth: MediaQuery.of(context).size.width,
-                    itemHeight: MediaQuery.of(context).size.height - 250.0,
+                    itemHeight: _currentIndex == 4
+                        ? MediaQuery.of(context).size.height - 150.0
+                        : MediaQuery.of(context).size.height - 250.0,
                     index: _currentIndex,
                     layout: SwiperLayout.TINDER,
                     onIndexChanged: (int index) {
