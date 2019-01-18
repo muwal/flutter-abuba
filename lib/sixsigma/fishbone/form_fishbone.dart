@@ -2,10 +2,625 @@ import 'package:datetime_picker_formfield/time_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter_abuba/constant.dart';
-import 'package:flutter_abuba/sixsigma/fishbone/fishbone_material.dart';
+// import 'package:flutter_abuba/sixsigma/fishbone/fishbone_material.dart';
 import 'package:intl/intl.dart';
 
+class FishBone extends StatefulWidget {
+  final String titleJudul;
+
+  FishBone({this.titleJudul});
+
+  @override
+  _FishBoneState createState() => _FishBoneState();
+}
+
+class _FishBoneState extends State<FishBone> {
+  TextEditingController _controller = TextEditingController();
+  List<String> _list = [];
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: _appBar(widget.titleJudul),
+        body: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).requestFocus(FocusNode());
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                padding: const EdgeInsets.all(20.0),
+                width: MediaQuery.of(context).size.width,
+                child: TextField(
+                  textCapitalization: TextCapitalization.sentences,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Type Here',
+                    labelStyle: TextStyle(fontSize: 14.0)
+                  ),
+                  controller: _controller,
+                  style: TextStyle(color: Colors.black),
+                  onEditingComplete: () {
+                    setState(() {
+                      _list.add(_controller.text);
+                      _controller.clear();
+                    });
+                  },
+                ),
+              ),
+              Expanded(
+                child: ListView(
+                  shrinkWrap: true,
+                  physics: ScrollPhysics(),
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 20.0),
+                      child: Wrap(
+                        spacing: 8.0,
+                        runSpacing: 4.0,
+                        runAlignment: WrapAlignment.start,
+                        direction: Axis.horizontal,
+                        children: _list.map((String name) => Chip(
+                          label: Text(name),
+                          onDeleted: () {
+                            setState(() {
+                              _list.remove(name);
+                            });
+                          },
+                        )).toList(),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+        bottomNavigationBar: _bottomBar(),
+      ),
+    );
+  }
+
+  Widget _bottomBar() {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      height: 55.0,
+      child: Container(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              ButtonTheme(
+                minWidth: 50.0,
+                height: 35.0,
+                child: RaisedButton(
+                  color: Colors.green,
+                  child: Text(
+                    'CONFIRM',
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      color: Colors.white
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.pushReplacement(context,
+                      MyCustomRoute(
+                        builder: (context) => MaterialDetail(list: _list, titleJudul: widget.titleJudul)
+                      )
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+        decoration: BoxDecoration(color: Color(0xFF2F592F))
+      ),
+    );
+  }
+  
+  Widget _appBar(String titleJudul) {
+    return AppBar(
+      elevation: 0.25,
+      backgroundColor: Colors.white,
+      iconTheme: IconThemeData(color: Colors.black),
+      title: Image.asset(
+        'assets/images/logo.png',
+        height: 100.0,
+        width: 120.0,
+      ),
+      bottom: PreferredSize(
+        preferredSize: Size.fromHeight(55.0),
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: 55.0,
+              child: Container(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          titleJudul,
+                          style: TextStyle(color: Colors.white, fontSize: 16.0),
+                          textAlign: TextAlign.start,
+                        ),
+                      ],
+                    ),
+                  ),
+                  decoration: BoxDecoration(color: Color(0xFF2F592F))),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class MaterialDetail extends StatefulWidget {
+  final List<String> list;
+  final String titleJudul;
+  MaterialDetail({this.list, this.titleJudul});
+
+  @override
+  _MaterialDetailState createState() => _MaterialDetailState();
+}
+
+class _MaterialDetailState extends State<MaterialDetail> {
+  List<String> _listDetail = [];
+  List<String> _listDetailBanget = [];
+  TextEditingController _controllerDetail = TextEditingController();
+  TextEditingController _controllerDetailBanget = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: _appBar(widget.titleJudul),
+        body: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).requestFocus(FocusNode());
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Expanded(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: ScrollPhysics(),
+                  itemCount: widget.list.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      color: Colors.white,
+                      child: ExpansionTile(
+                        title: Text(
+                          widget.list[index],
+                          style: TextStyle(
+                            fontSize: 14.0
+                          ),
+                        ),
+                        children: <Widget>[
+                          Container(
+                            padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 5.0, bottom: 10.0),
+                            width: MediaQuery.of(context).size.width,
+                            child: TextField(
+                              textCapitalization: TextCapitalization.sentences,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'Type Here',
+                                labelStyle: TextStyle(fontSize: 14.0)
+                              ),
+                              controller: _controllerDetail,
+                              style: TextStyle(color: Colors.black),
+                              onEditingComplete: () {
+                                setState(() {
+                                  _listDetail.add(_controllerDetail.text);
+                                  _controllerDetail.clear();
+                                });
+                              },
+                            ),
+                          ),
+                          Container(
+                            alignment: Alignment.topLeft,
+                            padding: EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
+                            child: Wrap(
+                              spacing: 8.0,
+                              runSpacing: 4.0,
+                              runAlignment: WrapAlignment.start,
+                              direction: Axis.horizontal,
+                              children: _listDetail.map((String nameDetail) => GestureDetector(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: Text(
+                                          nameDetail
+                                        ),
+                                        content: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: <Widget>[
+                                            Container(
+                                              padding: const EdgeInsets.only(top: 5.0, bottom: 10.0),
+                                              width: MediaQuery.of(context).size.width,
+                                              child: TextField(
+                                                textCapitalization: TextCapitalization.sentences,
+                                                decoration: InputDecoration(
+                                                  border: OutlineInputBorder(),
+                                                  labelText: 'Type Here',
+                                                  labelStyle: TextStyle(fontSize: 14.0)
+                                                ),
+                                                controller: _controllerDetailBanget,
+                                                style: TextStyle(color: Colors.black),
+                                                onEditingComplete: () {
+                                                  setState(() {
+                                                    _listDetailBanget.add(_controllerDetailBanget.text);
+                                                    _controllerDetailBanget.clear();
+                                                  });
+                                                },
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: SingleChildScrollView(
+                                                physics: ScrollPhysics(),
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(top: 10.0, bottom: 20.0),
+                                                  child: Wrap(
+                                                    spacing: 4.0,
+                                                    runSpacing: 2.0,
+                                                    runAlignment: WrapAlignment.start,
+                                                    direction: Axis.horizontal,
+                                                    children: _listDetailBanget.map((String name) => Chip(
+                                                      label: Text(name),
+                                                      onDeleted: () {
+                                                        setState(() {
+                                                          _listDetailBanget.remove(name);
+                                                        });
+                                                      },
+                                                    )).toList(),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        actions: <Widget>[
+                                          FlatButton(
+                                            child: Text('Close'),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                          )
+                                        ],
+                                      );
+                                    }
+                                  );
+                                },
+                                child: Chip(
+                                  label: Text(nameDetail),
+                                  onDeleted: () {
+                                    setState(() {
+                                      _listDetail.remove(nameDetail);
+                                    });
+                                  },
+                                )
+                              )).toList(),
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              )
+            ],
+          ),
+        ),
+        bottomNavigationBar: _bottomBar(widget.list, _listDetail, _listDetailBanget),
+      ),
+    );
+  }
+
+  Widget _bottomBar(List<String> listBantu, List<String> listBantu2, List<String> listBantu3) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      height: 55.0,
+      child: Container(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              ButtonTheme(
+                minWidth: 50.0,
+                height: 35.0,
+                child: RaisedButton(
+                  color: Colors.green,
+                  child: Text(
+                    'SAVE',
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      color: Colors.white
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.pushReplacement(context,
+                      MyCustomRoute(
+                        builder: (context) => FormFishbone(listMother: listBantu, listChild: listBantu2, listGrandChild: listBantu3),
+                      )
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+        decoration: BoxDecoration(color: Color(0xFF2F592F))
+      ),
+    );
+  }
+  
+  Widget _appBar(String titleJudul) {
+    return AppBar(
+      elevation: 0.25,
+      backgroundColor: Colors.white,
+      iconTheme: IconThemeData(color: Colors.black),
+      title: Image.asset(
+        'assets/images/logo.png',
+        height: 100.0,
+        width: 120.0,
+      ),
+      bottom: PreferredSize(
+        preferredSize: Size.fromHeight(55.0),
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: 55.0,
+              child: Container(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          titleJudul,
+                          style: TextStyle(color: Colors.white, fontSize: 16.0),
+                          textAlign: TextAlign.start,
+                        ),
+                      ],
+                    ),
+                  ),
+                  decoration: BoxDecoration(color: Color(0xFF2F592F))),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class MaterialWeight extends StatefulWidget {
+  @override
+  _MaterialWeightState createState() => _MaterialWeightState();
+}
+
+class _MaterialWeightState extends State<MaterialWeight> {
+  Color _opening = Colors.green;
+  Color _middle = Colors.grey;
+  Color _closing = Colors.grey;
+
+  @override
+  Widget build(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width;
+    
+    return SafeArea(
+      child: Scaffold(
+        appBar: _appBar(),
+        backgroundColor: Colors.white,
+        body: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).requestFocus(FocusNode());
+          },
+          child: ListView(
+            shrinkWrap: true,
+            physics: ScrollPhysics(),
+            children: <Widget>[
+              Container(
+                alignment: Alignment.centerLeft,
+                padding: const EdgeInsets.only(right: 20.0, left: 20.0, bottom: 5.0, top: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _opening = Colors.green;
+                          _middle = Colors.grey;
+                          _closing = Colors.grey;
+                        });
+                      },
+                      child: Container(
+                        width: width / 4,
+                        child: Column(
+                          children: <Widget>[
+                            Text(
+                              'OPENING',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: _opening
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5.0),
+                              child: Divider(
+                                height: 10.0,
+                                color: _opening,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _opening = Colors.grey;
+                          _middle = Colors.green;
+                          _closing = Colors.grey;
+                        });
+                      },
+                      child: Container(
+                        width: width / 4,
+                        child: Column(
+                          children: <Widget>[
+                            Text(
+                              'MIDDLE',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: _middle
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5.0),
+                              child: Divider(
+                                height: 10.0,
+                                color: _middle,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _opening = Colors.grey;
+                          _middle = Colors.grey;
+                          _closing = Colors.green;
+                        });
+                      },
+                      child: Container(
+                        width: width / 4,
+                        child: Column(
+                          children: <Widget>[
+                            Text(
+                              'CLOSING',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: _closing
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5.0),
+                              child: Divider(
+                                height: 10.0,
+                                color: _closing,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              ),
+            ],
+          )
+        ),
+        bottomNavigationBar: _bottomBar(),
+      ),
+    );
+  }
+
+  Widget _bottomBar() {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      height: 55.0,
+      child: Container(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              ButtonTheme(
+                minWidth: 50.0,
+                height: 35.0,
+                child: RaisedButton(
+                  color: Colors.green,
+                  child: Text(
+                    'CONFIRM',
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      color: Colors.white
+                    ),
+                  ),
+                  onPressed: () {},
+                ),
+              ),
+            ],
+          ),
+        ),
+        decoration: BoxDecoration(color: Color(0xFF2F592F))
+      ),
+    );
+  }
+  
+  Widget _appBar() {
+    return AppBar(
+      elevation: 0.25,
+      backgroundColor: Colors.white,
+      iconTheme: IconThemeData(color: Colors.black),
+      title: Image.asset(
+        'assets/images/logo.png',
+        height: 100.0,
+        width: 120.0,
+      ),
+      bottom: PreferredSize(
+        preferredSize: Size.fromHeight(55.0),
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: 55.0,
+              child: Container(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          'Material',
+                          style: TextStyle(color: Colors.white, fontSize: 16.0),
+                          textAlign: TextAlign.start,
+                        ),
+                      ],
+                    ),
+                  ),
+                  decoration: BoxDecoration(color: Color(0xFF2F592F))),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class FormFishbone extends StatefulWidget {
+  final List<String> listMother;
+  final List<String> listChild;
+  final List<String> listGrandChild;
+
+  FormFishbone({this.listMother, this.listChild, this.listGrandChild});
+
   @override
   _FormFishboneState createState() => _FormFishboneState();
 }
@@ -114,126 +729,170 @@ class _FormFishboneState extends State<FormFishbone> with TickerProviderStateMix
         title: Text('Material'),
         isActive: true,
         state: StepState.indexed,
-        content: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Flexible(
+        content: Container(
+          alignment: Alignment.centerLeft,
+          child: ButtonTheme(
+            minWidth: 50.0,
+            height: 20.0,
+            child: OutlineButton(
               child: Text(
-                'Material',
-                style: TextStyle(
-                  fontSize: 14.0,
-                ),
+                'Detail',
+                style: TextStyle(fontSize: 13.0, color: AbubaPallate.menuBluebird),
               ),
+              borderSide: BorderSide(color: AbubaPallate.menuBluebird, width: 1.0),
+              highlightedBorderColor: AbubaPallate.menuBluebird,
+              onPressed: () {
+                Navigator.push(context,
+                  MaterialPageRoute(
+                    builder: (context) => FishBone(titleJudul: 'Material')
+                  )
+                );
+              },
             ),
-            ButtonTheme(
-              minWidth: 50.0,
-              height: 35.0,
-              child: RaisedButton(
-                color: Colors.white,
-                child: Text(
-                  'Detail',
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color: AbubaPallate.greenabuba
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.push(context,
-                    MaterialPageRoute(
-                      builder: (context) => FishBone()
-                    )
-                  );
-                },
-              ),
-            ),
-          ],
-        )
+          ),
+        ),
       ),
       Step(
         title: Text('Method'),
         isActive: true,
         state: StepState.indexed,
-        content: Row(
-          children: <Widget>[
-            Flexible(
+        content: Container(
+          alignment: Alignment.centerLeft,
+          child: ButtonTheme(
+            minWidth: 50.0,
+            height: 20.0,
+            child: OutlineButton(
               child: Text(
-                'Method',
-                style: TextStyle(
-                  fontSize: 14.0,
-                ),
+                'Detail',
+                style: TextStyle(fontSize: 13.0, color: AbubaPallate.menuBluebird),
               ),
-            )
-          ],
-        )
+              borderSide: BorderSide(color: AbubaPallate.menuBluebird, width: 1.0),
+              highlightedBorderColor: AbubaPallate.menuBluebird,
+              onPressed: () {
+                Navigator.push(context,
+                  MaterialPageRoute(
+                    builder: (context) => FishBone(titleJudul: 'Material')
+                  )
+                );
+              },
+            ),
+          ),
+        ),
       ),
       Step(
         title: Text('Machine'),
         isActive: true,
         state: StepState.indexed,
-        content: Row(
-          children: <Widget>[
-            Flexible(
+        content: Container(
+          alignment: Alignment.centerLeft,
+          child: ButtonTheme(
+            minWidth: 50.0,
+            height: 20.0,
+            child: OutlineButton(
               child: Text(
-                'Machine',
-                style: TextStyle(
-                  fontSize: 14.0,
-                ),
+                'Detail',
+                style: TextStyle(fontSize: 13.0, color: AbubaPallate.menuBluebird),
               ),
-            )
-          ],
-        )
+              borderSide: BorderSide(color: AbubaPallate.menuBluebird, width: 1.0),
+              highlightedBorderColor: AbubaPallate.menuBluebird,
+              onPressed: () {
+                Navigator.push(context,
+                  MaterialPageRoute(
+                    builder: (context) => FishBone(titleJudul: 'Material')
+                  )
+                );
+              },
+            ),
+          ),
+        ),
       ),
       Step(
         title: Text('Measurement'),
         isActive: true,
         state: StepState.indexed,
-        content: Row(
-          children: <Widget>[
-            Flexible(
+        content: Container(
+          alignment: Alignment.centerLeft,
+          child: ButtonTheme(
+            minWidth: 50.0,
+            height: 20.0,
+            child: OutlineButton(
               child: Text(
-                'Measurement',
-                style: TextStyle(
-                  fontSize: 14.0,
-                ),
+                'Detail',
+                style: TextStyle(fontSize: 13.0, color: AbubaPallate.menuBluebird),
               ),
-            )
-          ],
-        )
+              borderSide: BorderSide(color: AbubaPallate.menuBluebird, width: 1.0),
+              highlightedBorderColor: AbubaPallate.menuBluebird,
+              onPressed: () {
+                Navigator.push(context,
+                  MaterialPageRoute(
+                    builder: (context) => FishBone(titleJudul: 'Material')
+                  )
+                );
+              },
+            ),
+          ),
+        ),
       ),
       Step(
         title: Text('Man'),
         isActive: true,
         state: StepState.indexed,
-        content: Row(
-          children: <Widget>[
-            Flexible(
+        content: Container(
+          alignment: Alignment.centerLeft,
+          child: ButtonTheme(
+            minWidth: 50.0,
+            height: 20.0,
+            child: OutlineButton(
               child: Text(
-                'Man',
-                style: TextStyle(
-                  fontSize: 14.0,
-                ),
+                'Detail',
+                style: TextStyle(fontSize: 13.0, color: AbubaPallate.menuBluebird),
               ),
-            )
-          ],
-        )
+              borderSide: BorderSide(color: AbubaPallate.menuBluebird, width: 1.0),
+              highlightedBorderColor: AbubaPallate.menuBluebird,
+              onPressed: () {
+                Navigator.push(context,
+                  MaterialPageRoute(
+                    builder: (context) => FishBone(titleJudul: 'Material')
+                  )
+                );
+              },
+            ),
+          ),
+        ),
       ),
       Step(
         title: Text('Environment'),
         isActive: true,
         state: StepState.indexed,
-        content: Row(
-          children: <Widget>[
-            Flexible(
+        content: Container(
+          alignment: Alignment.centerLeft,
+          child: ButtonTheme(
+            minWidth: 50.0,
+            height: 20.0,
+            child: OutlineButton(
               child: Text(
-                'Environment',
-                style: TextStyle(
-                  fontSize: 14.0,
-                ),
+                'Detail',
+                style: TextStyle(fontSize: 13.0, color: AbubaPallate.menuBluebird),
               ),
-            )
-          ],
-        )
+              borderSide: BorderSide(color: AbubaPallate.menuBluebird, width: 1.0),
+              highlightedBorderColor: AbubaPallate.menuBluebird,
+              onPressed: () {
+                Navigator.push(context,
+                  MaterialPageRoute(
+                    builder: (context) => FishBone(titleJudul: 'Material')
+                  )
+                );
+              },
+            ),
+          ),
+        ),
       ),
+    ];
+
+    List<String> strings = [
+      'Satu',
+      'Dua',
+      'Tiga',
     ];
 
     return SafeArea(
@@ -1181,24 +1840,27 @@ class _FormFishboneState extends State<FormFishbone> with TickerProviderStateMix
                                   steps: steps,
                                   type: StepperType.vertical,
                                   currentStep: this._currentStep,
-                                  onStepContinue: () {
-                                    setState(() {
-                                      if (_currentStep < steps.length - 1) {
-                                        _currentStep = _currentStep + 1;
-                                      } else {
-                                        _currentStep = 0;
-                                      }
-                                    });
+                                  controlsBuilder: (BuildContext context, {VoidCallback onStepContinue, VoidCallback onStepCancel}) {
+                                    return Container();
                                   },
-                                  onStepCancel: () {
-                                    setState(() {
-                                      if (_currentStep > 0) {
-                                        _currentStep = _currentStep - 1;
-                                      } else {
-                                        _currentStep = 0;
-                                      }
-                                    });
-                                  },
+                                  // onStepContinue: () {
+                                  //   setState(() {
+                                  //     if (_currentStep < steps.length - 1) {
+                                  //       _currentStep = _currentStep + 1;
+                                  //     } else {
+                                  //       _currentStep = 0;
+                                  //     }
+                                  //   });
+                                  // },
+                                  // onStepCancel: () {
+                                  //   setState(() {
+                                  //     if (_currentStep > 0) {
+                                  //       _currentStep = _currentStep - 1;
+                                  //     } else {
+                                  //       _currentStep = 0;
+                                  //     }
+                                  //   });
+                                  // },
                                   onStepTapped: (step) {
                                     setState(() {
                                       _currentStep = step;
@@ -1239,165 +1901,20 @@ class _FormFishboneState extends State<FormFishbone> with TickerProviderStateMix
                                     )
                                   ],
                                 ),
-                                Column(
+                                Row(
                                   children: <Widget>[
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Flexible(
-                                          child: Padding(
-                                            padding: EdgeInsets.only(right: 10.0, left: 20.0, top: 20.0, bottom: 20.0),
-                                            child: Text(
-                                              'Seberapa parah akibat yang ditimbulkan dari masalah ini ?',
-                                              style: TextStyle(
-                                                  color: Colors.black54,
-                                                  fontSize: 24.0),
-                                              textAlign: TextAlign.start,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(top: 30.0, left: 20.0, right: 20.0, bottom: 10.0),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Container(
-                                            padding:
-                                            EdgeInsets.only(top: 5.0),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment
-                                                  .spaceAround,
-                                              children: <Widget>[
-                                                ButtonTheme(
-                                                  height: 30.0,
-                                                  child: OutlineButton(
-                                                    child: Text(
-                                                      'Low',
-                                                      style: TextStyle(
-                                                          color: _colorLowSe),
-                                                    ),
-                                                    borderSide: BorderSide(
-                                                        color: _colorLowSe,
-                                                        width: 1.0),
-                                                    highlightedBorderColor:
-                                                    _colorLowSe,
-                                                    onPressed: () {
-                                                      setState(() {
-                                                        _colorLowSe =
-                                                        Colors.green[400];
-                                                        _colorMedSe =
-                                                            Colors.grey;
-                                                        _colorHighSe =
-                                                            Colors.grey;
-                                                      });
-                                                    },
-                                                  ),
-                                                ),
-                                                ButtonTheme(
-                                                  height: 30.0,
-                                                  child: OutlineButton(
-                                                    child: Text(
-                                                      'Medium',
-                                                      style: TextStyle(
-                                                          color: _colorMedSe),
-                                                    ),
-                                                    borderSide: BorderSide(
-                                                        color: _colorMedSe,
-                                                        width: 1.0),
-                                                    highlightedBorderColor:
-                                                    _colorMedSe,
-                                                    onPressed: () {
-                                                      setState(() {
-                                                        _colorLowSe =
-                                                            Colors.grey;
-                                                        _colorMedSe = Colors
-                                                            .orangeAccent;
-                                                        _colorHighSe =
-                                                            Colors.grey;
-                                                      });
-                                                    },
-                                                  ),
-                                                ),
-                                                ButtonTheme(
-                                                  height: 30.0,
-                                                  child: OutlineButton(
-                                                    child: Text(
-                                                      'High',
-                                                      style: TextStyle(
-                                                          color:
-                                                          _colorHighSe),
-                                                    ),
-                                                    borderSide: BorderSide(
-                                                        color: _colorHighSe,
-                                                        width: 1.0),
-                                                    highlightedBorderColor:
-                                                    _colorHighSe,
-                                                    onPressed: () {
-                                                      setState(() {
-                                                        _colorLowSe =
-                                                            Colors.grey;
-                                                        _colorMedSe =
-                                                            Colors.grey;
-                                                        _colorHighSe =
-                                                            Colors.redAccent;
-                                                      });
-                                                    },
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          )
-                                        ],
-                                      )
-                                    ),
-                                    Column(
-                                      children: <Widget>[
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
-                                          children: <Widget>[
-                                            Padding(
-                                              padding: const EdgeInsets.only(right: 20.0),
-                                              child: ButtonTheme(
-                                                minWidth: 50.0,
-                                                height: 35.0,
-                                                child: RaisedButton(
-                                                  color: AbubaPallate.menuBluebird,
-                                                  child: Text(
-                                                    'Note',
-                                                    style: TextStyle(
-                                                        fontSize: 14.0,
-                                                        color: Colors.white),
-                                                  ),
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      _noteHowServe = !_noteHowServe;
-                                                    });
-                                                  },
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        _noteHowServe
-                                          ? Container(
-                                              padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
-                                              width: MediaQuery.of(context).size.width,
-                                              child: TextField(
-                                                decoration: InputDecoration(
-                                                    border: OutlineInputBorder(),
-                                                    hintText: 'Note',
-                                                    hintStyle: TextStyle(fontSize: 12.0)),
-                                                maxLines: 3,
-                                                controller: _controllerNoteHowServe,
-                                                style: TextStyle(color: Colors.black),
-                                              ),
-                                            )
-                                          : Container()
-                                      ],
+                                    Flexible(
+                                      child: Text(
+                                        widget.listMother == null && widget.listChild == null && widget.listGrandChild == null
+                                        ? 'Kosong'
+                                        : widget.listMother.length.toString() + ' dan ' + widget.listChild.length.toString() + ' dan ' + widget.listGrandChild.length.toString()
+                                      ),
                                     )
                                   ],
+                                ),
+                                // taro sini
+                                Column(
+                                  children: strings.map((item) => Text(item)).toList(),
                                 )
                               ],
                             ),
@@ -1407,17 +1924,6 @@ class _FormFishboneState extends State<FormFishbone> with TickerProviderStateMix
                     ]
                   ),
                 ),
-                // myList.isEmpty
-                //   ? new Container(
-                //       margin: EdgeInsets.only(bottom: 15.0),
-                //       height: 17.0,
-                //     )
-                //   : new Container(
-                //       margin: EdgeInsets.only(bottom: 15.0),
-                //       height: 17.0,
-                //       child: _tabPageSelector,
-                //       alignment: Alignment.center,
-                //     ),
               ],
             ),
           ),
