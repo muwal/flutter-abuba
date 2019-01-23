@@ -187,7 +187,7 @@ class _BerandaPageState extends State<BerandaPage> {
                               context,
                               MyCustomRoute(
                                   builder: (context) => BerandaIsoft())),
-                          child:Column(
+                          child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
                               Stack(
@@ -200,8 +200,8 @@ class _BerandaPageState extends State<BerandaPage> {
                                         color: Colors.transparent,
                                         border: Border.all(
                                             color: Colors.grey, width: 1.0),
-                                        borderRadius:
-                                        BorderRadius.all(Radius.circular(18.0))),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(18.0))),
                                   ),
                                   Positioned(
                                     bottom: 22.5,
@@ -233,7 +233,8 @@ class _BerandaPageState extends State<BerandaPage> {
                                 child: Text(
                                   'Isoft',
                                   style: TextStyle(
-                                      fontWeight: FontWeight.w500, fontSize: 12.0),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12.0),
                                 ),
                               ),
                               Padding(
@@ -253,7 +254,7 @@ class _BerandaPageState extends State<BerandaPage> {
                                 MyCustomRoute(
                                     builder: (context) => BerandaSigma()));
                           },
-                          child:Column(
+                          child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
                               Stack(
@@ -266,8 +267,8 @@ class _BerandaPageState extends State<BerandaPage> {
                                         color: Colors.transparent,
                                         border: Border.all(
                                             color: Colors.grey, width: 1.0),
-                                        borderRadius:
-                                        BorderRadius.all(Radius.circular(18.0))),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(18.0))),
                                   ),
                                   Positioned(
                                     bottom: 22.5,
@@ -299,7 +300,8 @@ class _BerandaPageState extends State<BerandaPage> {
                                 child: Text(
                                   'Six Sigma',
                                   style: TextStyle(
-                                      fontWeight: FontWeight.w500, fontSize: 12.0),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12.0),
                                 ),
                               ),
                               Padding(
@@ -327,8 +329,8 @@ class _BerandaPageState extends State<BerandaPage> {
                                         color: Colors.transparent,
                                         border: Border.all(
                                             color: Colors.grey, width: 1.0),
-                                        borderRadius:
-                                        BorderRadius.all(Radius.circular(18.0))),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(18.0))),
                                   ),
                                   Positioned(
                                     bottom: 22.5,
@@ -360,7 +362,8 @@ class _BerandaPageState extends State<BerandaPage> {
                                 child: Text(
                                   'Mystery',
                                   style: TextStyle(
-                                      fontWeight: FontWeight.w500, fontSize: 12.0),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12.0),
                                 ),
                               ),
                               Padding(
@@ -386,8 +389,8 @@ class _BerandaPageState extends State<BerandaPage> {
                                       color: Colors.transparent,
                                       border: Border.all(
                                           color: Colors.grey, width: 1.0),
-                                      borderRadius:
-                                      BorderRadius.all(Radius.circular(18.0))),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(18.0))),
                                 ),
                                 Positioned(
                                   bottom: 22.5,
@@ -419,7 +422,8 @@ class _BerandaPageState extends State<BerandaPage> {
                               child: Text(
                                 'Inventory',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.w500, fontSize: 12.0),
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12.0),
                               ),
                             ),
                             Padding(
@@ -454,8 +458,8 @@ class _BerandaPageState extends State<BerandaPage> {
                                         color: Colors.transparent,
                                         border: Border.all(
                                             color: Colors.grey, width: 1.0),
-                                        borderRadius:
-                                        BorderRadius.all(Radius.circular(18.0))),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(18.0))),
                                   ),
                                   Positioned(
                                     bottom: 22.5,
@@ -487,7 +491,8 @@ class _BerandaPageState extends State<BerandaPage> {
                                 child: Text(
                                   'Online',
                                   style: TextStyle(
-                                      fontWeight: FontWeight.w500, fontSize: 12.0),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12.0),
                                 ),
                               ),
                               Padding(
@@ -501,9 +506,7 @@ class _BerandaPageState extends State<BerandaPage> {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () {
-
-                          },
+                          onTap: () {},
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
@@ -517,8 +520,8 @@ class _BerandaPageState extends State<BerandaPage> {
                                         color: Colors.transparent,
                                         border: Border.all(
                                             color: Colors.grey, width: 1.0),
-                                        borderRadius:
-                                        BorderRadius.all(Radius.circular(18.0))),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(18.0))),
                                   ),
                                   Positioned(
                                     bottom: 22.5,
@@ -550,7 +553,8 @@ class _BerandaPageState extends State<BerandaPage> {
                                 child: Text(
                                   'Appraisal',
                                   style: TextStyle(
-                                      fontWeight: FontWeight.w500, fontSize: 12.0),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12.0),
                                 ),
                               ),
                               Padding(
@@ -564,9 +568,7 @@ class _BerandaPageState extends State<BerandaPage> {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () {
-
-                          },
+                          onTap: () {},
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
@@ -579,9 +581,10 @@ class _BerandaPageState extends State<BerandaPage> {
                                     decoration: BoxDecoration(
                                         color: Colors.transparent,
                                         border: Border.all(
-                                            color: Colors.transparent, width: 1.0),
-                                        borderRadius:
-                                        BorderRadius.all(Radius.circular(18.0))),
+                                            color: Colors.transparent,
+                                            width: 1.0),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(18.0))),
                                   ),
                                   Positioned(
                                     bottom: 22.5,
@@ -603,7 +606,8 @@ class _BerandaPageState extends State<BerandaPage> {
                                     right: 3.0,
                                     child: Text(
                                       '2',
-                                      style: TextStyle(color: Colors.transparent),
+                                      style:
+                                          TextStyle(color: Colors.transparent),
                                     ),
                                   )
                                 ],
@@ -613,7 +617,8 @@ class _BerandaPageState extends State<BerandaPage> {
                                 child: Text(
                                   '',
                                   style: TextStyle(
-                                      fontWeight: FontWeight.w500, fontSize: 12.0),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12.0),
                                 ),
                               ),
                               Padding(
@@ -643,7 +648,8 @@ class _BerandaPageState extends State<BerandaPage> {
                                     decoration: BoxDecoration(
                                         color: Colors.transparent,
                                         border: Border.all(
-                                            color: Colors.transparent, width: 1.0),
+                                            color: Colors.transparent,
+                                            width: 1.0),
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(18.0))),
                                   ),
@@ -667,7 +673,8 @@ class _BerandaPageState extends State<BerandaPage> {
                                     right: 3.0,
                                     child: Text(
                                       '2',
-                                      style: TextStyle(color: Colors.transparent),
+                                      style:
+                                          TextStyle(color: Colors.transparent),
                                     ),
                                   )
                                 ],
@@ -868,7 +875,7 @@ class _BerandaPageState extends State<BerandaPage> {
                                 Container(
                                   alignment: Alignment.topLeft,
                                   padding:
-                                  EdgeInsets.only(top: 10.0, bottom: 10.0),
+                                      EdgeInsets.only(top: 10.0, bottom: 10.0),
                                   child: Text(
                                     'Dengan menjalankan ide ini, sales di outlet A berhasil meningkat sebesar 50% selama 1 minggu sejak implementasi',
                                     style: TextStyle(
@@ -899,7 +906,7 @@ class _BerandaPageState extends State<BerandaPage> {
                                 ),
                                 ListTile(
                                   contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 10.0),
+                                      EdgeInsets.symmetric(horizontal: 10.0),
                                   onTap: null,
                                   title: Container(
                                     height: 140.0,
@@ -914,46 +921,46 @@ class _BerandaPageState extends State<BerandaPage> {
                                   ),
                                   subtitle: Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       Padding(
                                         padding:
-                                        const EdgeInsets.only(top: 10.0),
+                                            const EdgeInsets.only(top: 10.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.min,
                                           mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                              MainAxisAlignment.center,
                                           children: <Widget>[
                                             IconButton(
                                                 tooltip: 'VIEWS',
                                                 alignment:
-                                                Alignment.centerRight,
+                                                    Alignment.centerRight,
                                                 icon: Icon(Icons.visibility),
                                                 iconSize: 18.0,
                                                 color:
-                                                _alreadyOKHappening[index]
-                                                    ? AbubaPallate.green
-                                                    : Colors.grey,
+                                                    _alreadyOKHappening[index]
+                                                        ? AbubaPallate.green
+                                                        : Colors.grey,
                                                 onPressed: null),
                                             _counterViewIdea[index] == 0
                                                 ? Container()
                                                 : Container(
-                                              margin: EdgeInsets.only(
-                                                  top: 5.0),
-                                              child: Text(
-                                                _counterViewIdea[index]
-                                                    .toString(),
-                                                style: TextStyle(
-                                                    color:
-                                                    Colors.grey[500]),
-                                              ),
-                                            )
+                                                    margin: EdgeInsets.only(
+                                                        top: 5.0),
+                                                    child: Text(
+                                                      _counterViewIdea[index]
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.grey[500]),
+                                                    ),
+                                                  )
                                           ],
                                         ),
                                       ),
                                       Padding(
                                         padding:
-                                        const EdgeInsets.only(top: 10.0),
+                                            const EdgeInsets.only(top: 10.0),
                                         child: GestureDetector(
                                           onTap: () => Navigator.push(
                                               context,
@@ -963,16 +970,16 @@ class _BerandaPageState extends State<BerandaPage> {
                                           child: Row(
                                             mainAxisSize: MainAxisSize.min,
                                             mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                                MainAxisAlignment.center,
                                             children: <Widget>[
                                               Icon(Icons.chat,
                                                   size: 18.0,
                                                   color: AbubaPallate.green),
                                               Container(
                                                 padding:
-                                                EdgeInsets.only(left: 5.0),
+                                                    EdgeInsets.only(left: 5.0),
                                                 margin:
-                                                EdgeInsets.only(top: 5.0),
+                                                    EdgeInsets.only(top: 5.0),
                                                 child: Text(
                                                   '${index + 1}',
                                                   style: TextStyle(
@@ -985,22 +992,22 @@ class _BerandaPageState extends State<BerandaPage> {
                                       ),
                                       Padding(
                                         padding:
-                                        const EdgeInsets.only(top: 10.0),
+                                            const EdgeInsets.only(top: 10.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.min,
                                           mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                              MainAxisAlignment.center,
                                           children: <Widget>[
                                             IconButton(
                                               tooltip: 'Like',
                                               alignment: Alignment.centerRight,
                                               icon: _counterLikeIdea[index] == 0
                                                   ? Icon(_likeIdea[index]
-                                                  ? Icons.favorite
-                                                  : Icons.favorite_border)
+                                                      ? Icons.favorite
+                                                      : Icons.favorite_border)
                                                   : Icon(_likeIdea[index]
-                                                  ? Icons.favorite
-                                                  : Icons.favorite_border),
+                                                      ? Icons.favorite
+                                                      : Icons.favorite_border),
                                               iconSize: 18.0,
                                               color: _likeIdea[index]
                                                   ? Colors.redAccent
@@ -1014,28 +1021,28 @@ class _BerandaPageState extends State<BerandaPage> {
                                                     _counterLikeIdea[index]--;
                                                   }
                                                   _likeIdea[index] =
-                                                  !_likeIdea[index];
+                                                      !_likeIdea[index];
                                                 });
                                               },
                                             ),
                                             _counterLikeIdea[index] == 0
                                                 ? Container(
-                                              padding: EdgeInsets.only(
-                                                  right: 20.0),
-                                            )
+                                                    padding: EdgeInsets.only(
+                                                        right: 20.0),
+                                                  )
                                                 : Container(
-                                              padding: EdgeInsets.only(
-                                                  right: 20.0),
-                                              margin: EdgeInsets.only(
-                                                  top: 5.0),
-                                              child: Text(
-                                                _counterLikeIdea[index]
-                                                    .toString(),
-                                                style: TextStyle(
-                                                    color:
-                                                    Colors.grey[500]),
-                                              ),
-                                            )
+                                                    padding: EdgeInsets.only(
+                                                        right: 20.0),
+                                                    margin: EdgeInsets.only(
+                                                        top: 5.0),
+                                                    child: Text(
+                                                      _counterLikeIdea[index]
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.grey[500]),
+                                                    ),
+                                                  )
                                           ],
                                         ),
                                       ),
@@ -1116,7 +1123,7 @@ class _BerandaPageState extends State<BerandaPage> {
                                 Container(
                                   alignment: Alignment.topLeft,
                                   padding:
-                                  EdgeInsets.only(top: 10.0, bottom: 10.0),
+                                      EdgeInsets.only(top: 10.0, bottom: 10.0),
                                   child: Text(
                                     'Jangan lupa besok tanggal 17 Agustus 2118 kita merayakan ulang tahun ABUBA yang ke 100. Datang dengan kostum yang seru ya !',
                                     style: TextStyle(
@@ -1125,7 +1132,7 @@ class _BerandaPageState extends State<BerandaPage> {
                                 ),
                                 ListTile(
                                   contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 10.0),
+                                      EdgeInsets.symmetric(horizontal: 10.0),
                                   onTap: null,
                                   title: Container(
                                     height: 140.0,
@@ -1140,32 +1147,32 @@ class _BerandaPageState extends State<BerandaPage> {
                                   ),
                                   subtitle: Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       Padding(
                                         padding:
-                                        const EdgeInsets.only(top: 10.0),
+                                            const EdgeInsets.only(top: 10.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.min,
                                           mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                              MainAxisAlignment.center,
                                           children: <Widget>[
                                             IconButton(
                                               tooltip: 'OK',
                                               alignment: Alignment.centerRight,
                                               icon: _counterOKHappening[
-                                              index] ==
-                                                  0
+                                                          index] ==
+                                                      0
                                                   ? Icon(_alreadyOKHappening[
-                                              index]
-                                                  ? Icons.check_circle
-                                                  : Icons
-                                                  .check_circle_outline)
+                                                          index]
+                                                      ? Icons.check_circle
+                                                      : Icons
+                                                          .check_circle_outline)
                                                   : Icon(_alreadyOKHappening[
-                                              index]
-                                                  ? Icons.check_circle
-                                                  : Icons
-                                                  .check_circle_outline),
+                                                          index]
+                                                      ? Icons.check_circle
+                                                      : Icons
+                                                          .check_circle_outline),
                                               iconSize: 18.0,
                                               color: _alreadyOKHappening[index]
                                                   ? AbubaPallate.green
@@ -1173,39 +1180,39 @@ class _BerandaPageState extends State<BerandaPage> {
                                               onPressed: () {
                                                 setState(() {
                                                   if (_alreadyOKHappening[
-                                                  index] ==
+                                                          index] ==
                                                       false) {
                                                     _counterOKHappening[
-                                                    index]++;
+                                                        index]++;
                                                   } else {
                                                     _counterOKHappening[
-                                                    index]--;
+                                                        index]--;
                                                   }
                                                   _alreadyOKHappening[index] =
-                                                  !_alreadyOKHappening[
-                                                  index];
+                                                      !_alreadyOKHappening[
+                                                          index];
                                                 });
                                               },
                                             ),
                                             _counterOKHappening[index] == 0
                                                 ? Container()
                                                 : Container(
-                                              margin: EdgeInsets.only(
-                                                  top: 5.0),
-                                              child: Text(
-                                                _counterOKHappening[index]
-                                                    .toString(),
-                                                style: TextStyle(
-                                                    color:
-                                                    Colors.grey[500]),
-                                              ),
-                                            )
+                                                    margin: EdgeInsets.only(
+                                                        top: 5.0),
+                                                    child: Text(
+                                                      _counterOKHappening[index]
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.grey[500]),
+                                                    ),
+                                                  )
                                           ],
                                         ),
                                       ),
                                       Padding(
                                         padding:
-                                        const EdgeInsets.only(top: 10.0),
+                                            const EdgeInsets.only(top: 10.0),
                                         child: GestureDetector(
                                           onTap: () => Navigator.push(
                                               context,
@@ -1215,16 +1222,16 @@ class _BerandaPageState extends State<BerandaPage> {
                                           child: Row(
                                             mainAxisSize: MainAxisSize.min,
                                             mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                                MainAxisAlignment.center,
                                             children: <Widget>[
                                               Icon(Icons.chat,
                                                   size: 18.0,
                                                   color: AbubaPallate.green),
                                               Container(
                                                 padding:
-                                                EdgeInsets.only(left: 5.0),
+                                                    EdgeInsets.only(left: 5.0),
                                                 margin:
-                                                EdgeInsets.only(top: 5.0),
+                                                    EdgeInsets.only(top: 5.0),
                                                 child: Text(
                                                   '${index + 1}',
                                                   style: TextStyle(
@@ -1237,24 +1244,24 @@ class _BerandaPageState extends State<BerandaPage> {
                                       ),
                                       Padding(
                                         padding:
-                                        const EdgeInsets.only(top: 10.0),
+                                            const EdgeInsets.only(top: 10.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.min,
                                           mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                              MainAxisAlignment.center,
                                           children: <Widget>[
                                             IconButton(
                                               tooltip: 'Like',
                                               alignment: Alignment.centerRight,
                                               icon: _counterLikeHappening[
-                                              index] ==
-                                                  0
+                                                          index] ==
+                                                      0
                                                   ? Icon(_likeHappening[index]
-                                                  ? Icons.favorite
-                                                  : Icons.favorite_border)
+                                                      ? Icons.favorite
+                                                      : Icons.favorite_border)
                                                   : Icon(_likeHappening[index]
-                                                  ? Icons.favorite
-                                                  : Icons.favorite_border),
+                                                      ? Icons.favorite
+                                                      : Icons.favorite_border),
                                               iconSize: 18.0,
                                               color: _likeHappening[index]
                                                   ? Colors.redAccent
@@ -1264,35 +1271,35 @@ class _BerandaPageState extends State<BerandaPage> {
                                                   if (_likeHappening[index] ==
                                                       false) {
                                                     _counterLikeHappening[
-                                                    index]++;
+                                                        index]++;
                                                   } else {
                                                     _counterLikeHappening[
-                                                    index]--;
+                                                        index]--;
                                                   }
                                                   _likeHappening[index] =
-                                                  !_likeHappening[index];
+                                                      !_likeHappening[index];
                                                 });
                                               },
                                             ),
                                             _counterLikeHappening[index] == 0
                                                 ? Container(
-                                              padding: EdgeInsets.only(
-                                                  right: 20.0),
-                                            )
+                                                    padding: EdgeInsets.only(
+                                                        right: 20.0),
+                                                  )
                                                 : Container(
-                                              padding: EdgeInsets.only(
-                                                  right: 20.0),
-                                              margin: EdgeInsets.only(
-                                                  top: 5.0),
-                                              child: Text(
-                                                _counterLikeHappening[
-                                                index]
-                                                    .toString(),
-                                                style: TextStyle(
-                                                    color:
-                                                    Colors.grey[500]),
-                                              ),
-                                            )
+                                                    padding: EdgeInsets.only(
+                                                        right: 20.0),
+                                                    margin: EdgeInsets.only(
+                                                        top: 5.0),
+                                                    child: Text(
+                                                      _counterLikeHappening[
+                                                              index]
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.grey[500]),
+                                                    ),
+                                                  )
                                           ],
                                         ),
                                       ),

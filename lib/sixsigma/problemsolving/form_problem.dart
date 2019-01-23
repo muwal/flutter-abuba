@@ -3372,7 +3372,7 @@ class _FormProblemState extends State<FormProblem>
                     IconButton(
                       icon: Icon(Icons.arrow_back_ios, color: Colors.white),
                       onPressed: () {
-                        _controller.previous(animation: true);
+                        _currentIndex != 0 ? _controller.previous(animation: true) : '';
                       },
                       tooltip: 'Previous',
                     ),

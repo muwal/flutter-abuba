@@ -132,6 +132,537 @@ class _DashboardKpiMonitoringDetailState
                 child: Column(
                   children: <Widget>[
                     Container(
+                        alignment: Alignment.centerLeft,
+                        padding: const EdgeInsets.only(
+                            right: 20.0, left: 20.0, bottom: 5.0, top: 15.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _progressColor = AbubaPallate.green;
+                                  _badgetingColor = Colors.grey;
+                                  _progressShow = true;
+                                  _badgetingShow = false;
+                                });
+                              },
+                              child: Container(
+                                width: width / 4,
+                                child: Column(
+                                  children: <Widget>[
+                                    Text(
+                                      'Progress',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: _progressColor),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5.0),
+                                      child: Divider(
+                                        height: 10.0,
+                                        color: _progressColor,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _progressColor = Colors.grey;
+                                  _badgetingColor = AbubaPallate.green;
+                                  _progressShow = false;
+                                  _badgetingShow = true;
+                                });
+                              },
+                              child: Container(
+                                width: width / 4,
+                                child: Column(
+                                  children: <Widget>[
+                                    Text(
+                                      'Budgeting',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: _badgetingColor),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5.0),
+                                      child: Divider(
+                                        height: 10.0,
+                                        color: _badgetingColor,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        )),
+                    // Container(
+                    //   alignment: Alignment.centerLeft,
+                    //   padding: const EdgeInsets.only(right: 20.0, left: 20.0, bottom: 5.0, top: 20.0),
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    //     children: <Widget>[
+                    //       ButtonTheme(
+                    //         minWidth: width / 2.5,
+                    //         height: 40.0,
+                    //         child: RaisedButton(
+                    //           color: _progressColor,
+                    //           child: Text(
+                    //             'Progress',
+                    //             style: TextStyle(
+                    //               fontSize: 13.0, color: Colors.white
+                    //             ),
+                    //           ),
+                    //           onPressed: () {
+                    //             setState(() {
+                    //               _progressColor = AbubaPallate.green;
+                    //               _badgetingColor = Colors.grey;
+                    //               _progressShow = true;
+                    //               _badgetingShow = false;
+                    //             });
+                    //           },
+                    //         ),
+                    //       ),
+                    //       ButtonTheme(
+                    //         minWidth: width / 2.5,
+                    //         height: 40.0,
+                    //         child: RaisedButton(
+                    //           color: _badgetingColor,
+                    //           child: Text(
+                    //             'Badgeting',
+                    //             style: TextStyle(
+                    //                 fontSize: 13.0, color: Colors.white),
+                    //           ),
+                    //           onPressed: () {
+                    //             setState(() {
+                    //               _progressColor = Colors.grey;
+                    //               _badgetingColor = AbubaPallate.green;
+                    //               _progressShow = false;
+                    //               _badgetingShow = true;
+                    //             });
+                    //           },
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   )
+                    // ),
+                    _progressShow
+                        ? Column(
+                            children: <Widget>[
+                              Container(
+                                  alignment: Alignment.centerLeft,
+                                  padding: const EdgeInsets.only(
+                                      right: 20.0, left: 20.0, top: 10.0),
+                                  child: Text(
+                                    'Progress',
+                                    style: TextStyle(
+                                        color: Colors.black54,
+                                        fontSize: 13.0,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                padding: const EdgeInsets.only(
+                                    right: 20.0, left: 20.0, top: 5.0),
+                                child: Text(
+                                  '90%',
+                                  style: TextStyle(
+                                      color: Colors.black54, fontSize: 26.0),
+                                ),
+                              ),
+                              Container(
+                                  alignment: Alignment.centerLeft,
+                                  child: LinearPercentIndicator(
+                                    padding: EdgeInsets.only(
+                                        right: 20.0, left: 20.0),
+                                    width: width,
+                                    animation: true,
+                                    lineHeight: 30.0,
+                                    percent: 0.9,
+                                    animationDuration: 1000,
+                                    linearStrokeCap: LinearStrokeCap.butt,
+                                    progressColor: Colors.green[300],
+                                  )),
+                              Container(
+                                  alignment: Alignment.centerLeft,
+                                  padding: const EdgeInsets.only(
+                                      right: 20.0, left: 20.0, bottom: 20.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: <Widget>[
+                                      Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 2.0),
+                                            child: Text(
+                                              'Plan',
+                                              style: TextStyle(
+                                                  color: Colors.black54,
+                                                  fontSize: 15.0),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 3.0),
+                                            child: Text(
+                                              '80%',
+                                              style: TextStyle(
+                                                  color: Colors.black38,
+                                                  fontSize: 17.0),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 3.0),
+                                            child: Text(
+                                              '3 of 5',
+                                              style: TextStyle(
+                                                  color: Colors.black38,
+                                                  fontSize: 13.0),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 2.0),
+                                            child: Text(
+                                              'Do',
+                                              style: TextStyle(
+                                                  color: Colors.black54,
+                                                  fontSize: 15.0),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 3.0),
+                                            child: Text(
+                                              '70%',
+                                              style: TextStyle(
+                                                  color: Colors.black38,
+                                                  fontSize: 17.0),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 3.0),
+                                            child: Text(
+                                              '3 of 5',
+                                              style: TextStyle(
+                                                  color: Colors.black38,
+                                                  fontSize: 13.0),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 2.0),
+                                            child: Text(
+                                              'Check',
+                                              style: TextStyle(
+                                                  color: Colors.black54,
+                                                  fontSize: 15.0),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 3.0),
+                                            child: Text(
+                                              '70%',
+                                              style: TextStyle(
+                                                  color: Colors.black38,
+                                                  fontSize: 17.0),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 3.0),
+                                            child: Text(
+                                              '3 of 5',
+                                              style: TextStyle(
+                                                  color: Colors.black38,
+                                                  fontSize: 13.0),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 2.0),
+                                            child: Text(
+                                              'Adjust',
+                                              style: TextStyle(
+                                                  color: Colors.black54,
+                                                  fontSize: 15.0),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 3.0),
+                                            child: Text(
+                                              '60%',
+                                              style: TextStyle(
+                                                  color: Colors.orange,
+                                                  fontSize: 17.0),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 3.0),
+                                            child: Text(
+                                              '3 of 5',
+                                              style: TextStyle(
+                                                  color: Colors.black38,
+                                                  fontSize: 13.0),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  )),
+                            ],
+                          )
+                        : Container(),
+                    _badgetingShow
+                        ? Column(
+                            children: <Widget>[
+                              Container(
+                                  alignment: Alignment.centerLeft,
+                                  padding: const EdgeInsets.only(
+                                      right: 20.0, left: 20.0, top: 10.0),
+                                  child: Text(
+                                    'Budgeting',
+                                    style: TextStyle(
+                                        color: Colors.black54,
+                                        fontSize: 13.0,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                padding: const EdgeInsets.only(
+                                    right: 20.0, left: 20.0, top: 5.0),
+                                child: Text(
+                                  '90%',
+                                  style: TextStyle(
+                                      color: Colors.black54, fontSize: 26.0),
+                                ),
+                              ),
+                              Container(
+                                  alignment: Alignment.centerLeft,
+                                  child: LinearPercentIndicator(
+                                    padding: EdgeInsets.only(
+                                        right: 20.0, left: 20.0),
+                                    width: width,
+                                    center: Text(
+                                      'Good',
+                                      style: TextStyle(color: Colors.grey[50]),
+                                    ),
+                                    animation: true,
+                                    lineHeight: 30.0,
+                                    percent: 0.9,
+                                    animationDuration: 1000,
+                                    linearStrokeCap: LinearStrokeCap.butt,
+                                    progressColor: Colors.green[300],
+                                  )),
+                              Container(
+                                  alignment: Alignment.centerLeft,
+                                  padding: const EdgeInsets.only(
+                                      right: 20.0, left: 20.0, bottom: 20.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: <Widget>[
+                                      Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 2.0),
+                                            child: Text(
+                                              'Labor',
+                                              style: TextStyle(
+                                                  color: Colors.black54,
+                                                  fontSize: 15.0),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 3.0),
+                                            child: Text(
+                                              '80%',
+                                              style: TextStyle(
+                                                  color: Colors.black38,
+                                                  fontSize: 17.0),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 3.0),
+                                            child: Text(
+                                              '2M vs 3M',
+                                              style: TextStyle(
+                                                  color: Colors.black38,
+                                                  fontSize: 13.0),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 2.0),
+                                            child: Text(
+                                              'Material',
+                                              style: TextStyle(
+                                                  color: Colors.black54,
+                                                  fontSize: 15.0),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 3.0),
+                                            child: Text(
+                                              '70%',
+                                              style: TextStyle(
+                                                  color: Colors.black38,
+                                                  fontSize: 17.0),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 3.0),
+                                            child: Text(
+                                              '2M vs 3M',
+                                              style: TextStyle(
+                                                  color: Colors.black38,
+                                                  fontSize: 13.0),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 2.0),
+                                            child: Text(
+                                              'Travel',
+                                              style: TextStyle(
+                                                  color: Colors.black54,
+                                                  fontSize: 15.0),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 3.0),
+                                            child: Text(
+                                              '70%',
+                                              style: TextStyle(
+                                                  color: Colors.black38,
+                                                  fontSize: 17.0),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 3.0),
+                                            child: Text(
+                                              '2M vs 3M',
+                                              style: TextStyle(
+                                                  color: Colors.black38,
+                                                  fontSize: 13.0),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 2.0),
+                                            child: Text(
+                                              'Service',
+                                              style: TextStyle(
+                                                  color: Colors.black54,
+                                                  fontSize: 15.0),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 3.0),
+                                            child: Text(
+                                              '110%',
+                                              style: TextStyle(
+                                                  color: Colors.orange,
+                                                  fontSize: 17.0),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 3.0),
+                                            child: Text(
+                                              '2M vs 3M',
+                                              style: TextStyle(
+                                                  color: Colors.black38,
+                                                  fontSize: 13.0),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ))
+                            ],
+                          )
+                        : Container()
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Container(
+                color: Colors.white,
+                child: Column(
+                  children: <Widget>[
+                    Container(
                       alignment: Alignment.centerLeft,
                       padding: const EdgeInsets.only(
                           right: 20.0, left: 20.0, bottom: 5.0, top: 20.0),
@@ -166,7 +697,7 @@ class _DashboardKpiMonitoringDetailState
                             child: RaisedButton(
                               color: _badgetingColor,
                               child: Text(
-                                'Badgeting',
+                                'Budgeting',
                                 style: TextStyle(
                                     fontSize: 13.0, color: Colors.white),
                               ),

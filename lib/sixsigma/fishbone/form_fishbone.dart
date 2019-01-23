@@ -2,7 +2,6 @@ import 'package:datetime_picker_formfield/time_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter_abuba/constant.dart';
-// import 'package:flutter_abuba/sixsigma/fishbone/fishbone_material.dart';
 import 'package:intl/intl.dart';
 
 class FishBone extends StatefulWidget {
@@ -16,7 +15,21 @@ class FishBone extends StatefulWidget {
 
 class _FishBoneState extends State<FishBone> {
   TextEditingController _controller = TextEditingController();
+  TextEditingController _controllerDetail = TextEditingController();
+  TextEditingController _controllerDetailBanget = TextEditingController();
+  TextEditingController _controllerScore = TextEditingController();
   List<String> _list = [];
+  List<String> _listDua = [];
+  List<String> _listTiga = [];
+  List<String> _listTigaScore = [];
+  List<List<String>> _allList = [];
+
+  bool _confirm = false;
+  bool _confirmDua = false;
+  bool _confirmTiga = false;
+  String _textButton = 'CONFIRM';
+
+  bool _scoreShow = false;
 
   @override
   Widget build(BuildContext context) {
@@ -28,28 +41,54 @@ class _FishBoneState extends State<FishBone> {
           onTap: () {
             FocusScope.of(context).requestFocus(FocusNode());
           },
-          child: Column(
+          child: _confirm == false ? Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Container(
-                padding: const EdgeInsets.all(20.0),
-                width: MediaQuery.of(context).size.width,
-                child: TextField(
-                  textCapitalization: TextCapitalization.sentences,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Type Here',
-                    labelStyle: TextStyle(fontSize: 14.0)
+              ListTile(
+                title: Container(
+                  padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+                  width: _scoreShow ? MediaQuery.of(context).size.width - 100.0 : MediaQuery.of(context).size.width,
+                  child: TextField(
+                    textCapitalization: TextCapitalization.sentences,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Type Here',
+                      labelStyle: TextStyle(fontSize: 14.0)
+                    ),
+                    controller: _controller,
+                    style: TextStyle(color: Colors.black),
+                    onEditingComplete: () {
+                      setState(() {
+                        _list.add(_controller.text);
+                        _controller.clear();
+                      });
+                    },
                   ),
-                  controller: _controller,
-                  style: TextStyle(color: Colors.black),
-                  onEditingComplete: () {
-                    setState(() {
-                      _list.add(_controller.text);
-                      _controller.clear();
-                    });
-                  },
                 ),
+                trailing: _scoreShow
+                  ? Container(
+                      padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+                      width: 100.0,
+                      child: TextField(
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Score',
+                          labelStyle: TextStyle(fontSize: 14.0)
+                        ),
+                        controller: _controllerScore,
+                        style: TextStyle(color: Colors.black),
+                        onEditingComplete: () {
+                          setState(() {
+                            _list.add(_controller.text);
+                            _listTigaScore.add(_controllerScore.text);
+                            _controller.clear();
+                            _controllerScore.clear();
+                          });
+                        },
+                      ),
+                    )
+                  : Container(child: Text(''))
               ),
               Expanded(
                 child: ListView(
@@ -77,156 +116,72 @@ class _FishBoneState extends State<FishBone> {
                 ),
               )
             ],
-          ),
-        ),
-        bottomNavigationBar: _bottomBar(),
-      ),
-    );
-  }
-
-  Widget _bottomBar() {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: 55.0,
-      child: Container(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              ButtonTheme(
-                minWidth: 50.0,
-                height: 35.0,
-                child: RaisedButton(
-                  color: Colors.green,
-                  child: Text(
-                    'CONFIRM',
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      color: Colors.white
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.pushReplacement(context,
-                      MyCustomRoute(
-                        builder: (context) => MaterialDetail(list: _list, titleJudul: widget.titleJudul)
-                      )
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-        decoration: BoxDecoration(color: Color(0xFF2F592F))
-      ),
-    );
-  }
-  
-  Widget _appBar(String titleJudul) {
-    return AppBar(
-      elevation: 0.25,
-      backgroundColor: Colors.white,
-      iconTheme: IconThemeData(color: Colors.black),
-      title: Image.asset(
-        'assets/images/logo.png',
-        height: 100.0,
-        width: 120.0,
-      ),
-      bottom: PreferredSize(
-        preferredSize: Size.fromHeight(55.0),
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: 55.0,
-              child: Container(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
-                          titleJudul,
-                          style: TextStyle(color: Colors.white, fontSize: 16.0),
-                          textAlign: TextAlign.start,
-                        ),
-                      ],
-                    ),
-                  ),
-                  decoration: BoxDecoration(color: Color(0xFF2F592F))),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class MaterialDetail extends StatefulWidget {
-  final List<String> list;
-  final String titleJudul;
-  MaterialDetail({this.list, this.titleJudul});
-
-  @override
-  _MaterialDetailState createState() => _MaterialDetailState();
-}
-
-class _MaterialDetailState extends State<MaterialDetail> {
-  List<String> _listDetail = [];
-  List<String> _listDetailBanget = [];
-  TextEditingController _controllerDetail = TextEditingController();
-  TextEditingController _controllerDetailBanget = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: _appBar(widget.titleJudul),
-        body: GestureDetector(
-          onTap: () {
-            FocusScope.of(context).requestFocus(FocusNode());
-          },
-          child: Column(
+          )
+          : _confirmDua == false ? Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Expanded(
                 child: ListView.builder(
                   shrinkWrap: true,
                   physics: ScrollPhysics(),
-                  itemCount: widget.list.length,
+                  itemCount: _list.length,
                   itemBuilder: (context, index) {
                     return Container(
                       padding: EdgeInsets.symmetric(horizontal: 10.0),
                       color: Colors.white,
                       child: ExpansionTile(
                         title: Text(
-                          widget.list[index],
+                          _list[index],
                           style: TextStyle(
                             fontSize: 14.0
                           ),
                         ),
                         children: <Widget>[
-                          Container(
-                            padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 5.0, bottom: 10.0),
-                            width: MediaQuery.of(context).size.width,
-                            child: TextField(
-                              textCapitalization: TextCapitalization.sentences,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'Type Here',
-                                labelStyle: TextStyle(fontSize: 14.0)
+                          ListTile(
+                            title: Container(
+                              padding: const EdgeInsets.only(top: 5.0, bottom: 10.0),
+                              width: _scoreShow ? MediaQuery.of(context).size.width - 100.0 : MediaQuery.of(context).size.width,
+                              child: TextField(
+                                textCapitalization: TextCapitalization.sentences,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Type Here',
+                                  labelStyle: TextStyle(fontSize: 14.0)
+                                ),
+                                controller: _controllerDetail,
+                                style: TextStyle(color: Colors.black),
+                                onEditingComplete: () {
+                                  setState(() {
+                                    _listDua.add(_controllerDetail.text);
+                                    _controllerDetail.clear();
+                                  });
+                                },
                               ),
-                              controller: _controllerDetail,
-                              style: TextStyle(color: Colors.black),
-                              onEditingComplete: () {
-                                setState(() {
-                                  _listDetail.add(_controllerDetail.text);
-                                  _controllerDetail.clear();
-                                });
-                              },
                             ),
+                            trailing: _scoreShow
+                              ? Container(
+                                  padding: const EdgeInsets.only(top: 5.0, bottom: 10.0),
+                                  width: 100.0,
+                                  child: TextField(
+                                    keyboardType: TextInputType.number,
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      labelText: 'Score',
+                                      labelStyle: TextStyle(fontSize: 14.0)
+                                    ),
+                                    controller: _controllerScore,
+                                    style: TextStyle(color: Colors.black),
+                                    onEditingComplete: () {
+                                      setState(() {
+                                        _listDua.add(_controllerDetail.text);
+                                        _listTigaScore.add(_controllerScore.text);
+                                        _controllerDetail.clear();
+                                        _controllerScore.clear();
+                                      });
+                                    },
+                                  ),
+                                )
+                              : Container(child: Text(''))
                           ),
                           Container(
                             alignment: Alignment.topLeft,
@@ -236,82 +191,13 @@ class _MaterialDetailState extends State<MaterialDetail> {
                               runSpacing: 4.0,
                               runAlignment: WrapAlignment.start,
                               direction: Axis.horizontal,
-                              children: _listDetail.map((String nameDetail) => GestureDetector(
-                                onTap: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: Text(
-                                          nameDetail
-                                        ),
-                                        content: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: <Widget>[
-                                            Container(
-                                              padding: const EdgeInsets.only(top: 5.0, bottom: 10.0),
-                                              width: MediaQuery.of(context).size.width,
-                                              child: TextField(
-                                                textCapitalization: TextCapitalization.sentences,
-                                                decoration: InputDecoration(
-                                                  border: OutlineInputBorder(),
-                                                  labelText: 'Type Here',
-                                                  labelStyle: TextStyle(fontSize: 14.0)
-                                                ),
-                                                controller: _controllerDetailBanget,
-                                                style: TextStyle(color: Colors.black),
-                                                onEditingComplete: () {
-                                                  setState(() {
-                                                    _listDetailBanget.add(_controllerDetailBanget.text);
-                                                    _controllerDetailBanget.clear();
-                                                  });
-                                                },
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: SingleChildScrollView(
-                                                physics: ScrollPhysics(),
-                                                child: Padding(
-                                                  padding: EdgeInsets.only(top: 10.0, bottom: 20.0),
-                                                  child: Wrap(
-                                                    spacing: 4.0,
-                                                    runSpacing: 2.0,
-                                                    runAlignment: WrapAlignment.start,
-                                                    direction: Axis.horizontal,
-                                                    children: _listDetailBanget.map((String name) => Chip(
-                                                      label: Text(name),
-                                                      onDeleted: () {
-                                                        setState(() {
-                                                          _listDetailBanget.remove(name);
-                                                        });
-                                                      },
-                                                    )).toList(),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        actions: <Widget>[
-                                          FlatButton(
-                                            child: Text('Close'),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                          )
-                                        ],
-                                      );
-                                    }
-                                  );
+                              children: _listDua.map((String nameDetail) => Chip(
+                                label: Text(nameDetail),
+                                onDeleted: () {
+                                  setState(() {
+                                    _listDua.remove(nameDetail);
+                                  });
                                 },
-                                child: Chip(
-                                  label: Text(nameDetail),
-                                  onDeleted: () {
-                                    setState(() {
-                                      _listDetail.remove(nameDetail);
-                                    });
-                                  },
-                                )
                               )).toList(),
                             ),
                           )
@@ -322,217 +208,174 @@ class _MaterialDetailState extends State<MaterialDetail> {
                 ),
               )
             ],
-          ),
-        ),
-        bottomNavigationBar: _bottomBar(widget.list, _listDetail, _listDetailBanget),
-      ),
-    );
-  }
-
-  Widget _bottomBar(List<String> listBantu, List<String> listBantu2, List<String> listBantu3) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: 55.0,
-      child: Container(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              ButtonTheme(
-                minWidth: 50.0,
-                height: 35.0,
-                child: RaisedButton(
-                  color: Colors.green,
-                  child: Text(
-                    'SAVE',
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      color: Colors.white
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.pushReplacement(context,
-                      MyCustomRoute(
-                        builder: (context) => FormFishbone(listMother: listBantu, listChild: listBantu2, listGrandChild: listBantu3),
-                      )
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-        decoration: BoxDecoration(color: Color(0xFF2F592F))
-      ),
-    );
-  }
-  
-  Widget _appBar(String titleJudul) {
-    return AppBar(
-      elevation: 0.25,
-      backgroundColor: Colors.white,
-      iconTheme: IconThemeData(color: Colors.black),
-      title: Image.asset(
-        'assets/images/logo.png',
-        height: 100.0,
-        width: 120.0,
-      ),
-      bottom: PreferredSize(
-        preferredSize: Size.fromHeight(55.0),
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: 55.0,
-              child: Container(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
-                          titleJudul,
-                          style: TextStyle(color: Colors.white, fontSize: 16.0),
-                          textAlign: TextAlign.start,
-                        ),
-                      ],
-                    ),
-                  ),
-                  decoration: BoxDecoration(color: Color(0xFF2F592F))),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class MaterialWeight extends StatefulWidget {
-  @override
-  _MaterialWeightState createState() => _MaterialWeightState();
-}
-
-class _MaterialWeightState extends State<MaterialWeight> {
-  Color _opening = Colors.green;
-  Color _middle = Colors.grey;
-  Color _closing = Colors.grey;
-
-  @override
-  Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
-    
-    return SafeArea(
-      child: Scaffold(
-        appBar: _appBar(),
-        backgroundColor: Colors.white,
-        body: GestureDetector(
-          onTap: () {
-            FocusScope.of(context).requestFocus(FocusNode());
-          },
-          child: ListView(
-            shrinkWrap: true,
-            physics: ScrollPhysics(),
+          )
+          : Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Container(
-                alignment: Alignment.centerLeft,
-                padding: const EdgeInsets.only(right: 20.0, left: 20.0, bottom: 5.0, top: 20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                color: Colors.white,
+                child: ExpansionTile(
+                  title: Text(
+                    'Makanan Pokok',
+                    style: TextStyle(
+                      fontSize: 14.0
+                    ),
+                  ),
                   children: <Widget>[
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _opening = Colors.green;
-                          _middle = Colors.grey;
-                          _closing = Colors.grey;
-                        });
-                      },
-                      child: Container(
-                        width: width / 4,
-                        child: Column(
-                          children: <Widget>[
-                            Text(
-                              'OPENING',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: _opening
+                    Container(
+                      color: Colors.white,
+                      child: ExpansionTile(
+                        title: Text(
+                          'Nasi',
+                          style: TextStyle(
+                            fontSize: 14.0
+                          ),
+                        ),
+                        children: <Widget>[
+                          ListTile(
+                            title: Container(
+                              padding: const EdgeInsets.only(top: 5.0, bottom: 10.0),
+                              width: MediaQuery.of(context).size.width - 100.0,
+                              child: TextField(
+                                textCapitalization: TextCapitalization.sentences,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Type Here',
+                                  labelStyle: TextStyle(fontSize: 14.0)
+                                ),
+                                controller: _controllerDetailBanget,
+                                style: TextStyle(color: Colors.black),
+                                textInputAction: TextInputAction.next,
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 5.0),
-                              child: Divider(
-                                height: 10.0,
-                                color: _opening,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _opening = Colors.grey;
-                          _middle = Colors.green;
-                          _closing = Colors.grey;
-                        });
-                      },
-                      child: Container(
-                        width: width / 4,
-                        child: Column(
-                          children: <Widget>[
-                            Text(
-                              'MIDDLE',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: _middle
+                            trailing: Container(
+                              padding: const EdgeInsets.only(top: 5.0, bottom: 10.0),
+                              width: 100.0,
+                              child: TextField(
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Score',
+                                  labelStyle: TextStyle(fontSize: 14.0)
+                                ),
+                                controller: _controllerScore,
+                                style: TextStyle(color: Colors.black),
+                                onEditingComplete: () {
+                                  setState(() {
+                                    _listTiga.add(_controllerDetailBanget.text);
+                                    _listTigaScore.add(_controllerScore.text);
+                                    _controllerDetailBanget.clear();
+                                    _controllerScore.clear();
+                                  });
+                                },
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 5.0),
-                              child: Divider(
-                                height: 10.0,
-                                color: _middle,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _opening = Colors.grey;
-                          _middle = Colors.grey;
-                          _closing = Colors.green;
-                        });
-                      },
-                      child: Container(
-                        width: width / 4,
-                        child: Column(
-                          children: <Widget>[
-                            Text(
-                              'CLOSING',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: _closing
-                              ),
+                          ),
+                          Container(
+                            alignment: Alignment.topLeft,
+                            padding: EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
+                            child: Wrap(
+                              spacing: 8.0,
+                              runSpacing: 4.0,
+                              runAlignment: WrapAlignment.start,
+                              direction: Axis.horizontal,
+                              children: _listTiga.map((String nameDetail) => Chip(
+                                label: Text(nameDetail),
+                                onDeleted: () {
+                                  setState(() {
+                                    _listTiga.remove(nameDetail);
+                                  });
+                                },
+                              )).toList(),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 5.0),
-                              child: Divider(
-                                height: 10.0,
-                                color: _closing,
-                              ),
-                            )
-                          ],
-                        ),
+                          )
+                        ],
                       ),
-                    ),
+                    )
                   ],
-                )
+                ),
               ),
+              // Expanded(
+              //   child: ListView.builder(
+              //     shrinkWrap: true,
+              //     physics: ScrollPhysics(),
+              //     itemCount: _listDua.length,
+              //     itemBuilder: (context, index) {
+              //       return Container(
+              //         padding: EdgeInsets.symmetric(horizontal: 10.0),
+              //         color: Colors.white,
+              //         child: ExpansionTile(
+              //           title: Text(
+              //             _listDua[index],
+              //             style: TextStyle(
+              //               fontSize: 14.0
+              //             ),
+              //           ),
+              //           children: <Widget>[
+              //             ListTile(
+              //               title: Container(
+              //                 padding: const EdgeInsets.only(top: 5.0, bottom: 10.0),
+              //                 width: MediaQuery.of(context).size.width - 100.0,
+              //                 child: TextField(
+              //                   textCapitalization: TextCapitalization.sentences,
+              //                   decoration: InputDecoration(
+              //                     border: OutlineInputBorder(),
+              //                     labelText: 'Type Here',
+              //                     labelStyle: TextStyle(fontSize: 14.0)
+              //                   ),
+              //                   controller: _controllerDetailBanget,
+              //                   style: TextStyle(color: Colors.black),
+              //                   textInputAction: TextInputAction.next,
+              //                 ),
+              //               ),
+              //               trailing: Container(
+              //                 padding: const EdgeInsets.only(top: 5.0, bottom: 10.0),
+              //                 width: 100.0,
+              //                 child: TextField(
+              //                   keyboardType: TextInputType.number,
+              //                   decoration: InputDecoration(
+              //                     border: OutlineInputBorder(),
+              //                     labelText: 'Score',
+              //                     labelStyle: TextStyle(fontSize: 14.0)
+              //                   ),
+              //                   controller: _controllerScore,
+              //                   style: TextStyle(color: Colors.black),
+              //                   onEditingComplete: () {
+              //                     setState(() {
+              //                       _listTiga.add(_controllerDetailBanget.text);
+              //                       _listTigaScore.add(_controllerScore.text);
+              //                       _controllerDetailBanget.clear();
+              //                       _controllerScore.clear();
+              //                     });
+              //                   },
+              //                 ),
+              //               ),
+              //             ),
+              //             Container(
+              //               alignment: Alignment.topLeft,
+              //               padding: EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
+              //               child: Wrap(
+              //                 spacing: 8.0,
+              //                 runSpacing: 4.0,
+              //                 runAlignment: WrapAlignment.start,
+              //                 direction: Axis.horizontal,
+              //                 children: _listTiga.map((String nameDetail) => Chip(
+              //                   label: Text(nameDetail),
+              //                   onDeleted: () {
+              //                     setState(() {
+              //                       _listTiga.remove(nameDetail);
+              //                     });
+              //                   },
+              //                 )).toList(),
+              //               ),
+              //             )
+              //           ],
+              //         ),
+              //       );
+              //     },
+              //   ),
+              // )
             ],
           )
         ),
@@ -551,21 +394,87 @@ class _MaterialWeightState extends State<MaterialWeight> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              ButtonTheme(
-                minWidth: 50.0,
-                height: 35.0,
-                child: RaisedButton(
-                  color: Colors.green,
-                  child: Text(
-                    'CONFIRM',
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      color: Colors.white
+              _scoreShow
+                ? Container()
+                : ButtonTheme(
+                    minWidth: 50.0,
+                    height: 35.0,
+                    child: RaisedButton(
+                      color: Colors.green,
+                      child: Text(
+                        'Score',
+                        style: TextStyle(
+                          fontSize: 14.0,
+                          color: Colors.white
+                        ),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _scoreShow = true;
+                        });
+                      },
                     ),
                   ),
-                  onPressed: () {},
-                ),
+              SizedBox(
+                width: 15.0,
               ),
+              _scoreShow
+                ? ButtonTheme(
+                    minWidth: 50.0,
+                    height: 35.0,
+                    child: RaisedButton(
+                      color: Colors.green,
+                      child: Text(
+                        'SAVE',
+                        style: TextStyle(
+                          fontSize: 14.0,
+                          color: Colors.white
+                        ),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _allList.add(_list);
+                          _allList.add(_listDua);
+                          _allList.add(_listTiga);
+                          _allList.add(_listTigaScore);
+                          print(_allList);
+                          Navigator.pop(context, _allList);
+                        });
+                      },
+                    ),
+                  )
+                : ButtonTheme(
+                    minWidth: 50.0,
+                    height: 35.0,
+                    child: RaisedButton(
+                      color: Colors.green,
+                      child: Text(
+                        _textButton,
+                        style: TextStyle(
+                          fontSize: 14.0,
+                          color: Colors.white
+                        ),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          if (_confirm == false && _confirmDua == false && _confirmTiga == false) {
+                            _confirm = true;
+                            _textButton = 'CONFIRM';
+                          } else if (_confirm == true && _confirmDua == false && _confirmTiga == false) {
+                            _confirmDua = true;
+                            _textButton = 'SAVE';
+                          } else if (_confirm == true && _confirmDua == true && _confirmTiga == false) {
+                            _allList.add(_list);
+                            _allList.add(_listDua);
+                            _allList.add(_listTiga);
+                            _allList.add(_listTigaScore);
+                            print(_allList);
+                            Navigator.pop(context, _allList);
+                          }
+                        });
+                      },
+                    ),
+                  ),
             ],
           ),
         ),
@@ -574,7 +483,7 @@ class _MaterialWeightState extends State<MaterialWeight> {
     );
   }
   
-  Widget _appBar() {
+  Widget _appBar(String titleJudul) {
     return AppBar(
       elevation: 0.25,
       backgroundColor: Colors.white,
@@ -583,6 +492,12 @@ class _MaterialWeightState extends State<MaterialWeight> {
         'assets/images/logo.png',
         height: 100.0,
         width: 120.0,
+      ),
+      leading: IconButton(
+        icon: Icon(Icons.arrow_back),
+        onPressed: () {
+          Navigator.pop(context, _allList);
+        },
       ),
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(55.0),
@@ -598,7 +513,7 @@ class _MaterialWeightState extends State<MaterialWeight> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          'Material',
+                          titleJudul,
                           style: TextStyle(color: Colors.white, fontSize: 16.0),
                           textAlign: TextAlign.start,
                         ),
@@ -708,6 +623,11 @@ class _FormFishboneState extends State<FormFishbone> with TickerProviderStateMix
   TabPageSelector _tabPageSelector;
 
   int _currentStep = 0;
+  List<List<String>> _listGetMother = [];
+  Color _yesColor = Colors.green[200];
+  Color _noColor = Colors.grey[200];
+  Color _yesfont = Colors.white;
+  Color _nofont = Colors.black54;
 
   @override
   void initState() {
@@ -741,12 +661,14 @@ class _FormFishboneState extends State<FormFishbone> with TickerProviderStateMix
               ),
               borderSide: BorderSide(color: AbubaPallate.menuBluebird, width: 1.0),
               highlightedBorderColor: AbubaPallate.menuBluebird,
-              onPressed: () {
-                Navigator.push(context,
+              onPressed: () async {
+                final List<List<String>> result = await Navigator.push(context,
                   MaterialPageRoute(
                     builder: (context) => FishBone(titleJudul: 'Material')
                   )
                 );
+                _listGetMother = result;
+                print(result);
               },
             ),
           ),
@@ -768,12 +690,14 @@ class _FormFishboneState extends State<FormFishbone> with TickerProviderStateMix
               ),
               borderSide: BorderSide(color: AbubaPallate.menuBluebird, width: 1.0),
               highlightedBorderColor: AbubaPallate.menuBluebird,
-              onPressed: () {
-                Navigator.push(context,
+              onPressed: () async {
+                final List<List<String>> result = await Navigator.push(context,
                   MaterialPageRoute(
-                    builder: (context) => FishBone(titleJudul: 'Material')
+                    builder: (context) => FishBone(titleJudul: 'Method')
                   )
                 );
+                _listGetMother = result;
+                print(result);
               },
             ),
           ),
@@ -795,12 +719,14 @@ class _FormFishboneState extends State<FormFishbone> with TickerProviderStateMix
               ),
               borderSide: BorderSide(color: AbubaPallate.menuBluebird, width: 1.0),
               highlightedBorderColor: AbubaPallate.menuBluebird,
-              onPressed: () {
-                Navigator.push(context,
+              onPressed: () async {
+                final List<List<String>> result = await Navigator.push(context,
                   MaterialPageRoute(
-                    builder: (context) => FishBone(titleJudul: 'Material')
+                    builder: (context) => FishBone(titleJudul: 'Machine')
                   )
                 );
+                _listGetMother = result;
+                print(result);
               },
             ),
           ),
@@ -822,12 +748,14 @@ class _FormFishboneState extends State<FormFishbone> with TickerProviderStateMix
               ),
               borderSide: BorderSide(color: AbubaPallate.menuBluebird, width: 1.0),
               highlightedBorderColor: AbubaPallate.menuBluebird,
-              onPressed: () {
-                Navigator.push(context,
+              onPressed: () async {
+                final List<List<String>> result = await Navigator.push(context,
                   MaterialPageRoute(
-                    builder: (context) => FishBone(titleJudul: 'Material')
+                    builder: (context) => FishBone(titleJudul: 'Measurement')
                   )
                 );
+                _listGetMother = result;
+                print(result);
               },
             ),
           ),
@@ -849,12 +777,14 @@ class _FormFishboneState extends State<FormFishbone> with TickerProviderStateMix
               ),
               borderSide: BorderSide(color: AbubaPallate.menuBluebird, width: 1.0),
               highlightedBorderColor: AbubaPallate.menuBluebird,
-              onPressed: () {
-                Navigator.push(context,
+              onPressed: () async {
+                final List<List<String>> result = await Navigator.push(context,
                   MaterialPageRoute(
-                    builder: (context) => FishBone(titleJudul: 'Material')
+                    builder: (context) => FishBone(titleJudul: 'Man')
                   )
                 );
+                _listGetMother = result;
+                print(result);
               },
             ),
           ),
@@ -876,23 +806,19 @@ class _FormFishboneState extends State<FormFishbone> with TickerProviderStateMix
               ),
               borderSide: BorderSide(color: AbubaPallate.menuBluebird, width: 1.0),
               highlightedBorderColor: AbubaPallate.menuBluebird,
-              onPressed: () {
-                Navigator.push(context,
+              onPressed: () async {
+                final List<List<String>> result = await Navigator.push(context,
                   MaterialPageRoute(
-                    builder: (context) => FishBone(titleJudul: 'Material')
+                    builder: (context) => FishBone(titleJudul: 'Environment')
                   )
                 );
+                _listGetMother = result;
+                print(result);
               },
             ),
           ),
         ),
       ),
-    ];
-
-    List<String> strings = [
-      'Satu',
-      'Dua',
-      'Tiga',
     ];
 
     return SafeArea(
@@ -1872,54 +1798,390 @@ class _FormFishboneState extends State<FormFishbone> with TickerProviderStateMix
                           ),
                         ],
                       ),
-                      ListView(
-                        shrinkWrap: true,
-                        physics: ScrollPhysics(),
-                        children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.symmetric(vertical: 75.0),
-                            color: Colors.white,
-                            alignment: Alignment.center,
-                            child: Column(
-                              children: <Widget>[
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Flexible(
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 10.0),
-                                        child: Text(
-                                          'HOW SEVERE',
-                                          style: TextStyle(
-                                            color: Color(0xFF2F592F),
-                                            fontSize: 32.0,
-                                            fontWeight: FontWeight.bold
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
-                                    )
-                                  ],
+                      Container(
+                        padding: EdgeInsets.symmetric(vertical: 15.0),
+                        color: Colors.white,
+                        alignment: Alignment.center,
+                        child: Column(
+                          children: <Widget>[
+                            // _listGetMother.isEmpty
+                            //   ? ListTile(
+                            //       leading: Text(
+                            //         'Hypothesis',
+                            //         style: TextStyle(
+                            //           color: Color(0xFF2F592F),
+                            //           fontSize: 16.0,
+                            //           fontWeight: FontWeight.bold
+                            //         ),
+                            //         textAlign: TextAlign.center,
+                            //       ),
+                            //       title: Text(
+                            //         'Score',
+                            //         style: TextStyle(
+                            //           color: Color(0xFF2F592F),
+                            //           fontSize: 16.0,
+                            //           fontWeight: FontWeight.bold
+                            //         ),
+                            //         textAlign: TextAlign.center,
+                            //       ),
+                            //       trailing: Text(
+                            //         'Analysis',
+                            //         style: TextStyle(
+                            //           color: Color(0xFF2F592F),
+                            //           fontSize: 16.0,
+                            //           fontWeight: FontWeight.bold
+                            //         ),
+                            //         textAlign: TextAlign.center,
+                            //       ),
+                            //     )
+                            //   : Flexible(
+                            //       child: ListView.builder(
+                            //         itemCount: _listGetMother[2].length + 1,
+                            //         itemBuilder: (context, index) {
+                            //           return Column(
+                            //             mainAxisSize: MainAxisSize.min,
+                            //             children: <Widget>[
+                            //               index == 0
+                            //                 ? ListTile(
+                            //                     leading: Container(
+                            //                       width: MediaQuery.of(context).size.width / 3,
+                            //                       child: Text(
+                            //                         'Hypothesis',
+                            //                         style: TextStyle(
+                            //                           color: Color(0xFF2F592F),
+                            //                           fontSize: 16.0,
+                            //                           fontWeight: FontWeight.bold
+                            //                         ),
+                            //                         textAlign: TextAlign.start,
+                            //                       ),
+                            //                     ),
+                            //                     title: Container(
+                            //                       width: MediaQuery.of(context).size.width / 3,
+                            //                       child: Text(
+                            //                         'Score',
+                            //                         style: TextStyle(
+                            //                           color: Color(0xFF2F592F),
+                            //                           fontSize: 16.0,
+                            //                           fontWeight: FontWeight.bold
+                            //                         ),
+                            //                         textAlign: TextAlign.center,
+                            //                       ),
+                            //                     ),
+                            //                     trailing: Container(
+                            //                       width: MediaQuery.of(context).size.width / 3,
+                            //                       child: Text(
+                            //                         'Analysis',
+                            //                         style: TextStyle(
+                            //                           color: Color(0xFF2F592F),
+                            //                           fontSize: 16.0,
+                            //                           fontWeight: FontWeight.bold
+                            //                         ),
+                            //                         textAlign: TextAlign.end,
+                            //                       ),
+                            //                     ),
+                            //                   )
+                            //                 : ListTile(
+                            //                     leading: Container(
+                            //                       width: MediaQuery.of(context).size.width / 3,
+                            //                       child: Column(
+                            //                         mainAxisAlignment: MainAxisAlignment.start,
+                            //                         children: <Widget>[
+                            //                           Row(
+                            //                             children: <Widget>[
+                            //                               Flexible(
+                            //                                 child: Text(
+                            //                                   _listGetMother[2][index - 1],
+                            //                                   style: TextStyle(
+                            //                                     color: Color(0xFF2F592F),
+                            //                                     fontSize: 14.0,
+                            //                                   ),
+                            //                                   textAlign: TextAlign.start,
+                            //                                 ),
+                            //                               )
+                            //                             ],
+                            //                           ),
+                            //                           GestureDetector(
+                            //                             onTap: () {},
+                            //                             child: Row(
+                            //                               children: <Widget>[
+                            //                                 Flexible(
+                            //                                   child: Text(
+                            //                                     'Detail',
+                            //                                     style: TextStyle(
+                            //                                       color: AbubaPallate.menuBluebird,
+                            //                                       fontSize: 12.0,
+                            //                                     ),
+                            //                                     textAlign: TextAlign.start,
+                            //                                   ),
+                            //                                 )
+                            //                               ],
+                            //                             ),
+                            //                           ),
+                            //                         ],
+                            //                       )
+                            //                     ),
+                            //                     title: Container(
+                            //                       width: MediaQuery.of(context).size.width / 3,
+                            //                       child: Text(
+                            //                         _listGetMother[3][index - 1],
+                            //                         style: TextStyle(
+                            //                           color: Color(0xFF2F592F),
+                            //                           fontSize: 14.0,
+                            //                         ),
+                            //                         textAlign: TextAlign.center,
+                            //                       ),
+                            //                     ),
+                            //                     trailing: Container(
+                            //                       width: MediaQuery.of(context).size.width / 3,
+                            //                       child: int.parse(_listGetMother[3][index - 1]) >= 8
+                            //                         ? Row(
+                            //                             mainAxisAlignment: MainAxisAlignment.end,
+                            //                             children: <Widget>[
+                            //                               ButtonTheme(
+                            //                                 minWidth: 30.0,
+                            //                                 height: 25.0,
+                            //                                 child: RaisedButton(
+                            //                                   color: _yesColor,
+                            //                                   child: Text(
+                            //                                     'YES',
+                            //                                     style: TextStyle(
+                            //                                       fontSize: 14.0,
+                            //                                       color: _yesfont
+                            //                                     ),
+                            //                                   ),
+                            //                                   onPressed: () {
+                            //                                     setState(() {
+                            //                                       _yesColor = Colors.green[200];
+                            //                                       _yesfont = Colors.white;
+                            //                                       _noColor = Colors.grey[200];
+                            //                                       _nofont = Colors.black54;
+                            //                                     });
+                            //                                   },
+                            //                                 ),
+                            //                               ),
+                            //                               ButtonTheme(
+                            //                                 minWidth: 30.0,
+                            //                                 height: 25.0,
+                            //                                 child: RaisedButton(
+                            //                                   color: _noColor,
+                            //                                   child: Text(
+                            //                                     'NO',
+                            //                                     style: TextStyle(
+                            //                                       fontSize: 14.0,
+                            //                                       color: _nofont
+                            //                                     ),
+                            //                                   ),
+                            //                                   onPressed: () {
+                            //                                     setState(() {
+                            //                                       _yesColor = Colors.grey[200];
+                            //                                       _yesfont = Colors.black54;
+                            //                                       _noColor = Colors.redAccent;
+                            //                                       _nofont = Colors.white;
+                            //                                     });
+                            //                                   },
+                            //                                 ),
+                            //                               )
+                            //                             ],
+                            //                           )
+                            //                         : Container(child: Text(''))
+                            //                     ),
+                            //                   ),
+                            //             ],
+                            //           );
+                            //         },
+                            //       ),
+                            //     )
+                            ListTile(
+                              leading: Text(
+                                'Hypothesis',
+                                style: TextStyle(
+                                  color: Color(0xFF2F592F),
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold
                                 ),
-                                Row(
-                                  children: <Widget>[
-                                    Flexible(
-                                      child: Text(
-                                        widget.listMother == null && widget.listChild == null && widget.listGrandChild == null
-                                        ? 'Kosong'
-                                        : widget.listMother.length.toString() + ' dan ' + widget.listChild.length.toString() + ' dan ' + widget.listGrandChild.length.toString()
-                                      ),
-                                    )
-                                  ],
+                                textAlign: TextAlign.center,
+                              ),
+                              title: Text(
+                                'Score',
+                                style: TextStyle(
+                                  color: Color(0xFF2F592F),
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold
                                 ),
-                                // taro sini
-                                Column(
-                                  children: strings.map((item) => Text(item)).toList(),
-                                )
-                              ],
+                                textAlign: TextAlign.center,
+                              ),
+                              trailing: Text(
+                                'Analysis',
+                                style: TextStyle(
+                                  color: Color(0xFF2F592F),
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
                             ),
-                          ),
-                        ],
+                            ListTile(
+                              leading: Container(
+                                width: MediaQuery.of(context).size.width / 3,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    Row(
+                                      children: <Widget>[
+                                        Flexible(
+                                          child: Text(
+                                            'Nasi Merah',
+                                            style: TextStyle(
+                                              color: Color(0xFF2F592F),
+                                              fontSize: 14.0,
+                                            ),
+                                            textAlign: TextAlign.start,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: Row(
+                                        children: <Widget>[
+                                          Flexible(
+                                            child: Text(
+                                              'Detail',
+                                              style: TextStyle(
+                                                color: AbubaPallate.menuBluebird,
+                                                fontSize: 12.0,
+                                              ),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ),
+                              title: Container(
+                                width: MediaQuery.of(context).size.width / 3,
+                                child: Text(
+                                  '3',
+                                  style: TextStyle(
+                                    color: Color(0xFF2F592F),
+                                    fontSize: 14.0,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              trailing: Container(
+                                width: MediaQuery.of(context).size.width / 3,
+                                child: Container(child: Text(''))
+                              ),
+                            ),
+                            ListTile(
+                              leading: Container(
+                                width: MediaQuery.of(context).size.width / 3,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    Row(
+                                      children: <Widget>[
+                                        Flexible(
+                                          child: Text(
+                                            'Nasi Jagung',
+                                            style: TextStyle(
+                                              color: Color(0xFF2F592F),
+                                              fontSize: 14.0,
+                                            ),
+                                            textAlign: TextAlign.start,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: Row(
+                                        children: <Widget>[
+                                          Flexible(
+                                            child: Text(
+                                              'Detail',
+                                              style: TextStyle(
+                                                color: AbubaPallate.menuBluebird,
+                                                fontSize: 12.0,
+                                              ),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ),
+                              title: Container(
+                                width: MediaQuery.of(context).size.width / 3,
+                                child: Text(
+                                  '10',
+                                  style: TextStyle(
+                                    color: Color(0xFF2F592F),
+                                    fontSize: 14.0,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              trailing: Container(
+                                width: MediaQuery.of(context).size.width / 3,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: <Widget>[
+                                    ButtonTheme(
+                                      minWidth: 30.0,
+                                      height: 25.0,
+                                      child: RaisedButton(
+                                        color: _yesColor,
+                                        child: Text(
+                                          'YES',
+                                          style: TextStyle(
+                                            fontSize: 14.0,
+                                            color: _yesfont
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            _yesColor = Colors.green[200];
+                                            _yesfont = Colors.white;
+                                            _noColor = Colors.grey[200];
+                                            _nofont = Colors.black54;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                    ButtonTheme(
+                                      minWidth: 30.0,
+                                      height: 25.0,
+                                      child: RaisedButton(
+                                        color: _noColor,
+                                        child: Text(
+                                          'NO',
+                                          style: TextStyle(
+                                            fontSize: 14.0,
+                                            color: _nofont
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            _yesColor = Colors.grey[200];
+                                            _yesfont = Colors.black54;
+                                            _noColor = Colors.redAccent;
+                                            _nofont = Colors.white;
+                                          });
+                                        },
+                                      ),
+                                    )
+                                  ],
+                                )
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ]
                   ),

@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
-import 'package:flutter_abuba/sixsigma/fishbone/form_fishbone.dart';
+import 'package:flutter_abuba/sixsigma/a3_report/form_a3_report.dart';
+import 'package:flutter_abuba/sixsigma/fishbone/beranda_fishbone.dart';
+import 'package:flutter_abuba/sixsigma/project_charter/beranda_project.dart';
+import 'package:flutter_abuba/sixsigma/voice_of_customer/beranda_voice.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:flutter_abuba/sixsigma/5why/form_5why.dart';
+import 'package:flutter_abuba/sixsigma/data_collection/form_data_collection.dart';
 
-import 'problemsolving/form_problem.dart';
+import 'problemsolving/beranda_problem.dart';
 
 class BerandaSigma extends StatefulWidget {
   @override
@@ -45,7 +50,7 @@ class _BerandaSigmaState extends State<BerandaSigma> {
               Padding(
                 padding: EdgeInsets.only(left: 15.0),
                 child: Text(
-                  'Kitchen',
+                  'Six Sigma',
                   style:
                   TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
                 ),
@@ -54,119 +59,412 @@ class _BerandaSigmaState extends State<BerandaSigma> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-          child: Wrap(
-            spacing: 10.0,
-            runSpacing: 15.0,
-            direction: Axis.horizontal,
+          padding: EdgeInsets.symmetric(horizontal: 8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MyCustomRoute(
-                              builder: (context) => FormProblem()));
-                    },
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MyCustomRoute(
+                          builder: (context) => BerandaProblem()));
+                },
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Stack(
+                      overflow: Overflow.visible,
                       children: <Widget>[
-                        Stack(
-                          overflow: Overflow.visible,
-                          children: <Widget>[
-                            Container(
-                              height: 70.0,
-                              width: 70.0,
-                              decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  border: Border.all(
-                                      color: Colors.grey, width: 1.0),
-                                  borderRadius:
-                                  BorderRadius.all(Radius.circular(18.0))),
-                            ),
-                            Positioned(
-                              bottom: 22.5,
-                              left: 25.0,
-                              child: Icon(MdiIcons.heart,
-                                  size: 25.0, color: Colors.grey),
-                            ),
-                          ],
+                        Container(
+                          height: 70.0,
+                          width: 70.0,
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              border: Border.all(
+                                  color: Colors.grey, width: 1.0),
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(18.0))),
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10.0),
-                          child: Text(
-                            'Problem',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12.0),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 0.0),
-                          child: Text(
-                            'Solving',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12.0),
-                          ),
+                        Positioned(
+                          bottom: 22.5,
+                          left: 25.0,
+                          child: Icon(MdiIcons.heart,
+                              size: 25.0, color: Colors.grey),
                         ),
                       ],
                     ),
-                  ),
-                  SizedBox(
-                    width: 20.0,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MyCustomRoute(
-                              builder: (context) => FormFishbone()));
-                    },
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
+                    Padding(
+                      padding: EdgeInsets.only(top: 10.0),
+                      child: Text(
+                        'Problem',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 12.0),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 0.0),
+                      child: Text(
+                        'Solving',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 12.0),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MyCustomRoute(
+                          builder: (context) => BerandaFishbone()));
+                },
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Stack(
+                      overflow: Overflow.visible,
                       children: <Widget>[
-                        Stack(
-                          overflow: Overflow.visible,
-                          children: <Widget>[
-                            Container(
-                              height: 70.0,
-                              width: 70.0,
-                              decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  border: Border.all(
-                                      color: Colors.grey, width: 1.0),
-                                  borderRadius:
-                                  BorderRadius.all(Radius.circular(18.0))),
-                            ),
-                            Positioned(
-                              bottom: 22.5,
-                              left: 25.0,
-                              child: Icon(MdiIcons.heart,
-                                  size: 25.0, color: Colors.grey),
-                            ),
-                          ],
+                        Container(
+                          height: 70.0,
+                          width: 70.0,
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              border: Border.all(
+                                  color: Colors.grey, width: 1.0),
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(18.0))),
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10.0),
-                          child: Text(
-                            'Fishbone',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12.0),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 0.0),
-                          child: Text(
-                            '',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12.0),
-                          ),
+                        Positioned(
+                          bottom: 22.5,
+                          left: 25.0,
+                          child: Icon(MdiIcons.heart,
+                              size: 25.0, color: Colors.grey),
                         ),
                       ],
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding: EdgeInsets.only(top: 10.0),
+                      child: Text(
+                        'Fishbone',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 12.0),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 0.0),
+                      child: Text(
+                        '',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 12.0),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MyCustomRoute(
+                          builder: (context) => BerandaVoice()));
+                },
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Stack(
+                      overflow: Overflow.visible,
+                      children: <Widget>[
+                        Container(
+                          height: 70.0,
+                          width: 70.0,
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              border: Border.all(
+                                  color: Colors.grey, width: 1.0),
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(18.0))),
+                        ),
+                        Positioned(
+                          bottom: 22.5,
+                          left: 25.0,
+                          child: Icon(MdiIcons.heart,
+                              size: 25.0, color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 10.0),
+                      child: Text(
+                        'Voice of',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 12.0),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 0.0),
+                      child: Text(
+                        'Customer',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 12.0),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MyCustomRoute(
+                          builder: (context) => BerandaProject()));
+                },
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Stack(
+                      overflow: Overflow.visible,
+                      children: <Widget>[
+                        Container(
+                          height: 70.0,
+                          width: 70.0,
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              border: Border.all(
+                                  color: Colors.grey, width: 1.0),
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(18.0))),
+                        ),
+                        Positioned(
+                          bottom: 22.5,
+                          left: 25.0,
+                          child: Icon(MdiIcons.heart,
+                              size: 25.0, color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 10.0),
+                      child: Text(
+                        'Project',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 12.0),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 0.0),
+                      child: Text(
+                        'Charter',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 12.0),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MyCustomRoute(
+                          builder: (context) => FormA3Report()));
+                },
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Stack(
+                      overflow: Overflow.visible,
+                      children: <Widget>[
+                        Container(
+                          height: 70.0,
+                          width: 70.0,
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              border: Border.all(
+                                  color: Colors.grey, width: 1.0),
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(18.0))),
+                        ),
+                        Positioned(
+                          bottom: 22.5,
+                          left: 25.0,
+                          child: Icon(MdiIcons.heart,
+                              size: 25.0, color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 10.0),
+                      child: Text(
+                        'A3 Report',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 12.0),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 0.0),
+                      child: Text(
+                        '',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 12.0),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MyCustomRoute(
+                          builder: (context) => FormFiveWhy()));
+                },
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Stack(
+                      overflow: Overflow.visible,
+                      children: <Widget>[
+                        Container(
+                          height: 70.0,
+                          width: 70.0,
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              border: Border.all(
+                                  color: Colors.grey, width: 1.0),
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(18.0))),
+                        ),
+                        Positioned(
+                          bottom: 22.5,
+                          left: 25.0,
+                          child: Icon(MdiIcons.heart,
+                              size: 25.0, color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 10.0),
+                      child: Text(
+                        '5 Why',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 12.0),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 0.0),
+                      child: Text(
+                        '',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 12.0),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MyCustomRoute(
+                          builder: (context) => FormDataCollection()));
+                },
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Stack(
+                      overflow: Overflow.visible,
+                      children: <Widget>[
+                        Container(
+                          height: 70.0,
+                          width: 70.0,
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              border: Border.all(
+                                  color: Colors.grey, width: 1.0),
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(18.0))),
+                        ),
+                        Positioned(
+                          bottom: 22.5,
+                          left: 25.0,
+                          child: Icon(MdiIcons.heart,
+                              size: 25.0, color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 10.0),
+                      child: Text(
+                        'Data',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 12.0),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 0.0),
+                      child: Text(
+                        'Collection Plan',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 12.0),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: () {},
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Stack(
+                      overflow: Overflow.visible,
+                      children: <Widget>[
+                        Container(
+                          height: 70.0,
+                          width: 70.0,
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              border: Border.all(
+                                  color: Colors.grey, width: 1.0),
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(18.0))),
+                        ),
+                        Positioned(
+                          bottom: 22.5,
+                          left: 25.0,
+                          child: Icon(MdiIcons.heart,
+                              size: 25.0, color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 10.0),
+                      child: Text(
+                        '',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 12.0),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 0.0),
+                      child: Text(
+                        '',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 12.0),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
