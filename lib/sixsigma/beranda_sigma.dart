@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
-import 'package:flutter_abuba/sixsigma/a3_report/form_a3_report.dart';
+import 'package:flutter_abuba/sixsigma/5why/beranda_5whys.dart';
+import 'package:flutter_abuba/sixsigma/a3_report/beranda_a3.dart';
+import 'package:flutter_abuba/sixsigma/data_collection/beranda_data_collection.dart';
 import 'package:flutter_abuba/sixsigma/fishbone/beranda_fishbone.dart';
 import 'package:flutter_abuba/sixsigma/project_charter/beranda_project.dart';
 import 'package:flutter_abuba/sixsigma/voice_of_customer/beranda_voice.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:flutter_abuba/sixsigma/5why/form_5why.dart';
-import 'package:flutter_abuba/sixsigma/data_collection/form_data_collection.dart';
 
 import 'problemsolving/beranda_problem.dart';
 
@@ -276,7 +276,7 @@ class _BerandaSigmaState extends State<BerandaSigma> {
                   Navigator.push(
                       context,
                       MyCustomRoute(
-                          builder: (context) => FormA3Report()));
+                          builder: (context) => BerandaAtiga()));
                 },
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -326,7 +326,7 @@ class _BerandaSigmaState extends State<BerandaSigma> {
                   Navigator.push(
                       context,
                       MyCustomRoute(
-                          builder: (context) => FormFiveWhy()));
+                          builder: (context) => Beranda5Whys()));
                 },
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -376,7 +376,7 @@ class _BerandaSigmaState extends State<BerandaSigma> {
                   Navigator.push(
                       context,
                       MyCustomRoute(
-                          builder: (context) => FormDataCollection()));
+                          builder: (context) => BerandaDataCollection()));
                 },
                 child: Column(
                   mainAxisSize: MainAxisSize.min,

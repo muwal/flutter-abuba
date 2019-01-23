@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
-import 'package:flutter_abuba/sixsigma/a3_report/form_report.dart';
+import 'package:flutter_abuba/sixsigma/5why/form_5why.dart';
+import 'package:flutter_abuba/sixsigma/5why/form_report.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-
-import 'form_a3_report.dart';
 /*import 'form_report.dart';*/
 
-class BerandaAtiga extends StatefulWidget {
+class Beranda5Whys extends StatefulWidget {
   @override
-  _BerandaAtigaState createState() => _BerandaAtigaState();
+  _Beranda5WhysState createState() => _Beranda5WhysState();
 }
 
-class _BerandaAtigaState extends State<BerandaAtiga> {
+class _Beranda5WhysState extends State<Beranda5Whys> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -46,7 +45,7 @@ class _BerandaAtigaState extends State<BerandaAtiga> {
               Padding(
                 padding: EdgeInsets.only(left: 15.0),
                 child: Text(
-                  'A3 Report',
+                  '5 Why',
                   style:
                   TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
                 ),
@@ -64,7 +63,7 @@ class _BerandaAtigaState extends State<BerandaAtiga> {
                   Navigator.push(
                       context,
                       MyCustomRoute(
-                          builder: (context) => FormA3Report()));
+                          builder: (context) => FormFiveWhy()));
                 },
                 child: Column(
                   mainAxisSize: MainAxisSize.min,

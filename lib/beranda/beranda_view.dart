@@ -13,6 +13,7 @@ import 'package:flutter_abuba/creative_page/form_create.dart';
 import 'package:flutter_abuba/sixsigma/beranda_sigma.dart';
 
 import 'package:flutter_abuba/isoft/beranda_isoft.dart';
+import 'package:flutter_abuba/misteri_shop/form_carilokasi.dart';
 
 class BerandaPage extends StatefulWidget {
   @override
@@ -315,7 +316,12 @@ class _BerandaPageState extends State<BerandaPage> {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MyCustomRoute(
+                                    builder: (context) => FormCariLokasi()));
+                          },
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[

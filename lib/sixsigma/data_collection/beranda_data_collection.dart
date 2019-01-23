@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
-import 'package:flutter_abuba/sixsigma/a3_report/form_report.dart';
+import 'package:flutter_abuba/sixsigma/data_collection/form_report.dart';
+import 'package:flutter_abuba/sixsigma/data_collection/form_data_collection.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-
-import 'form_a3_report.dart';
 /*import 'form_report.dart';*/
 
-class BerandaAtiga extends StatefulWidget {
+class BerandaDataCollection extends StatefulWidget {
   @override
-  _BerandaAtigaState createState() => _BerandaAtigaState();
+  _BerandaDataCollectionState createState() => _BerandaDataCollectionState();
 }
 
-class _BerandaAtigaState extends State<BerandaAtiga> {
+class _BerandaDataCollectionState extends State<BerandaDataCollection> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -46,7 +45,7 @@ class _BerandaAtigaState extends State<BerandaAtiga> {
               Padding(
                 padding: EdgeInsets.only(left: 15.0),
                 child: Text(
-                  'A3 Report',
+                  'Data Collection Plan',
                   style:
                   TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
                 ),
@@ -64,7 +63,7 @@ class _BerandaAtigaState extends State<BerandaAtiga> {
                   Navigator.push(
                       context,
                       MyCustomRoute(
-                          builder: (context) => FormA3Report()));
+                          builder: (context) => FormDataCollection()));
                 },
                 child: Column(
                   mainAxisSize: MainAxisSize.min,

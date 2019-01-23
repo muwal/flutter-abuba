@@ -145,7 +145,7 @@ class _DetailReportState extends State<DetailReport> {
                         children: <Widget>[
                           Flexible(
                             child: Text(
-                              'Identify Problem',
+                              '1. General Information',
                               style: TextStyle(fontSize: 14.0),
                             ),
                           ),
@@ -159,40 +159,21 @@ class _DetailReportState extends State<DetailReport> {
                       child: Column(
                         children: <Widget>[
                           Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15.0, right: 15.0, bottom: 5.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Flexible(
-                                  child: Text(
-                                    'WHAT',
-                                    style: TextStyle(
-                                        fontSize: 14.0,
-                                        color: Colors.black54,
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15.0, right: 15.0, bottom: 0.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Container(
                                   width: 150.0,
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
                                       Flexible(
                                         child: Text(
-                                          'Apa masalah yang sedang terjadi?',
+                                          'Nama Project',
                                           style: TextStyle(
-                                              fontSize: 12.0,
-                                              color: Colors.black54),
+                                              fontSize: 14.0,
+                                              color: Colors.black54,
+                                              fontWeight: FontWeight.w700),
                                         ),
                                       ),
                                     ],
@@ -205,10 +186,11 @@ class _DetailReportState extends State<DetailReport> {
                                     children: <Widget>[
                                       Flexible(
                                         child: Text(
-                                          'Masalah 1',
+                                          'Project A',
                                           style: TextStyle(
                                               fontSize: 12.0,
-                                              color: Colors.black87),
+                                              color: Colors.black54),
+                                          textAlign: TextAlign.end,
                                         ),
                                       ),
                                     ],
@@ -217,47 +199,29 @@ class _DetailReportState extends State<DetailReport> {
                               ],
                             ),
                           ),
+                          
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 15.0),
+                            padding: const EdgeInsets.only(bottom: 0.0),
                             child: Divider(
-                              height: 12.0,
+                              height: 6.0,
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15.0, right: 15.0, bottom: 5.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Flexible(
-                                  child: Text(
-                                    'WHO',
-                                    style: TextStyle(
-                                        fontSize: 14.0,
-                                        color: Colors.black54,
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15.0, right: 15.0, bottom: 0.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Container(
                                   width: 150.0,
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
                                       Flexible(
                                         child: Text(
-                                          'Siapa yang terlibat dengan masalah ini?',
+                                          'Tanggal',
                                           style: TextStyle(
-                                              fontSize: 12.0,
-                                              color: Colors.black54),
+                                              fontSize: 14.0,
+                                              color: Colors.black54,
+                                              fontWeight: FontWeight.w700),
                                         ),
                                       ),
                                     ],
@@ -270,10 +234,11 @@ class _DetailReportState extends State<DetailReport> {
                                     children: <Widget>[
                                       Flexible(
                                         child: Text(
-                                          'Cashier',
+                                          '17 January 2019',
                                           style: TextStyle(
                                               fontSize: 12.0,
-                                              color: Colors.black87),
+                                              color: Colors.black54),
+                                          textAlign: TextAlign.end,
                                         ),
                                       ),
                                     ],
@@ -282,211 +247,29 @@ class _DetailReportState extends State<DetailReport> {
                               ],
                             ),
                           ),
+
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 15.0),
+                            padding: const EdgeInsets.only(bottom: 0.0),
                             child: Divider(
-                              height: 12.0,
+                              height: 6.0,
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15.0, right: 15.0, bottom: 5.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Flexible(
-                                  child: Text(
-                                    'WHEN',
-                                    style: TextStyle(
-                                        fontSize: 14.0,
-                                        color: Colors.black54,
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15.0, right: 15.0, bottom: 0.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Container(
                                   width: 150.0,
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
                                       Flexible(
                                         child: Text(
-                                          'Kapan masalah ini terjadi?',
+                                          'Dibuat Oleh',
                                           style: TextStyle(
-                                              fontSize: 12.0,
-                                              color: Colors.black54),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  width: 150.0,
-                                  child: Column(
-                                    children: <Widget>[
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
-                                        children: <Widget>[
-                                          Flexible(
-                                            child: Text(
-                                              '01 January 2019',
-                                              style: TextStyle(
-                                                  fontSize: 12.0,
-                                                  color: Colors.black87),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
-                                        children: <Widget>[
-                                          Flexible(
-                                            child: Text(
-                                              '08:00 - Shift A',
-                                              style: TextStyle(
-                                                  fontSize: 12.0,
-                                                  color: Colors.black87),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 15.0),
-                            child: Divider(
-                              height: 12.0,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15.0, right: 15.0, bottom: 5.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Flexible(
-                                  child: Text(
-                                    'WHERE',
-                                    style: TextStyle(
-                                        fontSize: 14.0,
-                                        color: Colors.black54,
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15.0, right: 15.0, bottom: 0.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Container(
-                                  width: 150.0,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: <Widget>[
-                                      Flexible(
-                                        child: Text(
-                                          'Dimana lokasi masalah ditemukan?',
-                                          style: TextStyle(
-                                              fontSize: 12.0,
-                                              color: Colors.black54),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  width: 150.0,
-                                  child: Column(
-                                    children: <Widget>[
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
-                                        children: <Widget>[
-                                          Flexible(
-                                            child: Text(
-                                              'Department A',
-                                              style: TextStyle(
-                                                  fontSize: 12.0,
-                                                  color: Colors.black87),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
-                                        children: <Widget>[
-                                          Flexible(
-                                            child: Text(
-                                              'Divisi A - Area A',
-                                              style: TextStyle(
-                                                  fontSize: 12.0,
-                                                  color: Colors.black87),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 15.0),
-                            child: Divider(
-                              height: 12.0,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15.0, right: 15.0, bottom: 5.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Flexible(
-                                  child: Text(
-                                    'WHY',
-                                    style: TextStyle(
-                                        fontSize: 14.0,
-                                        color: Colors.black54,
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15.0, right: 15.0, bottom: 0.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Container(
-                                  width: 150.0,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: <Widget>[
-                                      Flexible(
-                                        child: Text(
-                                          'Mengapa temuan / issue ini bisa menjadi masalah. Apa konsekuensi dari masalah ini?',
-                                          style: TextStyle(
-                                              fontSize: 12.0,
-                                              color: Colors.black54),
+                                              fontSize: 14.0,
+                                              color: Colors.black54,
+                                              fontWeight: FontWeight.w700),
                                         ),
                                       ),
                                     ],
@@ -499,10 +282,11 @@ class _DetailReportState extends State<DetailReport> {
                                     children: <Widget>[
                                       Flexible(
                                         child: Text(
-                                          'Konsekuensi A',
+                                          'Ridwan',
                                           style: TextStyle(
                                               fontSize: 12.0,
-                                              color: Colors.black87),
+                                              color: Colors.black54),
+                                          textAlign: TextAlign.end,
                                         ),
                                       ),
                                     ],
@@ -511,10 +295,11 @@ class _DetailReportState extends State<DetailReport> {
                               ],
                             ),
                           ),
+
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 15.0),
+                            padding: const EdgeInsets.only(bottom: 2.0),
                             child: Divider(
-                              height: 12.0,
+                              height: 6.0,
                             ),
                           ),
                           Padding(
@@ -525,7 +310,7 @@ class _DetailReportState extends State<DetailReport> {
                               children: <Widget>[
                                 Flexible(
                                   child: Text(
-                                    'HOW SEVERE',
+                                    'Performance Measure',
                                     style: TextStyle(
                                         fontSize: 14.0,
                                         color: Colors.black54,
@@ -537,21 +322,86 @@ class _DetailReportState extends State<DetailReport> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
-                                left: 15.0, right: 15.0, bottom: 15.0),
+                                left: 15.0, right: 15.0, bottom: 0.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    'Keterangan performance measure',
+                                    style: TextStyle(
+                                        fontSize: 12.0,
+                                        color: Colors.black54),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 5.0),
+                            child: Divider(
+                              height: 6.0,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 15.0, right: 15.0, bottom: 5.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    'Operational Definition',
+                                    style: TextStyle(
+                                        fontSize: 14.0,
+                                        color: Colors.black54,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 15.0, right: 15.0, bottom: 0.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    'Keterangan operational definition',
+                                    style: TextStyle(
+                                        fontSize: 12.0,
+                                        color: Colors.black54),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 0.0),
+                            child: Divider(
+                              height: 6.0,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Container(
                                   width: 150.0,
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
                                       Flexible(
                                         child: Text(
-                                          'Seberapa parah akibat yang ditimbulkan dari masalah ini?',
+                                          'Data Source',
                                           style: TextStyle(
-                                              fontSize: 12.0,
-                                              color: Colors.black54),
+                                              fontSize: 14.0,
+                                              color: Colors.black54,
+                                              fontWeight: FontWeight.w700),
                                         ),
                                       ),
                                     ],
@@ -564,10 +414,59 @@ class _DetailReportState extends State<DetailReport> {
                                     children: <Widget>[
                                       Flexible(
                                         child: Text(
-                                          'Low',
+                                          'Source 1',
                                           style: TextStyle(
                                               fontSize: 12.0,
-                                              color: Colors.black87),
+                                              color: Colors.black54),
+                                          textAlign: TextAlign.end,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 0.0),
+                            child: Divider(
+                              height: 6.0,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Container(
+                                  width: 150.0,
+                                  child: Row(
+                                    children: <Widget>[
+                                      Flexible(
+                                        child: Text(
+                                          'Data Location',
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              color: Colors.black54,
+                                              fontWeight: FontWeight.w700),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  width: 150.0,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      Flexible(
+                                        child: Text(
+                                          'Location 1',
+                                          style: TextStyle(
+                                              fontSize: 12.0,
+                                              color: Colors.black54),
+                                          textAlign: TextAlign.end,
                                         ),
                                       ),
                                     ],
@@ -591,7 +490,7 @@ class _DetailReportState extends State<DetailReport> {
                         children: <Widget>[
                           Flexible(
                             child: Text(
-                              'Caterogry, Weight, Priority',
+                              '2. Detail Information',
                               style: TextStyle(fontSize: 14.0),
                             ),
                           ),
@@ -605,18 +504,89 @@ class _DetailReportState extends State<DetailReport> {
                       child: Column(
                         children: <Widget>[
                           Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15.0, right: 15.0, bottom: 5.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                Flexible(
-                                  child: Text(
-                                    'MATERIAL',
-                                    style: TextStyle(
-                                        fontSize: 14.0,
-                                        color: Colors.black54,
-                                        fontWeight: FontWeight.w700),
+                                Container(
+                                  width: 150.0,
+                                  child: Row(
+                                    children: <Widget>[
+                                      Flexible(
+                                        child: Text(
+                                          'Sample Size',
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              color: Colors.black54,
+                                              fontWeight: FontWeight.w700),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  width: 150.0,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      Flexible(
+                                        child: Text(
+                                          '50',
+                                          style: TextStyle(
+                                              fontSize: 12.0,
+                                              color: Colors.black54),
+                                          textAlign: TextAlign.end,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 0.0),
+                            child: Divider(
+                              height: 6.0,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Container(
+                                  width: 150.0,
+                                  child: Row(
+                                    children: <Widget>[
+                                      Flexible(
+                                        child: Text(
+                                          'Who Will Collect Data ?',
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              color: Colors.black54,
+                                              fontWeight: FontWeight.w700),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  width: 150.0,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      Flexible(
+                                        child: Text(
+                                          'Ridwan',
+                                          style: TextStyle(
+                                              fontSize: 12.0,
+                                              color: Colors.black54),
+                                          textAlign: TextAlign.end,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],
@@ -624,13 +594,13 @@ class _DetailReportState extends State<DetailReport> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
-                                left: 15.0, right: 15.0, bottom: 0.0),
+                                left: 15.0, right: 15.0, bottom: 5.0),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 Flexible(
                                   child: Text(
-                                    'Detail material',
+                                    'Note who will collect data',
                                     style: TextStyle(
                                         fontSize: 12.0,
                                         color: Colors.black54),
@@ -639,25 +609,97 @@ class _DetailReportState extends State<DetailReport> {
                               ],
                             ),
                           ),
+
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 15.0),
+                            padding: const EdgeInsets.only(bottom: 0.0),
                             child: Divider(
-                              height: 12.0,
+                              height: 6.0,
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15.0, right: 15.0, bottom: 5.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                Flexible(
-                                  child: Text(
-                                    'METHOD',
-                                    style: TextStyle(
-                                        fontSize: 14.0,
-                                        color: Colors.black54,
-                                        fontWeight: FontWeight.w700),
+                                Container(
+                                  width: 150.0,
+                                  child: Row(
+                                    children: <Widget>[
+                                      Flexible(
+                                        child: Text(
+                                          'When Will Data Be Collected ?',
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              color: Colors.black54,
+                                              fontWeight: FontWeight.w700),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  width: 150.0,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      Flexible(
+                                        child: Text(
+                                          '17 January 2019',
+                                          style: TextStyle(
+                                              fontSize: 12.0,
+                                              color: Colors.black54),
+                                          textAlign: TextAlign.end,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 0.0),
+                            child: Divider(
+                              height: 6.0,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Container(
+                                  width: 150.0,
+                                  child: Row(
+                                    children: <Widget>[
+                                      Flexible(
+                                        child: Text(
+                                          'How Will Data Be Collected ?',
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              color: Colors.black54,
+                                              fontWeight: FontWeight.w700),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  width: 150.0,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      Flexible(
+                                        child: Text(
+                                          'Daily',
+                                          style: TextStyle(
+                                              fontSize: 12.0,
+                                              color: Colors.black54),
+                                          textAlign: TextAlign.end,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],
@@ -665,13 +707,13 @@ class _DetailReportState extends State<DetailReport> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
-                                left: 15.0, right: 15.0, bottom: 0.0),
+                                left: 15.0, right: 15.0, bottom: 5.0),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 Flexible(
                                   child: Text(
-                                    'Detail method',
+                                    'Note how will data be collected',
                                     style: TextStyle(
                                         fontSize: 12.0,
                                         color: Colors.black54),
@@ -680,25 +722,49 @@ class _DetailReportState extends State<DetailReport> {
                               ],
                             ),
                           ),
+
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 15.0),
+                            padding: const EdgeInsets.only(bottom: 0.0),
                             child: Divider(
-                              height: 12.0,
+                              height: 6.0,
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15.0, right: 15.0, bottom: 5.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                Flexible(
-                                  child: Text(
-                                    'MACHINE',
-                                    style: TextStyle(
-                                        fontSize: 14.0,
-                                        color: Colors.black54,
-                                        fontWeight: FontWeight.w700),
+                                Container(
+                                  width: 150.0,
+                                  child: Row(
+                                    children: <Widget>[
+                                      Flexible(
+                                        child: Text(
+                                          'How Will Data Be Used ?',
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              color: Colors.black54,
+                                              fontWeight: FontWeight.w700),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  width: 150.0,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      Flexible(
+                                        child: Text(
+                                          'Random',
+                                          style: TextStyle(
+                                              fontSize: 12.0,
+                                              color: Colors.black54),
+                                          textAlign: TextAlign.end,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],
@@ -706,13 +772,13 @@ class _DetailReportState extends State<DetailReport> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
-                                left: 15.0, right: 15.0, bottom: 0.0),
+                                left: 15.0, right: 15.0, bottom: 5.0),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 Flexible(
                                   child: Text(
-                                    'Detail machine',
+                                    'Note how will data be used',
                                     style: TextStyle(
                                         fontSize: 12.0,
                                         color: Colors.black54),
@@ -721,107 +787,49 @@ class _DetailReportState extends State<DetailReport> {
                               ],
                             ),
                           ),
+
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 15.0),
+                            padding: const EdgeInsets.only(bottom: 0.0),
                             child: Divider(
-                              height: 12.0,
+                              height: 6.0,
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15.0, right: 15.0, bottom: 5.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                Flexible(
-                                  child: Text(
-                                    'MEASUREMENT',
-                                    style: TextStyle(
-                                        fontSize: 14.0,
-                                        color: Colors.black54,
-                                        fontWeight: FontWeight.w700),
+                                Container(
+                                  width: 150.0,
+                                  child: Row(
+                                    children: <Widget>[
+                                      Flexible(
+                                        child: Text(
+                                          'Additional Data To Be Collected ?',
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              color: Colors.black54,
+                                              fontWeight: FontWeight.w700),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15.0, right: 15.0, bottom: 0.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Flexible(
-                                  child: Text(
-                                    'Detail measurement',
-                                    style: TextStyle(
-                                        fontSize: 12.0,
-                                        color: Colors.black54),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 15.0),
-                            child: Divider(
-                              height: 12.0,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15.0, right: 15.0, bottom: 5.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Flexible(
-                                  child: Text(
-                                    'MAN',
-                                    style: TextStyle(
-                                        fontSize: 14.0,
-                                        color: Colors.black54,
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15.0, right: 15.0, bottom: 0.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Flexible(
-                                  child: Text(
-                                    'Detail man',
-                                    style: TextStyle(
-                                        fontSize: 12.0,
-                                        color: Colors.black54),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 15.0),
-                            child: Divider(
-                              height: 12.0,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15.0, right: 15.0, bottom: 5.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Flexible(
-                                  child: Text(
-                                    'ENVIRONMENT',
-                                    style: TextStyle(
-                                        fontSize: 14.0,
-                                        color: Colors.black54,
-                                        fontWeight: FontWeight.w700),
+                                Container(
+                                  width: 150.0,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      Flexible(
+                                        child: Text(
+                                          'Revenue',
+                                          style: TextStyle(
+                                              fontSize: 12.0,
+                                              color: Colors.black54),
+                                          textAlign: TextAlign.end,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],
@@ -831,11 +839,11 @@ class _DetailReportState extends State<DetailReport> {
                             padding: const EdgeInsets.only(
                                 left: 15.0, right: 15.0, bottom: 15.0),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 Flexible(
                                   child: Text(
-                                    'Detail environment',
+                                    'Note additional data to be collected',
                                     style: TextStyle(
                                         fontSize: 12.0,
                                         color: Colors.black54),
@@ -849,7 +857,6 @@ class _DetailReportState extends State<DetailReport> {
                     ),
                   ],
                 ),
-
               ],
             ),
           )

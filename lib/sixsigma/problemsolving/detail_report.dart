@@ -536,7 +536,7 @@ class _DetailReportState extends State<DetailReport> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
-                              left: 15.0, right: 15.0, bottom: 0.0),
+                              left: 15.0, right: 15.0, bottom: 15.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
@@ -885,7 +885,7 @@ class _DetailReportState extends State<DetailReport> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
-                              left: 15.0, right: 15.0, bottom: 0.0),
+                              left: 15.0, right: 15.0, bottom: 15.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
@@ -1103,7 +1103,7 @@ class _DetailReportState extends State<DetailReport> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
-                              left: 15.0, right: 15.0, bottom: 0.0),
+                              left: 15.0, right: 15.0, bottom: 15.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
@@ -1651,7 +1651,7 @@ class _DetailReportState extends State<DetailReport> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
-                              left: 15.0, right: 15.0, bottom: 0.0),
+                              left: 15.0, right: 15.0, bottom: 15.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
@@ -1823,7 +1823,7 @@ class _DetailReportState extends State<DetailReport> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
-                              left: 15.0, right: 15.0, bottom: 8.0),
+                              left: 15.0, right: 15.0, bottom: 15.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
