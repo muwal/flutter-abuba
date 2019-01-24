@@ -290,6 +290,7 @@ class _FormTakingOrderState extends State<FormTakingOrder>
 
   TabController _cardController;
 
+
   @override
   void initState() {
     super.initState();
@@ -373,7 +374,7 @@ class _FormTakingOrderState extends State<FormTakingOrder>
                               ),
                               Positioned(
                                 bottom: 250.0,
-                                left: 115.0,
+                                width: MediaQuery.of(context).size.width,
                                 child: Container(
                                   child: ButtonTheme(
                                     minWidth: 140.0,
@@ -393,8 +394,190 @@ class _FormTakingOrderState extends State<FormTakingOrder>
                                       ),
                                       color: Colors.blueAccent,
                                       onPressed: () {
-                                        _cardController.animateTo(
-                                            _cardController.index + 1);
+                                        // _cardController.animateTo(
+                                        //     _cardController.index + 1);
+                                        showDialog(
+                                          context: context,
+                                          barrierDismissible: false,
+                                          builder: (BuildContext context) {
+                                            return Dialog(
+                                              child: Container(
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height /
+                                                    2,
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    Container(
+                                                      color: Color.fromARGB(
+                                                          240, 255, 206, 79),
+                                                      height: 50.0,
+                                                      child: Center(
+                                                        child: Text(
+                                                          'ORDER',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 16.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w700),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 20.0,
+                                                    ),
+                                                    Expanded(
+                                                      child: Scrollbar(
+                                                        child: ListView(
+                                                          children: <Widget>[
+                                                            Container(
+                                                              child: CheckboxListTile(
+                                                                  title: Text(
+                                                                      'Drinks'),
+                                                                  controlAffinity:
+                                                                      ListTileControlAffinity
+                                                                          .leading,
+                                                                  activeColor:
+                                                                      Colors
+                                                                          .green,
+                                                                  value: false,
+                                                                  onChanged: (bool
+                                                                      value) {}),
+                                                            ),
+                                                            Container(
+                                                              child: CheckboxListTile(
+                                                                  title: Text(
+                                                                      'Juice'),
+                                                                  controlAffinity:
+                                                                      ListTileControlAffinity
+                                                                          .leading,
+                                                                  activeColor:
+                                                                      Colors
+                                                                          .green,
+                                                                  value: false,
+                                                                  onChanged: (bool
+                                                                      value) {}),
+                                                            ),
+                                                            Container(
+                                                              child: CheckboxListTile(
+                                                                  title: Text(
+                                                                      'Appetizer'),
+                                                                  controlAffinity:
+                                                                      ListTileControlAffinity
+                                                                          .leading,
+                                                                  activeColor:
+                                                                      Colors
+                                                                          .green,
+                                                                  value: false,
+                                                                  onChanged: (bool
+                                                                      value) {}),
+                                                            ),
+                                                            Container(
+                                                              child: CheckboxListTile(
+                                                                  title: Text(
+                                                                      'Main Course'),
+                                                                  controlAffinity:
+                                                                      ListTileControlAffinity
+                                                                          .leading,
+                                                                  activeColor:
+                                                                      Colors
+                                                                          .green,
+                                                                  value: false,
+                                                                  onChanged: (bool
+                                                                      value) {}),
+                                                            ),
+                                                            Container(
+                                                              child: CheckboxListTile(
+                                                                  title: Text(
+                                                                      'Dessert'),
+                                                                  controlAffinity:
+                                                                      ListTileControlAffinity
+                                                                          .leading,
+                                                                  activeColor:
+                                                                      Colors
+                                                                          .green,
+                                                                  value: false,
+                                                                  onChanged: (bool
+                                                                      value) {}),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              vertical: 10.0),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .end,
+                                                        children: <Widget>[
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    right:
+                                                                        10.0),
+                                                            child: RaisedButton(
+                                                              color: Colors
+                                                                  .red[300],
+                                                              child: Text(
+                                                                'CANCEL',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize:
+                                                                        12.0),
+                                                              ),
+                                                              onPressed: () {
+                                                                Navigator.pop(
+                                                                    context);
+                                                              },
+                                                              splashColor:
+                                                                  Colors
+                                                                      .red[300],
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    right:
+                                                                        10.0),
+                                                            child: RaisedButton(
+                                                              color: Colors
+                                                                  .green[300],
+                                                              child: Text(
+                                                                'CONFIRM',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize:
+                                                                        12.0),
+                                                              ),
+                                                              onPressed: () {
+                                                                Navigator.pop(
+                                                                    context);
+                                                                _cardController
+                                                                    .animateTo(
+                                                                        _cardController.index +
+                                                                            1);
+                                                              },
+                                                              splashColor:
+                                                                  Colors.green[
+                                                                      300],
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        );
                                       },
                                     ),
                                   ),
@@ -405,178 +588,178 @@ class _FormTakingOrderState extends State<FormTakingOrder>
                           )
                         ],
                       ),
-                      ListView(
-                        shrinkWrap: true,
-                        physics: ScrollPhysics(),
-                        children: <Widget>[
-                          PreferredSize(
-                            preferredSize: Size.fromHeight(55.0),
-                            child: Column(
-                              children: <Widget>[
-                                SizedBox(
-                                  width: MediaQuery.of(context).size.width,
-                                  height: 55.0,
-                                  child: Container(
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 10.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Text(
-                                            'Taking Order',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 14.0),
-                                            textAlign: TextAlign.start,
-                                          ),
-                                          Text(
-                                            '2 of ${_listData.length.toString()}',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 14.0),
-                                            textAlign: TextAlign.start,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFF2F592F),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Stack(
-                            children: <Widget>[
-                              Image.asset(
-                                'assets/images/slide 4copy.png',
-                                fit: BoxFit.fill,
-                                height: MediaQuery.of(context).size.height /
-                                    1.35777,
-                              ),
-                              Column(
-                                children: <Widget>[
-                                  Container(
-                                    margin: EdgeInsets.only(
-                                        right: 30.0, left: 30.0, top: 80.0),
-                                    padding:
-                                        EdgeInsets.symmetric(vertical: 15.0),
-                                    color: Color.fromARGB(240, 255, 206, 79),
-                                    child: Center(
-                                      child: Text(
-                                        'ORDER',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.w700),
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin:
-                                        EdgeInsets.symmetric(horizontal: 30.0),
-                                    color: Color.fromARGB(240, 255, 255, 255),
-                                    child: Column(
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 10.0,
-                                              left: 10.0,
-                                              right: 10.0),
-                                          child: CheckboxListTile(
-                                            value: _value1,
-                                            onChanged: _value1Changed,
-                                            title: new Text('Drinks'),
-                                            controlAffinity:
-                                                ListTileControlAffinity.leading,
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 10.0, right: 10.0),
-                                          child: CheckboxListTile(
-                                            value: _value2,
-                                            onChanged: _value2Changed,
-                                            title: new Text('Juice'),
-                                            controlAffinity:
-                                                ListTileControlAffinity.leading,
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 10.0, right: 10.0),
-                                          child: CheckboxListTile(
-                                            value: _value3,
-                                            onChanged: _value3Changed,
-                                            title: new Text('Appetizer'),
-                                            controlAffinity:
-                                                ListTileControlAffinity.leading,
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 10.0, right: 10.0),
-                                          child: CheckboxListTile(
-                                            value: _value4,
-                                            onChanged: _value4Changed,
-                                            title: new Text('Main Course'),
-                                            controlAffinity:
-                                                ListTileControlAffinity.leading,
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 10.0, right: 10.0),
-                                          child: CheckboxListTile(
-                                            value: _value5,
-                                            onChanged: _value5Changed,
-                                            title: new Text('Dessert'),
-                                            controlAffinity:
-                                                ListTileControlAffinity.leading,
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                              right: 10.0, bottom: 10.0),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            children: <Widget>[
-                                              ButtonTheme(
-                                                minWidth: 50.0,
-                                                height: 40.0,
-                                                child: RaisedButton(
-                                                  child: Text(
-                                                    'CONFIRM',
-                                                    style: TextStyle(
-                                                        fontSize: 13.0,
-                                                        color: Colors.white),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                  color:
-                                                      AbubaPallate.greenabuba,
-                                                  onPressed: () {
-                                                    _cardController.animateTo(
-                                                        _cardController.index +
-                                                            1);
-                                                  },
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
+                      // ListView(
+                      //   shrinkWrap: true,
+                      //   physics: ScrollPhysics(),
+                      //   children: <Widget>[
+                      //     PreferredSize(
+                      //       preferredSize: Size.fromHeight(55.0),
+                      //       child: Column(
+                      //         children: <Widget>[
+                      //           SizedBox(
+                      //             width: MediaQuery.of(context).size.width,
+                      //             height: 55.0,
+                      //             child: Container(
+                      //               child: Padding(
+                      //                 padding: EdgeInsets.symmetric(
+                      //                     horizontal: 10.0),
+                      //                 child: Row(
+                      //                   mainAxisAlignment:
+                      //                       MainAxisAlignment.spaceBetween,
+                      //                   children: <Widget>[
+                      //                     Text(
+                      //                       'Taking Order',
+                      //                       style: TextStyle(
+                      //                           color: Colors.white,
+                      //                           fontSize: 14.0),
+                      //                       textAlign: TextAlign.start,
+                      //                     ),
+                      //                     Text(
+                      //                       '2 of ${_listData.length.toString()}',
+                      //                       style: TextStyle(
+                      //                           color: Colors.white,
+                      //                           fontSize: 14.0),
+                      //                       textAlign: TextAlign.start,
+                      //                     ),
+                      //                   ],
+                      //                 ),
+                      //               ),
+                      //               decoration: BoxDecoration(
+                      //                 color: Color(0xFF2F592F),
+                      //               ),
+                      //             ),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //     ),
+                      //     Stack(
+                      //       children: <Widget>[
+                      //         Image.asset(
+                      //           'assets/images/slide 4copy.png',
+                      //           fit: BoxFit.fill,
+                      //           height: MediaQuery.of(context).size.height /
+                      //               1.35777,
+                      //         ),
+                      //         Column(
+                      //           children: <Widget>[
+                      //             Container(
+                      //               margin: EdgeInsets.only(
+                      //                   right: 30.0, left: 30.0, top: 80.0),
+                      //               padding:
+                      //                   EdgeInsets.symmetric(vertical: 15.0),
+                      //               color: Color.fromARGB(240, 255, 206, 79),
+                      //               child: Center(
+                      //                 child: Text(
+                      //                   'ORDER',
+                      //                   style: TextStyle(
+                      //                       color: Colors.white,
+                      //                       fontSize: 16.0,
+                      //                       fontWeight: FontWeight.w700),
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //             Container(
+                      //               margin:
+                      //                   EdgeInsets.symmetric(horizontal: 30.0),
+                      //               color: Color.fromARGB(240, 255, 255, 255),
+                      //               child: Column(
+                      //                 children: <Widget>[
+                      //                   Padding(
+                      //                     padding: const EdgeInsets.only(
+                      //                         top: 10.0,
+                      //                         left: 10.0,
+                      //                         right: 10.0),
+                      //                     child: CheckboxListTile(
+                      //                       value: _value1,
+                      //                       onChanged: _value1Changed,
+                      //                       title: new Text('Drinks'),
+                      //                       controlAffinity:
+                      //                           ListTileControlAffinity.leading,
+                      //                     ),
+                      //                   ),
+                      //                   Padding(
+                      //                     padding: const EdgeInsets.only(
+                      //                         left: 10.0, right: 10.0),
+                      //                     child: CheckboxListTile(
+                      //                       value: _value2,
+                      //                       onChanged: _value2Changed,
+                      //                       title: new Text('Juice'),
+                      //                       controlAffinity:
+                      //                           ListTileControlAffinity.leading,
+                      //                     ),
+                      //                   ),
+                      //                   Padding(
+                      //                     padding: const EdgeInsets.only(
+                      //                         left: 10.0, right: 10.0),
+                      //                     child: CheckboxListTile(
+                      //                       value: _value3,
+                      //                       onChanged: _value3Changed,
+                      //                       title: new Text('Appetizer'),
+                      //                       controlAffinity:
+                      //                           ListTileControlAffinity.leading,
+                      //                     ),
+                      //                   ),
+                      //                   Padding(
+                      //                     padding: const EdgeInsets.only(
+                      //                         left: 10.0, right: 10.0),
+                      //                     child: CheckboxListTile(
+                      //                       value: _value4,
+                      //                       onChanged: _value4Changed,
+                      //                       title: new Text('Main Course'),
+                      //                       controlAffinity:
+                      //                           ListTileControlAffinity.leading,
+                      //                     ),
+                      //                   ),
+                      //                   Padding(
+                      //                     padding: const EdgeInsets.only(
+                      //                         left: 10.0, right: 10.0),
+                      //                     child: CheckboxListTile(
+                      //                       value: _value5,
+                      //                       onChanged: _value5Changed,
+                      //                       title: new Text('Dessert'),
+                      //                       controlAffinity:
+                      //                           ListTileControlAffinity.leading,
+                      //                     ),
+                      //                   ),
+                      //                   Padding(
+                      //                     padding: EdgeInsets.only(
+                      //                         right: 10.0, bottom: 10.0),
+                      //                     child: Row(
+                      //                       mainAxisAlignment:
+                      //                           MainAxisAlignment.end,
+                      //                       children: <Widget>[
+                      //                         ButtonTheme(
+                      //                           minWidth: 50.0,
+                      //                           height: 40.0,
+                      //                           child: RaisedButton(
+                      //                             child: Text(
+                      //                               'CONFIRM',
+                      //                               style: TextStyle(
+                      //                                   fontSize: 13.0,
+                      //                                   color: Colors.white),
+                      //                               textAlign: TextAlign.center,
+                      //                             ),
+                      //                             color:
+                      //                                 AbubaPallate.greenabuba,
+                      //                             onPressed: () {
+                      //                               _cardController.animateTo(
+                      //                                   _cardController.index +
+                      //                                       1);
+                      //                             },
+                      //                           ),
+                      //                         ),
+                      //                       ],
+                      //                     ),
+                      //                   )
+                      //                 ],
+                      //               ),
+                      //             ),
+                      //           ],
+                      //         ),
+                      //       ],
+                      //     )
+                      //   ],
+                      // ),
                       ListView(
                         shrinkWrap: true,
                         physics: ScrollPhysics(),
@@ -966,6 +1149,7 @@ class _FormTakingOrderState extends State<FormTakingOrder>
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -1272,6 +1456,18 @@ class FormReview extends StatefulWidget {
 }
 
 class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
+  List<Map> _pertanyaan = [
+    {
+      'pertanyaan':
+          '1. Membukakan pintu dengan senyuman dan eye contact yang ikhlas',
+      'score': '1'
+    },
+    {'pertanyaan': '2. Membukakan pintu dengan sopan santu', 'score': '1'},
+    {'pertanyaan': '3. Memberikan salam dengan ramah', 'score': '1'},
+  ];
+
+  int _currentIndex = 0;
+
   List<Map> _listData = [
     {'nomor': '1'},
     {'nomor': '2'},
@@ -1307,6 +1503,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
   void _value5Changed(bool value) => setState(() => _value5 = value);
 
   TabController _cardController;
+  TextEditingController _controllerNote = new TextEditingController();
 
   @override
   void initState() {
@@ -1418,7 +1615,17 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
-                                            _cardController.animateTo(_cardController.index + 1);
+                                            setState(() {
+                                              if (_currentIndex + 1 <
+                                                  _pertanyaan.length) {
+                                                _pertanyaan[_currentIndex]
+                                                    ['score'] = '0';
+                                                _currentIndex++;
+                                              } else {
+                                                _cardController.animateTo(
+                                                    _cardController.index + 1);
+                                              }
+                                            });
                                           },
                                         ),
                                       ),
@@ -1448,7 +1655,17 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
                                           onPressed: () {
-                                            _cardController.animateTo(_cardController.index + 1);
+                                            setState(() {
+                                              if (_currentIndex + 1 <
+                                                  _pertanyaan.length) {
+                                                _pertanyaan[_currentIndex]
+                                                    ['score'] = '1';
+                                                _currentIndex++;
+                                              } else {
+                                                _cardController.animateTo(
+                                                    _cardController.index + 1);
+                                              }
+                                            });
                                           },
                                         ),
                                       ),
@@ -1476,7 +1693,17 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color:
                                               Color.fromARGB(170, 50, 205, 50),
                                           onPressed: () {
-                                            _cardController.animateTo(_cardController.index + 1);
+                                            setState(() {
+                                              if (_currentIndex + 1 <
+                                                  _pertanyaan.length) {
+                                                _pertanyaan[_currentIndex]
+                                                    ['score'] = '2';
+                                                _currentIndex++;
+                                              } else {
+                                                _cardController.animateTo(
+                                                    _cardController.index + 1);
+                                              }
+                                            });
                                           },
                                         ),
                                       ),
@@ -1491,9 +1718,16 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                             color: AbubaPallate.yellow,
                             padding: EdgeInsets.symmetric(
                                 horizontal: 20.0, vertical: 10.0),
-                            child: Center(
-                              child: Text(
-                                  '1. Membukakan pintu dengan senyuman dan eye contact yang ikhlas'),
+                            child: Row(
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    _pertanyaan[_currentIndex]['pertanyaan'],
+                                    style: TextStyle(
+                                        fontSize: 16.0, color: Colors.black87),
+                                  ),
+                                )
+                              ],
                             ),
                           )
                         ],
@@ -1577,7 +1811,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
-                                            _cardController.animateTo(_cardController.index + 1);
+                                            _cardController.animateTo(
+                                                _cardController.index + 1);
                                           },
                                         ),
                                       ),
@@ -1607,7 +1842,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
                                           onPressed: () {
-                                            _cardController.animateTo(_cardController.index + 1);
+                                            _cardController.animateTo(
+                                                _cardController.index + 1);
                                           },
                                         ),
                                       ),
@@ -1635,7 +1871,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color:
                                               Color.fromARGB(170, 50, 205, 50),
                                           onPressed: () {
-                                            _cardController.animateTo(_cardController.index + 1);
+                                            _cardController.animateTo(
+                                                _cardController.index + 1);
                                           },
                                         ),
                                       ),
@@ -1736,7 +1973,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
-                                            _cardController.animateTo(_cardController.index + 1);
+                                            _cardController.animateTo(
+                                                _cardController.index + 1);
                                           },
                                         ),
                                       ),
@@ -1766,7 +2004,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
                                           onPressed: () {
-                                            _cardController.animateTo(_cardController.index + 1);
+                                            _cardController.animateTo(
+                                                _cardController.index + 1);
                                           },
                                         ),
                                       ),
@@ -1794,7 +2033,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color:
                                               Color.fromARGB(170, 50, 205, 50),
                                           onPressed: () {
-                                            _cardController.animateTo(_cardController.index + 1);
+                                            _cardController.animateTo(
+                                                _cardController.index + 1);
                                           },
                                         ),
                                       ),
@@ -1895,7 +2135,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
-                                            _cardController.animateTo(_cardController.index + 1);
+                                            _cardController.animateTo(
+                                                _cardController.index + 1);
                                           },
                                         ),
                                       ),
@@ -1925,7 +2166,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
                                           onPressed: () {
-                                            _cardController.animateTo(_cardController.index + 1);
+                                            _cardController.animateTo(
+                                                _cardController.index + 1);
                                           },
                                         ),
                                       ),
@@ -1953,7 +2195,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color:
                                               Color.fromARGB(170, 50, 205, 50),
                                           onPressed: () {
-                                            _cardController.animateTo(_cardController.index + 1);
+                                            _cardController.animateTo(
+                                                _cardController.index + 1);
                                           },
                                         ),
                                       ),
@@ -2054,7 +2297,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
-                                            _cardController.animateTo(_cardController.index + 1);
+                                            _cardController.animateTo(
+                                                _cardController.index + 1);
                                           },
                                         ),
                                       ),
@@ -2084,7 +2328,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
                                           onPressed: () {
-                                            _cardController.animateTo(_cardController.index + 1);
+                                            _cardController.animateTo(
+                                                _cardController.index + 1);
                                           },
                                         ),
                                       ),
@@ -2112,7 +2357,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color:
                                               Color.fromARGB(170, 50, 205, 50),
                                           onPressed: () {
-                                            _cardController.animateTo(_cardController.index + 1);
+                                            _cardController.animateTo(
+                                                _cardController.index + 1);
                                           },
                                         ),
                                       ),
@@ -2213,7 +2459,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
-                                            _cardController.animateTo(_cardController.index + 1);
+                                            _cardController.animateTo(
+                                                _cardController.index + 1);
                                           },
                                         ),
                                       ),
@@ -2243,7 +2490,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
                                           onPressed: () {
-                                            _cardController.animateTo(_cardController.index + 1);
+                                            _cardController.animateTo(
+                                                _cardController.index + 1);
                                           },
                                         ),
                                       ),
@@ -2271,7 +2519,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color:
                                               Color.fromARGB(170, 50, 205, 50),
                                           onPressed: () {
-                                            _cardController.animateTo(_cardController.index + 1);
+                                            _cardController.animateTo(
+                                                _cardController.index + 1);
                                           },
                                         ),
                                       ),
@@ -2372,7 +2621,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
-                                            _cardController.animateTo(_cardController.index + 1);
+                                            _cardController.animateTo(
+                                                _cardController.index + 1);
                                           },
                                         ),
                                       ),
@@ -2402,7 +2652,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
                                           onPressed: () {
-                                            _cardController.animateTo(_cardController.index + 1);
+                                            _cardController.animateTo(
+                                                _cardController.index + 1);
                                           },
                                         ),
                                       ),
@@ -2430,7 +2681,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color:
                                               Color.fromARGB(170, 50, 205, 50),
                                           onPressed: () {
-                                            _cardController.animateTo(_cardController.index + 1);
+                                            _cardController.animateTo(
+                                                _cardController.index + 1);
                                           },
                                         ),
                                       ),
@@ -2531,7 +2783,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
-                                            _cardController.animateTo(_cardController.index + 1);
+                                            _cardController.animateTo(
+                                                _cardController.index + 1);
                                           },
                                         ),
                                       ),
@@ -2561,7 +2814,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
                                           onPressed: () {
-                                            _cardController.animateTo(_cardController.index + 1);
+                                            _cardController.animateTo(
+                                                _cardController.index + 1);
                                           },
                                         ),
                                       ),
@@ -2589,7 +2843,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color:
                                               Color.fromARGB(170, 50, 205, 50),
                                           onPressed: () {
-                                            _cardController.animateTo(_cardController.index + 1);
+                                            _cardController.animateTo(
+                                                _cardController.index + 1);
                                           },
                                         ),
                                       ),
@@ -2690,7 +2945,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
-                                            _cardController.animateTo(_cardController.index + 1);
+                                            _cardController.animateTo(
+                                                _cardController.index + 1);
                                           },
                                         ),
                                       ),
@@ -2720,7 +2976,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
                                           onPressed: () {
-                                            _cardController.animateTo(_cardController.index + 1);
+                                            _cardController.animateTo(
+                                                _cardController.index + 1);
                                           },
                                         ),
                                       ),
@@ -2748,7 +3005,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color:
                                               Color.fromARGB(170, 50, 205, 50),
                                           onPressed: () {
-                                            _cardController.animateTo(_cardController.index + 1);
+                                            _cardController.animateTo(
+                                                _cardController.index + 1);
                                           },
                                         ),
                                       ),
@@ -2961,8 +3219,56 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.camera_alt, color: Colors.white),
+                      onPressed: () {},
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.event_note, color: Colors.white),
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text('NOTE'),
+                                content: Container(
+                                  width: 300.0,
+                                  child: TextField(
+                                    controller: _controllerNote,
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      hintText: 'Note',
+                                      hintStyle: TextStyle(fontSize: 12.0),
+                                    ),
+                                    maxLines: 3,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    splashColor: Colors.greenAccent,
+                                    child: Text(
+                                      'SAVE',
+                                      style: TextStyle(color: Colors.green),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  )
+                                ],
+                              );
+                            });
+                      },
+                    ),
+                  ],
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -3013,6 +3319,7 @@ class FormMockComplaint extends StatefulWidget {
   @override
   _FormMockComplaintState createState() => _FormMockComplaintState();
 }
+
 class _FormMockComplaintState extends State<FormMockComplaint> {
   String _myCategory;
   String _category;
@@ -3134,7 +3441,7 @@ class _FormMockComplaintState extends State<FormMockComplaint> {
             color: Colors.grey[200],
             width: MediaQuery.of(context).size.width,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal:20.0, vertical: 10.0),
+              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
               child: Column(
                 children: <Widget>[
                   DropdownButtonFormField(
@@ -3163,7 +3470,6 @@ class _FormMockComplaintState extends State<FormMockComplaint> {
                       );
                     }).toList(),
                   ),
-
                   DropdownButtonFormField(
                     hint: Text('Product', style: TextStyle(fontSize: 14.0)),
                     value: _myProduct,
@@ -3190,7 +3496,6 @@ class _FormMockComplaintState extends State<FormMockComplaint> {
                       );
                     }).toList(),
                   ),
-
                   DropdownButtonFormField(
                     hint: Text('Service', style: TextStyle(fontSize: 14.0)),
                     value: _myService,
@@ -3217,10 +3522,8 @@ class _FormMockComplaintState extends State<FormMockComplaint> {
                       );
                     }).toList(),
                   ),
-
                   Row(
-                    mainAxisAlignment:
-                    MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
                       ButtonTheme(
                         minWidth: 50.0,
@@ -3243,24 +3546,26 @@ class _FormMockComplaintState extends State<FormMockComplaint> {
                       ),
                     ],
                   ),
-
                   _note1
                       ? Container(
-                    padding: const EdgeInsets.only(bottom: 10.0,),
-                    width: MediaQuery.of(context).size.width,
-                    child: TextField(
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'Note',
-                          labelStyle: TextStyle(fontSize: 16.0)),
-                      maxLines: 3,
-                      style: TextStyle(color: Colors.black, fontSize: 16.0),
-                    ),
-                  )
+                          padding: const EdgeInsets.only(
+                            bottom: 10.0,
+                          ),
+                          width: MediaQuery.of(context).size.width,
+                          child: TextField(
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'Note',
+                                labelStyle: TextStyle(fontSize: 16.0)),
+                            maxLines: 3,
+                            style:
+                                TextStyle(color: Colors.black, fontSize: 16.0),
+                          ),
+                        )
                       : Container(),
-
                   DropdownButtonFormField(
-                    hint: Text('PIC yang dituju', style: TextStyle(fontSize: 14.0)),
+                    hint: Text('PIC yang dituju',
+                        style: TextStyle(fontSize: 14.0)),
                     value: _myPIC,
                     onChanged: (String newValue) {
                       setState(() {
@@ -3285,7 +3590,6 @@ class _FormMockComplaintState extends State<FormMockComplaint> {
                       );
                     }).toList(),
                   ),
-
                   Container(
                     padding: const EdgeInsets.only(bottom: 10.0, top: 20.0),
                     width: MediaQuery.of(context).size.width,
@@ -3310,7 +3614,7 @@ class _FormMockComplaintState extends State<FormMockComplaint> {
                           child: Text(
                             'COMPLAINT',
                             style:
-                            TextStyle(fontSize: 13.0, color: Colors.white),
+                                TextStyle(fontSize: 13.0, color: Colors.white),
                           ),
                           color: Colors.blueAccent,
                           onPressed: () {
@@ -3425,11 +3729,11 @@ class _FormCloseState extends State<FormClose> {
                       height: 40.0,
                       child: RaisedButton(
                         shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(5.0),),
+                          borderRadius: new BorderRadius.circular(5.0),
+                        ),
                         child: Text(
                           'DONE',
-                          style:
-                          TextStyle(fontSize: 13.0, color: Colors.white),
+                          style: TextStyle(fontSize: 13.0, color: Colors.white),
                         ),
                         color: AbubaPallate.yellow,
                         onPressed: () {
@@ -3530,21 +3834,18 @@ class _FormHandlingState extends State<FormHandling> {
                       Flexible(
                         child: Text(
                           'Beri score kepuasan Anda terhadap ara mereka menangani complaint Anda',
-                          style: TextStyle(
-                              fontSize: 14.0, color: Colors.black54),
+                          style:
+                              TextStyle(fontSize: 14.0, color: Colors.black54),
                           textAlign: TextAlign.center,
                         ),
                       )
                     ],
                   ),
-
-
                   SizedBox(
                     height: 30.0,
                   ),
                   Row(
-                    mainAxisAlignment:
-                    MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
                       Container(
                         child: ButtonTheme(
@@ -3552,59 +3853,50 @@ class _FormHandlingState extends State<FormHandling> {
                           height: 50.0,
                           child: RaisedButton(
                             shape: new RoundedRectangleBorder(
-                                borderRadius:
-                                new BorderRadius.circular(
-                                    5.0),
+                                borderRadius: new BorderRadius.circular(5.0),
                                 side: BorderSide(
-                                    width: 1.5,
-                                    color: Colors.white)),
+                                    width: 1.5, color: Colors.white)),
                             child: Text(
                               '0',
                               style: TextStyle(
-                                  fontSize: 18.0,
-                                  color: Colors.white),
+                                  fontSize: 18.0, color: Colors.white),
                               textAlign: TextAlign.center,
                             ),
-                            color:
-                            Color.fromARGB(170, 255, 40, 0),
+                            color: Color.fromARGB(170, 255, 40, 0),
                             onPressed: () {
                               Navigator.push(
                                   context,
                                   MyCustomRoute(
-                                      builder: (context) => FormLanjutReview()));
+                                      builder: (context) =>
+                                          FormLanjutReview()));
                             },
                           ),
                         ),
                         alignment: Alignment(0.0, 0.0),
                       ),
                       Container(
-                        padding:
-                        EdgeInsets.symmetric(horizontal: 5.0),
+                        padding: EdgeInsets.symmetric(horizontal: 5.0),
                         child: ButtonTheme(
                           minWidth: 50.0,
                           height: 50.0,
                           child: RaisedButton(
                             shape: new RoundedRectangleBorder(
-                                borderRadius:
-                                new BorderRadius.circular(
-                                    5.0),
+                                borderRadius: new BorderRadius.circular(5.0),
                                 side: BorderSide(
-                                    width: 1.5,
-                                    color: Colors.white)),
+                                    width: 1.5, color: Colors.white)),
                             child: Text(
                               '1',
                               style: TextStyle(
-                                  fontSize: 18.0,
-                                  color: Colors.white),
+                                  fontSize: 18.0, color: Colors.white),
                               textAlign: TextAlign.center,
                             ),
-                            color: Color.fromARGB(
-                                170, 192, 192, 192),
+                            color: Color.fromARGB(170, 192, 192, 192),
                             onPressed: () {
                               Navigator.push(
                                   context,
                                   MyCustomRoute(
-                                      builder: (context) => FormLanjutReview()));
+                                      builder: (context) =>
+                                          FormLanjutReview()));
                             },
                           ),
                         ),
@@ -3616,26 +3908,22 @@ class _FormHandlingState extends State<FormHandling> {
                           height: 50.0,
                           child: RaisedButton(
                             shape: new RoundedRectangleBorder(
-                                borderRadius:
-                                new BorderRadius.circular(
-                                    5.0),
+                                borderRadius: new BorderRadius.circular(5.0),
                                 side: BorderSide(
-                                    width: 1.5,
-                                    color: Colors.white)),
+                                    width: 1.5, color: Colors.white)),
                             child: Text(
                               '2',
                               style: TextStyle(
-                                  fontSize: 18.0,
-                                  color: Colors.white),
+                                  fontSize: 18.0, color: Colors.white),
                               textAlign: TextAlign.center,
                             ),
-                            color:
-                            Color.fromARGB(170, 50, 205, 50),
+                            color: Color.fromARGB(170, 50, 205, 50),
                             onPressed: () {
                               Navigator.push(
                                   context,
                                   MyCustomRoute(
-                                      builder: (context) => FormLanjutReview()));
+                                      builder: (context) =>
+                                          FormLanjutReview()));
                             },
                           ),
                         ),
@@ -3653,11 +3941,10 @@ class _FormHandlingState extends State<FormHandling> {
         ),
         Container(
           color: AbubaPallate.yellow,
-          padding: EdgeInsets.symmetric(
-              horizontal: 20.0, vertical: 10.0),
+          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
           child: Center(
-            child: Text(
-                '1. Pihak Outlet mengucapkan maaf atas ketidaknyamanan'),
+            child:
+                Text('1. Pihak Outlet mengucapkan maaf atas ketidaknyamanan'),
           ),
         ),
         Container(
@@ -3763,11 +4050,11 @@ class _FormLanjutReviewState extends State<FormLanjutReview> {
                       height: 40.0,
                       child: RaisedButton(
                         shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(5.0),),
+                          borderRadius: new BorderRadius.circular(5.0),
+                        ),
                         child: Text(
                           'CONFIRM',
-                          style:
-                          TextStyle(fontSize: 13.0, color: Colors.white),
+                          style: TextStyle(fontSize: 13.0, color: Colors.white),
                         ),
                         color: Colors.blue,
                         onPressed: () {
@@ -3800,7 +4087,8 @@ class FormFinishing extends StatefulWidget {
   _FormFinishingState createState() => _FormFinishingState();
 }
 
-class _FormFinishingState extends State<FormFinishing> with TickerProviderStateMixin {
+class _FormFinishingState extends State<FormFinishing>
+    with TickerProviderStateMixin {
   List<Map> _listData = [
     {'nomor': '11'},
     {'nomor': '12'},
@@ -3878,7 +4166,7 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                             horizontal: 10.0),
                                         child: Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             Text(
                                               '1. Offering the Bills',
@@ -3916,7 +4204,7 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                 width: MediaQuery.of(context).size.width,
                                 child: Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceAround,
+                                      MainAxisAlignment.spaceAround,
                                   children: <Widget>[
                                     Container(
                                       child: ButtonTheme(
@@ -3925,8 +4213,8 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                              new BorderRadius.circular(
-                                                  5.0),
+                                                  new BorderRadius.circular(
+                                                      5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -3938,9 +4226,10 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                          Color.fromARGB(170, 255, 40, 0),
+                                              Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
-                                            _cardController.animateTo(_cardController.index + 1);
+                                            _cardController.animateTo(
+                                                _cardController.index + 1);
                                           },
                                         ),
                                       ),
@@ -3948,15 +4237,15 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                     ),
                                     Container(
                                       padding:
-                                      EdgeInsets.symmetric(horizontal: 5.0),
+                                          EdgeInsets.symmetric(horizontal: 5.0),
                                       child: ButtonTheme(
                                         minWidth: 50.0,
                                         height: 50.0,
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                              new BorderRadius.circular(
-                                                  5.0),
+                                                  new BorderRadius.circular(
+                                                      5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -3981,8 +4270,8 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                              new BorderRadius.circular(
-                                                  5.0),
+                                                  new BorderRadius.circular(
+                                                      5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -3994,7 +4283,7 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                          Color.fromARGB(170, 50, 205, 50),
+                                              Color.fromARGB(170, 50, 205, 50),
                                           onPressed: () {},
                                         ),
                                       ),
@@ -4033,7 +4322,7 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                             horizontal: 10.0),
                                         child: Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             Text(
                                               '2. Clearing Table',
@@ -4071,7 +4360,7 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                 width: MediaQuery.of(context).size.width,
                                 child: Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceAround,
+                                      MainAxisAlignment.spaceAround,
                                   children: <Widget>[
                                     Container(
                                       child: ButtonTheme(
@@ -4080,8 +4369,8 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                              new BorderRadius.circular(
-                                                  5.0),
+                                                  new BorderRadius.circular(
+                                                      5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -4093,9 +4382,10 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                          Color.fromARGB(170, 255, 40, 0),
+                                              Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
-                                            _cardController.animateTo(_cardController.index + 1);
+                                            _cardController.animateTo(
+                                                _cardController.index + 1);
                                           },
                                         ),
                                       ),
@@ -4103,15 +4393,15 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                     ),
                                     Container(
                                       padding:
-                                      EdgeInsets.symmetric(horizontal: 5.0),
+                                          EdgeInsets.symmetric(horizontal: 5.0),
                                       child: ButtonTheme(
                                         minWidth: 50.0,
                                         height: 50.0,
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                              new BorderRadius.circular(
-                                                  5.0),
+                                                  new BorderRadius.circular(
+                                                      5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -4125,7 +4415,8 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
                                           onPressed: () {
-                                            _cardController.animateTo(_cardController.index + 1);
+                                            _cardController.animateTo(
+                                                _cardController.index + 1);
                                           },
                                         ),
                                       ),
@@ -4138,8 +4429,8 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                              new BorderRadius.circular(
-                                                  5.0),
+                                                  new BorderRadius.circular(
+                                                      5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -4151,9 +4442,10 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                          Color.fromARGB(170, 50, 205, 50),
+                                              Color.fromARGB(170, 50, 205, 50),
                                           onPressed: () {
-                                            _cardController.animateTo(_cardController.index + 1);
+                                            _cardController.animateTo(
+                                                _cardController.index + 1);
                                           },
                                         ),
                                       ),
@@ -4192,7 +4484,7 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                             horizontal: 10.0),
                                         child: Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             Text(
                                               '3. Taking Payment and Thanking',
@@ -4230,7 +4522,7 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                 width: MediaQuery.of(context).size.width,
                                 child: Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceAround,
+                                      MainAxisAlignment.spaceAround,
                                   children: <Widget>[
                                     Container(
                                       child: ButtonTheme(
@@ -4239,8 +4531,8 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                              new BorderRadius.circular(
-                                                  5.0),
+                                                  new BorderRadius.circular(
+                                                      5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -4252,12 +4544,13 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                          Color.fromARGB(170, 255, 40, 0),
+                                              Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
                                             Navigator.push(
                                                 context,
                                                 MyCustomRoute(
-                                                    builder: (context) => FormCheckOut()));
+                                                    builder: (context) =>
+                                                        FormCheckOut()));
                                           },
                                         ),
                                       ),
@@ -4265,15 +4558,15 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                     ),
                                     Container(
                                       padding:
-                                      EdgeInsets.symmetric(horizontal: 5.0),
+                                          EdgeInsets.symmetric(horizontal: 5.0),
                                       child: ButtonTheme(
                                         minWidth: 50.0,
                                         height: 50.0,
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                              new BorderRadius.circular(
-                                                  5.0),
+                                                  new BorderRadius.circular(
+                                                      5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -4290,7 +4583,8 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                             Navigator.push(
                                                 context,
                                                 MyCustomRoute(
-                                                    builder: (context) => FormCheckOut()));
+                                                    builder: (context) =>
+                                                        FormCheckOut()));
                                           },
                                         ),
                                       ),
@@ -4303,8 +4597,8 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                              new BorderRadius.circular(
-                                                  5.0),
+                                                  new BorderRadius.circular(
+                                                      5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -4316,12 +4610,13 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                          Color.fromARGB(170, 50, 205, 50),
+                                              Color.fromARGB(170, 50, 205, 50),
                                           onPressed: () {
                                             Navigator.push(
                                                 context,
                                                 MyCustomRoute(
-                                                    builder: (context) => FormCheckOut()));
+                                                    builder: (context) =>
+                                                        FormCheckOut()));
                                           },
                                         ),
                                       ),
@@ -4490,7 +4785,8 @@ class _FormCheckOutState extends State<FormCheckOut> {
                             child: Text(
                               'Review Anda akan secara otomatis diolah oleh system kami untuk bahan masukan management Abuba. Hati Hati di jalan !',
                               style: TextStyle(
-                                  fontSize: 14.0, color: Colors.black54), textAlign: TextAlign.center,
+                                  fontSize: 14.0, color: Colors.black54),
+                              textAlign: TextAlign.center,
                             ),
                           )
                         ],
@@ -4507,11 +4803,10 @@ class _FormCheckOutState extends State<FormCheckOut> {
                           child: Text(
                             'CHECK OUT',
                             style:
-                            TextStyle(fontSize: 13.0, color: Colors.white),
+                                TextStyle(fontSize: 13.0, color: Colors.white),
                           ),
                           color: Colors.red,
-                          onPressed: () {
-                          },
+                          onPressed: () {},
                         ),
                       ),
                     ],
