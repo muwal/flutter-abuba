@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter_abuba/landing/landingpage_view.dart';
 
 class FormCariLokasi extends StatefulWidget {
   @override
@@ -3251,7 +3251,7 @@ class _FormMockComplaintState extends State<FormMockComplaint> {
                             Navigator.push(
                                 context,
                                 MyCustomRoute(
-                                    builder: (context) => FormTakingOrder()));
+                                    builder: (context) => FormClose()));
                           },
                         ),
                       ),
@@ -3259,6 +3259,1177 @@ class _FormMockComplaintState extends State<FormMockComplaint> {
                   )
                 ],
               ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class FormClose extends StatefulWidget {
+  @override
+  _FormCloseState createState() => _FormCloseState();
+}
+
+class _FormCloseState extends State<FormClose> {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        appBar: AbubaAppBar(),
+        body: _buildMenu(),
+      ),
+    );
+  }
+
+  Widget _buildMenu() {
+    return ListView(
+      children: <Widget>[
+        Container(
+          height: 400.5,
+          width: MediaQuery.of(context).size.width,
+          color: Colors.white,
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'Mystery Shopper',
+                      style: TextStyle(color: Colors.black12, fontSize: 12.0),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 15.0),
+                      child: Text(
+                        '|',
+                        style: TextStyle(
+                            color: AbubaPallate.greenabuba, fontSize: 12.0),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 15.0),
+                      child: Text(
+                        'Location',
+                        style: TextStyle(
+                            color: AbubaPallate.greenabuba, fontSize: 12.0),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(20.0, 100.0, 20.0, 20.0),
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Flexible(
+                          child: Text(
+                            'Close complaint session',
+                            style: TextStyle(
+                                color: AbubaPallate.greenabuba,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 20.0),
+                          ),
+                        )
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Flexible(
+                          child: Text(
+                            'Tekan tombol di bawah ini bila Anda merasa complaint Anda sudah ditangani dengan baik',
+                            style: TextStyle(
+                                fontSize: 14.0, color: Colors.black54),
+                            textAlign: TextAlign.center,
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    ButtonTheme(
+                      minWidth: 50.0,
+                      height: 40.0,
+                      child: RaisedButton(
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(5.0),),
+                        child: Text(
+                          'DONE',
+                          style:
+                          TextStyle(fontSize: 13.0, color: Colors.white),
+                        ),
+                        color: AbubaPallate.yellow,
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MyCustomRoute(
+                                  builder: (context) => FormHandling()));
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+        Container(
+          child: Image.asset(
+            'assets/images/slide 21.png',
+            fit: BoxFit.fitWidth,
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class FormHandling extends StatefulWidget {
+  @override
+  _FormHandlingState createState() => _FormHandlingState();
+}
+
+class _FormHandlingState extends State<FormHandling> {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        appBar: AbubaAppBar(),
+        body: _buildMenu(),
+      ),
+    );
+  }
+
+  Widget _buildMenu() {
+    return ListView(
+      children: <Widget>[
+        Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'Mystery Shopper',
+                    style: TextStyle(color: Colors.black12, fontSize: 12.0),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 15.0),
+                    child: Text(
+                      '|',
+                      style: TextStyle(
+                          color: AbubaPallate.greenabuba, fontSize: 12.0),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 15.0),
+                    child: Text(
+                      'Location',
+                      style: TextStyle(
+                          color: AbubaPallate.greenabuba, fontSize: 12.0),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(20.0, 80.0, 20.0, 20.0),
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Flexible(
+                        child: Text(
+                          'Nilai Complaint Handling',
+                          style: TextStyle(
+                              color: AbubaPallate.greenabuba,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 20.0),
+                        ),
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Flexible(
+                        child: Text(
+                          'Beri score kepuasan Anda terhadap ara mereka menangani complaint Anda',
+                          style: TextStyle(
+                              fontSize: 14.0, color: Colors.black54),
+                          textAlign: TextAlign.center,
+                        ),
+                      )
+                    ],
+                  ),
+
+
+                  SizedBox(
+                    height: 30.0,
+                  ),
+                  Row(
+                    mainAxisAlignment:
+                    MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Container(
+                        child: ButtonTheme(
+                          minWidth: 50.0,
+                          height: 50.0,
+                          child: RaisedButton(
+                            shape: new RoundedRectangleBorder(
+                                borderRadius:
+                                new BorderRadius.circular(
+                                    5.0),
+                                side: BorderSide(
+                                    width: 1.5,
+                                    color: Colors.white)),
+                            child: Text(
+                              '0',
+                              style: TextStyle(
+                                  fontSize: 18.0,
+                                  color: Colors.white),
+                              textAlign: TextAlign.center,
+                            ),
+                            color:
+                            Color.fromARGB(170, 255, 40, 0),
+                            onPressed: () {},
+                          ),
+                        ),
+                        alignment: Alignment(0.0, 0.0),
+                      ),
+                      Container(
+                        padding:
+                        EdgeInsets.symmetric(horizontal: 5.0),
+                        child: ButtonTheme(
+                          minWidth: 50.0,
+                          height: 50.0,
+                          child: RaisedButton(
+                            shape: new RoundedRectangleBorder(
+                                borderRadius:
+                                new BorderRadius.circular(
+                                    5.0),
+                                side: BorderSide(
+                                    width: 1.5,
+                                    color: Colors.white)),
+                            child: Text(
+                              '1',
+                              style: TextStyle(
+                                  fontSize: 18.0,
+                                  color: Colors.white),
+                              textAlign: TextAlign.center,
+                            ),
+                            color: Color.fromARGB(
+                                170, 192, 192, 192),
+                            onPressed: () {},
+                          ),
+                        ),
+                        alignment: Alignment(0.0, 0.0),
+                      ),
+                      Container(
+                        child: ButtonTheme(
+                          minWidth: 50.0,
+                          height: 50.0,
+                          child: RaisedButton(
+                            shape: new RoundedRectangleBorder(
+                                borderRadius:
+                                new BorderRadius.circular(
+                                    5.0),
+                                side: BorderSide(
+                                    width: 1.5,
+                                    color: Colors.white)),
+                            child: Text(
+                              '2',
+                              style: TextStyle(
+                                  fontSize: 18.0,
+                                  color: Colors.white),
+                              textAlign: TextAlign.center,
+                            ),
+                            color:
+                            Color.fromARGB(170, 50, 205, 50),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MyCustomRoute(
+                                      builder: (context) => FormLanjutReview()));
+                            },
+                          ),
+                        ),
+                        alignment: Alignment(0.0, 0.0),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+        SizedBox(
+          height: 59.0,
+        ),
+        Container(
+          color: AbubaPallate.yellow,
+          padding: EdgeInsets.symmetric(
+              horizontal: 20.0, vertical: 10.0),
+          child: Center(
+            child: Text(
+                '1. Pihak Outlet mengucapkan maaf atas ketidaknyamanan'),
+          ),
+        ),
+        Container(
+          child: Image.asset(
+            'assets/images/slide 21.png',
+            fit: BoxFit.fitWidth,
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class FormLanjutReview extends StatefulWidget {
+  @override
+  _FormLanjutReviewState createState() => _FormLanjutReviewState();
+}
+
+class _FormLanjutReviewState extends State<FormLanjutReview> {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        appBar: AbubaAppBar(),
+        body: _buildMenu(),
+      ),
+    );
+  }
+
+  Widget _buildMenu() {
+    return ListView(
+      children: <Widget>[
+        Container(
+          height: 390.0,
+          width: MediaQuery.of(context).size.width,
+          color: Colors.white,
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'Mystery Shopper',
+                      style: TextStyle(color: Colors.black12, fontSize: 12.0),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 15.0),
+                      child: Text(
+                        '|',
+                        style: TextStyle(
+                            color: AbubaPallate.greenabuba, fontSize: 12.0),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 15.0),
+                      child: Text(
+                        'Location',
+                        style: TextStyle(
+                            color: AbubaPallate.greenabuba, fontSize: 12.0),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(20.0, 100.0, 20.0, 20.0),
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Flexible(
+                          child: Text(
+                            'Lanjutkan Review Anda',
+                            style: TextStyle(
+                                color: AbubaPallate.greenabuba,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 20.0),
+                          ),
+                        )
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Flexible(
+                          child: Text(
+                            'Selesaikan makan Anda bersiaplah meminta bill, mengawasi clearing table dan melakukan pembayaran',
+                            style: TextStyle(
+                                fontSize: 14.0, color: Colors.black54),
+                            textAlign: TextAlign.center,
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    ButtonTheme(
+                      minWidth: 50.0,
+                      height: 40.0,
+                      child: RaisedButton(
+                        shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(5.0),),
+                        child: Text(
+                          'CONFIRM',
+                          style:
+                          TextStyle(fontSize: 13.0, color: Colors.white),
+                        ),
+                        color: Colors.blue,
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MyCustomRoute(
+                                  builder: (context) => FormFinishing()));
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+        Container(
+          child: Image.asset(
+            'assets/images/slide 23.png',
+            fit: BoxFit.fitWidth,
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class FormFinishing extends StatefulWidget {
+  @override
+  _FormFinishingState createState() => _FormFinishingState();
+}
+
+class _FormFinishingState extends State<FormFinishing> with TickerProviderStateMixin {
+  List<Map> _listData = [
+    {'nomor': '11'},
+    {'nomor': '12'},
+    {'nomor': '13'}
+  ];
+
+  List<String> textList = [
+    'Menu Baru',
+    'Event',
+    'Upselling',
+    'Hasil Audit',
+    'Pengumuman',
+  ];
+
+  bool _value1 = false;
+  bool _value2 = false;
+  bool _value3 = false;
+  bool _value4 = false;
+  bool _value5 = false;
+
+  //we omitted the brackets '{}' and are using fat arrow '=>' instead, this is dart syntax
+  void _value1Changed(bool value) => setState(() => _value1 = value);
+  void _value2Changed(bool value) => setState(() => _value2 = value);
+  void _value3Changed(bool value) => setState(() => _value3 = value);
+  void _value4Changed(bool value) => setState(() => _value4 = value);
+  void _value5Changed(bool value) => setState(() => _value5 = value);
+
+  TabController _cardController;
+
+  @override
+  void initState() {
+    super.initState();
+    _cardController = new TabController(vsync: this, length: _listData.length);
+  }
+
+  @override
+  void dispose() {
+    _cardController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: _appBar(),
+        body: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).requestFocus(FocusNode());
+          },
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Expanded(
+                  child: TabBarView(
+                    controller: _cardController,
+                    physics: ScrollPhysics(),
+                    children: <Widget>[
+                      ListView(
+                        shrinkWrap: true,
+                        physics: ScrollPhysics(),
+                        children: <Widget>[
+                          PreferredSize(
+                            preferredSize: Size.fromHeight(55.0),
+                            child: Column(
+                              children: <Widget>[
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 55.0,
+                                  child: Container(
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Text(
+                                              '1. Offering the Bills',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14.0),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                            Text(
+                                              '1 of ${_listData.length.toString()}',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14.0),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      decoration: BoxDecoration(
+                                          color: Color(0xFF2F592F))),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Stack(
+                            children: <Widget>[
+                              Image.asset(
+                                'assets/images/slide 24.png',
+                                fit: BoxFit.cover,
+                                height: MediaQuery.of(context).size.height /
+                                    1.50777,
+                              ),
+                              Positioned(
+                                bottom: 20.0,
+                                left: 105.0,
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceAround,
+                                  children: <Widget>[
+                                    Container(
+                                      child: ButtonTheme(
+                                        minWidth: 50.0,
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          shape: new RoundedRectangleBorder(
+                                              borderRadius:
+                                              new BorderRadius.circular(
+                                                  5.0),
+                                              side: BorderSide(
+                                                  width: 1.5,
+                                                  color: Colors.white)),
+                                          child: Text(
+                                            '0',
+                                            style: TextStyle(
+                                                fontSize: 18.0,
+                                                color: Colors.white),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          color:
+                                          Color.fromARGB(170, 255, 40, 0),
+                                          onPressed: () {},
+                                        ),
+                                      ),
+                                      alignment: Alignment(0.0, 0.0),
+                                    ),
+                                    Container(
+                                      padding:
+                                      EdgeInsets.symmetric(horizontal: 5.0),
+                                      child: ButtonTheme(
+                                        minWidth: 50.0,
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          shape: new RoundedRectangleBorder(
+                                              borderRadius:
+                                              new BorderRadius.circular(
+                                                  5.0),
+                                              side: BorderSide(
+                                                  width: 1.5,
+                                                  color: Colors.white)),
+                                          child: Text(
+                                            '1',
+                                            style: TextStyle(
+                                                fontSize: 18.0,
+                                                color: Colors.white),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          color: Color.fromARGB(
+                                              170, 192, 192, 192),
+                                          onPressed: () {},
+                                        ),
+                                      ),
+                                      alignment: Alignment(0.0, 0.0),
+                                    ),
+                                    Container(
+                                      child: ButtonTheme(
+                                        minWidth: 50.0,
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          shape: new RoundedRectangleBorder(
+                                              borderRadius:
+                                              new BorderRadius.circular(
+                                                  5.0),
+                                              side: BorderSide(
+                                                  width: 1.5,
+                                                  color: Colors.white)),
+                                          child: Text(
+                                            '2',
+                                            style: TextStyle(
+                                                fontSize: 18.0,
+                                                color: Colors.white),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          color:
+                                          Color.fromARGB(170, 50, 205, 50),
+                                          onPressed: () {},
+                                        ),
+                                      ),
+                                      alignment: Alignment(0.0, 0.0),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          Container(
+                            color: AbubaPallate.yellow,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20.0, vertical: 10.0),
+                            child: Center(
+                              child: Text(
+                                  'Persilahkan customer memeriksa bill, bantu membacakan jika dibutuhkan'),
+                            ),
+                          )
+                        ],
+                      ),
+                      ListView(
+                        shrinkWrap: true,
+                        physics: ScrollPhysics(),
+                        children: <Widget>[
+                          PreferredSize(
+                            preferredSize: Size.fromHeight(55.0),
+                            child: Column(
+                              children: <Widget>[
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 55.0,
+                                  child: Container(
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Text(
+                                              '2. Clearing Table',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14.0),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                            Text(
+                                              '2 of ${_listData.length.toString()}',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14.0),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      decoration: BoxDecoration(
+                                          color: Color(0xFF2F592F))),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Stack(
+                            children: <Widget>[
+                              Image.asset(
+                                'assets/images/slide 25.png',
+                                fit: BoxFit.cover,
+                                height: MediaQuery.of(context).size.height /
+                                    1.50777,
+                              ),
+                              Positioned(
+                                bottom: 20.0,
+                                left: 105.0,
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceAround,
+                                  children: <Widget>[
+                                    Container(
+                                      child: ButtonTheme(
+                                        minWidth: 50.0,
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          shape: new RoundedRectangleBorder(
+                                              borderRadius:
+                                              new BorderRadius.circular(
+                                                  5.0),
+                                              side: BorderSide(
+                                                  width: 1.5,
+                                                  color: Colors.white)),
+                                          child: Text(
+                                            '0',
+                                            style: TextStyle(
+                                                fontSize: 18.0,
+                                                color: Colors.white),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          color:
+                                          Color.fromARGB(170, 255, 40, 0),
+                                          onPressed: () {},
+                                        ),
+                                      ),
+                                      alignment: Alignment(0.0, 0.0),
+                                    ),
+                                    Container(
+                                      padding:
+                                      EdgeInsets.symmetric(horizontal: 5.0),
+                                      child: ButtonTheme(
+                                        minWidth: 50.0,
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          shape: new RoundedRectangleBorder(
+                                              borderRadius:
+                                              new BorderRadius.circular(
+                                                  5.0),
+                                              side: BorderSide(
+                                                  width: 1.5,
+                                                  color: Colors.white)),
+                                          child: Text(
+                                            '1',
+                                            style: TextStyle(
+                                                fontSize: 18.0,
+                                                color: Colors.white),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          color: Color.fromARGB(
+                                              170, 192, 192, 192),
+                                          onPressed: () {},
+                                        ),
+                                      ),
+                                      alignment: Alignment(0.0, 0.0),
+                                    ),
+                                    Container(
+                                      child: ButtonTheme(
+                                        minWidth: 50.0,
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          shape: new RoundedRectangleBorder(
+                                              borderRadius:
+                                              new BorderRadius.circular(
+                                                  5.0),
+                                              side: BorderSide(
+                                                  width: 1.5,
+                                                  color: Colors.white)),
+                                          child: Text(
+                                            '2',
+                                            style: TextStyle(
+                                                fontSize: 18.0,
+                                                color: Colors.white),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          color:
+                                          Color.fromARGB(170, 50, 205, 50),
+                                          onPressed: () {},
+                                        ),
+                                      ),
+                                      alignment: Alignment(0.0, 0.0),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          Container(
+                            color: AbubaPallate.yellow,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20.0, vertical: 10.0),
+                            child: Center(
+                              child: Text(
+                                  'Cleaning/clearing tables harus dilakukan maksimal 1 menit.'),
+                            ),
+                          )
+                        ],
+                      ),
+                      ListView(
+                        shrinkWrap: true,
+                        physics: ScrollPhysics(),
+                        children: <Widget>[
+                          PreferredSize(
+                            preferredSize: Size.fromHeight(55.0),
+                            child: Column(
+                              children: <Widget>[
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 55.0,
+                                  child: Container(
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Text(
+                                              '3. Taking Payment and Thanking',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14.0),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                            Text(
+                                              '3 of ${_listData.length.toString()}',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14.0),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      decoration: BoxDecoration(
+                                          color: Color(0xFF2F592F))),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Stack(
+                            children: <Widget>[
+                              Image.asset(
+                                'assets/images/slide 26.png',
+                                fit: BoxFit.fitHeight,
+                                height: MediaQuery.of(context).size.height /
+                                    1.45777,
+                              ),
+                              Positioned(
+                                bottom: 20.0,
+                                left: 105.0,
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceAround,
+                                  children: <Widget>[
+                                    Container(
+                                      child: ButtonTheme(
+                                        minWidth: 50.0,
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          shape: new RoundedRectangleBorder(
+                                              borderRadius:
+                                              new BorderRadius.circular(
+                                                  5.0),
+                                              side: BorderSide(
+                                                  width: 1.5,
+                                                  color: Colors.white)),
+                                          child: Text(
+                                            '0',
+                                            style: TextStyle(
+                                                fontSize: 18.0,
+                                                color: Colors.white),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          color:
+                                          Color.fromARGB(170, 255, 40, 0),
+                                          onPressed: () {},
+                                        ),
+                                      ),
+                                      alignment: Alignment(0.0, 0.0),
+                                    ),
+                                    Container(
+                                      padding:
+                                      EdgeInsets.symmetric(horizontal: 5.0),
+                                      child: ButtonTheme(
+                                        minWidth: 50.0,
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          shape: new RoundedRectangleBorder(
+                                              borderRadius:
+                                              new BorderRadius.circular(
+                                                  5.0),
+                                              side: BorderSide(
+                                                  width: 1.5,
+                                                  color: Colors.white)),
+                                          child: Text(
+                                            '1',
+                                            style: TextStyle(
+                                                fontSize: 18.0,
+                                                color: Colors.white),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          color: Color.fromARGB(
+                                              170, 192, 192, 192),
+                                          onPressed: () {},
+                                        ),
+                                      ),
+                                      alignment: Alignment(0.0, 0.0),
+                                    ),
+                                    Container(
+                                      child: ButtonTheme(
+                                        minWidth: 50.0,
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          shape: new RoundedRectangleBorder(
+                                              borderRadius:
+                                              new BorderRadius.circular(
+                                                  5.0),
+                                              side: BorderSide(
+                                                  width: 1.5,
+                                                  color: Colors.white)),
+                                          child: Text(
+                                            '2',
+                                            style: TextStyle(
+                                                fontSize: 18.0,
+                                                color: Colors.white),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          color:
+                                          Color.fromARGB(170, 50, 205, 50),
+                                          onPressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MyCustomRoute(
+                                                    builder: (context) => FormCheckOut()));
+                                          },
+                                        ),
+                                      ),
+                                      alignment: Alignment(0.0, 0.0),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          Container(
+                            color: AbubaPallate.yellow,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20.0, vertical: 10.0),
+                            child: Center(
+                              child: Text(
+                                  'Berikan ucapan undangan kepada customer .'),
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        bottomNavigationBar: _bottomBar(),
+      ),
+    );
+  }
+
+  Widget _bottomBar() {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      height: 55.0,
+      child: Container(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+                      onPressed: () {
+                        _cardController.animateTo(_cardController.index - 1);
+                      },
+                      tooltip: 'Previous',
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.arrow_forward_ios, color: Colors.white),
+                      onPressed: () {
+                        /*_cardController.index != 10
+                            ?*/
+                        _cardController.animateTo(_cardController.index + 1);
+                        /*: Navigator.push(
+                                context,
+                                MyCustomRoute(
+                                    builder: (context) => FormMockComplaint()));*/
+                      },
+                      tooltip: 'Next',
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+          decoration: BoxDecoration(color: Color(0xFF2F592F))),
+    );
+  }
+
+  Widget _appBar() {
+    return AppBar(
+      elevation: 0.25,
+      backgroundColor: Colors.white,
+      iconTheme: IconThemeData(color: Colors.black),
+      title: Image.asset(
+        'assets/images/logo.png',
+        height: 100.0,
+        width: 120.0,
+      ),
+    );
+  }
+}
+
+class FormCheckOut extends StatefulWidget {
+  @override
+  _FormCheckOutState createState() => _FormCheckOutState();
+}
+
+class _FormCheckOutState extends State<FormCheckOut> {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        appBar: AbubaAppBar(),
+        body: _buildMenu(),
+      ),
+    );
+  }
+
+  Widget _buildMenu() {
+    return Scrollbar(
+      child: ListView(
+        children: <Widget>[
+          Container(
+            height: 400.0,
+            width: MediaQuery.of(context).size.width,
+            color: Colors.white,
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        'Mystery Shopper',
+                        style: TextStyle(color: Colors.black12, fontSize: 12.0),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          '|',
+                          style: TextStyle(
+                              color: AbubaPallate.greenabuba, fontSize: 12.0),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          'Location',
+                          style: TextStyle(
+                              color: AbubaPallate.greenabuba, fontSize: 12.0),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(20.0, 100.0, 20.0, 20.0),
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Flexible(
+                            child: Text(
+                              'Terima Kasih',
+                              style: TextStyle(
+                                  color: AbubaPallate.greenabuba,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 20.0),
+                            ),
+                          )
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Flexible(
+                            child: Text(
+                              'Review Anda akan secara otomatis diolah oleh system kami untuk bahan masukan management Abuba. Hati Hati di jalan !',
+                              style: TextStyle(
+                                  fontSize: 14.0, color: Colors.black54), textAlign: TextAlign.center,
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 30.0,
+                      ),
+                      ButtonTheme(
+                        minWidth: 50.0,
+                        height: 40.0,
+                        child: RaisedButton(
+                          shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(5.0)),
+                          child: Text(
+                            'CHECK OUT',
+                            style:
+                            TextStyle(fontSize: 13.0, color: Colors.white),
+                          ),
+                          color: Colors.red,
+                          onPressed: () {
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+          Container(
+            child: Image.asset(
+              'assets/images/slide2.png',
+              fit: BoxFit.fitWidth,
             ),
           )
         ],
