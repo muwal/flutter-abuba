@@ -28,6 +28,7 @@ dependencies:
   badges: ^0.0.6
   image_picker: ^0.4.10
   flutter_swiper: ^1.1.4
+  url_launcher: ^4.1.0+1
 
 dev_dependencies:
   flutter_test:
@@ -51,7 +52,9 @@ flutter:
     - assets/images/logo_light.png
     - assets/images/map.png
     - assets/images/map_2.png
+    - assets/images/slide greet.jpg
     - assets/images/slide 4.png
+    - assets/images/slide 4copy.png
     - assets/images/slide 7.png
     - assets/images/slide 8.png
     - assets/images/slide 11.png

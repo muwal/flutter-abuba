@@ -152,6 +152,40 @@ class _FormEventState extends State<FormEvent> {
         ),
         Padding(
           padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+          child: TextFormField(
+            textCapitalization: TextCapitalization.words,
+            decoration: InputDecoration(
+              border: UnderlineInputBorder(),
+              labelText: 'Nama Customer',
+              labelStyle: TextStyle(fontSize: 14.0),
+            ),
+            style: TextStyle(
+              fontStyle: FontStyle.normal,
+              color: Colors.black87,
+              fontSize: 14.0
+            ),
+            onSaved: null,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+          child: TextFormField(
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+              border: UnderlineInputBorder(),
+              labelText: 'Nomor Telepon',
+              labelStyle: TextStyle(fontSize: 14.0),
+            ),
+            style: TextStyle(
+              fontStyle: FontStyle.normal,
+              color: Colors.black87,
+              fontSize: 14.0
+            ),
+            onSaved: null,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[

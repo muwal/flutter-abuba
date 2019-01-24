@@ -65,8 +65,7 @@ class _BerandaDocumentState extends State<BerandaDocument> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   GestureDetector(
-                    onTap: () => Navigator.push(
-                        context, MyCustomRoute(builder: (context) => null)),
+                    onTap: () {},
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[

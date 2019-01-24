@@ -242,6 +242,28 @@ class _DetailReportState extends State<DetailReport> {
               SizedBox(
                 height: 6.0,
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    width: 100.0,
+                    child: Row(
+                      children: <Widget>[
+                        Flexible(
+                          child: Text(
+                            'Detail',
+                            style: TextStyle(
+                                fontSize: 12.0, color: AbubaPallate.menuBluebird),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 12.0,
+              ),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -294,6 +316,28 @@ class _DetailReportState extends State<DetailReport> {
               ),
               SizedBox(
                 height: 6.0,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    width: 100.0,
+                    child: Row(
+                      children: <Widget>[
+                        Flexible(
+                          child: Text(
+                            'Detail',
+                            style: TextStyle(
+                                fontSize: 12.0, color: AbubaPallate.menuBluebird),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 12.0,
               ),
 
               Row(
@@ -348,6 +392,28 @@ class _DetailReportState extends State<DetailReport> {
               SizedBox(
                 height: 6.0,
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    width: 100.0,
+                    child: Row(
+                      children: <Widget>[
+                        Flexible(
+                          child: Text(
+                            'Detail',
+                            style: TextStyle(
+                                fontSize: 12.0, color: AbubaPallate.menuBluebird),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 12.0,
+              ),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -397,6 +463,31 @@ class _DetailReportState extends State<DetailReport> {
                     ),
                   )
                 ],
+              ),
+              SizedBox(
+                height: 6.0,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    width: 100.0,
+                    child: Row(
+                      children: <Widget>[
+                        Flexible(
+                          child: Text(
+                            'Detail',
+                            style: TextStyle(
+                                fontSize: 12.0, color: AbubaPallate.menuBluebird),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 12.0,
               ),
             ],
           ),

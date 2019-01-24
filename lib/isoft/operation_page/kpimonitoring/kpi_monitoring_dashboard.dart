@@ -16,6 +16,10 @@ class _DashboardKpiMonitoringState extends State<DashboardKpiMonitoring> {
   Color _progressColor = AbubaPallate.green;
   bool _badgetingShow = false;
   Color _badgetingColor = Colors.grey;
+  bool _badgetingShow2 = false;
+  Color _badgetingColor2 = Colors.grey;
+
+  String _name = 'Routine';
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +68,7 @@ class _DashboardKpiMonitoringState extends State<DashboardKpiMonitoring> {
                   padding:
                       const EdgeInsets.only(right: 20.0, left: 20.0, top: 15.0),
                   child: Text(
-                    'The Current Chart',
+                    'Total Performance',
                     style: TextStyle(color: Colors.black87, fontSize: 20.0),
                   ),
                 ),
@@ -93,7 +97,7 @@ class _DashboardKpiMonitoringState extends State<DashboardKpiMonitoring> {
                   alignment: Alignment.centerLeft,
                   padding: const EdgeInsets.only(right: 20.0, left: 20.0),
                   child: Text(
-                    '47%',
+                    '80%',
                     style: TextStyle(color: Colors.black54, fontSize: 26.0),
                   ),
                 ),
@@ -104,10 +108,10 @@ class _DashboardKpiMonitoringState extends State<DashboardKpiMonitoring> {
                       width: width,
                       animation: true,
                       lineHeight: 30.0,
-                      percent: 0.47,
+                      percent: 0.8,
                       animationDuration: 1000,
                       linearStrokeCap: LinearStrokeCap.butt,
-                      progressColor: Colors.orangeAccent[100],
+                      progressColor: Colors.green[300],
                     )),
                 Container(
                     alignment: Alignment.centerLeft,
@@ -147,9 +151,142 @@ class _DashboardKpiMonitoringState extends State<DashboardKpiMonitoring> {
                 Container(
                   alignment: Alignment.centerLeft,
                   padding: const EdgeInsets.only(
+                      right: 20.0, left: 20.0, bottom: 5.0, top: 15.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _progressColor = AbubaPallate.green;
+                            _badgetingColor = Colors.grey;
+                            _badgetingColor2 = Colors.grey;
+                            _progressShow = true;
+                            _badgetingShow = false;
+                            _badgetingShow2 = false;
+                            _name = 'Routine';
+                          });
+                        },
+                        child: Container(
+                          width: width / 4,
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                'Routine',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: _progressColor),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 5.0),
+                                child: Divider(
+                                  height: 10.0,
+                                  color: _progressColor,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _progressColor = Colors.grey;
+                            _badgetingColor = AbubaPallate.green;
+                            _badgetingColor2 = Colors.grey;
+                            _progressShow = false;
+                            _badgetingShow = true;
+                            _badgetingShow2 = false;
+                            _name = 'Non-routine';
+                          });
+                        },
+                        child: Container(
+                          width: width / 4,
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                'Non-routine',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: _badgetingColor),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 5.0),
+                                child: Divider(
+                                  height: 10.0,
+                                  color: _badgetingColor,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _progressColor = Colors.grey;
+                            _badgetingColor = Colors.grey;
+                            _badgetingColor2 = AbubaPallate.green;
+                            _progressShow = false;
+                            _badgetingShow = false;
+                            _badgetingShow2 = true;
+                            _name = 'Project';
+                          });
+                        },
+                        child: Container(
+                          width: width / 4,
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                'Project',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: _badgetingColor2),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 5.0),
+                                child: Divider(
+                                  height: 10.0,
+                                  color: _badgetingColor2,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  padding: const EdgeInsets.only(right: 20.0, left: 20.0),
+                  child: Text(
+                    _progressShow ? '50%' : _badgetingShow ? '70%' : '90%',
+                    style: TextStyle(color: Colors.black54, fontSize: 26.0),
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: LinearPercentIndicator(
+                    padding: EdgeInsets.only(right: 20.0, left: 20.0),
+                    width: width,
+                    animation: true,
+                    lineHeight: 30.0,
+                    percent: _progressShow ? 0.5 : _badgetingShow ? 0.7 : 0.9,
+                    animationDuration: 1000,
+                    linearStrokeCap: LinearStrokeCap.butt,
+                    progressColor: _progressShow ? Colors.orangeAccent[100] : _badgetingShow ? Colors.green[300] : Colors.green[300],
+                  )
+                ),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  padding: const EdgeInsets.only(
                       right: 15.0, left: 15.0, top: 20.0, bottom: 10.0),
                   child: Text(
-                    'Project Snapshot',
+                    '$_name Snapshot',
                     style: TextStyle(color: Colors.black87, fontSize: 20.0),
                   ),
                 ),
@@ -167,7 +304,7 @@ class _DashboardKpiMonitoringState extends State<DashboardKpiMonitoring> {
                               children: <Widget>[
                                 Flexible(
                                   child: Text(
-                                    'Outlet Senopati',
+                                    _progressShow ? 'Maintenance' : _badgetingShow ? 'Meeting Vendor' : 'Outlet Senopati',
                                     style: TextStyle(
                                         color: AbubaPallate.green,
                                         fontSize: 19.0),
@@ -210,12 +347,12 @@ class _DashboardKpiMonitoringState extends State<DashboardKpiMonitoring> {
                                   Text(
                                     'Created by',
                                     style: TextStyle(
-                                        color: Colors.black54, fontSize: 13.0),
+                                        color: Colors.black54, fontSize: 14.0, fontWeight: FontWeight.bold),
                                   ),
                                   Text(
                                     'Department',
                                     style: TextStyle(
-                                        color: Colors.black54, fontSize: 13.0),
+                                        color: Colors.black54, fontSize: 14.0, fontWeight: FontWeight.bold),
                                   )
                                 ],
                               )),
@@ -262,12 +399,12 @@ class _DashboardKpiMonitoringState extends State<DashboardKpiMonitoring> {
                                   Text(
                                     'Team',
                                     style: TextStyle(
-                                        color: Colors.black54, fontSize: 13.0),
+                                        color: Colors.black54, fontSize: 14.0, fontWeight: FontWeight.bold),
                                   ),
                                   Text(
                                     'Period',
                                     style: TextStyle(
-                                        color: Colors.black54, fontSize: 13.0),
+                                        color: Colors.black54, fontSize: 14.0, fontWeight: FontWeight.bold),
                                   )
                                 ],
                               )),
@@ -317,7 +454,7 @@ class _DashboardKpiMonitoringState extends State<DashboardKpiMonitoring> {
                                         context,
                                         MyCustomRoute(
                                             builder: (context) =>
-                                                new DashboardKpiMonitoringDetail()));
+                                                new DashboardKpiMonitoringDetail(name: _progressShow ? 'Maintenance' : _badgetingShow ? 'Meeting Vendor' : 'Outlet Senopati')));
                                   },
                                 ),
                               ),
@@ -342,7 +479,7 @@ class _DashboardKpiMonitoringState extends State<DashboardKpiMonitoring> {
                               children: <Widget>[
                                 Flexible(
                                   child: Text(
-                                    'Outlet Bogor',
+                                    _progressShow ? 'Perbaikan' : _badgetingShow ? 'Training' : 'Outlet Bogor',
                                     style: TextStyle(
                                         color: AbubaPallate.green,
                                         fontSize: 19.0),
@@ -385,12 +522,12 @@ class _DashboardKpiMonitoringState extends State<DashboardKpiMonitoring> {
                                   Text(
                                     'Created by',
                                     style: TextStyle(
-                                        color: Colors.black54, fontSize: 13.0),
+                                        color: Colors.black54, fontSize: 14.0, fontWeight: FontWeight.bold),
                                   ),
                                   Text(
                                     'Department',
                                     style: TextStyle(
-                                        color: Colors.black54, fontSize: 13.0),
+                                        color: Colors.black54, fontSize: 14.0, fontWeight: FontWeight.bold),
                                   )
                                 ],
                               )),
@@ -437,12 +574,12 @@ class _DashboardKpiMonitoringState extends State<DashboardKpiMonitoring> {
                                   Text(
                                     'Team',
                                     style: TextStyle(
-                                        color: Colors.black54, fontSize: 13.0),
+                                        color: Colors.black54, fontSize: 14.0, fontWeight: FontWeight.bold),
                                   ),
                                   Text(
                                     'Period',
                                     style: TextStyle(
-                                        color: Colors.black54, fontSize: 13.0),
+                                        color: Colors.black54, fontSize: 14.0, fontWeight: FontWeight.bold),
                                   )
                                 ],
                               )),
@@ -492,7 +629,7 @@ class _DashboardKpiMonitoringState extends State<DashboardKpiMonitoring> {
                                         context,
                                         MyCustomRoute(
                                             builder: (context) =>
-                                                new DashboardKpiMonitoringDetail()));
+                                                new DashboardKpiMonitoringDetail(name: _progressShow ? 'Perbaikan' : _badgetingShow ? 'Training' : 'Outlet Bogor')));
                                   },
                                 ),
                               ),
@@ -517,7 +654,7 @@ class _DashboardKpiMonitoringState extends State<DashboardKpiMonitoring> {
                               children: <Widget>[
                                 Flexible(
                                   child: Text(
-                                    'Outlet Bekasi',
+                                    _progressShow ? 'Instalasi Jaringan' : _badgetingShow ? 'Seminar' : 'Outlet Bekasi',
                                     style: TextStyle(
                                         color: AbubaPallate.green,
                                         fontSize: 19.0),
@@ -560,12 +697,12 @@ class _DashboardKpiMonitoringState extends State<DashboardKpiMonitoring> {
                                   Text(
                                     'Created by',
                                     style: TextStyle(
-                                        color: Colors.black54, fontSize: 13.0),
+                                        color: Colors.black54, fontSize: 14.0, fontWeight: FontWeight.bold),
                                   ),
                                   Text(
                                     'Department',
                                     style: TextStyle(
-                                        color: Colors.black54, fontSize: 13.0),
+                                        color: Colors.black54, fontSize: 14.0, fontWeight: FontWeight.bold),
                                   )
                                 ],
                               )),
@@ -612,12 +749,12 @@ class _DashboardKpiMonitoringState extends State<DashboardKpiMonitoring> {
                                   Text(
                                     'Team',
                                     style: TextStyle(
-                                        color: Colors.black54, fontSize: 13.0),
+                                        color: Colors.black54, fontSize: 14.0, fontWeight: FontWeight.bold),
                                   ),
                                   Text(
                                     'Period',
                                     style: TextStyle(
-                                        color: Colors.black54, fontSize: 13.0),
+                                        color: Colors.black54, fontSize: 14.0, fontWeight: FontWeight.bold),
                                   )
                                 ],
                               )),
@@ -667,7 +804,7 @@ class _DashboardKpiMonitoringState extends State<DashboardKpiMonitoring> {
                                         context,
                                         MyCustomRoute(
                                             builder: (context) =>
-                                                new DashboardKpiMonitoringDetail()));
+                                                new DashboardKpiMonitoringDetail(name: _progressShow ? 'Instalasi Jaringan' : _badgetingShow ? 'Seminar' : 'Outlet Bekasi')));
                                   },
                                 ),
                               ),

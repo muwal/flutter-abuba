@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/isoft/operation_page/documentcontrol/list/detail_list.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FormList extends StatefulWidget {
   @override
@@ -22,6 +23,15 @@ class _FormListState extends State<FormList> {
         ),
       ),
     );
+  }
+
+  _launchURL() async {
+    const url = 'https://www.youtube.com/watch?v=lqZC3TCRKDw';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   Widget _buildDetail() {
@@ -73,22 +83,13 @@ class _FormListState extends State<FormList> {
                           style: TextStyle(fontSize: 14.0),
                         ),
                       ),
-                      ButtonTheme(
-                        minWidth: 50.0,
-                        height: 20.0,
-                        child: OutlineButton(
-                          child: Text(
-                            'Detail',
-                            style: TextStyle(fontSize: 13.0, color: AbubaPallate.menuBluebird),
-                          ),
-                          borderSide: BorderSide(color: AbubaPallate.menuBluebird, width: 1.0),
-                          highlightedBorderColor: AbubaPallate.menuBluebird,
-                          onPressed: () => Navigator.push(context,
-                              MyCustomRoute(builder: (context) => FormDetail())),
-                        ),
+                      IconButton(
+                        icon: Icon(Icons.ondemand_video, color: AbubaPallate.menuBluebird),
+                        onPressed: _launchURL,
                       ),
                     ],
                   ),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
@@ -374,19 +375,9 @@ class _FormListState extends State<FormList> {
                           style: TextStyle(fontSize: 14.0),
                         ),
                       ),
-                      ButtonTheme(
-                        minWidth: 50.0,
-                        height: 20.0,
-                        child: OutlineButton(
-                          child: Text(
-                            'Detail',
-                            style: TextStyle(fontSize: 13.0, color: AbubaPallate.menuBluebird),
-                          ),
-                          borderSide: BorderSide(color: AbubaPallate.menuBluebird, width: 1.0),
-                          highlightedBorderColor: AbubaPallate.menuBluebird,
-                          onPressed: () => Navigator.push(context,
-                              MyCustomRoute(builder: (context) => FormDetail())),
-                        ),
+                      IconButton(
+                        icon: Icon(Icons.ondemand_video, color: AbubaPallate.menuBluebird),
+                        onPressed: _launchURL
                       ),
                     ],
                   ),

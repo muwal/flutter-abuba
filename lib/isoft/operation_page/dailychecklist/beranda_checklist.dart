@@ -60,62 +60,62 @@ class _MenuChecklistState extends State<MenuChecklist> {
             direction: Axis.horizontal,
             children: <Widget>[
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  GestureDetector(
-                    onTap: () {},
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Stack(
-                          overflow: Overflow.visible,
-                          children: <Widget>[
-                            Container(
-                              height: 70.0,
-                              width: 70.0,
-                              decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  border: Border.all(
-                                      color: Colors.grey, width: 1.0),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(18.0))),
-                            ),
-                            Positioned(
-                              bottom: 22.5,
-                              left: 25.0,
-                              child: Icon(MdiIcons.heart,
-                                  size: 25.0, color: Colors.grey),
-                            ),
-                            Positioned(
-                              top: -5.0,
-                              right: -5.0,
-                              child: Icon(
-                                Icons.brightness_1,
-                                size: 25.0,
-                                color: Colors.redAccent,
-                              ),
-                            ),
-                            Positioned(
-                              top: -1.0,
-                              right: 3.0,
-                              child: Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
-                          ],
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10.0),
-                          child: Text(
-                            'Production',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12.0),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  // GestureDetector(
+                  //   onTap: () {},
+                  //   child: Column(
+                  //     mainAxisSize: MainAxisSize.min,
+                  //     children: <Widget>[
+                  //       Stack(
+                  //         overflow: Overflow.visible,
+                  //         children: <Widget>[
+                  //           Container(
+                  //             height: 70.0,
+                  //             width: 70.0,
+                  //             decoration: BoxDecoration(
+                  //                 color: Colors.transparent,
+                  //                 border: Border.all(
+                  //                     color: Colors.grey, width: 1.0),
+                  //                 borderRadius:
+                  //                     BorderRadius.all(Radius.circular(18.0))),
+                  //           ),
+                  //           Positioned(
+                  //             bottom: 22.5,
+                  //             left: 25.0,
+                  //             child: Icon(MdiIcons.heart,
+                  //                 size: 25.0, color: Colors.grey),
+                  //           ),
+                  //           Positioned(
+                  //             top: -5.0,
+                  //             right: -5.0,
+                  //             child: Icon(
+                  //               Icons.brightness_1,
+                  //               size: 25.0,
+                  //               color: Colors.redAccent,
+                  //             ),
+                  //           ),
+                  //           Positioned(
+                  //             top: -1.0,
+                  //             right: 3.0,
+                  //             child: Text(
+                  //               '2',
+                  //               style: TextStyle(color: Colors.white),
+                  //             ),
+                  //           )
+                  //         ],
+                  //       ),
+                  //       Padding(
+                  //         padding: EdgeInsets.only(top: 10.0),
+                  //         child: Text(
+                  //           'Production',
+                  //           style: TextStyle(
+                  //               fontWeight: FontWeight.w500, fontSize: 12.0),
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                   Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
@@ -173,337 +173,337 @@ class _MenuChecklistState extends State<MenuChecklist> {
                       ),
                     ],
                   ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Stack(
-                          overflow: Overflow.visible,
-                          children: <Widget>[
-                            Container(
-                              height: 70.0,
-                              width: 70.0,
-                              decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  border: Border.all(
-                                      color: Colors.grey, width: 1.0),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(18.0))),
-                            ),
-                            Positioned(
-                              bottom: 22.5,
-                              left: 25.0,
-                              child: Icon(MdiIcons.heart,
-                                  size: 25.0, color: Colors.grey),
-                            ),
-                            Positioned(
-                              top: -5.0,
-                              right: -5.0,
-                              child: Icon(
-                                Icons.brightness_1,
-                                size: 25.0,
-                                color: Colors.redAccent,
-                              ),
-                            ),
-                            Positioned(
-                              top: -1.0,
-                              right: 3.0,
-                              child: Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
-                          ],
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10.0),
-                          child: Text(
-                            'Bar',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12.0),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Stack(
-                          overflow: Overflow.visible,
-                          children: <Widget>[
-                            Container(
-                              height: 70.0,
-                              width: 70.0,
-                              decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  border: Border.all(
-                                      color: Colors.grey, width: 1.0),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(18.0))),
-                            ),
-                            Positioned(
-                              bottom: 22.5,
-                              left: 25.0,
-                              child: Icon(MdiIcons.heart,
-                                  size: 25.0, color: Colors.grey),
-                            ),
-                            Positioned(
-                              top: -5.0,
-                              right: -5.0,
-                              child: Icon(
-                                Icons.brightness_1,
-                                size: 25.0,
-                                color: Colors.redAccent,
-                              ),
-                            ),
-                            Positioned(
-                              top: -1.0,
-                              right: 3.0,
-                              child: Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
-                          ],
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10.0),
-                          child: Text(
-                            'Warehouse',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12.0),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  // GestureDetector(
+                  //   onTap: () {},
+                  //   child: Column(
+                  //     mainAxisSize: MainAxisSize.min,
+                  //     children: <Widget>[
+                  //       Stack(
+                  //         overflow: Overflow.visible,
+                  //         children: <Widget>[
+                  //           Container(
+                  //             height: 70.0,
+                  //             width: 70.0,
+                  //             decoration: BoxDecoration(
+                  //                 color: Colors.transparent,
+                  //                 border: Border.all(
+                  //                     color: Colors.grey, width: 1.0),
+                  //                 borderRadius:
+                  //                     BorderRadius.all(Radius.circular(18.0))),
+                  //           ),
+                  //           Positioned(
+                  //             bottom: 22.5,
+                  //             left: 25.0,
+                  //             child: Icon(MdiIcons.heart,
+                  //                 size: 25.0, color: Colors.grey),
+                  //           ),
+                  //           Positioned(
+                  //             top: -5.0,
+                  //             right: -5.0,
+                  //             child: Icon(
+                  //               Icons.brightness_1,
+                  //               size: 25.0,
+                  //               color: Colors.redAccent,
+                  //             ),
+                  //           ),
+                  //           Positioned(
+                  //             top: -1.0,
+                  //             right: 3.0,
+                  //             child: Text(
+                  //               '2',
+                  //               style: TextStyle(color: Colors.white),
+                  //             ),
+                  //           )
+                  //         ],
+                  //       ),
+                  //       Padding(
+                  //         padding: EdgeInsets.only(top: 10.0),
+                  //         child: Text(
+                  //           'Bar',
+                  //           style: TextStyle(
+                  //               fontWeight: FontWeight.w500, fontSize: 12.0),
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  // GestureDetector(
+                  //   onTap: () {},
+                  //   child: Column(
+                  //     mainAxisSize: MainAxisSize.min,
+                  //     children: <Widget>[
+                  //       Stack(
+                  //         overflow: Overflow.visible,
+                  //         children: <Widget>[
+                  //           Container(
+                  //             height: 70.0,
+                  //             width: 70.0,
+                  //             decoration: BoxDecoration(
+                  //                 color: Colors.transparent,
+                  //                 border: Border.all(
+                  //                     color: Colors.grey, width: 1.0),
+                  //                 borderRadius:
+                  //                     BorderRadius.all(Radius.circular(18.0))),
+                  //           ),
+                  //           Positioned(
+                  //             bottom: 22.5,
+                  //             left: 25.0,
+                  //             child: Icon(MdiIcons.heart,
+                  //                 size: 25.0, color: Colors.grey),
+                  //           ),
+                  //           Positioned(
+                  //             top: -5.0,
+                  //             right: -5.0,
+                  //             child: Icon(
+                  //               Icons.brightness_1,
+                  //               size: 25.0,
+                  //               color: Colors.redAccent,
+                  //             ),
+                  //           ),
+                  //           Positioned(
+                  //             top: -1.0,
+                  //             right: 3.0,
+                  //             child: Text(
+                  //               '2',
+                  //               style: TextStyle(color: Colors.white),
+                  //             ),
+                  //           )
+                  //         ],
+                  //       ),
+                  //       Padding(
+                  //         padding: EdgeInsets.only(top: 10.0),
+                  //         child: Text(
+                  //           'Warehouse',
+                  //           style: TextStyle(
+                  //               fontWeight: FontWeight.w500, fontSize: 12.0),
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  GestureDetector(
-                    onTap: () {},
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Stack(
-                          overflow: Overflow.visible,
-                          children: <Widget>[
-                            Container(
-                              height: 70.0,
-                              width: 70.0,
-                              decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  border:
-                                      Border.all(color: Colors.grey, width: 1.0),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(18.0))),
-                            ),
-                            Positioned(
-                              bottom: 22.5,
-                              left: 25.0,
-                              child: Icon(MdiIcons.heart,
-                                  size: 25.0, color: Colors.grey),
-                            ),
-                            Positioned(
-                              top: -5.0,
-                              right: -5.0,
-                              child: Icon(
-                                Icons.brightness_1,
-                                size: 25.0,
-                                color: Colors.redAccent,
-                              ),
-                            ),
-                            Positioned(
-                              top: -1.0,
-                              right: 3.0,
-                              child: Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
-                          ],
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10.0),
-                          child: Text(
-                            'Administrasi',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12.0),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Stack(
-                          overflow: Overflow.visible,
-                          children: <Widget>[
-                            Container(
-                              height: 70.0,
-                              width: 70.0,
-                              decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  border:
-                                      Border.all(color: Colors.grey, width: 1.0),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(18.0))),
-                            ),
-                            Positioned(
-                              bottom: 22.5,
-                              left: 25.0,
-                              child: Icon(MdiIcons.heart,
-                                  size: 25.0, color: Colors.grey),
-                            ),
-                            Positioned(
-                              top: -5.0,
-                              right: -5.0,
-                              child: Icon(
-                                Icons.brightness_1,
-                                size: 25.0,
-                                color: Colors.redAccent,
-                              ),
-                            ),
-                            Positioned(
-                              top: -1.0,
-                              right: 3.0,
-                              child: Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
-                          ],
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10.0),
-                          child: Text(
-                            'Food Safety',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12.0),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Stack(
-                          overflow: Overflow.visible,
-                          children: <Widget>[
-                            Container(
-                              height: 70.0,
-                              width: 70.0,
-                              decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  border:
-                                      Border.all(color: Colors.grey, width: 1.0),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(18.0))),
-                            ),
-                            Positioned(
-                              bottom: 22.5,
-                              left: 25.0,
-                              child: Icon(MdiIcons.heart,
-                                  size: 25.0, color: Colors.grey),
-                            ),
-                            Positioned(
-                              top: -5.0,
-                              right: -5.0,
-                              child: Icon(
-                                Icons.brightness_1,
-                                size: 25.0,
-                                color: Colors.redAccent,
-                              ),
-                            ),
-                            Positioned(
-                              top: -1.0,
-                              right: 3.0,
-                              child: Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
-                          ],
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10.0),
-                          child: Text(
-                            'Open Close',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12.0),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Stack(
-                          overflow: Overflow.visible,
-                          children: <Widget>[
-                            Container(
-                              height: 70.0,
-                              width: 70.0,
-                              decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  border:
-                                      Border.all(color: Colors.grey, width: 1.0),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(18.0))),
-                            ),
-                            Positioned(
-                              bottom: 22.5,
-                              left: 25.0,
-                              child: Icon(MdiIcons.heart,
-                                  size: 25.0, color: Colors.grey),
-                            ),
-                            Positioned(
-                              top: -5.0,
-                              right: -5.0,
-                              child: Icon(
-                                Icons.brightness_1,
-                                size: 25.0,
-                                color: Colors.redAccent,
-                              ),
-                            ),
-                            Positioned(
-                              top: -1.0,
-                              right: 3.0,
-                              child: Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
-                          ],
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10.0),
-                          child: Text(
-                            'More',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12.0),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+              //   children: <Widget>[
+              //     GestureDetector(
+              //       onTap: () {},
+              //       child: Column(
+              //         mainAxisSize: MainAxisSize.min,
+              //         children: <Widget>[
+              //           Stack(
+              //             overflow: Overflow.visible,
+              //             children: <Widget>[
+              //               Container(
+              //                 height: 70.0,
+              //                 width: 70.0,
+              //                 decoration: BoxDecoration(
+              //                     color: Colors.transparent,
+              //                     border:
+              //                         Border.all(color: Colors.grey, width: 1.0),
+              //                     borderRadius:
+              //                         BorderRadius.all(Radius.circular(18.0))),
+              //               ),
+              //               Positioned(
+              //                 bottom: 22.5,
+              //                 left: 25.0,
+              //                 child: Icon(MdiIcons.heart,
+              //                     size: 25.0, color: Colors.grey),
+              //               ),
+              //               Positioned(
+              //                 top: -5.0,
+              //                 right: -5.0,
+              //                 child: Icon(
+              //                   Icons.brightness_1,
+              //                   size: 25.0,
+              //                   color: Colors.redAccent,
+              //                 ),
+              //               ),
+              //               Positioned(
+              //                 top: -1.0,
+              //                 right: 3.0,
+              //                 child: Text(
+              //                   '2',
+              //                   style: TextStyle(color: Colors.white),
+              //                 ),
+              //               )
+              //             ],
+              //           ),
+              //           Padding(
+              //             padding: EdgeInsets.only(top: 10.0),
+              //             child: Text(
+              //               'Administrasi',
+              //               style: TextStyle(
+              //                   fontWeight: FontWeight.w500, fontSize: 12.0),
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //     GestureDetector(
+              //       onTap: () {},
+              //       child: Column(
+              //         mainAxisSize: MainAxisSize.min,
+              //         children: <Widget>[
+              //           Stack(
+              //             overflow: Overflow.visible,
+              //             children: <Widget>[
+              //               Container(
+              //                 height: 70.0,
+              //                 width: 70.0,
+              //                 decoration: BoxDecoration(
+              //                     color: Colors.transparent,
+              //                     border:
+              //                         Border.all(color: Colors.grey, width: 1.0),
+              //                     borderRadius:
+              //                         BorderRadius.all(Radius.circular(18.0))),
+              //               ),
+              //               Positioned(
+              //                 bottom: 22.5,
+              //                 left: 25.0,
+              //                 child: Icon(MdiIcons.heart,
+              //                     size: 25.0, color: Colors.grey),
+              //               ),
+              //               Positioned(
+              //                 top: -5.0,
+              //                 right: -5.0,
+              //                 child: Icon(
+              //                   Icons.brightness_1,
+              //                   size: 25.0,
+              //                   color: Colors.redAccent,
+              //                 ),
+              //               ),
+              //               Positioned(
+              //                 top: -1.0,
+              //                 right: 3.0,
+              //                 child: Text(
+              //                   '2',
+              //                   style: TextStyle(color: Colors.white),
+              //                 ),
+              //               )
+              //             ],
+              //           ),
+              //           Padding(
+              //             padding: EdgeInsets.only(top: 10.0),
+              //             child: Text(
+              //               'Food Safety',
+              //               style: TextStyle(
+              //                   fontWeight: FontWeight.w500, fontSize: 12.0),
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //     GestureDetector(
+              //       onTap: () {},
+              //       child: Column(
+              //         mainAxisSize: MainAxisSize.min,
+              //         children: <Widget>[
+              //           Stack(
+              //             overflow: Overflow.visible,
+              //             children: <Widget>[
+              //               Container(
+              //                 height: 70.0,
+              //                 width: 70.0,
+              //                 decoration: BoxDecoration(
+              //                     color: Colors.transparent,
+              //                     border:
+              //                         Border.all(color: Colors.grey, width: 1.0),
+              //                     borderRadius:
+              //                         BorderRadius.all(Radius.circular(18.0))),
+              //               ),
+              //               Positioned(
+              //                 bottom: 22.5,
+              //                 left: 25.0,
+              //                 child: Icon(MdiIcons.heart,
+              //                     size: 25.0, color: Colors.grey),
+              //               ),
+              //               Positioned(
+              //                 top: -5.0,
+              //                 right: -5.0,
+              //                 child: Icon(
+              //                   Icons.brightness_1,
+              //                   size: 25.0,
+              //                   color: Colors.redAccent,
+              //                 ),
+              //               ),
+              //               Positioned(
+              //                 top: -1.0,
+              //                 right: 3.0,
+              //                 child: Text(
+              //                   '2',
+              //                   style: TextStyle(color: Colors.white),
+              //                 ),
+              //               )
+              //             ],
+              //           ),
+              //           Padding(
+              //             padding: EdgeInsets.only(top: 10.0),
+              //             child: Text(
+              //               'Open Close',
+              //               style: TextStyle(
+              //                   fontWeight: FontWeight.w500, fontSize: 12.0),
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //     GestureDetector(
+              //       onTap: () {},
+              //       child: Column(
+              //         mainAxisSize: MainAxisSize.min,
+              //         children: <Widget>[
+              //           Stack(
+              //             overflow: Overflow.visible,
+              //             children: <Widget>[
+              //               Container(
+              //                 height: 70.0,
+              //                 width: 70.0,
+              //                 decoration: BoxDecoration(
+              //                     color: Colors.transparent,
+              //                     border:
+              //                         Border.all(color: Colors.grey, width: 1.0),
+              //                     borderRadius:
+              //                         BorderRadius.all(Radius.circular(18.0))),
+              //               ),
+              //               Positioned(
+              //                 bottom: 22.5,
+              //                 left: 25.0,
+              //                 child: Icon(MdiIcons.heart,
+              //                     size: 25.0, color: Colors.grey),
+              //               ),
+              //               Positioned(
+              //                 top: -5.0,
+              //                 right: -5.0,
+              //                 child: Icon(
+              //                   Icons.brightness_1,
+              //                   size: 25.0,
+              //                   color: Colors.redAccent,
+              //                 ),
+              //               ),
+              //               Positioned(
+              //                 top: -1.0,
+              //                 right: 3.0,
+              //                 child: Text(
+              //                   '2',
+              //                   style: TextStyle(color: Colors.white),
+              //                 ),
+              //               )
+              //             ],
+              //           ),
+              //           Padding(
+              //             padding: EdgeInsets.only(top: 10.0),
+              //             child: Text(
+              //               'More',
+              //               style: TextStyle(
+              //                   fontWeight: FontWeight.w500, fontSize: 12.0),
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //   ],
+              // ),
             ],
           ),
         ),
