@@ -1391,10 +1391,10 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                               ),
                               Positioned(
                                 bottom: 20.0,
-                                left: 105.0,
+                                width: MediaQuery.of(context).size.width,
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                      MainAxisAlignment.spaceEvenly,
                                   children: <Widget>[
                                     Container(
                                       child: ButtonTheme(
@@ -1417,7 +1417,9 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           ),
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(_cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -1445,7 +1447,9 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           ),
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(_cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -1471,7 +1475,9 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           ),
                                           color:
                                               Color.fromARGB(170, 50, 205, 50),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(_cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -1544,10 +1550,10 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                               ),
                               Positioned(
                                 bottom: 20.0,
-                                left: 105.0,
+                                width: MediaQuery.of(context).size.width,
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                      MainAxisAlignment.spaceEvenly,
                                   children: <Widget>[
                                     Container(
                                       child: ButtonTheme(
@@ -1570,7 +1576,9 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           ),
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(_cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -1598,7 +1606,9 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           ),
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(_cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -1624,7 +1634,9 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           ),
                                           color:
                                               Color.fromARGB(170, 50, 205, 50),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(_cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -1697,7 +1709,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                               ),
                               Positioned(
                                 bottom: 20.0,
-                                left: 105.0,
+                                width: MediaQuery.of(context).size.width,
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
@@ -1723,7 +1735,9 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           ),
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(_cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -1751,7 +1765,9 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           ),
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(_cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -1777,7 +1793,9 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           ),
                                           color:
                                               Color.fromARGB(170, 50, 205, 50),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(_cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -1850,7 +1868,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                               ),
                               Positioned(
                                 bottom: 20.0,
-                                left: 105.0,
+                                width: MediaQuery.of(context).size.width,
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
@@ -1876,7 +1894,9 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           ),
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(_cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -1904,7 +1924,9 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           ),
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(_cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -1930,7 +1952,9 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           ),
                                           color:
                                               Color.fromARGB(170, 50, 205, 50),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(_cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -2003,7 +2027,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                               ),
                               Positioned(
                                 bottom: 20.0,
-                                left: 105.0,
+                                width: MediaQuery.of(context).size.width,
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
@@ -2029,7 +2053,9 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           ),
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(_cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -2057,7 +2083,9 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           ),
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(_cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -2083,7 +2111,9 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           ),
                                           color:
                                               Color.fromARGB(170, 50, 205, 50),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(_cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -2156,7 +2186,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                               ),
                               Positioned(
                                 bottom: 20.0,
-                                left: 105.0,
+                                width: MediaQuery.of(context).size.width,
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
@@ -2182,7 +2212,9 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           ),
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(_cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -2210,7 +2242,9 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           ),
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(_cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -2236,7 +2270,9 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           ),
                                           color:
                                               Color.fromARGB(170, 50, 205, 50),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(_cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -2309,7 +2345,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                               ),
                               Positioned(
                                 bottom: 20.0,
-                                left: 105.0,
+                                width: MediaQuery.of(context).size.width,
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
@@ -2335,7 +2371,9 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           ),
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(_cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -2363,7 +2401,9 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           ),
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(_cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -2389,7 +2429,9 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           ),
                                           color:
                                               Color.fromARGB(170, 50, 205, 50),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(_cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -2462,7 +2504,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                               ),
                               Positioned(
                                 bottom: 20.0,
-                                left: 105.0,
+                                width: MediaQuery.of(context).size.width,
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
@@ -2488,7 +2530,9 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           ),
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(_cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -2516,7 +2560,9 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           ),
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(_cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -2542,7 +2588,9 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           ),
                                           color:
                                               Color.fromARGB(170, 50, 205, 50),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(_cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -2615,7 +2663,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                               ),
                               Positioned(
                                 bottom: 20.0,
-                                left: 105.0,
+                                width: MediaQuery.of(context).size.width,
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
@@ -2641,7 +2689,9 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           ),
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(_cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -2669,7 +2719,9 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           ),
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(_cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -2695,7 +2747,9 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           ),
                                           color:
                                               Color.fromARGB(170, 50, 205, 50),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(_cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -2768,7 +2822,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                               ),
                               Positioned(
                                 bottom: 20.0,
-                                left: 105.0,
+                                width: MediaQuery.of(context).size.width,
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
@@ -2794,7 +2848,13 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           ),
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MyCustomRoute(
+                                                    builder: (context) =>
+                                                        FormMockComplaint()));
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -2822,7 +2882,13 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           ),
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MyCustomRoute(
+                                                    builder: (context) =>
+                                                        FormMockComplaint()));
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -3501,7 +3567,12 @@ class _FormHandlingState extends State<FormHandling> {
                             ),
                             color:
                             Color.fromARGB(170, 255, 40, 0),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MyCustomRoute(
+                                      builder: (context) => FormLanjutReview()));
+                            },
                           ),
                         ),
                         alignment: Alignment(0.0, 0.0),
@@ -3529,7 +3600,12 @@ class _FormHandlingState extends State<FormHandling> {
                             ),
                             color: Color.fromARGB(
                                 170, 192, 192, 192),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MyCustomRoute(
+                                      builder: (context) => FormLanjutReview()));
+                            },
                           ),
                         ),
                         alignment: Alignment(0.0, 0.0),
@@ -3837,7 +3913,7 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                               ),
                               Positioned(
                                 bottom: 20.0,
-                                left: 105.0,
+                                width: MediaQuery.of(context).size.width,
                                 child: Row(
                                   mainAxisAlignment:
                                   MainAxisAlignment.spaceAround,
@@ -3863,7 +3939,9 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                           ),
                                           color:
                                           Color.fromARGB(170, 255, 40, 0),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(_cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -3990,7 +4068,7 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                               ),
                               Positioned(
                                 bottom: 20.0,
-                                left: 105.0,
+                                width: MediaQuery.of(context).size.width,
                                 child: Row(
                                   mainAxisAlignment:
                                   MainAxisAlignment.spaceAround,
@@ -4016,7 +4094,9 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                           ),
                                           color:
                                           Color.fromARGB(170, 255, 40, 0),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(_cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -4044,7 +4124,9 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                           ),
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(_cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -4070,7 +4152,9 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                           ),
                                           color:
                                           Color.fromARGB(170, 50, 205, 50),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(_cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -4143,7 +4227,7 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                               ),
                               Positioned(
                                 bottom: 20.0,
-                                left: 105.0,
+                                width: MediaQuery.of(context).size.width,
                                 child: Row(
                                   mainAxisAlignment:
                                   MainAxisAlignment.spaceAround,
@@ -4169,7 +4253,12 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                           ),
                                           color:
                                           Color.fromARGB(170, 255, 40, 0),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MyCustomRoute(
+                                                    builder: (context) => FormCheckOut()));
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -4197,7 +4286,12 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                           ),
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MyCustomRoute(
+                                                    builder: (context) => FormCheckOut()));
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
