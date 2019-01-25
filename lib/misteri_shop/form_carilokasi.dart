@@ -3,12 +3,314 @@ import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 import 'package:flutter_abuba/landing/landingpage_view.dart';
 
+class Checkbox extends StatefulWidget {
+  Checkbox({
+    this.alasan,
+    this.selectedAlasan,
+    this.selectedValue,
+    this.onSelectedAlasanListChanged,
+    this.valueCheck,
+    this.onResult,
+  });
+
+  final List<String> alasan;
+  final List<String> valueCheck;
+  final List<String> selectedAlasan;
+  final List<String> selectedValue;
+  final ValueChanged<List<String>> onSelectedAlasanListChanged;
+  final ValueChanged<List<String>> onResult;
+
+  @override
+  _CheckboxState createState() => new _CheckboxState();
+}
+
+class _CheckboxState extends State<Checkbox> {
+  List<String> _tempSelectedAlasan = [];
+  List<String> _tempSelectedValueAlasan = [];
+
+  bool _note = false;
+  bool _check = false;
+  double height = 300.0;
+  TextEditingController _noteController = new TextEditingController();
+
+  @override
+  void initState() {
+    _tempSelectedAlasan = widget.selectedAlasan;
+    _tempSelectedValueAlasan = widget.selectedValue;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      child: Container(
+        height: height,
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(15.0),
+              child: Center(
+                  child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Flexible(
+                    child: Text(
+                      'Alasan',
+                      style: TextStyle(
+                          fontSize: 16.0,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                  FlatButton(
+                    child: Text(
+                      'Add Note',
+                      style: TextStyle(color: Colors.green, fontSize: 12.0),
+                    ),
+                    onPressed: () {
+                      setState(
+                        () {
+                          if (_note == true) {
+                            height = 300.0;
+                          } else {
+                            height = height + 100.0;
+                          }
+
+                          _note = !_note;
+                        },
+                      );
+                    },
+                  ),
+                ],
+              )),
+            ),
+            Expanded(
+              child: Scrollbar(
+                child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    physics: ScrollPhysics(),
+                    itemCount: widget.alasan.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final AlasanValue = widget.alasan[index];
+                      final ValueFinal = widget.valueCheck[index];
+
+                      return Container(
+                        child: CheckboxListTile(
+                            title: Text(AlasanValue),
+                            controlAffinity: ListTileControlAffinity.leading,
+                            activeColor: Colors.green,
+                            value: _tempSelectedAlasan.contains(AlasanValue),
+                            onChanged: (bool value) {
+                              if (value) {
+                                if (!_tempSelectedAlasan
+                                    .contains(AlasanValue)) {
+                                  setState(
+                                    () {
+                                      _tempSelectedValueAlasan.add(ValueFinal);
+                                      _tempSelectedAlasan.add(AlasanValue);
+                                    },
+                                  );
+                                }
+                              } else {
+                                if (_tempSelectedAlasan.contains(AlasanValue)) {
+                                  setState(
+                                    () {
+                                      _tempSelectedAlasan.removeWhere(
+                                          (String city) => city == AlasanValue);
+                                      _tempSelectedValueAlasan.removeWhere(
+                                          (String city) => city == ValueFinal);
+                                    },
+                                  );
+                                }
+                              }
+                              widget.onSelectedAlasanListChanged(
+                                  _tempSelectedValueAlasan);
+                            }),
+                      );
+                    }),
+              ),
+            ),
+            _note
+                ? Padding(
+                    padding:
+                        EdgeInsets.only(top: 20.0, right: 10.0, left: 10.0),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width / 1.1,
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Note',
+                        ),
+                        maxLines: 3,
+                        controller: _noteController,
+                        style: TextStyle(
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  )
+                : Container(),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(right: 10.0),
+                    child: RaisedButton(
+                      color: Colors.red[300],
+                      child: Text(
+                        'CANCEL',
+                        style: TextStyle(color: Colors.white, fontSize: 12.0),
+                      ),
+                      onPressed: () {
+                        widget.onResult(['no']);
+                        Navigator.of(context).pop();
+                      },
+                      splashColor: Colors.red[300],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(right: 10.0),
+                    child: RaisedButton(
+                      color: Colors.green[300],
+                      child: Text(
+                        'OK',
+                        style: TextStyle(color: Colors.white, fontSize: 12.0),
+                      ),
+                      onPressed: () {
+                        widget.onResult(['yes']);
+                        Navigator.of(context).pop();
+                      },
+                      splashColor: Colors.green[300],
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class FormCariLokasi extends StatefulWidget {
   @override
   _FormCariLokasiState createState() => _FormCariLokasiState();
 }
 
 class _FormCariLokasiState extends State<FormCariLokasi> {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        appBar: _appBar(),
+        body: _buildMenu(),
+      ),
+    );
+  }
+
+  Widget _appBar() {
+    return AppBar(
+      elevation: 0.25,
+      backgroundColor: Colors.white,
+      iconTheme: IconThemeData(color: Colors.black),
+      actions: <Widget>[
+        IconButton(
+            tooltip: 'Search',
+            icon: Icon(Icons.search),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MyCustomRoute(
+                      builder: (context) => FormCheckIn()));
+            })
+      ],
+      title: Image.asset(
+        'assets/images/logo.png',
+        height: 100.0,
+        width: 120.0,
+      ),
+    );
+  }
+
+  Widget _buildMenu() {
+    return ListView(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                'Mystery Shopper',
+                style: TextStyle(color: Colors.black12, fontSize: 12.0),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 15.0),
+                child: Text(
+                  '|',
+                  style: TextStyle(
+                      color: AbubaPallate.greenabuba, fontSize: 12.0),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 15.0),
+                child: Text(
+                  'Location',
+                  style: TextStyle(
+                      color: AbubaPallate.greenabuba, fontSize: 12.0),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.only(top: 15.0),
+          child: _gridImage(),
+        ),
+      ],
+    );
+  }
+
+  Widget _gridImage() {
+    return GridView.count(
+      shrinkWrap: true,
+      crossAxisCount: 2,
+      childAspectRatio: 2.0,
+      padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8.0),
+      mainAxisSpacing: 4.0,
+      crossAxisSpacing: 2.0,
+      children: <String>[
+        'assets/images/slide2.png',
+        'assets/images/slide2.png',
+        'assets/images/slide2.png',
+        'assets/images/slide2.png',
+        'assets/images/slide2.png',
+        'assets/images/slide2.png',
+      ].map(
+        (String url) {
+          return new GridTile(
+            child: new Image.asset(
+              url,
+              fit: BoxFit.scaleDown,
+            ),
+          );
+        },
+      ).toList(),
+    );
+  }
+}
+
+class FormCheckIn extends StatefulWidget {
+  @override
+  _FormCheckInState createState() => _FormCheckInState();
+}
+
+class _FormCheckInState extends State<FormCheckIn> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -289,7 +591,6 @@ class _FormTakingOrderState extends State<FormTakingOrder>
   void _value5Changed(bool value) => setState(() => _value5 = value);
 
   TabController _cardController;
-
 
   @override
   void initState() {
@@ -1149,7 +1450,6 @@ class _FormTakingOrderState extends State<FormTakingOrder>
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -1489,6 +1789,15 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
     'Pengumuman',
   ];
 
+  List<String> isiCheckbox = [
+    'Apakah organisasi sudah menetapkan internal dan eksternal isu yang berpengaruh terhadap kelangsungan organisasi?',
+    '',
+    '',
+  ];
+  List<String> valueCheckbox = ['1', '2', '3'];
+  List<String> selectedValue = [];
+  List<String> selectedAlasan = [];
+
   bool _value1 = false;
   bool _value2 = false;
   bool _value3 = false;
@@ -1584,7 +1893,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                 'assets/images/slide greet.jpg',
                                 fit: BoxFit.cover,
                                 height: MediaQuery.of(context).size.height /
-                                    1.50777,
+                                    1.55777,
                               ),
                               Positioned(
                                 bottom: 20.0,
@@ -1615,17 +1924,40 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
-                                            setState(() {
-                                              if (_currentIndex + 1 <
-                                                  _pertanyaan.length) {
-                                                _pertanyaan[_currentIndex]
-                                                    ['score'] = '0';
-                                                _currentIndex++;
-                                              } else {
-                                                _cardController.animateTo(
-                                                    _cardController.index + 1);
-                                              }
-                                            });
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                      selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    setState(() {
+                                                      if (_currentIndex + 1 <
+                                                          _pertanyaan.length) {
+                                                        _pertanyaan[
+                                                                _currentIndex]
+                                                            ['score'] = '0';
+                                                        _currentIndex++;
+                                                      } else {
+                                                        _cardController
+                                                            .animateTo(
+                                                                _cardController
+                                                                        .index +
+                                                                    1);
+                                                      }
+                                                    });
+                                                  },
+                                                );
+                                              },
+                                            );
                                           },
                                         ),
                                       ),
@@ -1655,17 +1987,43 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
                                           onPressed: () {
-                                            setState(() {
-                                              if (_currentIndex + 1 <
-                                                  _pertanyaan.length) {
-                                                _pertanyaan[_currentIndex]
-                                                    ['score'] = '1';
-                                                _currentIndex++;
-                                              } else {
-                                                _cardController.animateTo(
-                                                    _cardController.index + 1);
-                                              }
-                                            });
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                      selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    setState(
+                                                      () {
+                                                        if (_currentIndex + 1 <
+                                                            _pertanyaan
+                                                                .length) {
+                                                          _pertanyaan[
+                                                                  _currentIndex]
+                                                              ['score'] = '1';
+                                                          _currentIndex++;
+                                                        } else {
+                                                          _cardController
+                                                              .animateTo(
+                                                                  _cardController
+                                                                          .index +
+                                                                      1);
+                                                        }
+                                                      },
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                            );
                                           },
                                         ),
                                       ),
@@ -1715,16 +2073,16 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                             ],
                           ),
                           Container(
-                            color: AbubaPallate.yellow,
+                            color: Colors.white,
                             padding: EdgeInsets.symmetric(
-                                horizontal: 20.0, vertical: 10.0),
+                                horizontal: 25.0, vertical: 10.0),
                             child: Row(
                               children: <Widget>[
                                 Flexible(
                                   child: Text(
                                     _pertanyaan[_currentIndex]['pertanyaan'],
                                     style: TextStyle(
-                                        fontSize: 16.0, color: Colors.black87),
+                                        fontSize: 14.0, color: Colors.black87),
                                   ),
                                 )
                               ],
@@ -1811,8 +2169,28 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
-                                            _cardController.animateTo(
-                                                _cardController.index + 1);
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                      selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    _cardController.animateTo(
+                                                        _cardController.index +
+                                                            1);
+                                                  },
+                                                );
+                                              },
+                                            );
                                           },
                                         ),
                                       ),
@@ -1842,8 +2220,28 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
                                           onPressed: () {
-                                            _cardController.animateTo(
-                                                _cardController.index + 1);
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                      selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    _cardController.animateTo(
+                                                        _cardController.index +
+                                                            1);
+                                                  },
+                                                );
+                                              },
+                                            );
                                           },
                                         ),
                                       ),
@@ -1884,7 +2282,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                             ],
                           ),
                           Container(
-                            color: AbubaPallate.yellow,
+                            color: Colors.white,
                             padding: EdgeInsets.symmetric(
                                 horizontal: 20.0, vertical: 10.0),
                             child: Center(
@@ -1942,7 +2340,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                 'assets/images/slide 12.png',
                                 fit: BoxFit.fitHeight,
                                 height: MediaQuery.of(context).size.height /
-                                    1.50777,
+                                    1.55777,
                               ),
                               Positioned(
                                 bottom: 20.0,
@@ -1973,8 +2371,28 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
-                                            _cardController.animateTo(
-                                                _cardController.index + 1);
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                      selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    _cardController.animateTo(
+                                                        _cardController.index +
+                                                            1);
+                                                  },
+                                                );
+                                              },
+                                            );
                                           },
                                         ),
                                       ),
@@ -2004,8 +2422,28 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
                                           onPressed: () {
-                                            _cardController.animateTo(
-                                                _cardController.index + 1);
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                      selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    _cardController.animateTo(
+                                                        _cardController.index +
+                                                            1);
+                                                  },
+                                                );
+                                              },
+                                            );
                                           },
                                         ),
                                       ),
@@ -2046,7 +2484,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                             ],
                           ),
                           Container(
-                            color: AbubaPallate.yellow,
+                            color: Colors.white,
                             padding: EdgeInsets.symmetric(
                                 horizontal: 20.0, vertical: 10.0),
                             child: Center(
@@ -2104,7 +2542,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                 'assets/images/slide 13.png',
                                 fit: BoxFit.cover,
                                 height: MediaQuery.of(context).size.height /
-                                    1.50777,
+                                    1.55777,
                               ),
                               Positioned(
                                 bottom: 20.0,
@@ -2135,8 +2573,28 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
-                                            _cardController.animateTo(
-                                                _cardController.index + 1);
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                      selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    _cardController.animateTo(
+                                                        _cardController.index +
+                                                            1);
+                                                  },
+                                                );
+                                              },
+                                            );
                                           },
                                         ),
                                       ),
@@ -2166,8 +2624,28 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
                                           onPressed: () {
-                                            _cardController.animateTo(
-                                                _cardController.index + 1);
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                      selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    _cardController.animateTo(
+                                                        _cardController.index +
+                                                            1);
+                                                  },
+                                                );
+                                              },
+                                            );
                                           },
                                         ),
                                       ),
@@ -2208,7 +2686,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                             ],
                           ),
                           Container(
-                            color: AbubaPallate.yellow,
+                            color: Colors.white,
                             padding: EdgeInsets.symmetric(
                                 horizontal: 20.0, vertical: 10.0),
                             child: Center(
@@ -2266,7 +2744,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                 'assets/images/slide 14.png',
                                 fit: BoxFit.cover,
                                 height: MediaQuery.of(context).size.height /
-                                    1.50777,
+                                    1.55777,
                               ),
                               Positioned(
                                 bottom: 20.0,
@@ -2297,8 +2775,28 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
-                                            _cardController.animateTo(
-                                                _cardController.index + 1);
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                      selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    _cardController.animateTo(
+                                                        _cardController.index +
+                                                            1);
+                                                  },
+                                                );
+                                              },
+                                            );
                                           },
                                         ),
                                       ),
@@ -2328,8 +2826,28 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
                                           onPressed: () {
-                                            _cardController.animateTo(
-                                                _cardController.index + 1);
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                      selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    _cardController.animateTo(
+                                                        _cardController.index +
+                                                            1);
+                                                  },
+                                                );
+                                              },
+                                            );
                                           },
                                         ),
                                       ),
@@ -2370,7 +2888,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                             ],
                           ),
                           Container(
-                            color: AbubaPallate.yellow,
+                            color: Colors.white,
                             padding: EdgeInsets.symmetric(
                                 horizontal: 20.0, vertical: 10.0),
                             child: Center(
@@ -2428,7 +2946,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                 'assets/images/slide 15.png',
                                 fit: BoxFit.cover,
                                 height: MediaQuery.of(context).size.height /
-                                    1.50777,
+                                    1.55777,
                               ),
                               Positioned(
                                 bottom: 20.0,
@@ -2459,8 +2977,28 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
-                                            _cardController.animateTo(
-                                                _cardController.index + 1);
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                      selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    _cardController.animateTo(
+                                                        _cardController.index +
+                                                            1);
+                                                  },
+                                                );
+                                              },
+                                            );
                                           },
                                         ),
                                       ),
@@ -2490,8 +3028,28 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
                                           onPressed: () {
-                                            _cardController.animateTo(
-                                                _cardController.index + 1);
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                      selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    _cardController.animateTo(
+                                                        _cardController.index +
+                                                            1);
+                                                  },
+                                                );
+                                              },
+                                            );
                                           },
                                         ),
                                       ),
@@ -2532,7 +3090,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                             ],
                           ),
                           Container(
-                            color: AbubaPallate.yellow,
+                            color: Colors.white,
                             padding: EdgeInsets.symmetric(
                                 horizontal: 20.0, vertical: 10.0),
                             child: Center(
@@ -2621,8 +3179,28 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
-                                            _cardController.animateTo(
-                                                _cardController.index + 1);
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                      selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    _cardController.animateTo(
+                                                        _cardController.index +
+                                                            1);
+                                                  },
+                                                );
+                                              },
+                                            );
                                           },
                                         ),
                                       ),
@@ -2652,8 +3230,28 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
                                           onPressed: () {
-                                            _cardController.animateTo(
-                                                _cardController.index + 1);
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                      selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    _cardController.animateTo(
+                                                        _cardController.index +
+                                                            1);
+                                                  },
+                                                );
+                                              },
+                                            );
                                           },
                                         ),
                                       ),
@@ -2694,7 +3292,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                             ],
                           ),
                           Container(
-                            color: AbubaPallate.yellow,
+                            color: Colors.white,
                             padding: EdgeInsets.symmetric(
                                 horizontal: 20.0, vertical: 10.0),
                             child: Center(
@@ -2752,7 +3350,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                 'assets/images/slide 23.png',
                                 fit: BoxFit.cover,
                                 height: MediaQuery.of(context).size.height /
-                                    1.50777,
+                                    1.55777,
                               ),
                               Positioned(
                                 bottom: 20.0,
@@ -2783,8 +3381,28 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
-                                            _cardController.animateTo(
-                                                _cardController.index + 1);
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                      selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    _cardController.animateTo(
+                                                        _cardController.index +
+                                                            1);
+                                                  },
+                                                );
+                                              },
+                                            );
                                           },
                                         ),
                                       ),
@@ -2814,8 +3432,28 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
                                           onPressed: () {
-                                            _cardController.animateTo(
-                                                _cardController.index + 1);
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                      selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    _cardController.animateTo(
+                                                        _cardController.index +
+                                                            1);
+                                                  },
+                                                );
+                                              },
+                                            );
                                           },
                                         ),
                                       ),
@@ -2856,7 +3494,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                             ],
                           ),
                           Container(
-                            color: AbubaPallate.yellow,
+                            color: Colors.white,
                             padding: EdgeInsets.symmetric(
                                 horizontal: 20.0, vertical: 10.0),
                             child: Center(
@@ -2914,7 +3552,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                 'assets/images/slide 18.png',
                                 fit: BoxFit.cover,
                                 height: MediaQuery.of(context).size.height /
-                                    1.50777,
+                                    1.55777,
                               ),
                               Positioned(
                                 bottom: 20.0,
@@ -2945,8 +3583,28 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
-                                            _cardController.animateTo(
-                                                _cardController.index + 1);
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                      selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    _cardController.animateTo(
+                                                        _cardController.index +
+                                                            1);
+                                                  },
+                                                );
+                                              },
+                                            );
                                           },
                                         ),
                                       ),
@@ -2976,8 +3634,28 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
                                           onPressed: () {
-                                            _cardController.animateTo(
-                                                _cardController.index + 1);
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                      selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    _cardController.animateTo(
+                                                        _cardController.index +
+                                                            1);
+                                                  },
+                                                );
+                                              },
+                                            );
                                           },
                                         ),
                                       ),
@@ -3018,7 +3696,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                             ],
                           ),
                           Container(
-                            color: AbubaPallate.yellow,
+                            color: Colors.white,
                             padding: EdgeInsets.symmetric(
                                 horizontal: 20.0, vertical: 10.0),
                             child: Center(
@@ -3076,7 +3754,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                 'assets/images/slide 19.png',
                                 fit: BoxFit.cover,
                                 height: MediaQuery.of(context).size.height /
-                                    1.50777,
+                                    1.55777,
                               ),
                               Positioned(
                                 bottom: 20.0,
@@ -3107,11 +3785,32 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
-                                            Navigator.push(
-                                                context,
-                                                MyCustomRoute(
-                                                    builder: (context) =>
-                                                        FormMockComplaint()));
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                      selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    setState(() {
+                                                      Navigator.push(
+                                                          context,
+                                                          MyCustomRoute(
+                                                              builder: (context) =>
+                                                                  FormMockComplaint()));
+                                                    });
+                                                  },
+                                                );
+                                              },
+                                            );
                                           },
                                         ),
                                       ),
@@ -3141,11 +3840,30 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
                                           onPressed: () {
-                                            Navigator.push(
-                                                context,
-                                                MyCustomRoute(
-                                                    builder: (context) =>
-                                                        FormMockComplaint()));
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                      selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    Navigator.push(
+                                                        context,
+                                                        MyCustomRoute(
+                                                            builder: (context) =>
+                                                                FormMockComplaint()));
+                                                  },
+                                                );
+                                              },
+                                            );
                                           },
                                         ),
                                       ),
@@ -3189,7 +3907,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                             ],
                           ),
                           Container(
-                            color: AbubaPallate.yellow,
+                            color: Colors.white,
                             padding: EdgeInsets.symmetric(
                                 horizontal: 20.0, vertical: 10.0),
                             child: Center(
@@ -3767,6 +4485,14 @@ class FormHandling extends StatefulWidget {
 }
 
 class _FormHandlingState extends State<FormHandling> {
+  List<String> isiCheckbox = [
+    'Apakah organisasi sudah menetapkan internal dan eksternal isu yang berpengaruh terhadap kelangsungan organisasi?',
+    '',
+    '',
+  ];
+  List<String> valueCheckbox = ['1', '2', '3'];
+  List<String> selectedValue = [];
+  List<String> selectedAlasan = [];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -3864,11 +4590,30 @@ class _FormHandlingState extends State<FormHandling> {
                             ),
                             color: Color.fromARGB(170, 255, 40, 0),
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MyCustomRoute(
-                                      builder: (context) =>
-                                          FormLanjutReview()));
+                              showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (context) {
+                                  return Checkbox(
+                                    alasan: isiCheckbox,
+                                    valueCheck: valueCheckbox,
+                                    selectedAlasan: selectedAlasan,
+                                    selectedValue: selectedValue,
+                                    onSelectedAlasanListChanged: (alasans) {
+                                      selectedAlasan = alasans;
+                                    },
+                                    onResult: (finalResult) {
+                                      setState(() {
+                                        Navigator.push(
+                                            context,
+                                            MyCustomRoute(
+                                                builder: (context) =>
+                                                    FormLanjutReview()));
+                                      });
+                                    },
+                                  );
+                                },
+                              );
                             },
                           ),
                         ),
@@ -3892,11 +4637,30 @@ class _FormHandlingState extends State<FormHandling> {
                             ),
                             color: Color.fromARGB(170, 192, 192, 192),
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MyCustomRoute(
-                                      builder: (context) =>
-                                          FormLanjutReview()));
+                              showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (context) {
+                                  return Checkbox(
+                                    alasan: isiCheckbox,
+                                    valueCheck: valueCheckbox,
+                                    selectedAlasan: selectedAlasan,
+                                    selectedValue: selectedValue,
+                                    onSelectedAlasanListChanged: (alasans) {
+                                      selectedAlasan = alasans;
+                                    },
+                                    onResult: (finalResult) {
+                                      setState(() {
+                                        Navigator.push(
+                                            context,
+                                            MyCustomRoute(
+                                                builder: (context) =>
+                                                    FormLanjutReview()));
+                                      });
+                                    },
+                                  );
+                                },
+                              );
                             },
                           ),
                         ),
@@ -4103,6 +4867,15 @@ class _FormFinishingState extends State<FormFinishing>
     'Pengumuman',
   ];
 
+  List<String> isiCheckbox = [
+    'Apakah organisasi sudah menetapkan internal dan eksternal isu yang berpengaruh terhadap kelangsungan organisasi?',
+    '',
+    '',
+  ];
+  List<String> valueCheckbox = ['1', '2', '3'];
+  List<String> selectedValue = [];
+  List<String> selectedAlasan = [];
+
   bool _value1 = false;
   bool _value2 = false;
   bool _value3 = false;
@@ -4228,8 +5001,28 @@ class _FormFinishingState extends State<FormFinishing>
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
-                                            _cardController.animateTo(
-                                                _cardController.index + 1);
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                      selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    _cardController.animateTo(
+                                                        _cardController.index +
+                                                            1);
+                                                  },
+                                                );
+                                              },
+                                            );
                                           },
                                         ),
                                       ),
@@ -4258,7 +5051,30 @@ class _FormFinishingState extends State<FormFinishing>
                                           ),
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                      selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    _cardController.animateTo(
+                                                        _cardController.index +
+                                                            1);
+                                                  },
+                                                );
+                                              },
+                                            );
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -4284,7 +5100,10 @@ class _FormFinishingState extends State<FormFinishing>
                                           ),
                                           color:
                                               Color.fromARGB(170, 50, 205, 50),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _cardController.animateTo(
+                                                _cardController.index + 1);
+                                          },
                                         ),
                                       ),
                                       alignment: Alignment(0.0, 0.0),
@@ -4295,7 +5114,7 @@ class _FormFinishingState extends State<FormFinishing>
                             ],
                           ),
                           Container(
-                            color: AbubaPallate.yellow,
+                            color: Colors.white,
                             padding: EdgeInsets.symmetric(
                                 horizontal: 20.0, vertical: 10.0),
                             child: Center(
@@ -4384,8 +5203,28 @@ class _FormFinishingState extends State<FormFinishing>
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
-                                            _cardController.animateTo(
-                                                _cardController.index + 1);
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                      selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    _cardController.animateTo(
+                                                        _cardController.index +
+                                                            1);
+                                                  },
+                                                );
+                                              },
+                                            );
                                           },
                                         ),
                                       ),
@@ -4415,8 +5254,28 @@ class _FormFinishingState extends State<FormFinishing>
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
                                           onPressed: () {
-                                            _cardController.animateTo(
-                                                _cardController.index + 1);
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                      selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    _cardController.animateTo(
+                                                        _cardController.index +
+                                                            1);
+                                                  },
+                                                );
+                                              },
+                                            );
                                           },
                                         ),
                                       ),
@@ -4457,7 +5316,7 @@ class _FormFinishingState extends State<FormFinishing>
                             ],
                           ),
                           Container(
-                            color: AbubaPallate.yellow,
+                            color: Colors.white,
                             padding: EdgeInsets.symmetric(
                                 horizontal: 20.0, vertical: 10.0),
                             child: Center(
@@ -4515,7 +5374,7 @@ class _FormFinishingState extends State<FormFinishing>
                                 'assets/images/slide 26.png',
                                 fit: BoxFit.fitHeight,
                                 height: MediaQuery.of(context).size.height /
-                                    1.45777,
+                                    1.50777,
                               ),
                               Positioned(
                                 bottom: 20.0,
@@ -4546,11 +5405,30 @@ class _FormFinishingState extends State<FormFinishing>
                                           color:
                                               Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
-                                            Navigator.push(
-                                                context,
-                                                MyCustomRoute(
-                                                    builder: (context) =>
-                                                        FormCheckOut()));
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                      selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    Navigator.push(
+                                                        context,
+                                                        MyCustomRoute(
+                                                            builder: (context) =>
+                                                                FormCheckOut()));
+                                                  },
+                                                );
+                                              },
+                                            );
                                           },
                                         ),
                                       ),
@@ -4580,11 +5458,30 @@ class _FormFinishingState extends State<FormFinishing>
                                           color: Color.fromARGB(
                                               170, 192, 192, 192),
                                           onPressed: () {
-                                            Navigator.push(
-                                                context,
-                                                MyCustomRoute(
-                                                    builder: (context) =>
-                                                        FormCheckOut()));
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                      selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    Navigator.push(
+                                                        context,
+                                                        MyCustomRoute(
+                                                            builder: (context) =>
+                                                                FormCheckOut()));
+                                                  },
+                                                );
+                                              },
+                                            );
                                           },
                                         ),
                                       ),
@@ -4628,13 +5525,11 @@ class _FormFinishingState extends State<FormFinishing>
                             ],
                           ),
                           Container(
-                            color: AbubaPallate.yellow,
+                            color: Colors.white,
                             padding: EdgeInsets.symmetric(
                                 horizontal: 20.0, vertical: 10.0),
-                            child: Center(
-                              child: Text(
-                                  'Berikan ucapan undangan kepada customer .'),
-                            ),
+                            child: Text(
+                                'Berikan ucapan undangan kepada customer .'),
                           )
                         ],
                       ),
@@ -4826,27 +5721,3 @@ class _FormCheckOutState extends State<FormCheckOut> {
     );
   }
 }
-
-/*GridView.count(
-crossAxisCount: 2,
-childAspectRatio: 2.0,
-padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8.0),
-mainAxisSpacing: 4.0,
-crossAxisSpacing: 2.0,
-children: <String>[
-'assets/images/slide2.png',
-'assets/images/slide2.png',
-'assets/images/slide2.png',
-'assets/images/slide2.png',
-'assets/images/slide2.png',
-'assets/images/slide2.png',
-].map(
-(String url) {
-return new GridTile(
-child: new Image.asset(
-url,
-fit: BoxFit.scaleDown,
-),
-);
-},
-).toList()),*/
