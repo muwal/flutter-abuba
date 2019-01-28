@@ -8,17 +8,31 @@ class FormLineCheck extends StatefulWidget {
   _FormLineCheckState createState() => _FormLineCheckState();
 }
 
-class _FormLineCheckState extends State<FormLineCheck> {
+class _FormLineCheckState extends State<FormLineCheck>
+    with TickerProviderStateMixin {
   int _number = 1;
   int _itemCount;
   int _currentIndex;
   bool _autoplay;
   List<Map> _title = [
-    {'title': 'AC, langit-langit, lampu, ventilasi, exhaust', 'area':'Dining Area'},
-    {'title': 'Dinding, pintu, jendela, kaca, hiasan dinding', 'area':'Dining Area'},
-    {'title': 'Tempat sampah, insect killer', 'area':'Dining Area'},
-    {'title': 'Glassware, silverware, chinaware, cutleries, napkin, container', 'area':'Bar Tender'},
-    {'title': 'Water boiler, blender, coffeeurn, igloo, chcest freezer, cundercounter chiller', 'area':'Bar Tender'},
+    {
+      'title': 'AC, langit-langit, lampu, ventilasi, exhaust',
+      'area': 'Dining Area'
+    },
+    {
+      'title': 'Dinding, pintu, jendela, kaca, hiasan dinding',
+      'area': 'Dining Area'
+    },
+    {'title': 'Tempat sampah, insect killer', 'area': 'Dining Area'},
+    {
+      'title': 'Glassware, silverware, chinaware, cutleries, napkin, container',
+      'area': 'Bar Tender'
+    },
+    {
+      'title':
+          'Water boiler, blender, coffeeurn, igloo, chcest freezer, cundercounter chiller',
+      'area': 'Bar Tender'
+    },
   ];
 
   bool _answer0 = false;
@@ -37,13 +51,29 @@ class _FormLineCheckState extends State<FormLineCheck> {
   List<String> selectedValue = [];
   List<String> selectedAlasan = [];
 
+  List<Map> _listData = [
+    {'nomor': '1'},
+    {'nomor': '2'},
+    {'nomor': '3'},
+    {'nomor': '4'},
+    {'nomor': '5'},
+  ];
+
   @override
   void initState() {
     _currentIndex = 0;
     _autoplay = false;
     _itemCount = _title.length;
     _controller = new SwiperController();
-    super.initState();
+    _cardController = new TabController(vsync: this, length: _listData.length);
+  }
+
+  TabController _cardController;
+
+  @override
+  void dispose() {
+    _cardController.dispose();
+    super.dispose();
   }
 
   SwiperController _controller;
@@ -56,360 +86,1736 @@ class _FormLineCheckState extends State<FormLineCheck> {
         appBar: _appBar(),
         backgroundColor: Colors.white,
         body: GestureDetector(
-          onTap: () {
-            FocusScope.of(context).requestFocus(FocusNode());
-          },
-          child: _buildFormMenu()
-        ),
+            onTap: () {
+              FocusScope.of(context).requestFocus(FocusNode());
+            },
+            child: _buildFormMenu()),
         bottomNavigationBar: _bottomBar(),
       ),
     );
   }
 
   Widget _buildFormMenu() {
-    return ListView(
-      shrinkWrap: true,
+    return Column(
       children: <Widget>[
-        Column(
-          children: <Widget>[
-            Swiper(
-              itemBuilder: (BuildContext context, int index) {
-                return new Container(
-                  color: Colors.white,
-                  alignment: Alignment.center,
-                  child: Column(
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Flexible(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 10.0),
-                              child: Text(
-                                _title[index]['title'],
-                                style: TextStyle(
-                                  color: Color(0xFF2F592F),
-                                  fontSize: 24.0,
-                                  fontWeight: FontWeight.bold
-                                ),
-                                textAlign: TextAlign.start,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Flexible(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-                              child: Text(
-                                _title[index]['area'],
-                                style: TextStyle(
-                                  color: Colors.black54,
-                                  fontSize: 18.0
-                                ),
-                                textAlign: TextAlign.start,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Flexible(
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              physics: ScrollPhysics(),
-                              itemCount: isiCheckbox.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                double top;
-                                double bottom;
-                                if (index == 0) {
-                                  top = 30.0;
-                                  bottom = 0.0;
-                                } else if (index == isiCheckbox.length - 1) {
-                                  top = 5.0;
-                                  bottom = 40.0;
-                                } else {
-                                  top = 5.0;
-                                  bottom = 0.0;
-                                }
-
-                                return Row(
+        Expanded(
+          child: TabBarView(
+            controller: _cardController,
+            physics: ScrollPhysics(),
+            children: <Widget>[
+              ListView(
+                shrinkWrap: true,
+                physics: ScrollPhysics(),
+                children: <Widget>[
+                  PreferredSize(
+                    preferredSize: Size.fromHeight(55.0),
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: 55.0,
+                          child: Container(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
-                                    Flexible(
-                                      child: Padding(
-                                        padding: EdgeInsets.only(left: 10.0, right: 10.0, top: top, bottom: bottom),
-                                        child: Text(
-                                          '${index + 1}. ${isiCheckbox[index]}',
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          'Score',
                                           style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 22.0
-                                          ),
+                                              color: Colors.white,
+                                              fontSize: 12.0),
                                           textAlign: TextAlign.start,
                                         ),
-                                      ),
+                                        Text(
+                                          '80%',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20.0),
+                                          textAlign: TextAlign.start,
+                                        )
+                                      ],
+                                    ),
+                                    Text(
+                                      '1 of ${_listData.length.toString()}',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 14.0),
+                                      textAlign: TextAlign.start,
                                     ),
                                   ],
-                                );
-                              },
-                            ),
-                          )
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
-                          ButtonTheme(
-                            height: 60.0,
-                            minWidth: 70.0,
-                            child: OutlineButton(
-                              child: Text(
-                                '0',
-                                style: TextStyle(
-                                  fontSize: 26.0,
-                                    color: _answer0Color),
+                                ),
                               ),
-                              borderSide: BorderSide(
-                                  color: _answer0Color,
-                                  width: 1.0),
-                              highlightedBorderColor: _answer0Color,
-                              onPressed: () {
-                                showDialog(
-                                  barrierDismissible: false,
-                                  context: context,
-                                  builder: (context) {
-                                    return Checkbox(
-                                      alasan: isiCheckbox,
-                                      valueCheck: valueCheckbox,
-                                      selectedAlasan: selectedAlasan,
-                                      selectedValue: selectedValue,
-                                      onSelectedAlasanListChanged: (alasans) {
-                                        selectedAlasan = alasans;
-                                      },
-                                      onResult: (finalResult) {
-                                        setState(() {
-                                          if (finalResult[0] == 'yes') {
-                                            _answer0 = true;
-                                            _answer1 = false;
-                                            _answer2 = false;
-                                            _answer0Color = Colors.green;
-                                            _answer1Color = Colors.grey;
-                                            _answer2Color = Colors.grey;
-                                          } else {
-                                            _answer0 = false;
-                                            _answer1 = false;
-                                            _answer2 = false;
-                                            _answer0Color = Colors.grey;
-                                            _answer1Color = Colors.grey;
-                                            _answer2Color = Colors.grey;
-                                          }
-                                        });
-                                      },
-                                    );
-                                  }
-                                );
-                              },
-                            ),
+                              decoration:
+                                  BoxDecoration(color: Color(0xFF2F592F))),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: 55.0,
+                          child: Container(
+                            child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Text(
+                                          'Line Check Shifting',
+                                          style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 16.0),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                        Text(
+                                          'Operation',
+                                          style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 16.0),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Text(
+                                          'Log Book MOD',
+                                          style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 12.0),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                        Text(
+                                          'Department',
+                                          style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 12.0),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                )),
                           ),
-                          ButtonTheme(
-                            height: 60.0,
-                            minWidth: 70.0,
-                            child: OutlineButton(
-                              child: Text(
-                                '1',
-                                style: TextStyle(
-                                  fontSize: 26.0,
-                                    color: _answer1Color),
-                              ),
-                              borderSide: BorderSide(
-                                  color: _answer1Color,
-                                  width: 1.0),
-                              highlightedBorderColor: _answer1Color,
-                              onPressed: () {
-                                showDialog(
-                                  barrierDismissible: false,
-                                  context: context,
-                                  builder: (context) {
-                                    return Checkbox(
-                                      alasan: isiCheckbox,
-                                      valueCheck: valueCheckbox,
-                                      selectedAlasan: selectedAlasan,
-                                      selectedValue: selectedValue,
-                                      onSelectedAlasanListChanged: (alasans) {
-                                        selectedAlasan = alasans;
-                                      },
-                                      onResult: (finalResult) {
-                                        setState(() {
-                                          if (finalResult[0] == 'yes') {
-                                            _answer0 = false;
-                                            _answer1 = true;
-                                            _answer2 = false;
-                                            _answer1Color = Colors.green;
-                                            _answer0Color = Colors.grey;
-                                            _answer2Color = Colors.grey;
-                                          } else {
-                                            _answer0 = false;
-                                            _answer1 = false;
-                                            _answer2 = false;
-                                            _answer0Color = Colors.grey;
-                                            _answer1Color = Colors.grey;
-                                            _answer2Color = Colors.grey;
-                                          }
-                                        });
-                                      },
-                                    );
-                                  }
-                                );
-                              },
-                            ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Divider(
+                            height: 1.0,
                           ),
-                          ButtonTheme(
-                            height: 60.0,
-                            minWidth: 70.0,
-                            child: OutlineButton(
-                              child: Text(
-                                '2',
-                                style: TextStyle(
-                                  fontSize: 26.0,
-                                    color: _answer2Color),
-                              ),
-                              borderSide: BorderSide(
-                                  color: _answer2Color,
-                                  width: 1.0),
-                              highlightedBorderColor: _answer2Color,
-                              onPressed: () {
-                                setState(() {
-                                  _answer0 = false;
-                                  _answer1 = false;
-                                  _answer2 = true;
-                                  _answer0Color = Colors.grey;
-                                  _answer1Color = Colors.grey;
-                                  _answer2Color = Colors.green;
-                                });
-                              },
-                            ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Flexible(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 15.0),
+                          child: Text(
+                            'AC, langit-langit, lampu, ventilasi, exhaust',
+                            style: TextStyle(
+                                color: Color(0xFF2F592F),
+                                fontSize: 24.0,
+                                fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.start,
                           ),
-                        ],
+                        ),
                       ),
                     ],
-                  )
-                );
-              },
-              controller: _controller,
-              autoplay: _autoplay,
-              itemCount: _title.length,
-              itemWidth: MediaQuery.of(context).size.width,
-              itemHeight: MediaQuery.of(context).size.height - 250.0,
-              index: _currentIndex,
-              layout: SwiperLayout.TINDER,
-              onIndexChanged: (int index) {
-                setState(() {
-                  _currentIndex = index;
-                  _number = index + 1;
-                });
-              },
-            ),
-            SizedBox(
-              height: 5.0,
-            ),
-          ],
-        ),
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Flexible(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 15.0, vertical: 5.0),
+                          child: Text(
+                            'Dining Area',
+                            style: TextStyle(
+                                color: Colors.black54, fontSize: 18.0),
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Flexible(
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: ScrollPhysics(),
+                          itemCount: isiCheckbox.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            double top;
+                            double bottom;
+                            if (index == 0) {
+                              top = 30.0;
+                              bottom = 0.0;
+                            } else if (index == isiCheckbox.length - 1) {
+                              top = 5.0;
+                              bottom = 40.0;
+                            } else {
+                              top = 5.0;
+                              bottom = 0.0;
+                            }
+
+                            return Row(
+                              children: <Widget>[
+                                Flexible(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                        left: 15.0,
+                                        right: 15.0,
+                                        top: top,
+                                        bottom: bottom),
+                                    child: Text(
+                                      '${index + 1}. ${isiCheckbox[index]}',
+                                      style: TextStyle(
+                                          color: Colors.black54,
+                                          fontSize: 22.0),
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      ButtonTheme(
+                        height: 60.0,
+                        minWidth: 70.0,
+                        child: OutlineButton(
+                          child: Text(
+                            '0',
+                            style:
+                                TextStyle(fontSize: 26.0, color: _answer0Color),
+                          ),
+                          borderSide:
+                              BorderSide(color: _answer0Color, width: 1.0),
+                          highlightedBorderColor: _answer0Color,
+                          onPressed: () {
+                            showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (context) {
+                                  return Checkbox(
+                                    alasan: isiCheckbox,
+                                    valueCheck: valueCheckbox,
+                                    selectedAlasan: selectedAlasan,
+                                    selectedValue: selectedValue,
+                                    onSelectedAlasanListChanged: (alasans) {
+                                      selectedAlasan = alasans;
+                                    },
+                                    onResult: (finalResult) {
+                                      setState(() {
+                                        if (finalResult[0] == 'yes') {
+                                          _answer0 = true;
+                                          _answer1 = false;
+                                          _answer2 = false;
+                                          _answer0Color = Colors.green;
+                                          _answer1Color = Colors.grey;
+                                          _answer2Color = Colors.grey;
+                                        } else {
+                                          _answer0 = false;
+                                          _answer1 = false;
+                                          _answer2 = false;
+                                          _answer0Color = Colors.grey;
+                                          _answer1Color = Colors.grey;
+                                          _answer2Color = Colors.grey;
+                                        }
+                                      });
+                                    },
+                                  );
+                                });
+                          },
+                        ),
+                      ),
+                      ButtonTheme(
+                        height: 60.0,
+                        minWidth: 70.0,
+                        child: OutlineButton(
+                          child: Text(
+                            '1',
+                            style:
+                                TextStyle(fontSize: 26.0, color: _answer1Color),
+                          ),
+                          borderSide:
+                              BorderSide(color: _answer1Color, width: 1.0),
+                          highlightedBorderColor: _answer1Color,
+                          onPressed: () {
+                            showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (context) {
+                                  return Checkbox(
+                                    alasan: isiCheckbox,
+                                    valueCheck: valueCheckbox,
+                                    selectedAlasan: selectedAlasan,
+                                    selectedValue: selectedValue,
+                                    onSelectedAlasanListChanged: (alasans) {
+                                      selectedAlasan = alasans;
+                                    },
+                                    onResult: (finalResult) {
+                                      setState(() {
+                                        if (finalResult[0] == 'yes') {
+                                          _answer0 = false;
+                                          _answer1 = true;
+                                          _answer2 = false;
+                                          _answer1Color = Colors.green;
+                                          _answer0Color = Colors.grey;
+                                          _answer2Color = Colors.grey;
+                                        } else {
+                                          _answer0 = false;
+                                          _answer1 = false;
+                                          _answer2 = false;
+                                          _answer0Color = Colors.grey;
+                                          _answer1Color = Colors.grey;
+                                          _answer2Color = Colors.grey;
+                                        }
+                                      });
+                                    },
+                                  );
+                                });
+                          },
+                        ),
+                      ),
+                      ButtonTheme(
+                        height: 60.0,
+                        minWidth: 70.0,
+                        child: OutlineButton(
+                          child: Text(
+                            '2',
+                            style:
+                                TextStyle(fontSize: 26.0, color: _answer2Color),
+                          ),
+                          borderSide:
+                              BorderSide(color: _answer2Color, width: 1.0),
+                          highlightedBorderColor: _answer2Color,
+                          onPressed: () {
+                            setState(() {
+                              _answer0 = false;
+                              _answer1 = false;
+                              _answer2 = true;
+                              _answer0Color = Colors.grey;
+                              _answer1Color = Colors.grey;
+                              _answer2Color = Colors.green;
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              ListView(
+                shrinkWrap: true,
+                physics: ScrollPhysics(),
+                children: <Widget>[
+                  PreferredSize(
+                    preferredSize: Size.fromHeight(55.0),
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: 55.0,
+                          child: Container(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          'Score',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 12.0),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                        Text(
+                                          '80%',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20.0),
+                                          textAlign: TextAlign.start,
+                                        )
+                                      ],
+                                    ),
+                                    Text(
+                                      '2 of ${_listData.length.toString()}',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 14.0),
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              decoration:
+                                  BoxDecoration(color: Color(0xFF2F592F))),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: 55.0,
+                          child: Container(
+                            child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Text(
+                                          'Line Check Shifting',
+                                          style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 16.0),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                        Text(
+                                          'Operation',
+                                          style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 16.0),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Text(
+                                          'Log Book MOD',
+                                          style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 12.0),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                        Text(
+                                          'Department',
+                                          style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 12.0),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                )),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Divider(
+                            height: 1.0,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Flexible(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 15.0),
+                          child: Text(
+                            'Dinding, pintu, jendela, kaca, hiasan dinding',
+                            style: TextStyle(
+                                color: Color(0xFF2F592F),
+                                fontSize: 24.0,
+                                fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Flexible(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 15.0, vertical: 5.0),
+                          child: Text(
+                            'Dining Area',
+                            style: TextStyle(
+                                color: Colors.black54, fontSize: 18.0),
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Flexible(
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: ScrollPhysics(),
+                          itemCount: isiCheckbox.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            double top;
+                            double bottom;
+                            if (index == 0) {
+                              top = 30.0;
+                              bottom = 0.0;
+                            } else if (index == isiCheckbox.length - 1) {
+                              top = 5.0;
+                              bottom = 40.0;
+                            } else {
+                              top = 5.0;
+                              bottom = 0.0;
+                            }
+
+                            return Row(
+                              children: <Widget>[
+                                Flexible(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                        left: 15.0,
+                                        right: 15.0,
+                                        top: top,
+                                        bottom: bottom),
+                                    child: Text(
+                                      '${index + 1}. ${isiCheckbox[index]}',
+                                      style: TextStyle(
+                                          color: Colors.black54,
+                                          fontSize: 22.0),
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      ButtonTheme(
+                        height: 60.0,
+                        minWidth: 70.0,
+                        child: OutlineButton(
+                          child: Text(
+                            '0',
+                            style:
+                                TextStyle(fontSize: 26.0, color: _answer0Color),
+                          ),
+                          borderSide:
+                              BorderSide(color: _answer0Color, width: 1.0),
+                          highlightedBorderColor: _answer0Color,
+                          onPressed: () {
+                            showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (context) {
+                                  return Checkbox(
+                                    alasan: isiCheckbox,
+                                    valueCheck: valueCheckbox,
+                                    selectedAlasan: selectedAlasan,
+                                    selectedValue: selectedValue,
+                                    onSelectedAlasanListChanged: (alasans) {
+                                      selectedAlasan = alasans;
+                                    },
+                                    onResult: (finalResult) {
+                                      setState(() {
+                                        if (finalResult[0] == 'yes') {
+                                          _answer0 = true;
+                                          _answer1 = false;
+                                          _answer2 = false;
+                                          _answer0Color = Colors.green;
+                                          _answer1Color = Colors.grey;
+                                          _answer2Color = Colors.grey;
+                                        } else {
+                                          _answer0 = false;
+                                          _answer1 = false;
+                                          _answer2 = false;
+                                          _answer0Color = Colors.grey;
+                                          _answer1Color = Colors.grey;
+                                          _answer2Color = Colors.grey;
+                                        }
+                                      });
+                                    },
+                                  );
+                                });
+                          },
+                        ),
+                      ),
+                      ButtonTheme(
+                        height: 60.0,
+                        minWidth: 70.0,
+                        child: OutlineButton(
+                          child: Text(
+                            '1',
+                            style:
+                                TextStyle(fontSize: 26.0, color: _answer1Color),
+                          ),
+                          borderSide:
+                              BorderSide(color: _answer1Color, width: 1.0),
+                          highlightedBorderColor: _answer1Color,
+                          onPressed: () {
+                            showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (context) {
+                                  return Checkbox(
+                                    alasan: isiCheckbox,
+                                    valueCheck: valueCheckbox,
+                                    selectedAlasan: selectedAlasan,
+                                    selectedValue: selectedValue,
+                                    onSelectedAlasanListChanged: (alasans) {
+                                      selectedAlasan = alasans;
+                                    },
+                                    onResult: (finalResult) {
+                                      setState(() {
+                                        if (finalResult[0] == 'yes') {
+                                          _answer0 = false;
+                                          _answer1 = true;
+                                          _answer2 = false;
+                                          _answer1Color = Colors.green;
+                                          _answer0Color = Colors.grey;
+                                          _answer2Color = Colors.grey;
+                                        } else {
+                                          _answer0 = false;
+                                          _answer1 = false;
+                                          _answer2 = false;
+                                          _answer0Color = Colors.grey;
+                                          _answer1Color = Colors.grey;
+                                          _answer2Color = Colors.grey;
+                                        }
+                                      });
+                                    },
+                                  );
+                                });
+                          },
+                        ),
+                      ),
+                      ButtonTheme(
+                        height: 60.0,
+                        minWidth: 70.0,
+                        child: OutlineButton(
+                          child: Text(
+                            '2',
+                            style:
+                                TextStyle(fontSize: 26.0, color: _answer2Color),
+                          ),
+                          borderSide:
+                              BorderSide(color: _answer2Color, width: 1.0),
+                          highlightedBorderColor: _answer2Color,
+                          onPressed: () {
+                            setState(() {
+                              _answer0 = false;
+                              _answer1 = false;
+                              _answer2 = true;
+                              _answer0Color = Colors.grey;
+                              _answer1Color = Colors.grey;
+                              _answer2Color = Colors.green;
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              ListView(
+                shrinkWrap: true,
+                physics: ScrollPhysics(),
+                children: <Widget>[
+                  PreferredSize(
+                    preferredSize: Size.fromHeight(55.0),
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: 55.0,
+                          child: Container(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          'Score',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 12.0),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                        Text(
+                                          '80%',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20.0),
+                                          textAlign: TextAlign.start,
+                                        )
+                                      ],
+                                    ),
+                                    Text(
+                                      '3 of ${_listData.length.toString()}',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 14.0),
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              decoration:
+                                  BoxDecoration(color: Color(0xFF2F592F))),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: 55.0,
+                          child: Container(
+                            child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Text(
+                                          'Line Check Shifting',
+                                          style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 16.0),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                        Text(
+                                          'Operation',
+                                          style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 16.0),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Text(
+                                          'Log Book MOD',
+                                          style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 12.0),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                        Text(
+                                          'Department',
+                                          style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 12.0),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                )),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Divider(
+                            height: 1.0,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Flexible(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 15.0),
+                          child: Text(
+                            'Tempat sampah, insect killer',
+                            style: TextStyle(
+                                color: Color(0xFF2F592F),
+                                fontSize: 24.0,
+                                fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Flexible(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 15.0, vertical: 5.0),
+                          child: Text(
+                            'Dining Area',
+                            style: TextStyle(
+                                color: Colors.black54, fontSize: 18.0),
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Flexible(
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: ScrollPhysics(),
+                          itemCount: isiCheckbox.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            double top;
+                            double bottom;
+                            if (index == 0) {
+                              top = 30.0;
+                              bottom = 0.0;
+                            } else if (index == isiCheckbox.length - 1) {
+                              top = 5.0;
+                              bottom = 40.0;
+                            } else {
+                              top = 5.0;
+                              bottom = 0.0;
+                            }
+
+                            return Row(
+                              children: <Widget>[
+                                Flexible(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                        left: 15.0,
+                                        right: 15.0,
+                                        top: top,
+                                        bottom: bottom),
+                                    child: Text(
+                                      '${index + 1}. ${isiCheckbox[index]}',
+                                      style: TextStyle(
+                                          color: Colors.black54,
+                                          fontSize: 22.0),
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      ButtonTheme(
+                        height: 60.0,
+                        minWidth: 70.0,
+                        child: OutlineButton(
+                          child: Text(
+                            '0',
+                            style:
+                                TextStyle(fontSize: 26.0, color: _answer0Color),
+                          ),
+                          borderSide:
+                              BorderSide(color: _answer0Color, width: 1.0),
+                          highlightedBorderColor: _answer0Color,
+                          onPressed: () {
+                            showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (context) {
+                                  return Checkbox(
+                                    alasan: isiCheckbox,
+                                    valueCheck: valueCheckbox,
+                                    selectedAlasan: selectedAlasan,
+                                    selectedValue: selectedValue,
+                                    onSelectedAlasanListChanged: (alasans) {
+                                      selectedAlasan = alasans;
+                                    },
+                                    onResult: (finalResult) {
+                                      setState(() {
+                                        if (finalResult[0] == 'yes') {
+                                          _answer0 = true;
+                                          _answer1 = false;
+                                          _answer2 = false;
+                                          _answer0Color = Colors.green;
+                                          _answer1Color = Colors.grey;
+                                          _answer2Color = Colors.grey;
+                                        } else {
+                                          _answer0 = false;
+                                          _answer1 = false;
+                                          _answer2 = false;
+                                          _answer0Color = Colors.grey;
+                                          _answer1Color = Colors.grey;
+                                          _answer2Color = Colors.grey;
+                                        }
+                                      });
+                                    },
+                                  );
+                                });
+                          },
+                        ),
+                      ),
+                      ButtonTheme(
+                        height: 60.0,
+                        minWidth: 70.0,
+                        child: OutlineButton(
+                          child: Text(
+                            '1',
+                            style:
+                                TextStyle(fontSize: 26.0, color: _answer1Color),
+                          ),
+                          borderSide:
+                              BorderSide(color: _answer1Color, width: 1.0),
+                          highlightedBorderColor: _answer1Color,
+                          onPressed: () {
+                            showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (context) {
+                                  return Checkbox(
+                                    alasan: isiCheckbox,
+                                    valueCheck: valueCheckbox,
+                                    selectedAlasan: selectedAlasan,
+                                    selectedValue: selectedValue,
+                                    onSelectedAlasanListChanged: (alasans) {
+                                      selectedAlasan = alasans;
+                                    },
+                                    onResult: (finalResult) {
+                                      setState(() {
+                                        if (finalResult[0] == 'yes') {
+                                          _answer0 = false;
+                                          _answer1 = true;
+                                          _answer2 = false;
+                                          _answer1Color = Colors.green;
+                                          _answer0Color = Colors.grey;
+                                          _answer2Color = Colors.grey;
+                                        } else {
+                                          _answer0 = false;
+                                          _answer1 = false;
+                                          _answer2 = false;
+                                          _answer0Color = Colors.grey;
+                                          _answer1Color = Colors.grey;
+                                          _answer2Color = Colors.grey;
+                                        }
+                                      });
+                                    },
+                                  );
+                                });
+                          },
+                        ),
+                      ),
+                      ButtonTheme(
+                        height: 60.0,
+                        minWidth: 70.0,
+                        child: OutlineButton(
+                          child: Text(
+                            '2',
+                            style:
+                                TextStyle(fontSize: 26.0, color: _answer2Color),
+                          ),
+                          borderSide:
+                              BorderSide(color: _answer2Color, width: 1.0),
+                          highlightedBorderColor: _answer2Color,
+                          onPressed: () {
+                            setState(() {
+                              _answer0 = false;
+                              _answer1 = false;
+                              _answer2 = true;
+                              _answer0Color = Colors.grey;
+                              _answer1Color = Colors.grey;
+                              _answer2Color = Colors.green;
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              ListView(
+                shrinkWrap: true,
+                physics: ScrollPhysics(),
+                children: <Widget>[
+                  PreferredSize(
+                    preferredSize: Size.fromHeight(55.0),
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: 55.0,
+                          child: Container(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          'Score',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 12.0),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                        Text(
+                                          '80%',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20.0),
+                                          textAlign: TextAlign.start,
+                                        )
+                                      ],
+                                    ),
+                                    Text(
+                                      '4 of ${_listData.length.toString()}',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 14.0),
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              decoration:
+                                  BoxDecoration(color: Color(0xFF2F592F))),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: 55.0,
+                          child: Container(
+                            child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Text(
+                                          'Line Check Shifting',
+                                          style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 16.0),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                        Text(
+                                          'Operation',
+                                          style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 16.0),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Text(
+                                          'Log Book MOD',
+                                          style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 12.0),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                        Text(
+                                          'Department',
+                                          style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 12.0),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                )),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Divider(
+                            height: 1.0,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Flexible(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 15.0),
+                          child: Text(
+                            'Glassware, silverware, chinaware, cutleries, napkin, container',
+                            style: TextStyle(
+                                color: Color(0xFF2F592F),
+                                fontSize: 24.0,
+                                fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Flexible(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 15.0, vertical: 5.0),
+                          child: Text(
+                            'Bar Tender',
+                            style: TextStyle(
+                                color: Colors.black54, fontSize: 18.0),
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Flexible(
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: ScrollPhysics(),
+                          itemCount: isiCheckbox.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            double top;
+                            double bottom;
+                            if (index == 0) {
+                              top = 30.0;
+                              bottom = 0.0;
+                            } else if (index == isiCheckbox.length - 1) {
+                              top = 5.0;
+                              bottom = 40.0;
+                            } else {
+                              top = 5.0;
+                              bottom = 0.0;
+                            }
+
+                            return Row(
+                              children: <Widget>[
+                                Flexible(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                        left: 15.0,
+                                        right: 15.0,
+                                        top: top,
+                                        bottom: bottom),
+                                    child: Text(
+                                      '${index + 1}. ${isiCheckbox[index]}',
+                                      style: TextStyle(
+                                          color: Colors.black54,
+                                          fontSize: 22.0),
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      ButtonTheme(
+                        height: 60.0,
+                        minWidth: 70.0,
+                        child: OutlineButton(
+                          child: Text(
+                            '0',
+                            style:
+                                TextStyle(fontSize: 26.0, color: _answer0Color),
+                          ),
+                          borderSide:
+                              BorderSide(color: _answer0Color, width: 1.0),
+                          highlightedBorderColor: _answer0Color,
+                          onPressed: () {
+                            showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (context) {
+                                  return Checkbox(
+                                    alasan: isiCheckbox,
+                                    valueCheck: valueCheckbox,
+                                    selectedAlasan: selectedAlasan,
+                                    selectedValue: selectedValue,
+                                    onSelectedAlasanListChanged: (alasans) {
+                                      selectedAlasan = alasans;
+                                    },
+                                    onResult: (finalResult) {
+                                      setState(() {
+                                        if (finalResult[0] == 'yes') {
+                                          _answer0 = true;
+                                          _answer1 = false;
+                                          _answer2 = false;
+                                          _answer0Color = Colors.green;
+                                          _answer1Color = Colors.grey;
+                                          _answer2Color = Colors.grey;
+                                        } else {
+                                          _answer0 = false;
+                                          _answer1 = false;
+                                          _answer2 = false;
+                                          _answer0Color = Colors.grey;
+                                          _answer1Color = Colors.grey;
+                                          _answer2Color = Colors.grey;
+                                        }
+                                      });
+                                    },
+                                  );
+                                });
+                          },
+                        ),
+                      ),
+                      ButtonTheme(
+                        height: 60.0,
+                        minWidth: 70.0,
+                        child: OutlineButton(
+                          child: Text(
+                            '1',
+                            style:
+                                TextStyle(fontSize: 26.0, color: _answer1Color),
+                          ),
+                          borderSide:
+                              BorderSide(color: _answer1Color, width: 1.0),
+                          highlightedBorderColor: _answer1Color,
+                          onPressed: () {
+                            showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (context) {
+                                  return Checkbox(
+                                    alasan: isiCheckbox,
+                                    valueCheck: valueCheckbox,
+                                    selectedAlasan: selectedAlasan,
+                                    selectedValue: selectedValue,
+                                    onSelectedAlasanListChanged: (alasans) {
+                                      selectedAlasan = alasans;
+                                    },
+                                    onResult: (finalResult) {
+                                      setState(() {
+                                        if (finalResult[0] == 'yes') {
+                                          _answer0 = false;
+                                          _answer1 = true;
+                                          _answer2 = false;
+                                          _answer1Color = Colors.green;
+                                          _answer0Color = Colors.grey;
+                                          _answer2Color = Colors.grey;
+                                        } else {
+                                          _answer0 = false;
+                                          _answer1 = false;
+                                          _answer2 = false;
+                                          _answer0Color = Colors.grey;
+                                          _answer1Color = Colors.grey;
+                                          _answer2Color = Colors.grey;
+                                        }
+                                      });
+                                    },
+                                  );
+                                });
+                          },
+                        ),
+                      ),
+                      ButtonTheme(
+                        height: 60.0,
+                        minWidth: 70.0,
+                        child: OutlineButton(
+                          child: Text(
+                            '2',
+                            style:
+                                TextStyle(fontSize: 26.0, color: _answer2Color),
+                          ),
+                          borderSide:
+                              BorderSide(color: _answer2Color, width: 1.0),
+                          highlightedBorderColor: _answer2Color,
+                          onPressed: () {
+                            setState(() {
+                              _answer0 = false;
+                              _answer1 = false;
+                              _answer2 = true;
+                              _answer0Color = Colors.grey;
+                              _answer1Color = Colors.grey;
+                              _answer2Color = Colors.green;
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              ListView(
+                shrinkWrap: true,
+                physics: ScrollPhysics(),
+                children: <Widget>[
+                  PreferredSize(
+                    preferredSize: Size.fromHeight(55.0),
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: 55.0,
+                          child: Container(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          'Score',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 12.0),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                        Text(
+                                          '80%',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20.0),
+                                          textAlign: TextAlign.start,
+                                        )
+                                      ],
+                                    ),
+                                    Text(
+                                      '5 of ${_listData.length.toString()}',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 14.0),
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              decoration:
+                                  BoxDecoration(color: Color(0xFF2F592F))),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: 55.0,
+                          child: Container(
+                            child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Text(
+                                          'Line Check Shifting',
+                                          style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 16.0),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                        Text(
+                                          'Operation',
+                                          style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 16.0),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Text(
+                                          'Log Book MOD',
+                                          style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 12.0),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                        Text(
+                                          'Department',
+                                          style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 12.0),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                )),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Divider(
+                            height: 1.0,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Flexible(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 15.0),
+                          child: Text(
+                            'Water boiler, blender, coffeeurn, igloo, chcest freezer, cundercounter chiller',
+                            style: TextStyle(
+                                color: Color(0xFF2F592F),
+                                fontSize: 24.0,
+                                fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Flexible(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 15.0, vertical: 5.0),
+                          child: Text(
+                            'Bar Tender',
+                            style: TextStyle(
+                                color: Colors.black54, fontSize: 18.0),
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Flexible(
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: ScrollPhysics(),
+                          itemCount: isiCheckbox.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            double top;
+                            double bottom;
+                            if (index == 0) {
+                              top = 30.0;
+                              bottom = 0.0;
+                            } else if (index == isiCheckbox.length - 1) {
+                              top = 5.0;
+                              bottom = 40.0;
+                            } else {
+                              top = 5.0;
+                              bottom = 0.0;
+                            }
+
+                            return Row(
+                              children: <Widget>[
+                                Flexible(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                        left: 15.0,
+                                        right: 15.0,
+                                        top: top,
+                                        bottom: bottom),
+                                    child: Text(
+                                      '${index + 1}. ${isiCheckbox[index]}',
+                                      style: TextStyle(
+                                          color: Colors.black54,
+                                          fontSize: 22.0),
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      ButtonTheme(
+                        height: 60.0,
+                        minWidth: 70.0,
+                        child: OutlineButton(
+                          child: Text(
+                            '0',
+                            style:
+                                TextStyle(fontSize: 26.0, color: _answer0Color),
+                          ),
+                          borderSide:
+                              BorderSide(color: _answer0Color, width: 1.0),
+                          highlightedBorderColor: _answer0Color,
+                          onPressed: () {
+                            showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (context) {
+                                  return Checkbox(
+                                    alasan: isiCheckbox,
+                                    valueCheck: valueCheckbox,
+                                    selectedAlasan: selectedAlasan,
+                                    selectedValue: selectedValue,
+                                    onSelectedAlasanListChanged: (alasans) {
+                                      selectedAlasan = alasans;
+                                    },
+                                    onResult: (finalResult) {
+                                      setState(() {
+                                        if (finalResult[0] == 'yes') {
+                                          _answer0 = true;
+                                          _answer1 = false;
+                                          _answer2 = false;
+                                          _answer0Color = Colors.green;
+                                          _answer1Color = Colors.grey;
+                                          _answer2Color = Colors.grey;
+                                        } else {
+                                          _answer0 = false;
+                                          _answer1 = false;
+                                          _answer2 = false;
+                                          _answer0Color = Colors.grey;
+                                          _answer1Color = Colors.grey;
+                                          _answer2Color = Colors.grey;
+                                        }
+                                      });
+                                    },
+                                  );
+                                });
+                          },
+                        ),
+                      ),
+                      ButtonTheme(
+                        height: 60.0,
+                        minWidth: 70.0,
+                        child: OutlineButton(
+                          child: Text(
+                            '1',
+                            style:
+                                TextStyle(fontSize: 26.0, color: _answer1Color),
+                          ),
+                          borderSide:
+                              BorderSide(color: _answer1Color, width: 1.0),
+                          highlightedBorderColor: _answer1Color,
+                          onPressed: () {
+                            showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (context) {
+                                  return Checkbox(
+                                    alasan: isiCheckbox,
+                                    valueCheck: valueCheckbox,
+                                    selectedAlasan: selectedAlasan,
+                                    selectedValue: selectedValue,
+                                    onSelectedAlasanListChanged: (alasans) {
+                                      selectedAlasan = alasans;
+                                    },
+                                    onResult: (finalResult) {
+                                      setState(() {
+                                        if (finalResult[0] == 'yes') {
+                                          _answer0 = false;
+                                          _answer1 = true;
+                                          _answer2 = false;
+                                          _answer1Color = Colors.green;
+                                          _answer0Color = Colors.grey;
+                                          _answer2Color = Colors.grey;
+                                        } else {
+                                          _answer0 = false;
+                                          _answer1 = false;
+                                          _answer2 = false;
+                                          _answer0Color = Colors.grey;
+                                          _answer1Color = Colors.grey;
+                                          _answer2Color = Colors.grey;
+                                        }
+                                      });
+                                    },
+                                  );
+                                });
+                          },
+                        ),
+                      ),
+                      ButtonTheme(
+                        height: 60.0,
+                        minWidth: 70.0,
+                        child: OutlineButton(
+                          child: Text(
+                            '2',
+                            style:
+                                TextStyle(fontSize: 26.0, color: _answer2Color),
+                          ),
+                          borderSide:
+                              BorderSide(color: _answer2Color, width: 1.0),
+                          highlightedBorderColor: _answer2Color,
+                          onPressed: () {
+                            setState(() {
+                              _answer0 = false;
+                              _answer1 = false;
+                              _answer2 = true;
+                              _answer0Color = Colors.grey;
+                              _answer1Color = Colors.grey;
+                              _answer2Color = Colors.green;
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        )
       ],
     );
   }
 
-  _bottomBar() {
+  Widget _bottomBar() {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: 55.0,
       child: Container(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              ButtonTheme(
-                minWidth: 50.0,
-                height: 30.0,
-                child: RaisedButton(
-                  child: Text(
-                    'SEARCH',
-                    style: TextStyle(fontSize: 13.0),
-                  ),
-                  textColor: Colors.black45,
-                  color: Colors.green[200],
-                  onPressed: () {},
-                ),
-              ),
-              ButtonTheme(
-                minWidth: 50.0,
-                height: 30.0,
-                child: RaisedButton(
-                  child: Text(
-                    'CAR',
-                    style: TextStyle(fontSize: 13.0),
-                  ),
-                  textColor: Colors.white,
-                  color: Colors.green,
-                  onPressed: () {},
-                ),
-              ),
-              _number == 5
-                ? ButtonTheme(
-                    minWidth: 50.0,
-                    height: 30.0,
-                    child: RaisedButton(
-                      child: Text(
-                        'SAVE',
-                        style: TextStyle(fontSize: 13.0),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    ButtonTheme(
+                      minWidth: 50.0,
+                      height: 30.0,
+                      child: RaisedButton(
+                        child: Text(
+                          'SEARCH',
+                          style: TextStyle(fontSize: 13.0),
+                        ),
+                        textColor: Colors.black45,
+                        color: Colors.green[200],
+                        onPressed: () {},
                       ),
-                      textColor: Colors.white,
-                      color: Colors.green,
-                      onPressed: () {},
                     ),
-                  )
-                : ButtonTheme(
-                    minWidth: 50.0,
-                    height: 30.0,
-                    child: RaisedButton(
-                      elevation: 0.0,
-                      child: Text(
-                        'SAVE',
-                        style: TextStyle(fontSize: 13.0),
+                    SizedBox(
+                      width: 5.0,
+                    ),
+                    ButtonTheme(
+                      minWidth: 50.0,
+                      height: 30.0,
+                      child: RaisedButton(
+                        child: Text(
+                          'CAR',
+                          style: TextStyle(fontSize: 13.0),
+                        ),
+                        textColor: Colors.white,
+                        color: Colors.green,
+                        onPressed: () {},
                       ),
-                      textColor: Color(0xFF2F592F),
-                      color: Color(0xFF2F592F),
-                      onPressed: () {},
                     ),
-                  ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.arrow_back_ios, color: Colors.white),
-                    onPressed: () {
-                      _controller.previous(animation: true);
-                    },
-                    tooltip: 'Previous',
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.arrow_forward_ios, color: Colors.white),
-                    onPressed: () {
-                      _controller.next(animation: true);
-                    },
-                    tooltip: 'Next',
-                  )
-                ],
-              )
-            ],
+                    _listData == 5
+                        ? ButtonTheme(
+                            minWidth: 50.0,
+                            height: 30.0,
+                            child: RaisedButton(
+                              child: Text(
+                                'SAVE',
+                                style: TextStyle(fontSize: 13.0),
+                              ),
+                              textColor: Colors.white,
+                              color: Colors.green,
+                              onPressed: () {},
+                            ),
+                          )
+                        : ButtonTheme(
+                            minWidth: 50.0,
+                            height: 30.0,
+                            child: RaisedButton(
+                              elevation: 0.0,
+                              child: Text(
+                                'SAVE',
+                                style: TextStyle(fontSize: 13.0),
+                              ),
+                              textColor: Color(0xFF2F592F),
+                              color: Color(0xFF2F592F),
+                              onPressed: () {},
+                            ),
+                          ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+                      onPressed: () {
+                        _cardController.animateTo(_cardController.index - 1);
+                      },
+                      tooltip: 'Previous',
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.arrow_forward_ios, color: Colors.white),
+                      onPressed: () {
+                        /*_cardController.index != 10
+                            ?*/
+                        _cardController.animateTo(_cardController.index + 1);
+                        /*: Navigator.push(
+                                context,
+                                MyCustomRoute(
+                                    builder: (context) => FormMockComplaint()));*/
+                      },
+                      tooltip: 'Next',
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
-        ),
-        decoration: BoxDecoration(
-          color: Color(0xFF2F592F)
-        )
-      ),
+          decoration: BoxDecoration(color: Color(0xFF2F592F))),
     );
   }
 
@@ -422,101 +1828,6 @@ class _FormLineCheckState extends State<FormLineCheck> {
         'assets/images/logo.png',
         height: 100.0,
         width: 120.0,
-      ),
-      bottom: PreferredSize(
-        preferredSize: Size.fromHeight(110.0),
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: 55.0,
-              child: Container(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            'Score',
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 12.0),
-                            textAlign: TextAlign.start,
-                          ),
-                          Text(
-                            '80%',
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 20.0),
-                            textAlign: TextAlign.start,
-                          )
-                        ],
-                      ),
-                      Text(
-                        '${_number.toString()} of ${_title.length.toString()}',
-                        style:
-                            TextStyle(color: Colors.white, fontSize: 12.0),
-                        textAlign: TextAlign.start,
-                      ),
-                    ],
-                  ),
-                ),
-                decoration: BoxDecoration(
-                  color: Color(0xFF2F592F)
-                )
-              ),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: 55.0,
-              child: Container(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(
-                            'Line Check Shifting',
-                            style:
-                                TextStyle(color: Colors.black54, fontSize: 16.0),
-                            textAlign: TextAlign.start,
-                          ),
-                          Text(
-                            'Operation',
-                            style:
-                                TextStyle(color: Colors.black54, fontSize: 16.0),
-                            textAlign: TextAlign.start,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(
-                            'Log Book MOD',
-                            style:
-                                TextStyle(color: Colors.black54, fontSize: 12.0),
-                            textAlign: TextAlign.start,
-                          ),
-                          Text(
-                            'Department',
-                            style:
-                                TextStyle(color: Colors.black54, fontSize: 12.0),
-                            textAlign: TextAlign.start,
-                          ),
-                        ],
-                      ),
-                    ],
-                  )
-                ),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
@@ -569,37 +1880,41 @@ class _CheckboxState extends State<Checkbox> {
             Padding(
               padding: EdgeInsets.all(15.0),
               child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Flexible(
-                        child: Text(
-                          'Alasan',
-                          style: TextStyle(fontSize: 16.0, color: Colors.black, fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.left,
-                        ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Flexible(
+                      child: Text(
+                        'Alasan',
+                        style: TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.left,
                       ),
-                      FlatButton(
-                        child: Text(
-                          'Add Note',
-                          style: TextStyle(color: Colors.green, fontSize: 12.0),
-                        ),
-                        onPressed: () {
-                          setState(
-                                () {
-                              if (_note == true) {
-                                height = 300.0;
-                              } else {
-                                height = height + 100.0;
-                              }
+                    ),
+                    FlatButton(
+                      child: Text(
+                        'Add Note',
+                        style: TextStyle(color: Colors.green, fontSize: 12.0),
+                      ),
+                      onPressed: () {
+                        setState(
+                          () {
+                            if (_note == true) {
+                              height = 300.0;
+                            } else {
+                              height = height + 100.0;
+                            }
 
-                              _note = !_note;
-                            },
-                          );
-                        },
-                      ),
-                    ],
-                  )),
+                            _note = !_note;
+                          },
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
             ),
             Expanded(
               child: Scrollbar(
@@ -623,7 +1938,7 @@ class _CheckboxState extends State<Checkbox> {
                                 if (!_tempSelectedAlasan
                                     .contains(AlasanValue)) {
                                   setState(
-                                        () {
+                                    () {
                                       _tempSelectedValueAlasan.add(ValueFinal);
                                       _tempSelectedAlasan.add(AlasanValue);
                                     },
@@ -632,11 +1947,11 @@ class _CheckboxState extends State<Checkbox> {
                               } else {
                                 if (_tempSelectedAlasan.contains(AlasanValue)) {
                                   setState(
-                                        () {
+                                    () {
                                       _tempSelectedAlasan.removeWhere(
-                                              (String city) => city == AlasanValue);
+                                          (String city) => city == AlasanValue);
                                       _tempSelectedValueAlasan.removeWhere(
-                                              (String city) => city == ValueFinal);
+                                          (String city) => city == ValueFinal);
                                     },
                                   );
                                 }
@@ -645,29 +1960,28 @@ class _CheckboxState extends State<Checkbox> {
                                   _tempSelectedValueAlasan);
                             }),
                       );
-                    }
-                ),
+                    }),
               ),
             ),
             _note
                 ? Padding(
-              padding:
-              EdgeInsets.only(top: 20.0, right: 10.0, left: 10.0),
-              child: Container(
-                width: MediaQuery.of(context).size.width / 1.1,
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Note',
-                  ),
-                  maxLines: 3,
-                  controller: _noteController,
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-            )
+                    padding:
+                        EdgeInsets.only(top: 20.0, right: 10.0, left: 10.0),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width / 1.1,
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Note',
+                        ),
+                        maxLines: 3,
+                        controller: _noteController,
+                        style: TextStyle(
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  )
                 : Container(),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 10.0),
@@ -683,8 +1997,7 @@ class _CheckboxState extends State<Checkbox> {
                         style: TextStyle(color: Colors.white, fontSize: 12.0),
                       ),
                       onPressed: () {
-                        widget.onResult(
-                            ['no']);
+                        widget.onResult(['no']);
                         Navigator.of(context).pop();
                       },
                       splashColor: Colors.red[300],
@@ -699,8 +2012,7 @@ class _CheckboxState extends State<Checkbox> {
                         style: TextStyle(color: Colors.white, fontSize: 12.0),
                       ),
                       onPressed: () {
-                        widget.onResult(
-                            ['yes']);
+                        widget.onResult(['yes']);
                         Navigator.of(context).pop();
                       },
                       splashColor: Colors.green[300],

@@ -220,14 +220,13 @@ class _FormCariLokasiState extends State<FormCariLokasi> {
       iconTheme: IconThemeData(color: Colors.black),
       actions: <Widget>[
         IconButton(
-            tooltip: 'Search',
-            icon: Icon(Icons.search),
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MyCustomRoute(
-                      builder: (context) => FormCheckIn()));
-            })
+          tooltip: 'Search',
+          icon: Icon(Icons.search),
+          onPressed: () {
+            Navigator.push(
+                context, MyCustomRoute(builder: (context) => FormCheckIn()));
+          },
+        )
       ],
       title: Image.asset(
         'assets/images/logo.png',
@@ -253,16 +252,16 @@ class _FormCariLokasiState extends State<FormCariLokasi> {
                 padding: EdgeInsets.only(left: 15.0),
                 child: Text(
                   '|',
-                  style: TextStyle(
-                      color: AbubaPallate.greenabuba, fontSize: 12.0),
+                  style:
+                      TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
                 ),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 15.0),
                 child: Text(
                   'Location',
-                  style: TextStyle(
-                      color: AbubaPallate.greenabuba, fontSize: 12.0),
+                  style:
+                      TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
                 ),
               ),
             ],
