@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
-import 'package:flutter_abuba/landing/landingpage_view.dart';
+import 'package:dio/dio.dart';
 
 class Checkbox extends StatefulWidget {
   Checkbox({
@@ -203,6 +203,42 @@ class FormCariLokasi extends StatefulWidget {
 }
 
 class _FormCariLokasiState extends State<FormCariLokasi> {
+  final TextEditingController _filter = new TextEditingController();
+  final dio = new Dio();
+  String _searchText = "";
+  List names = new List();
+  List filteredNames = new List();
+  Icon _searchIcon = new Icon(Icons.search);
+  Widget _appBarTitle = Image.asset(
+    'assets/images/logo.png',
+    height: 100.0,
+    width: 120.0,
+  );
+
+  void _searchPressed() {
+    setState(
+      () {
+        if (this._searchIcon.icon == Icons.search) {
+          this._searchIcon = new Icon(Icons.close);
+          this._appBarTitle = new TextField(
+            controller: _filter,
+            decoration: new InputDecoration(
+                prefixIcon: new Icon(Icons.search), hintText: 'Search...'),
+          );
+        } else {
+          this._searchIcon = new Icon(Icons.search);
+          this._appBarTitle = Image.asset(
+            'assets/images/logo.png',
+            height: 100.0,
+            width: 120.0,
+          );
+          filteredNames = names;
+          _filter.clear();
+        }
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -221,18 +257,15 @@ class _FormCariLokasiState extends State<FormCariLokasi> {
       actions: <Widget>[
         IconButton(
           tooltip: 'Search',
-          icon: Icon(Icons.search),
-          onPressed: () {
+          icon: _searchIcon,
+          onPressed:
+              _searchPressed, /*() {
             Navigator.push(
                 context, MyCustomRoute(builder: (context) => FormCheckIn()));
-          },
+          },*/
         )
       ],
-      title: Image.asset(
-        'assets/images/logo.png',
-        height: 100.0,
-        width: 120.0,
-      ),
+      title: _appBarTitle,
     );
   }
 
@@ -293,9 +326,17 @@ class _FormCariLokasiState extends State<FormCariLokasi> {
       ].map(
         (String url) {
           return new GridTile(
-            child: new Image.asset(
-              url,
-              fit: BoxFit.scaleDown,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MyCustomRoute(
+                        builder: (context) => FormCheckIn()));
+              },
+              child: new Image.asset(
+                url,
+                fit: BoxFit.scaleDown,
+              ),
             ),
           );
         },

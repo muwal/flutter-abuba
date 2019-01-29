@@ -8,21 +8,68 @@ class FormPenampilan extends StatefulWidget {
   _FormPenampilanState createState() => _FormPenampilanState();
 }
 
-class _FormPenampilanState extends State<FormPenampilan> with TickerProviderStateMixin {
+class _FormPenampilanState extends State<FormPenampilan>
+    with TickerProviderStateMixin {
   int _number = 1;
   int _itemCount;
   int _currentIndex;
   bool _autoplay;
+
   List<Map> _title = [
-    {'title': 'Grooming', 'area':'Penampilan'},
-    {'title': 'Seragam', 'area':'Penampilan'},
-    {'title': 'Aksesoris', 'area':'Penampilan'},
-    {'title': 'Operation', 'area':'Evaluasi'},
-    {'title': 'LSM', 'area':'Evaluasi'},
-    {'title': 'Program Kerja', 'area':'Evaluasi'},
-    {'title': 'LSM', 'area':'Program Kerja'},
-    {'title': 'Tukar Shift', 'area':'Schedule'},
-    {'title': 'Tukar Off', 'area':'Schedule'},
+    {
+      'nomor': 1,
+      'title': 'Grooming',
+      'area': 'Penampilan',
+      'save': 'false',
+    },
+    {
+      'nomor': 2,
+      'title': 'Seragam',
+      'area': 'Penampilan',
+      'save': 'false',
+    },
+    {
+      'nomor': 3,
+      'title': 'Aksesoris',
+      'area': 'Penampilan',
+      'save': 'false',
+    },
+    {
+      'nomor': 4,
+      'title': 'Operation',
+      'area': 'Evaluasi',
+      'save': 'false',
+    },
+    {
+      'nomor': 5,
+      'title': 'LSM',
+      'area': 'Evaluasi',
+      'save': 'true',
+    },
+    {
+      'nomor': 6,
+      'title': 'Program Kerja',
+      'area': 'Evaluasi',
+      'save': 'true',
+    },
+    {
+      'nomor': 7,
+      'title': 'LSM',
+      'area': 'Program Kerja',
+      'save': 'true',
+    },
+    {
+      'nomor': 8,
+      'title': 'Glassware, silverware, chinaware, cutleries, napkin, container',
+      'area': 'Bar Tender',
+      'save': 'true',
+    },
+    {
+      'nomor': 9,
+      'title': 'Tukar Off',
+      'area': 'Schedule',
+      'save': 'true',
+    },
   ];
 
   bool _answer0 = false;
@@ -84,8 +131,7 @@ class _FormPenampilanState extends State<FormPenampilan> with TickerProviderStat
             onTap: () {
               FocusScope.of(context).requestFocus(FocusNode());
             },
-            child: _buildFormMenu()
-        ),
+            child: _buildFormMenu()),
         bottomNavigationBar: _bottomBar(),
       ),
     );
@@ -98,8 +144,8 @@ class _FormPenampilanState extends State<FormPenampilan> with TickerProviderStat
           child: TabBarView(
             controller: _cardController,
             physics: ScrollPhysics(),
-            children: <Widget>[
-              ListView(
+            children: _title.map((Map map) {
+              return ListView(
                 shrinkWrap: true,
                 physics: ScrollPhysics(),
                 children: <Widget>[
@@ -112,41 +158,42 @@ class _FormPenampilanState extends State<FormPenampilan> with TickerProviderStat
                           height: 55.0,
                           child: Container(
                               child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10.0),
+                                padding: EdgeInsets.symmetric(horizontal: 10.0),
                                 child: Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
                                           'Score',
-                                          style:
-                                          TextStyle(color: Colors.white, fontSize: 12.0),
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 12.0),
                                           textAlign: TextAlign.start,
                                         ),
                                         Text(
                                           '80%',
-                                          style:
-                                          TextStyle(color: Colors.white, fontSize: 20.0),
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20.0),
                                           textAlign: TextAlign.start,
                                         )
                                       ],
                                     ),
                                     Text(
-                                      '1 of ${_listData.length.toString()}',
+                                      '${map['nomor'].toString()} of ${_title.length.toString()}',
                                       style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14.0),
+                                          color: Colors.white, fontSize: 14.0),
                                       textAlign: TextAlign.start,
                                     ),
                                   ],
                                 ),
                               ),
-                              decoration: BoxDecoration(
-                                  color: Color(0xFF2F592F))),
+                              decoration:
+                                  BoxDecoration(color: Color(0xFF2F592F))),
                         ),
                         SizedBox(
                           width: MediaQuery.of(context).size.width,
@@ -158,46 +205,51 @@ class _FormPenampilanState extends State<FormPenampilan> with TickerProviderStat
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
                                         Text(
                                           'Penampilan',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 16.0),
+                                          style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 16.0),
                                           textAlign: TextAlign.start,
                                         ),
                                         Text(
                                           'Operation',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 16.0),
+                                          style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 16.0),
                                           textAlign: TextAlign.start,
                                         ),
                                       ],
                                     ),
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
                                         Text(
                                           'Log Book MOD',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 12.0),
+                                          style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 12.0),
                                           textAlign: TextAlign.start,
                                         ),
                                         Text(
                                           'Department',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 12.0),
+                                          style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 12.0),
                                           textAlign: TextAlign.start,
                                         ),
                                       ],
                                     ),
                                   ],
-                                )
-                            ),
+                                )),
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(bottom:8.0),
+                          padding: const EdgeInsets.only(bottom: 8.0),
                           child: Divider(
                             height: 1.0,
                           ),
@@ -211,12 +263,11 @@ class _FormPenampilanState extends State<FormPenampilan> with TickerProviderStat
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 15.0),
                           child: Text(
-                            'Grooming',
+                            map['title'],
                             style: TextStyle(
                                 color: Color(0xFF2F592F),
                                 fontSize: 24.0,
-                                fontWeight: FontWeight.bold
-                            ),
+                                fontWeight: FontWeight.bold),
                             textAlign: TextAlign.start,
                           ),
                         ),
@@ -227,13 +278,12 @@ class _FormPenampilanState extends State<FormPenampilan> with TickerProviderStat
                     children: <Widget>[
                       Flexible(
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 15.0, vertical: 5.0),
                           child: Text(
-                            'Penampilan',
+                            map['area'],
                             style: TextStyle(
-                                color: Colors.black54,
-                                fontSize: 18.0
-                            ),
+                                color: Colors.black54, fontSize: 18.0),
                             textAlign: TextAlign.start,
                           ),
                         ),
@@ -266,13 +316,16 @@ class _FormPenampilanState extends State<FormPenampilan> with TickerProviderStat
                               children: <Widget>[
                                 Flexible(
                                   child: Padding(
-                                    padding: EdgeInsets.only(left: 15.0, right: 15.0, top: top, bottom: bottom),
+                                    padding: EdgeInsets.only(
+                                        left: 15.0,
+                                        right: 15.0,
+                                        top: top,
+                                        bottom: bottom),
                                     child: Text(
                                       '${index + 1}. ${isiCheckbox[index]}',
                                       style: TextStyle(
                                           color: Colors.black54,
-                                          fontSize: 22.0
-                                      ),
+                                          fontSize: 22.0),
                                       textAlign: TextAlign.start,
                                     ),
                                   ),
@@ -293,13 +346,11 @@ class _FormPenampilanState extends State<FormPenampilan> with TickerProviderStat
                         child: OutlineButton(
                           child: Text(
                             '0',
-                            style: TextStyle(
-                                fontSize: 26.0,
-                                color: _answer0Color),
+                            style:
+                                TextStyle(fontSize: 26.0, color: _answer0Color),
                           ),
-                          borderSide: BorderSide(
-                              color: _answer0Color,
-                              width: 1.0),
+                          borderSide:
+                              BorderSide(color: _answer0Color, width: 1.0),
                           highlightedBorderColor: _answer0Color,
                           onPressed: () {
                             showDialog(
@@ -334,8 +385,7 @@ class _FormPenampilanState extends State<FormPenampilan> with TickerProviderStat
                                       });
                                     },
                                   );
-                                }
-                            );
+                                });
                           },
                         ),
                       ),
@@ -345,13 +395,11 @@ class _FormPenampilanState extends State<FormPenampilan> with TickerProviderStat
                         child: OutlineButton(
                           child: Text(
                             '1',
-                            style: TextStyle(
-                                fontSize: 26.0,
-                                color: _answer1Color),
+                            style:
+                                TextStyle(fontSize: 26.0, color: _answer1Color),
                           ),
-                          borderSide: BorderSide(
-                              color: _answer1Color,
-                              width: 1.0),
+                          borderSide:
+                              BorderSide(color: _answer1Color, width: 1.0),
                           highlightedBorderColor: _answer1Color,
                           onPressed: () {
                             showDialog(
@@ -386,8 +434,7 @@ class _FormPenampilanState extends State<FormPenampilan> with TickerProviderStat
                                       });
                                     },
                                   );
-                                }
-                            );
+                                });
                           },
                         ),
                       ),
@@ -397,13 +444,11 @@ class _FormPenampilanState extends State<FormPenampilan> with TickerProviderStat
                         child: OutlineButton(
                           child: Text(
                             '2',
-                            style: TextStyle(
-                                fontSize: 26.0,
-                                color: _answer2Color),
+                            style:
+                                TextStyle(fontSize: 26.0, color: _answer2Color),
                           ),
-                          borderSide: BorderSide(
-                              color: _answer2Color,
-                              width: 1.0),
+                          borderSide:
+                              BorderSide(color: _answer2Color, width: 1.0),
                           highlightedBorderColor: _answer2Color,
                           onPressed: () {
                             setState(() {
@@ -420,2588 +465,8 @@ class _FormPenampilanState extends State<FormPenampilan> with TickerProviderStat
                     ],
                   ),
                 ],
-              ),
-              ListView(
-                shrinkWrap: true,
-                physics: ScrollPhysics(),
-                children: <Widget>[
-                  PreferredSize(
-                    preferredSize: Size.fromHeight(55.0),
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: 55.0,
-                          child: Container(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          'Score',
-                                          style:
-                                          TextStyle(color: Colors.white, fontSize: 12.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        Text(
-                                          '80%',
-                                          style:
-                                          TextStyle(color: Colors.white, fontSize: 20.0),
-                                          textAlign: TextAlign.start,
-                                        )
-                                      ],
-                                    ),
-                                    Text(
-                                      '2 of ${_listData.length.toString()}',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14.0),
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              decoration: BoxDecoration(
-                                  color: Color(0xFF2F592F))),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: 55.0,
-                          child: Container(
-                            child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(
-                                          'Penampilan',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 16.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        Text(
-                                          'Operation',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 16.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(
-                                          'Log Book MOD',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 12.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        Text(
-                                          'Department',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 12.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                )
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom:8.0),
-                          child: Divider(
-                            height: 1.0,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Flexible(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 15.0),
-                          child: Text(
-                            'Seragam',
-                            style: TextStyle(
-                                color: Color(0xFF2F592F),
-                                fontSize: 24.0,
-                                fontWeight: FontWeight.bold
-                            ),
-                            textAlign: TextAlign.start,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Flexible(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
-                          child: Text(
-                            'Penampilan',
-                            style: TextStyle(
-                                color: Colors.black54,
-                                fontSize: 18.0
-                            ),
-                            textAlign: TextAlign.start,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Flexible(
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: ScrollPhysics(),
-                          itemCount: isiCheckbox.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            double top;
-                            double bottom;
-                            if (index == 0) {
-                              top = 30.0;
-                              bottom = 0.0;
-                            } else if (index == isiCheckbox.length - 1) {
-                              top = 5.0;
-                              bottom = 40.0;
-                            } else {
-                              top = 5.0;
-                              bottom = 0.0;
-                            }
-
-                            return Row(
-                              children: <Widget>[
-                                Flexible(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(left: 15.0, right: 15.0, top: top, bottom: bottom),
-                                    child: Text(
-                                      '${index + 1}. ${isiCheckbox[index]}',
-                                      style: TextStyle(
-                                          color: Colors.black54,
-                                          fontSize: 22.0
-                                      ),
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        ),
-                      )
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      ButtonTheme(
-                        height: 60.0,
-                        minWidth: 70.0,
-                        child: OutlineButton(
-                          child: Text(
-                            '0',
-                            style: TextStyle(
-                                fontSize: 26.0,
-                                color: _answer0Color),
-                          ),
-                          borderSide: BorderSide(
-                              color: _answer0Color,
-                              width: 1.0),
-                          highlightedBorderColor: _answer0Color,
-                          onPressed: () {
-                            showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (context) {
-                                  return Checkbox(
-                                    alasan: isiCheckbox,
-                                    valueCheck: valueCheckbox,
-                                    selectedAlasan: selectedAlasan,
-                                    selectedValue: selectedValue,
-                                    onSelectedAlasanListChanged: (alasans) {
-                                      selectedAlasan = alasans;
-                                    },
-                                    onResult: (finalResult) {
-                                      setState(() {
-                                        if (finalResult[0] == 'yes') {
-                                          _answer0 = true;
-                                          _answer1 = false;
-                                          _answer2 = false;
-                                          _answer0Color = Colors.green;
-                                          _answer1Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        } else {
-                                          _answer0 = false;
-                                          _answer1 = false;
-                                          _answer2 = false;
-                                          _answer0Color = Colors.grey;
-                                          _answer1Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        }
-                                      });
-                                    },
-                                  );
-                                }
-                            );
-                          },
-                        ),
-                      ),
-                      ButtonTheme(
-                        height: 60.0,
-                        minWidth: 70.0,
-                        child: OutlineButton(
-                          child: Text(
-                            '1',
-                            style: TextStyle(
-                                fontSize: 26.0,
-                                color: _answer1Color),
-                          ),
-                          borderSide: BorderSide(
-                              color: _answer1Color,
-                              width: 1.0),
-                          highlightedBorderColor: _answer1Color,
-                          onPressed: () {
-                            showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (context) {
-                                  return Checkbox(
-                                    alasan: isiCheckbox,
-                                    valueCheck: valueCheckbox,
-                                    selectedAlasan: selectedAlasan,
-                                    selectedValue: selectedValue,
-                                    onSelectedAlasanListChanged: (alasans) {
-                                      selectedAlasan = alasans;
-                                    },
-                                    onResult: (finalResult) {
-                                      setState(() {
-                                        if (finalResult[0] == 'yes') {
-                                          _answer0 = false;
-                                          _answer1 = true;
-                                          _answer2 = false;
-                                          _answer1Color = Colors.green;
-                                          _answer0Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        } else {
-                                          _answer0 = false;
-                                          _answer1 = false;
-                                          _answer2 = false;
-                                          _answer0Color = Colors.grey;
-                                          _answer1Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        }
-                                      });
-                                    },
-                                  );
-                                }
-                            );
-                          },
-                        ),
-                      ),
-                      ButtonTheme(
-                        height: 60.0,
-                        minWidth: 70.0,
-                        child: OutlineButton(
-                          child: Text(
-                            '2',
-                            style: TextStyle(
-                                fontSize: 26.0,
-                                color: _answer2Color),
-                          ),
-                          borderSide: BorderSide(
-                              color: _answer2Color,
-                              width: 1.0),
-                          highlightedBorderColor: _answer2Color,
-                          onPressed: () {
-                            setState(() {
-                              _answer0 = false;
-                              _answer1 = false;
-                              _answer2 = true;
-                              _answer0Color = Colors.grey;
-                              _answer1Color = Colors.grey;
-                              _answer2Color = Colors.green;
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              ListView(
-                shrinkWrap: true,
-                physics: ScrollPhysics(),
-                children: <Widget>[
-                  PreferredSize(
-                    preferredSize: Size.fromHeight(55.0),
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: 55.0,
-                          child: Container(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          'Score',
-                                          style:
-                                          TextStyle(color: Colors.white, fontSize: 12.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        Text(
-                                          '80%',
-                                          style:
-                                          TextStyle(color: Colors.white, fontSize: 20.0),
-                                          textAlign: TextAlign.start,
-                                        )
-                                      ],
-                                    ),
-                                    Text(
-                                      '3 of ${_listData.length.toString()}',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14.0),
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              decoration: BoxDecoration(
-                                  color: Color(0xFF2F592F))),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: 55.0,
-                          child: Container(
-                            child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(
-                                          'Penampilan',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 16.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        Text(
-                                          'Operation',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 16.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(
-                                          'Log Book MOD',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 12.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        Text(
-                                          'Department',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 12.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                )
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom:8.0),
-                          child: Divider(
-                            height: 1.0,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Flexible(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 15.0),
-                          child: Text(
-                            'Aksesoris',
-                            style: TextStyle(
-                                color: Color(0xFF2F592F),
-                                fontSize: 24.0,
-                                fontWeight: FontWeight.bold
-                            ),
-                            textAlign: TextAlign.start,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Flexible(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
-                          child: Text(
-                            'Penampilan',
-                            style: TextStyle(
-                                color: Colors.black54,
-                                fontSize: 18.0
-                            ),
-                            textAlign: TextAlign.start,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Flexible(
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: ScrollPhysics(),
-                          itemCount: isiCheckbox.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            double top;
-                            double bottom;
-                            if (index == 0) {
-                              top = 30.0;
-                              bottom = 0.0;
-                            } else if (index == isiCheckbox.length - 1) {
-                              top = 5.0;
-                              bottom = 40.0;
-                            } else {
-                              top = 5.0;
-                              bottom = 0.0;
-                            }
-
-                            return Row(
-                              children: <Widget>[
-                                Flexible(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(left: 15.0, right: 15.0, top: top, bottom: bottom),
-                                    child: Text(
-                                      '${index + 1}. ${isiCheckbox[index]}',
-                                      style: TextStyle(
-                                          color: Colors.black54,
-                                          fontSize: 22.0
-                                      ),
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        ),
-                      )
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      ButtonTheme(
-                        height: 60.0,
-                        minWidth: 70.0,
-                        child: OutlineButton(
-                          child: Text(
-                            '0',
-                            style: TextStyle(
-                                fontSize: 26.0,
-                                color: _answer0Color),
-                          ),
-                          borderSide: BorderSide(
-                              color: _answer0Color,
-                              width: 1.0),
-                          highlightedBorderColor: _answer0Color,
-                          onPressed: () {
-                            showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (context) {
-                                  return Checkbox(
-                                    alasan: isiCheckbox,
-                                    valueCheck: valueCheckbox,
-                                    selectedAlasan: selectedAlasan,
-                                    selectedValue: selectedValue,
-                                    onSelectedAlasanListChanged: (alasans) {
-                                      selectedAlasan = alasans;
-                                    },
-                                    onResult: (finalResult) {
-                                      setState(() {
-                                        if (finalResult[0] == 'yes') {
-                                          _answer0 = true;
-                                          _answer1 = false;
-                                          _answer2 = false;
-                                          _answer0Color = Colors.green;
-                                          _answer1Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        } else {
-                                          _answer0 = false;
-                                          _answer1 = false;
-                                          _answer2 = false;
-                                          _answer0Color = Colors.grey;
-                                          _answer1Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        }
-                                      });
-                                    },
-                                  );
-                                }
-                            );
-                          },
-                        ),
-                      ),
-                      ButtonTheme(
-                        height: 60.0,
-                        minWidth: 70.0,
-                        child: OutlineButton(
-                          child: Text(
-                            '1',
-                            style: TextStyle(
-                                fontSize: 26.0,
-                                color: _answer1Color),
-                          ),
-                          borderSide: BorderSide(
-                              color: _answer1Color,
-                              width: 1.0),
-                          highlightedBorderColor: _answer1Color,
-                          onPressed: () {
-                            showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (context) {
-                                  return Checkbox(
-                                    alasan: isiCheckbox,
-                                    valueCheck: valueCheckbox,
-                                    selectedAlasan: selectedAlasan,
-                                    selectedValue: selectedValue,
-                                    onSelectedAlasanListChanged: (alasans) {
-                                      selectedAlasan = alasans;
-                                    },
-                                    onResult: (finalResult) {
-                                      setState(() {
-                                        if (finalResult[0] == 'yes') {
-                                          _answer0 = false;
-                                          _answer1 = true;
-                                          _answer2 = false;
-                                          _answer1Color = Colors.green;
-                                          _answer0Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        } else {
-                                          _answer0 = false;
-                                          _answer1 = false;
-                                          _answer2 = false;
-                                          _answer0Color = Colors.grey;
-                                          _answer1Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        }
-                                      });
-                                    },
-                                  );
-                                }
-                            );
-                          },
-                        ),
-                      ),
-                      ButtonTheme(
-                        height: 60.0,
-                        minWidth: 70.0,
-                        child: OutlineButton(
-                          child: Text(
-                            '2',
-                            style: TextStyle(
-                                fontSize: 26.0,
-                                color: _answer2Color),
-                          ),
-                          borderSide: BorderSide(
-                              color: _answer2Color,
-                              width: 1.0),
-                          highlightedBorderColor: _answer2Color,
-                          onPressed: () {
-                            setState(() {
-                              _answer0 = false;
-                              _answer1 = false;
-                              _answer2 = true;
-                              _answer0Color = Colors.grey;
-                              _answer1Color = Colors.grey;
-                              _answer2Color = Colors.green;
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              ListView(
-                shrinkWrap: true,
-                physics: ScrollPhysics(),
-                children: <Widget>[
-                  PreferredSize(
-                    preferredSize: Size.fromHeight(55.0),
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: 55.0,
-                          child: Container(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          'Score',
-                                          style:
-                                          TextStyle(color: Colors.white, fontSize: 12.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        Text(
-                                          '80%',
-                                          style:
-                                          TextStyle(color: Colors.white, fontSize: 20.0),
-                                          textAlign: TextAlign.start,
-                                        )
-                                      ],
-                                    ),
-                                    Text(
-                                      '4 of ${_listData.length.toString()}',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14.0),
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              decoration: BoxDecoration(
-                                  color: Color(0xFF2F592F))),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: 55.0,
-                          child: Container(
-                            child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(
-                                          'Penampilan',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 16.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        Text(
-                                          'Operation',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 16.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(
-                                          'Log Book MOD',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 12.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        Text(
-                                          'Department',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 12.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                )
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom:8.0),
-                          child: Divider(
-                            height: 1.0,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Flexible(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 15.0),
-                          child: Text(
-                            'Operation',
-                            style: TextStyle(
-                                color: Color(0xFF2F592F),
-                                fontSize: 24.0,
-                                fontWeight: FontWeight.bold
-                            ),
-                            textAlign: TextAlign.start,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Flexible(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
-                          child: Text(
-                            'Evaluasi',
-                            style: TextStyle(
-                                color: Colors.black54,
-                                fontSize: 18.0
-                            ),
-                            textAlign: TextAlign.start,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Flexible(
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: ScrollPhysics(),
-                          itemCount: isiCheckbox.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            double top;
-                            double bottom;
-                            if (index == 0) {
-                              top = 30.0;
-                              bottom = 0.0;
-                            } else if (index == isiCheckbox.length - 1) {
-                              top = 5.0;
-                              bottom = 40.0;
-                            } else {
-                              top = 5.0;
-                              bottom = 0.0;
-                            }
-
-                            return Row(
-                              children: <Widget>[
-                                Flexible(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(left: 15.0, right: 15.0, top: top, bottom: bottom),
-                                    child: Text(
-                                      '${index + 1}. ${isiCheckbox[index]}',
-                                      style: TextStyle(
-                                          color: Colors.black54,
-                                          fontSize: 22.0
-                                      ),
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        ),
-                      )
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      ButtonTheme(
-                        height: 60.0,
-                        minWidth: 70.0,
-                        child: OutlineButton(
-                          child: Text(
-                            '0',
-                            style: TextStyle(
-                                fontSize: 26.0,
-                                color: _answer0Color),
-                          ),
-                          borderSide: BorderSide(
-                              color: _answer0Color,
-                              width: 1.0),
-                          highlightedBorderColor: _answer0Color,
-                          onPressed: () {
-                            showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (context) {
-                                  return Checkbox(
-                                    alasan: isiCheckbox,
-                                    valueCheck: valueCheckbox,
-                                    selectedAlasan: selectedAlasan,
-                                    selectedValue: selectedValue,
-                                    onSelectedAlasanListChanged: (alasans) {
-                                      selectedAlasan = alasans;
-                                    },
-                                    onResult: (finalResult) {
-                                      setState(() {
-                                        if (finalResult[0] == 'yes') {
-                                          _answer0 = true;
-                                          _answer1 = false;
-                                          _answer2 = false;
-                                          _answer0Color = Colors.green;
-                                          _answer1Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        } else {
-                                          _answer0 = false;
-                                          _answer1 = false;
-                                          _answer2 = false;
-                                          _answer0Color = Colors.grey;
-                                          _answer1Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        }
-                                      });
-                                    },
-                                  );
-                                }
-                            );
-                          },
-                        ),
-                      ),
-                      ButtonTheme(
-                        height: 60.0,
-                        minWidth: 70.0,
-                        child: OutlineButton(
-                          child: Text(
-                            '1',
-                            style: TextStyle(
-                                fontSize: 26.0,
-                                color: _answer1Color),
-                          ),
-                          borderSide: BorderSide(
-                              color: _answer1Color,
-                              width: 1.0),
-                          highlightedBorderColor: _answer1Color,
-                          onPressed: () {
-                            showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (context) {
-                                  return Checkbox(
-                                    alasan: isiCheckbox,
-                                    valueCheck: valueCheckbox,
-                                    selectedAlasan: selectedAlasan,
-                                    selectedValue: selectedValue,
-                                    onSelectedAlasanListChanged: (alasans) {
-                                      selectedAlasan = alasans;
-                                    },
-                                    onResult: (finalResult) {
-                                      setState(() {
-                                        if (finalResult[0] == 'yes') {
-                                          _answer0 = false;
-                                          _answer1 = true;
-                                          _answer2 = false;
-                                          _answer1Color = Colors.green;
-                                          _answer0Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        } else {
-                                          _answer0 = false;
-                                          _answer1 = false;
-                                          _answer2 = false;
-                                          _answer0Color = Colors.grey;
-                                          _answer1Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        }
-                                      });
-                                    },
-                                  );
-                                }
-                            );
-                          },
-                        ),
-                      ),
-                      ButtonTheme(
-                        height: 60.0,
-                        minWidth: 70.0,
-                        child: OutlineButton(
-                          child: Text(
-                            '2',
-                            style: TextStyle(
-                                fontSize: 26.0,
-                                color: _answer2Color),
-                          ),
-                          borderSide: BorderSide(
-                              color: _answer2Color,
-                              width: 1.0),
-                          highlightedBorderColor: _answer2Color,
-                          onPressed: () {
-                            setState(() {
-                              _answer0 = false;
-                              _answer1 = false;
-                              _answer2 = true;
-                              _answer0Color = Colors.grey;
-                              _answer1Color = Colors.grey;
-                              _answer2Color = Colors.green;
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-
-              ListView(
-                shrinkWrap: true,
-                physics: ScrollPhysics(),
-                children: <Widget>[
-                  PreferredSize(
-                    preferredSize: Size.fromHeight(55.0),
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: 55.0,
-                          child: Container(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          'Score',
-                                          style:
-                                          TextStyle(color: Colors.white, fontSize: 12.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        Text(
-                                          '80%',
-                                          style:
-                                          TextStyle(color: Colors.white, fontSize: 20.0),
-                                          textAlign: TextAlign.start,
-                                        )
-                                      ],
-                                    ),
-                                    Text(
-                                      '5 of ${_listData.length.toString()}',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14.0),
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              decoration: BoxDecoration(
-                                  color: Color(0xFF2F592F))),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: 55.0,
-                          child: Container(
-                            child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(
-                                          'Penampilan',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 16.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        Text(
-                                          'Operation',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 16.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(
-                                          'Log Book MOD',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 12.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        Text(
-                                          'Department',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 12.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                )
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom:8.0),
-                          child: Divider(
-                            height: 1.0,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Flexible(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 15.0),
-                          child: Text(
-                            'LSM',
-                            style: TextStyle(
-                                color: Color(0xFF2F592F),
-                                fontSize: 24.0,
-                                fontWeight: FontWeight.bold
-                            ),
-                            textAlign: TextAlign.start,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Flexible(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
-                          child: Text(
-                            'Evaluasi',
-                            style: TextStyle(
-                                color: Colors.black54,
-                                fontSize: 18.0
-                            ),
-                            textAlign: TextAlign.start,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Flexible(
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: ScrollPhysics(),
-                          itemCount: isiCheckbox.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            double top;
-                            double bottom;
-                            if (index == 0) {
-                              top = 30.0;
-                              bottom = 0.0;
-                            } else if (index == isiCheckbox.length - 1) {
-                              top = 5.0;
-                              bottom = 40.0;
-                            } else {
-                              top = 5.0;
-                              bottom = 0.0;
-                            }
-
-                            return Row(
-                              children: <Widget>[
-                                Flexible(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(left: 15.0, right: 15.0, top: top, bottom: bottom),
-                                    child: Text(
-                                      '${index + 1}. ${isiCheckbox[index]}',
-                                      style: TextStyle(
-                                          color: Colors.black54,
-                                          fontSize: 22.0
-                                      ),
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        ),
-                      )
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      ButtonTheme(
-                        height: 60.0,
-                        minWidth: 70.0,
-                        child: OutlineButton(
-                          child: Text(
-                            '0',
-                            style: TextStyle(
-                                fontSize: 26.0,
-                                color: _answer0Color),
-                          ),
-                          borderSide: BorderSide(
-                              color: _answer0Color,
-                              width: 1.0),
-                          highlightedBorderColor: _answer0Color,
-                          onPressed: () {
-                            showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (context) {
-                                  return Checkbox(
-                                    alasan: isiCheckbox,
-                                    valueCheck: valueCheckbox,
-                                    selectedAlasan: selectedAlasan,
-                                    selectedValue: selectedValue,
-                                    onSelectedAlasanListChanged: (alasans) {
-                                      selectedAlasan = alasans;
-                                    },
-                                    onResult: (finalResult) {
-                                      setState(() {
-                                        if (finalResult[0] == 'yes') {
-                                          _answer0 = true;
-                                          _answer1 = false;
-                                          _answer2 = false;
-                                          _answer0Color = Colors.green;
-                                          _answer1Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        } else {
-                                          _answer0 = false;
-                                          _answer1 = false;
-                                          _answer2 = false;
-                                          _answer0Color = Colors.grey;
-                                          _answer1Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        }
-                                      });
-                                    },
-                                  );
-                                }
-                            );
-                          },
-                        ),
-                      ),
-                      ButtonTheme(
-                        height: 60.0,
-                        minWidth: 70.0,
-                        child: OutlineButton(
-                          child: Text(
-                            '1',
-                            style: TextStyle(
-                                fontSize: 26.0,
-                                color: _answer1Color),
-                          ),
-                          borderSide: BorderSide(
-                              color: _answer1Color,
-                              width: 1.0),
-                          highlightedBorderColor: _answer1Color,
-                          onPressed: () {
-                            showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (context) {
-                                  return Checkbox(
-                                    alasan: isiCheckbox,
-                                    valueCheck: valueCheckbox,
-                                    selectedAlasan: selectedAlasan,
-                                    selectedValue: selectedValue,
-                                    onSelectedAlasanListChanged: (alasans) {
-                                      selectedAlasan = alasans;
-                                    },
-                                    onResult: (finalResult) {
-                                      setState(() {
-                                        if (finalResult[0] == 'yes') {
-                                          _answer0 = false;
-                                          _answer1 = true;
-                                          _answer2 = false;
-                                          _answer1Color = Colors.green;
-                                          _answer0Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        } else {
-                                          _answer0 = false;
-                                          _answer1 = false;
-                                          _answer2 = false;
-                                          _answer0Color = Colors.grey;
-                                          _answer1Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        }
-                                      });
-                                    },
-                                  );
-                                }
-                            );
-                          },
-                        ),
-                      ),
-                      ButtonTheme(
-                        height: 60.0,
-                        minWidth: 70.0,
-                        child: OutlineButton(
-                          child: Text(
-                            '2',
-                            style: TextStyle(
-                                fontSize: 26.0,
-                                color: _answer2Color),
-                          ),
-                          borderSide: BorderSide(
-                              color: _answer2Color,
-                              width: 1.0),
-                          highlightedBorderColor: _answer2Color,
-                          onPressed: () {
-                            setState(() {
-                              _answer0 = false;
-                              _answer1 = false;
-                              _answer2 = true;
-                              _answer0Color = Colors.grey;
-                              _answer1Color = Colors.grey;
-                              _answer2Color = Colors.green;
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              ListView(
-                shrinkWrap: true,
-                physics: ScrollPhysics(),
-                children: <Widget>[
-                  PreferredSize(
-                    preferredSize: Size.fromHeight(55.0),
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: 55.0,
-                          child: Container(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          'Score',
-                                          style:
-                                          TextStyle(color: Colors.white, fontSize: 12.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        Text(
-                                          '80%',
-                                          style:
-                                          TextStyle(color: Colors.white, fontSize: 20.0),
-                                          textAlign: TextAlign.start,
-                                        )
-                                      ],
-                                    ),
-                                    Text(
-                                      '6 of ${_listData.length.toString()}',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14.0),
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              decoration: BoxDecoration(
-                                  color: Color(0xFF2F592F))),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: 55.0,
-                          child: Container(
-                            child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(
-                                          'Penampilan',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 16.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        Text(
-                                          'Operation',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 16.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(
-                                          'Log Book MOD',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 12.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        Text(
-                                          'Department',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 12.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                )
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom:8.0),
-                          child: Divider(
-                            height: 1.0,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Flexible(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 15.0),
-                          child: Text(
-                            'Program Kerja',
-                            style: TextStyle(
-                                color: Color(0xFF2F592F),
-                                fontSize: 24.0,
-                                fontWeight: FontWeight.bold
-                            ),
-                            textAlign: TextAlign.start,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Flexible(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
-                          child: Text(
-                            'Evaluasi',
-                            style: TextStyle(
-                                color: Colors.black54,
-                                fontSize: 18.0
-                            ),
-                            textAlign: TextAlign.start,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Flexible(
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: ScrollPhysics(),
-                          itemCount: isiCheckbox.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            double top;
-                            double bottom;
-                            if (index == 0) {
-                              top = 30.0;
-                              bottom = 0.0;
-                            } else if (index == isiCheckbox.length - 1) {
-                              top = 5.0;
-                              bottom = 40.0;
-                            } else {
-                              top = 5.0;
-                              bottom = 0.0;
-                            }
-
-                            return Row(
-                              children: <Widget>[
-                                Flexible(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(left: 15.0, right: 15.0, top: top, bottom: bottom),
-                                    child: Text(
-                                      '${index + 1}. ${isiCheckbox[index]}',
-                                      style: TextStyle(
-                                          color: Colors.black54,
-                                          fontSize: 22.0
-                                      ),
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        ),
-                      )
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      ButtonTheme(
-                        height: 60.0,
-                        minWidth: 70.0,
-                        child: OutlineButton(
-                          child: Text(
-                            '0',
-                            style: TextStyle(
-                                fontSize: 26.0,
-                                color: _answer0Color),
-                          ),
-                          borderSide: BorderSide(
-                              color: _answer0Color,
-                              width: 1.0),
-                          highlightedBorderColor: _answer0Color,
-                          onPressed: () {
-                            showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (context) {
-                                  return Checkbox(
-                                    alasan: isiCheckbox,
-                                    valueCheck: valueCheckbox,
-                                    selectedAlasan: selectedAlasan,
-                                    selectedValue: selectedValue,
-                                    onSelectedAlasanListChanged: (alasans) {
-                                      selectedAlasan = alasans;
-                                    },
-                                    onResult: (finalResult) {
-                                      setState(() {
-                                        if (finalResult[0] == 'yes') {
-                                          _answer0 = true;
-                                          _answer1 = false;
-                                          _answer2 = false;
-                                          _answer0Color = Colors.green;
-                                          _answer1Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        } else {
-                                          _answer0 = false;
-                                          _answer1 = false;
-                                          _answer2 = false;
-                                          _answer0Color = Colors.grey;
-                                          _answer1Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        }
-                                      });
-                                    },
-                                  );
-                                }
-                            );
-                          },
-                        ),
-                      ),
-                      ButtonTheme(
-                        height: 60.0,
-                        minWidth: 70.0,
-                        child: OutlineButton(
-                          child: Text(
-                            '1',
-                            style: TextStyle(
-                                fontSize: 26.0,
-                                color: _answer1Color),
-                          ),
-                          borderSide: BorderSide(
-                              color: _answer1Color,
-                              width: 1.0),
-                          highlightedBorderColor: _answer1Color,
-                          onPressed: () {
-                            showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (context) {
-                                  return Checkbox(
-                                    alasan: isiCheckbox,
-                                    valueCheck: valueCheckbox,
-                                    selectedAlasan: selectedAlasan,
-                                    selectedValue: selectedValue,
-                                    onSelectedAlasanListChanged: (alasans) {
-                                      selectedAlasan = alasans;
-                                    },
-                                    onResult: (finalResult) {
-                                      setState(() {
-                                        if (finalResult[0] == 'yes') {
-                                          _answer0 = false;
-                                          _answer1 = true;
-                                          _answer2 = false;
-                                          _answer1Color = Colors.green;
-                                          _answer0Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        } else {
-                                          _answer0 = false;
-                                          _answer1 = false;
-                                          _answer2 = false;
-                                          _answer0Color = Colors.grey;
-                                          _answer1Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        }
-                                      });
-                                    },
-                                  );
-                                }
-                            );
-                          },
-                        ),
-                      ),
-                      ButtonTheme(
-                        height: 60.0,
-                        minWidth: 70.0,
-                        child: OutlineButton(
-                          child: Text(
-                            '2',
-                            style: TextStyle(
-                                fontSize: 26.0,
-                                color: _answer2Color),
-                          ),
-                          borderSide: BorderSide(
-                              color: _answer2Color,
-                              width: 1.0),
-                          highlightedBorderColor: _answer2Color,
-                          onPressed: () {
-                            setState(() {
-                              _answer0 = false;
-                              _answer1 = false;
-                              _answer2 = true;
-                              _answer0Color = Colors.grey;
-                              _answer1Color = Colors.grey;
-                              _answer2Color = Colors.green;
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-
-              ListView(
-                shrinkWrap: true,
-                physics: ScrollPhysics(),
-                children: <Widget>[
-                  PreferredSize(
-                    preferredSize: Size.fromHeight(55.0),
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: 55.0,
-                          child: Container(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          'Score',
-                                          style:
-                                          TextStyle(color: Colors.white, fontSize: 12.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        Text(
-                                          '80%',
-                                          style:
-                                          TextStyle(color: Colors.white, fontSize: 20.0),
-                                          textAlign: TextAlign.start,
-                                        )
-                                      ],
-                                    ),
-                                    Text(
-                                      '7 of ${_listData.length.toString()}',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14.0),
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              decoration: BoxDecoration(
-                                  color: Color(0xFF2F592F))),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: 55.0,
-                          child: Container(
-                            child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(
-                                          'Penampilan',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 16.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        Text(
-                                          'Operation',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 16.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(
-                                          'Log Book MOD',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 12.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        Text(
-                                          'Department',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 12.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                )
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom:8.0),
-                          child: Divider(
-                            height: 1.0,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Flexible(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 15.0),
-                          child: Text(
-                            'LSM',
-                            style: TextStyle(
-                                color: Color(0xFF2F592F),
-                                fontSize: 24.0,
-                                fontWeight: FontWeight.bold
-                            ),
-                            textAlign: TextAlign.start,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Flexible(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
-                          child: Text(
-                            'Program Kerja',
-                            style: TextStyle(
-                                color: Colors.black54,
-                                fontSize: 18.0
-                            ),
-                            textAlign: TextAlign.start,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Flexible(
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: ScrollPhysics(),
-                          itemCount: isiCheckbox.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            double top;
-                            double bottom;
-                            if (index == 0) {
-                              top = 30.0;
-                              bottom = 0.0;
-                            } else if (index == isiCheckbox.length - 1) {
-                              top = 5.0;
-                              bottom = 40.0;
-                            } else {
-                              top = 5.0;
-                              bottom = 0.0;
-                            }
-
-                            return Row(
-                              children: <Widget>[
-                                Flexible(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(left: 15.0, right: 15.0, top: top, bottom: bottom),
-                                    child: Text(
-                                      '${index + 1}. ${isiCheckbox[index]}',
-                                      style: TextStyle(
-                                          color: Colors.black54,
-                                          fontSize: 22.0
-                                      ),
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        ),
-                      )
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      ButtonTheme(
-                        height: 60.0,
-                        minWidth: 70.0,
-                        child: OutlineButton(
-                          child: Text(
-                            '0',
-                            style: TextStyle(
-                                fontSize: 26.0,
-                                color: _answer0Color),
-                          ),
-                          borderSide: BorderSide(
-                              color: _answer0Color,
-                              width: 1.0),
-                          highlightedBorderColor: _answer0Color,
-                          onPressed: () {
-                            showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (context) {
-                                  return Checkbox(
-                                    alasan: isiCheckbox,
-                                    valueCheck: valueCheckbox,
-                                    selectedAlasan: selectedAlasan,
-                                    selectedValue: selectedValue,
-                                    onSelectedAlasanListChanged: (alasans) {
-                                      selectedAlasan = alasans;
-                                    },
-                                    onResult: (finalResult) {
-                                      setState(() {
-                                        if (finalResult[0] == 'yes') {
-                                          _answer0 = true;
-                                          _answer1 = false;
-                                          _answer2 = false;
-                                          _answer0Color = Colors.green;
-                                          _answer1Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        } else {
-                                          _answer0 = false;
-                                          _answer1 = false;
-                                          _answer2 = false;
-                                          _answer0Color = Colors.grey;
-                                          _answer1Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        }
-                                      });
-                                    },
-                                  );
-                                }
-                            );
-                          },
-                        ),
-                      ),
-                      ButtonTheme(
-                        height: 60.0,
-                        minWidth: 70.0,
-                        child: OutlineButton(
-                          child: Text(
-                            '1',
-                            style: TextStyle(
-                                fontSize: 26.0,
-                                color: _answer1Color),
-                          ),
-                          borderSide: BorderSide(
-                              color: _answer1Color,
-                              width: 1.0),
-                          highlightedBorderColor: _answer1Color,
-                          onPressed: () {
-                            showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (context) {
-                                  return Checkbox(
-                                    alasan: isiCheckbox,
-                                    valueCheck: valueCheckbox,
-                                    selectedAlasan: selectedAlasan,
-                                    selectedValue: selectedValue,
-                                    onSelectedAlasanListChanged: (alasans) {
-                                      selectedAlasan = alasans;
-                                    },
-                                    onResult: (finalResult) {
-                                      setState(() {
-                                        if (finalResult[0] == 'yes') {
-                                          _answer0 = false;
-                                          _answer1 = true;
-                                          _answer2 = false;
-                                          _answer1Color = Colors.green;
-                                          _answer0Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        } else {
-                                          _answer0 = false;
-                                          _answer1 = false;
-                                          _answer2 = false;
-                                          _answer0Color = Colors.grey;
-                                          _answer1Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        }
-                                      });
-                                    },
-                                  );
-                                }
-                            );
-                          },
-                        ),
-                      ),
-                      ButtonTheme(
-                        height: 60.0,
-                        minWidth: 70.0,
-                        child: OutlineButton(
-                          child: Text(
-                            '2',
-                            style: TextStyle(
-                                fontSize: 26.0,
-                                color: _answer2Color),
-                          ),
-                          borderSide: BorderSide(
-                              color: _answer2Color,
-                              width: 1.0),
-                          highlightedBorderColor: _answer2Color,
-                          onPressed: () {
-                            setState(() {
-                              _answer0 = false;
-                              _answer1 = false;
-                              _answer2 = true;
-                              _answer0Color = Colors.grey;
-                              _answer1Color = Colors.grey;
-                              _answer2Color = Colors.green;
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-
-              ListView(
-                shrinkWrap: true,
-                physics: ScrollPhysics(),
-                children: <Widget>[
-                  PreferredSize(
-                    preferredSize: Size.fromHeight(55.0),
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: 55.0,
-                          child: Container(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          'Score',
-                                          style:
-                                          TextStyle(color: Colors.white, fontSize: 12.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        Text(
-                                          '80%',
-                                          style:
-                                          TextStyle(color: Colors.white, fontSize: 20.0),
-                                          textAlign: TextAlign.start,
-                                        )
-                                      ],
-                                    ),
-                                    Text(
-                                      '8 of ${_listData.length.toString()}',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14.0),
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              decoration: BoxDecoration(
-                                  color: Color(0xFF2F592F))),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: 55.0,
-                          child: Container(
-                            child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(
-                                          'Penampilan',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 16.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        Text(
-                                          'Operation',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 16.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(
-                                          'Log Book MOD',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 12.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        Text(
-                                          'Department',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 12.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                )
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom:8.0),
-                          child: Divider(
-                            height: 1.0,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Flexible(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 15.0),
-                          child: Text(
-                            'Tukar Shift',
-                            style: TextStyle(
-                                color: Color(0xFF2F592F),
-                                fontSize: 24.0,
-                                fontWeight: FontWeight.bold
-                            ),
-                            textAlign: TextAlign.start,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Flexible(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
-                          child: Text(
-                            'Schedule',
-                            style: TextStyle(
-                                color: Colors.black54,
-                                fontSize: 18.0
-                            ),
-                            textAlign: TextAlign.start,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Flexible(
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: ScrollPhysics(),
-                          itemCount: isiCheckbox.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            double top;
-                            double bottom;
-                            if (index == 0) {
-                              top = 30.0;
-                              bottom = 0.0;
-                            } else if (index == isiCheckbox.length - 1) {
-                              top = 5.0;
-                              bottom = 40.0;
-                            } else {
-                              top = 5.0;
-                              bottom = 0.0;
-                            }
-
-                            return Row(
-                              children: <Widget>[
-                                Flexible(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(left: 15.0, right: 15.0, top: top, bottom: bottom),
-                                    child: Text(
-                                      '${index + 1}. ${isiCheckbox[index]}',
-                                      style: TextStyle(
-                                          color: Colors.black54,
-                                          fontSize: 22.0
-                                      ),
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        ),
-                      )
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      ButtonTheme(
-                        height: 60.0,
-                        minWidth: 70.0,
-                        child: OutlineButton(
-                          child: Text(
-                            '0',
-                            style: TextStyle(
-                                fontSize: 26.0,
-                                color: _answer0Color),
-                          ),
-                          borderSide: BorderSide(
-                              color: _answer0Color,
-                              width: 1.0),
-                          highlightedBorderColor: _answer0Color,
-                          onPressed: () {
-                            showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (context) {
-                                  return Checkbox(
-                                    alasan: isiCheckbox,
-                                    valueCheck: valueCheckbox,
-                                    selectedAlasan: selectedAlasan,
-                                    selectedValue: selectedValue,
-                                    onSelectedAlasanListChanged: (alasans) {
-                                      selectedAlasan = alasans;
-                                    },
-                                    onResult: (finalResult) {
-                                      setState(() {
-                                        if (finalResult[0] == 'yes') {
-                                          _answer0 = true;
-                                          _answer1 = false;
-                                          _answer2 = false;
-                                          _answer0Color = Colors.green;
-                                          _answer1Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        } else {
-                                          _answer0 = false;
-                                          _answer1 = false;
-                                          _answer2 = false;
-                                          _answer0Color = Colors.grey;
-                                          _answer1Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        }
-                                      });
-                                    },
-                                  );
-                                }
-                            );
-                          },
-                        ),
-                      ),
-                      ButtonTheme(
-                        height: 60.0,
-                        minWidth: 70.0,
-                        child: OutlineButton(
-                          child: Text(
-                            '1',
-                            style: TextStyle(
-                                fontSize: 26.0,
-                                color: _answer1Color),
-                          ),
-                          borderSide: BorderSide(
-                              color: _answer1Color,
-                              width: 1.0),
-                          highlightedBorderColor: _answer1Color,
-                          onPressed: () {
-                            showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (context) {
-                                  return Checkbox(
-                                    alasan: isiCheckbox,
-                                    valueCheck: valueCheckbox,
-                                    selectedAlasan: selectedAlasan,
-                                    selectedValue: selectedValue,
-                                    onSelectedAlasanListChanged: (alasans) {
-                                      selectedAlasan = alasans;
-                                    },
-                                    onResult: (finalResult) {
-                                      setState(() {
-                                        if (finalResult[0] == 'yes') {
-                                          _answer0 = false;
-                                          _answer1 = true;
-                                          _answer2 = false;
-                                          _answer1Color = Colors.green;
-                                          _answer0Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        } else {
-                                          _answer0 = false;
-                                          _answer1 = false;
-                                          _answer2 = false;
-                                          _answer0Color = Colors.grey;
-                                          _answer1Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        }
-                                      });
-                                    },
-                                  );
-                                }
-                            );
-                          },
-                        ),
-                      ),
-                      ButtonTheme(
-                        height: 60.0,
-                        minWidth: 70.0,
-                        child: OutlineButton(
-                          child: Text(
-                            '2',
-                            style: TextStyle(
-                                fontSize: 26.0,
-                                color: _answer2Color),
-                          ),
-                          borderSide: BorderSide(
-                              color: _answer2Color,
-                              width: 1.0),
-                          highlightedBorderColor: _answer2Color,
-                          onPressed: () {
-                            setState(() {
-                              _answer0 = false;
-                              _answer1 = false;
-                              _answer2 = true;
-                              _answer0Color = Colors.grey;
-                              _answer1Color = Colors.grey;
-                              _answer2Color = Colors.green;
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-
-              ListView(
-                shrinkWrap: true,
-                physics: ScrollPhysics(),
-                children: <Widget>[
-                  PreferredSize(
-                    preferredSize: Size.fromHeight(55.0),
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: 55.0,
-                          child: Container(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          'Score',
-                                          style:
-                                          TextStyle(color: Colors.white, fontSize: 12.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        Text(
-                                          '80%',
-                                          style:
-                                          TextStyle(color: Colors.white, fontSize: 20.0),
-                                          textAlign: TextAlign.start,
-                                        )
-                                      ],
-                                    ),
-                                    Text(
-                                      '9 of ${_listData.length.toString()}',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14.0),
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              decoration: BoxDecoration(
-                                  color: Color(0xFF2F592F))),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: 55.0,
-                          child: Container(
-                            child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(
-                                          'Penampilan',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 16.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        Text(
-                                          'Operation',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 16.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(
-                                          'Log Book MOD',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 12.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        Text(
-                                          'Department',
-                                          style:
-                                          TextStyle(color: Colors.black54, fontSize: 12.0),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                )
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom:8.0),
-                          child: Divider(
-                            height: 1.0,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Flexible(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 15.0),
-                          child: Text(
-                            'Tukar Off',
-                            style: TextStyle(
-                                color: Color(0xFF2F592F),
-                                fontSize: 24.0,
-                                fontWeight: FontWeight.bold
-                            ),
-                            textAlign: TextAlign.start,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Flexible(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
-                          child: Text(
-                            'Schedule',
-                            style: TextStyle(
-                                color: Colors.black54,
-                                fontSize: 18.0
-                            ),
-                            textAlign: TextAlign.start,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Flexible(
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: ScrollPhysics(),
-                          itemCount: isiCheckbox.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            double top;
-                            double bottom;
-                            if (index == 0) {
-                              top = 30.0;
-                              bottom = 0.0;
-                            } else if (index == isiCheckbox.length - 1) {
-                              top = 5.0;
-                              bottom = 40.0;
-                            } else {
-                              top = 5.0;
-                              bottom = 0.0;
-                            }
-
-                            return Row(
-                              children: <Widget>[
-                                Flexible(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(left: 15.0, right: 15.0, top: top, bottom: bottom),
-                                    child: Text(
-                                      '${index + 1}. ${isiCheckbox[index]}',
-                                      style: TextStyle(
-                                          color: Colors.black54,
-                                          fontSize: 22.0
-                                      ),
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        ),
-                      )
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      ButtonTheme(
-                        height: 60.0,
-                        minWidth: 70.0,
-                        child: OutlineButton(
-                          child: Text(
-                            '0',
-                            style: TextStyle(
-                                fontSize: 26.0,
-                                color: _answer0Color),
-                          ),
-                          borderSide: BorderSide(
-                              color: _answer0Color,
-                              width: 1.0),
-                          highlightedBorderColor: _answer0Color,
-                          onPressed: () {
-                            showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (context) {
-                                  return Checkbox(
-                                    alasan: isiCheckbox,
-                                    valueCheck: valueCheckbox,
-                                    selectedAlasan: selectedAlasan,
-                                    selectedValue: selectedValue,
-                                    onSelectedAlasanListChanged: (alasans) {
-                                      selectedAlasan = alasans;
-                                    },
-                                    onResult: (finalResult) {
-                                      setState(() {
-                                        if (finalResult[0] == 'yes') {
-                                          _answer0 = true;
-                                          _answer1 = false;
-                                          _answer2 = false;
-                                          _answer0Color = Colors.green;
-                                          _answer1Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        } else {
-                                          _answer0 = false;
-                                          _answer1 = false;
-                                          _answer2 = false;
-                                          _answer0Color = Colors.grey;
-                                          _answer1Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        }
-                                      });
-                                    },
-                                  );
-                                }
-                            );
-                          },
-                        ),
-                      ),
-                      ButtonTheme(
-                        height: 60.0,
-                        minWidth: 70.0,
-                        child: OutlineButton(
-                          child: Text(
-                            '1',
-                            style: TextStyle(
-                                fontSize: 26.0,
-                                color: _answer1Color),
-                          ),
-                          borderSide: BorderSide(
-                              color: _answer1Color,
-                              width: 1.0),
-                          highlightedBorderColor: _answer1Color,
-                          onPressed: () {
-                            showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (context) {
-                                  return Checkbox(
-                                    alasan: isiCheckbox,
-                                    valueCheck: valueCheckbox,
-                                    selectedAlasan: selectedAlasan,
-                                    selectedValue: selectedValue,
-                                    onSelectedAlasanListChanged: (alasans) {
-                                      selectedAlasan = alasans;
-                                    },
-                                    onResult: (finalResult) {
-                                      setState(() {
-                                        if (finalResult[0] == 'yes') {
-                                          _answer0 = false;
-                                          _answer1 = true;
-                                          _answer2 = false;
-                                          _answer1Color = Colors.green;
-                                          _answer0Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        } else {
-                                          _answer0 = false;
-                                          _answer1 = false;
-                                          _answer2 = false;
-                                          _answer0Color = Colors.grey;
-                                          _answer1Color = Colors.grey;
-                                          _answer2Color = Colors.grey;
-                                        }
-                                      });
-                                    },
-                                  );
-                                }
-                            );
-                          },
-                        ),
-                      ),
-                      ButtonTheme(
-                        height: 60.0,
-                        minWidth: 70.0,
-                        child: OutlineButton(
-                          child: Text(
-                            '2',
-                            style: TextStyle(
-                                fontSize: 26.0,
-                                color: _answer2Color),
-                          ),
-                          borderSide: BorderSide(
-                              color: _answer2Color,
-                              width: 1.0),
-                          highlightedBorderColor: _answer2Color,
-                          onPressed: () {
-                            setState(() {
-                              _answer0 = false;
-                              _answer1 = false;
-                              _answer2 = true;
-                              _answer0Color = Colors.grey;
-                              _answer1Color = Colors.grey;
-                              _answer2Color = Colors.green;
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
+              );
+            }).toList(),
           ),
         )
       ],
@@ -3052,32 +517,32 @@ class _FormPenampilanState extends State<FormPenampilan> with TickerProviderStat
                     ),
                     _listData == 9
                         ? ButtonTheme(
-                      minWidth: 50.0,
-                      height: 30.0,
-                      child: RaisedButton(
-                        child: Text(
-                          'SAVE',
-                          style: TextStyle(fontSize: 13.0),
-                        ),
-                        textColor: Colors.white,
-                        color: Colors.green,
-                        onPressed: () {},
-                      ),
-                    )
+                            minWidth: 50.0,
+                            height: 30.0,
+                            child: RaisedButton(
+                              child: Text(
+                                'SAVE',
+                                style: TextStyle(fontSize: 13.0),
+                              ),
+                              textColor: Colors.white,
+                              color: Colors.green,
+                              onPressed: () {},
+                            ),
+                          )
                         : ButtonTheme(
-                      minWidth: 50.0,
-                      height: 30.0,
-                      child: RaisedButton(
-                        elevation: 0.0,
-                        child: Text(
-                          'SAVE',
-                          style: TextStyle(fontSize: 13.0),
-                        ),
-                        textColor: Color(0xFF2F592F),
-                        color: Color(0xFF2F592F),
-                        onPressed: () {},
-                      ),
-                    ),
+                            minWidth: 50.0,
+                            height: 30.0,
+                            child: RaisedButton(
+                              elevation: 0.0,
+                              child: Text(
+                                'SAVE',
+                                style: TextStyle(fontSize: 13.0),
+                              ),
+                              textColor: Color(0xFF2F592F),
+                              color: Color(0xFF2F592F),
+                              onPressed: () {},
+                            ),
+                          ),
                   ],
                 ),
                 Row(
@@ -3122,101 +587,6 @@ class _FormPenampilanState extends State<FormPenampilan> with TickerProviderStat
         height: 100.0,
         width: 120.0,
       ),
-      /*bottom: PreferredSize(
-        preferredSize: Size.fromHeight(110.0),
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: 55.0,
-              child: Container(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              'Score',
-                              style:
-                              TextStyle(color: Colors.white, fontSize: 12.0),
-                              textAlign: TextAlign.start,
-                            ),
-                            Text(
-                              '80%',
-                              style:
-                              TextStyle(color: Colors.white, fontSize: 20.0),
-                              textAlign: TextAlign.start,
-                            )
-                          ],
-                        ),
-                        Text(
-                          '${_number.toString()} of ${_title.length.toString()}',
-                          style:
-                          TextStyle(color: Colors.white, fontSize: 12.0),
-                          textAlign: TextAlign.start,
-                        ),
-                      ],
-                    ),
-                  ),
-                  decoration: BoxDecoration(
-                      color: Color(0xFF2F592F)
-                  )
-              ),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: 55.0,
-              child: Container(
-                child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(
-                              'Penampilan',
-                              style:
-                              TextStyle(color: Colors.black54, fontSize: 16.0),
-                              textAlign: TextAlign.start,
-                            ),
-                            Text(
-                              'Operation',
-                              style:
-                              TextStyle(color: Colors.black54, fontSize: 16.0),
-                              textAlign: TextAlign.start,
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(
-                              'Log Book MOD',
-                              style:
-                              TextStyle(color: Colors.black54, fontSize: 12.0),
-                              textAlign: TextAlign.start,
-                            ),
-                            Text(
-                              'Department',
-                              style:
-                              TextStyle(color: Colors.black54, fontSize: 12.0),
-                              textAlign: TextAlign.start,
-                            ),
-                          ],
-                        ),
-                      ],
-                    )
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),*/
     );
   }
 }
@@ -3269,36 +639,39 @@ class _CheckboxState extends State<Checkbox> {
               padding: EdgeInsets.all(15.0),
               child: Center(
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Flexible(
-                        child: Text(
-                          'Alasan',
-                          style: TextStyle(fontSize: 16.0, color: Colors.black, fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.left,
-                        ),
-                      ),
-                      FlatButton(
-                        child: Text(
-                          'Add Note',
-                          style: TextStyle(color: Colors.green, fontSize: 12.0),
-                        ),
-                        onPressed: () {
-                          setState(
-                                () {
-                              if (_note == true) {
-                                height = 300.0;
-                              } else {
-                                height = height + 100.0;
-                              }
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Flexible(
+                    child: Text(
+                      'Alasan',
+                      style: TextStyle(
+                          fontSize: 16.0,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                  FlatButton(
+                    child: Text(
+                      'Add Note',
+                      style: TextStyle(color: Colors.green, fontSize: 12.0),
+                    ),
+                    onPressed: () {
+                      setState(
+                        () {
+                          if (_note == true) {
+                            height = 300.0;
+                          } else {
+                            height = height + 100.0;
+                          }
 
-                              _note = !_note;
-                            },
-                          );
+                          _note = !_note;
                         },
-                      ),
-                    ],
-                  )),
+                      );
+                    },
+                  ),
+                ],
+              )),
             ),
             Expanded(
               child: Scrollbar(
@@ -3322,7 +695,7 @@ class _CheckboxState extends State<Checkbox> {
                                 if (!_tempSelectedAlasan
                                     .contains(AlasanValue)) {
                                   setState(
-                                        () {
+                                    () {
                                       _tempSelectedValueAlasan.add(ValueFinal);
                                       _tempSelectedAlasan.add(AlasanValue);
                                     },
@@ -3331,11 +704,11 @@ class _CheckboxState extends State<Checkbox> {
                               } else {
                                 if (_tempSelectedAlasan.contains(AlasanValue)) {
                                   setState(
-                                        () {
+                                    () {
                                       _tempSelectedAlasan.removeWhere(
-                                              (String city) => city == AlasanValue);
+                                          (String city) => city == AlasanValue);
                                       _tempSelectedValueAlasan.removeWhere(
-                                              (String city) => city == ValueFinal);
+                                          (String city) => city == ValueFinal);
                                     },
                                   );
                                 }
@@ -3344,29 +717,28 @@ class _CheckboxState extends State<Checkbox> {
                                   _tempSelectedValueAlasan);
                             }),
                       );
-                    }
-                ),
+                    }),
               ),
             ),
             _note
                 ? Padding(
-              padding:
-              EdgeInsets.only(top: 20.0, right: 10.0, left: 10.0),
-              child: Container(
-                width: MediaQuery.of(context).size.width / 1.1,
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Note',
-                  ),
-                  maxLines: 3,
-                  controller: _noteController,
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-            )
+                    padding:
+                        EdgeInsets.only(top: 20.0, right: 10.0, left: 10.0),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width / 1.1,
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Note',
+                        ),
+                        maxLines: 3,
+                        controller: _noteController,
+                        style: TextStyle(
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  )
                 : Container(),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 10.0),
@@ -3382,8 +754,7 @@ class _CheckboxState extends State<Checkbox> {
                         style: TextStyle(color: Colors.white, fontSize: 12.0),
                       ),
                       onPressed: () {
-                        widget.onResult(
-                            ['no']);
+                        widget.onResult(['no']);
                         Navigator.of(context).pop();
                       },
                       splashColor: Colors.red[300],
@@ -3398,8 +769,7 @@ class _CheckboxState extends State<Checkbox> {
                         style: TextStyle(color: Colors.white, fontSize: 12.0),
                       ),
                       onPressed: () {
-                        widget.onResult(
-                            ['yes']);
+                        widget.onResult(['yes']);
                         Navigator.of(context).pop();
                       },
                       splashColor: Colors.green[300],

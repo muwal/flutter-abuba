@@ -325,7 +325,7 @@ class _FormProblemState extends State<FormProblem>
       'title': '2. Identify Team',
       'title_dalam': 'LEADER',
       'isi':
-          'Bertanggungjawab pada pelaksana teknis, mengadakan meeting, menyiapkan fasilitas pada team dan report kepada champion',
+          'Bertanggung jawab pada pelaksana teknis, mengadakan meeting, menyiapkan fasilitas pada team dan report kepada champion',
       'select': 'false',
       'checkbox': 'false',
       'note': 'false',
