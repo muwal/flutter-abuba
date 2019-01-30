@@ -14,6 +14,7 @@ import 'package:flutter_abuba/sixsigma/beranda_sigma.dart';
 
 import 'package:flutter_abuba/isoft/beranda_isoft.dart';
 import 'package:flutter_abuba/misteri_shop/form_carilokasi.dart';
+import 'package:flutter_abuba/misteri_shop/grid_data_search.dart';
 
 class BerandaPage extends StatefulWidget {
   @override

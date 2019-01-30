@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
-import 'package:dio/dio.dart';
 
 class Checkbox extends StatefulWidget {
   Checkbox({
@@ -197,155 +196,11 @@ class _CheckboxState extends State<Checkbox> {
   }
 }
 
-class FormCariLokasi extends StatefulWidget {
-  @override
-  _FormCariLokasiState createState() => _FormCariLokasiState();
-}
-
-class _FormCariLokasiState extends State<FormCariLokasi> {
-  final TextEditingController _filter = new TextEditingController();
-  final dio = new Dio();
-  String _searchText = "";
-  List names = new List();
-  List filteredNames = new List();
-  Icon _searchIcon = new Icon(Icons.search);
-  Widget _appBarTitle = Image.asset(
-    'assets/images/logo.png',
-    height: 100.0,
-    width: 120.0,
-  );
-
-  void _searchPressed() {
-    setState(
-      () {
-        if (this._searchIcon.icon == Icons.search) {
-          this._searchIcon = new Icon(Icons.close);
-          this._appBarTitle = new TextField(
-            controller: _filter,
-            decoration: new InputDecoration(
-                prefixIcon: new Icon(Icons.search), hintText: 'Search...'),
-          );
-        } else {
-          this._searchIcon = new Icon(Icons.search);
-          this._appBarTitle = Image.asset(
-            'assets/images/logo.png',
-            height: 100.0,
-            width: 120.0,
-          );
-          filteredNames = names;
-          _filter.clear();
-        }
-      },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: _appBar(),
-        body: _buildMenu(),
-      ),
-    );
-  }
-
-  Widget _appBar() {
-    return AppBar(
-      elevation: 0.25,
-      backgroundColor: Colors.white,
-      iconTheme: IconThemeData(color: Colors.black),
-      actions: <Widget>[
-        IconButton(
-          tooltip: 'Search',
-          icon: _searchIcon,
-          onPressed:
-              _searchPressed, /*() {
-            Navigator.push(
-                context, MyCustomRoute(builder: (context) => FormCheckIn()));
-          },*/
-        )
-      ],
-      title: _appBarTitle,
-    );
-  }
-
-  Widget _buildMenu() {
-    return ListView(
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                'Mystery Shopper',
-                style: TextStyle(color: Colors.black12, fontSize: 12.0),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 15.0),
-                child: Text(
-                  '|',
-                  style:
-                      TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 15.0),
-                child: Text(
-                  'Location',
-                  style:
-                      TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.only(top: 15.0),
-          child: _gridImage(),
-        ),
-      ],
-    );
-  }
-
-  Widget _gridImage() {
-    return GridView.count(
-      shrinkWrap: true,
-      crossAxisCount: 2,
-      childAspectRatio: 2.0,
-      padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8.0),
-      mainAxisSpacing: 4.0,
-      crossAxisSpacing: 2.0,
-      children: <String>[
-        'assets/images/slide2.png',
-        'assets/images/slide2.png',
-        'assets/images/slide2.png',
-        'assets/images/slide2.png',
-        'assets/images/slide2.png',
-        'assets/images/slide2.png',
-      ].map(
-        (String url) {
-          return new GridTile(
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MyCustomRoute(
-                        builder: (context) => FormCheckIn()));
-              },
-              child: new Image.asset(
-                url,
-                fit: BoxFit.scaleDown,
-              ),
-            ),
-          );
-        },
-      ).toList(),
-    );
-  }
-}
-
 class FormCheckIn extends StatefulWidget {
+  final String outlet;
+  final String imageOutlet;
+  FormCheckIn({this.outlet, this.imageOutlet});
+
   @override
   _FormCheckInState createState() => _FormCheckInState();
 }
@@ -408,7 +263,7 @@ class _FormCheckInState extends State<FormCheckIn> {
                         children: <Widget>[
                           Flexible(
                             child: Text(
-                              'Welcome to ABUBA Paris',
+                              'Welcome to ${widget.outlet}',
                               style: TextStyle(
                                   color: AbubaPallate.greenabuba,
                                   fontWeight: FontWeight.w700,
@@ -601,8 +456,7 @@ class FormTakingOrder extends StatefulWidget {
   _FormTakingOrderState createState() => _FormTakingOrderState();
 }
 
-class _FormTakingOrderState extends State<FormTakingOrder>
-    with TickerProviderStateMixin {
+class _FormTakingOrderState extends State<FormTakingOrder> with TickerProviderStateMixin {
   List<Map> _listData = [
     {'nomor': '1'},
     {'nomor': '2'},
@@ -4891,8 +4745,7 @@ class FormFinishing extends StatefulWidget {
   _FormFinishingState createState() => _FormFinishingState();
 }
 
-class _FormFinishingState extends State<FormFinishing>
-    with TickerProviderStateMixin {
+class _FormFinishingState extends State<FormFinishing> with TickerProviderStateMixin {
   List<Map> _listData = [
     {'nomor': '11'},
     {'nomor': '12'},
@@ -5652,12 +5505,12 @@ class _FormCheckOutState extends State<FormCheckOut> {
     return SafeArea(
       child: Scaffold(
         appBar: AbubaAppBar(),
-        body: _buildMenu(),
+        body: _buildMenu(context),
       ),
     );
   }
 
-  Widget _buildMenu() {
+  Widget _buildMenu(context) {
     return Scrollbar(
       child: ListView(
         children: <Widget>[
