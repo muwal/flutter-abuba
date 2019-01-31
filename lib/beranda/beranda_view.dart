@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/creative_page/form_comment.dart';
+import 'package:flutter_abuba/misteri_shop/beranda_mg.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter_abuba/beranda/beranda_appbar.dart';
@@ -13,10 +14,11 @@ import 'package:flutter_abuba/creative_page/form_create.dart';
 import 'package:flutter_abuba/sixsigma/beranda_sigma.dart';
 
 import 'package:flutter_abuba/isoft/beranda_isoft.dart';
-import 'package:flutter_abuba/misteri_shop/form_carilokasi.dart';
-import 'package:flutter_abuba/misteri_shop/grid_data_search.dart';
 
 class BerandaPage extends StatefulWidget {
+  final int idUser;
+  BerandaPage({this.idUser});
+
   @override
   _BerandaPageState createState() => _BerandaPageState();
 }
@@ -37,7 +39,63 @@ class _BerandaPageState extends State<BerandaPage> {
       child: Scaffold(
         appBar: AbubaAppBar(),
         body: _buildAbubaMenu(),
+        bottomNavigationBar: _buildBottomNavigation(),
       ),
+    );
+  }
+
+  Widget _buildBottomNavigation() {
+    return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
+      onTap: null,
+      items: [
+        BottomNavigationBarItem(
+          activeIcon: new Icon(
+            Icons.home,
+            color: AbubaPallate.green,
+          ),
+          icon: new Icon(
+            Icons.home,
+            color: Colors.grey,
+          ),
+          title: new Text(
+            'Home',
+          ),
+        ),
+        BottomNavigationBarItem(
+          activeIcon: new Icon(
+            Icons.timeline,
+            color: AbubaPallate.green,
+          ),
+          icon: new Icon(
+            Icons.timeline,
+            color: Colors.grey,
+          ),
+          title: new Text('What\'s New'),
+        ),
+        BottomNavigationBarItem(
+          activeIcon: new Icon(
+            Icons.mail,
+            color: AbubaPallate.green,
+          ),
+          icon: new Icon(
+            Icons.mail,
+            color: Colors.grey,
+          ),
+          title: new Text('Inbox'),
+        ),
+        BottomNavigationBarItem(
+          activeIcon: new Icon(
+            Icons.person,
+            color: AbubaPallate.green,
+          ),
+          icon: new Icon(
+            Icons.person,
+            color: Colors.grey,
+          ),
+          title: new Text('Account'),
+        ),
+      ],
     );
   }
 
@@ -321,7 +379,7 @@ class _BerandaPageState extends State<BerandaPage> {
                             Navigator.push(
                                 context,
                                 MyCustomRoute(
-                                    builder: (context) => FormCariLokasi()));
+                                    builder: (context) => BerandaMG(idUser: widget.idUser)));
                           },
                           child: Column(
                             mainAxisSize: MainAxisSize.min,

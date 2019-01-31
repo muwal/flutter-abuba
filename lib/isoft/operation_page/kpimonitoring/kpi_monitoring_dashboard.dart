@@ -112,7 +112,8 @@ class _DashboardKpiMonitoringState extends State<DashboardKpiMonitoring> {
                       animationDuration: 1000,
                       linearStrokeCap: LinearStrokeCap.butt,
                       progressColor: Colors.green[300],
-                    )),
+                    ),
+                ),
                 Container(
                     alignment: Alignment.centerLeft,
                     padding: const EdgeInsets.only(

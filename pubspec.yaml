@@ -19,16 +19,17 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
-  percent_indicator: ^1.0.10
-  material_design_icons_flutter: ^3.0.39
-  flutter_statusbarcolor: any
-  datetime_picker_formfield: ^0.1.7
-  smooth_star_rating: ^1.0.1
+  datetime_picker_formfield: ^0.1.8
+  percent_indicator: ^1.0.13
+  material_design_icons_flutter: ^3.0.3392
   flutter_circular_chart: ^0.1.0
   badges: ^0.0.6
-  image_picker: ^0.4.10
+  image_picker: ^0.5.0
+  url_launcher: ^5.0.0
+  smooth_star_rating: ^1.0.1
   flutter_swiper: ^1.1.4
-  url_launcher: ^4.1.0+1
+  cloud_firestore: ^0.9.0
+  firebase_core: ^0.3.0
   dio: ^1.0.0
 
 dev_dependencies:
@@ -73,6 +74,13 @@ flutter:
     - assets/images/slide 26.png
     - assets/images/slide2.png
     - assets/images/slide3.png
+    - assets/images/abuba1.jpg
+    - assets/images/abuba2.jpg
+    - assets/images/abuba3.jpg
+    - assets/images/abuba4.jpg
+    - assets/images/abuba5.jpg
+    - assets/images/abuba6.jpg
+
   fonts:
     - family: NeoSans
       fonts:

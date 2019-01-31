@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_abuba/landing/landingpage_view.dart';
 
 class Checkbox extends StatefulWidget {
   Checkbox({
@@ -50,39 +52,39 @@ class _CheckboxState extends State<Checkbox> {
               padding: EdgeInsets.all(15.0),
               child: Center(
                   child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Flexible(
-                    child: Text(
-                      'Alasan',
-                      style: TextStyle(
-                          fontSize: 16.0,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                  FlatButton(
-                    child: Text(
-                      'Add Note',
-                      style: TextStyle(color: Colors.green, fontSize: 12.0),
-                    ),
-                    onPressed: () {
-                      setState(
-                        () {
-                          if (_note == true) {
-                            height = 300.0;
-                          } else {
-                            height = height + 100.0;
-                          }
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Flexible(
+                        child: Text(
+                          'Alasan',
+                          style: TextStyle(
+                              fontSize: 16.0,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.left,
+                        ),
+                      ),
+                      FlatButton(
+                        child: Text(
+                          'Add Note',
+                          style: TextStyle(color: Colors.green, fontSize: 12.0),
+                        ),
+                        onPressed: () {
+                          setState(
+                                () {
+                              if (_note == true) {
+                                height = 300.0;
+                              } else {
+                                height = height + 100.0;
+                              }
 
-                          _note = !_note;
+                              _note = !_note;
+                            },
+                          );
                         },
-                      );
-                    },
-                  ),
-                ],
-              )),
+                      ),
+                    ],
+                  )),
             ),
             Expanded(
               child: Scrollbar(
@@ -106,7 +108,7 @@ class _CheckboxState extends State<Checkbox> {
                                 if (!_tempSelectedAlasan
                                     .contains(AlasanValue)) {
                                   setState(
-                                    () {
+                                        () {
                                       _tempSelectedValueAlasan.add(ValueFinal);
                                       _tempSelectedAlasan.add(AlasanValue);
                                     },
@@ -115,11 +117,11 @@ class _CheckboxState extends State<Checkbox> {
                               } else {
                                 if (_tempSelectedAlasan.contains(AlasanValue)) {
                                   setState(
-                                    () {
+                                        () {
                                       _tempSelectedAlasan.removeWhere(
-                                          (String city) => city == AlasanValue);
+                                              (String city) => city == AlasanValue);
                                       _tempSelectedValueAlasan.removeWhere(
-                                          (String city) => city == ValueFinal);
+                                              (String city) => city == ValueFinal);
                                     },
                                   );
                                 }
@@ -133,23 +135,23 @@ class _CheckboxState extends State<Checkbox> {
             ),
             _note
                 ? Padding(
-                    padding:
-                        EdgeInsets.only(top: 20.0, right: 10.0, left: 10.0),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 1.1,
-                      child: TextField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'Note',
-                        ),
-                        maxLines: 3,
-                        controller: _noteController,
-                        style: TextStyle(
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  )
+              padding:
+              EdgeInsets.only(top: 20.0, right: 10.0, left: 10.0),
+              child: Container(
+                width: MediaQuery.of(context).size.width / 1.1,
+                child: TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Note',
+                  ),
+                  maxLines: 3,
+                  controller: _noteController,
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            )
                 : Container(),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 10.0),
@@ -198,14 +200,62 @@ class _CheckboxState extends State<Checkbox> {
 
 class FormCheckIn extends StatefulWidget {
   final String outlet;
+  final int idOutlet;
   final String imageOutlet;
-  FormCheckIn({this.outlet, this.imageOutlet});
+  final String alamatOutlet;
+  final int idUser;
+  FormCheckIn(
+      {this.outlet,
+        this.imageOutlet,
+        this.alamatOutlet,
+        this.idOutlet,
+        this.idUser});
 
   @override
   _FormCheckInState createState() => _FormCheckInState();
 }
 
 class _FormCheckInState extends State<FormCheckIn> {
+  DateTime checkinNow = DateTime.now();
+  var maxid;
+  var index;
+
+  void checkin() {
+    Firestore.instance
+        .collection('dumper_mystery_shopper')
+        .snapshots()
+        .listen((data) => data.documents.forEach((doc) {
+      setState(() {
+        maxid = doc['max_id'] + 1;
+        index = data.documents[0].reference;
+      });
+    }));
+    Firestore.instance.runTransaction((Transaction transaction) async {
+      CollectionReference reference =
+      Firestore.instance.collection('mystery_shopper');
+      await reference.add({
+        'id': maxid,
+        'user': widget.idUser,
+        'checkIn': checkinNow,
+        'checkOut': null,
+        'outlet': widget.idOutlet
+      });
+
+      DocumentSnapshot snapshot = await transaction.get(index);
+      await transaction.update(snapshot.reference, {
+        'max_id': maxid,
+      });
+    });
+    Navigator.pushReplacement(
+        context,
+        MyCustomRoute(
+            builder: (context) => FormSuasanaResto(
+                idOutlet: widget.idOutlet,
+                alamatOutlet: widget.alamatOutlet,
+                outlet: widget.outlet,
+                imageOutlet: widget.imageOutlet)));
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -277,7 +327,7 @@ class _FormCheckInState extends State<FormCheckIn> {
                         children: <Widget>[
                           Flexible(
                             child: Text(
-                              'Jl Paris Raya no 18 C South France 172345',
+                              widget.alamatOutlet,
                               style: TextStyle(
                                   fontSize: 14.0, color: Colors.black54),
                             ),
@@ -296,15 +346,10 @@ class _FormCheckInState extends State<FormCheckIn> {
                           child: Text(
                             'CHECK IN',
                             style:
-                                TextStyle(fontSize: 13.0, color: Colors.white),
+                            TextStyle(fontSize: 13.0, color: Colors.white),
                           ),
                           color: Colors.green,
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MyCustomRoute(
-                                    builder: (context) => FormSuasanaResto()));
-                          },
+                          onPressed: checkin,
                         ),
                       ),
                     ],
@@ -326,6 +371,13 @@ class _FormCheckInState extends State<FormCheckIn> {
 }
 
 class FormSuasanaResto extends StatefulWidget {
+  final String outlet;
+  final int idOutlet;
+  final String imageOutlet;
+  final String alamatOutlet;
+  FormSuasanaResto(
+      {this.outlet, this.imageOutlet, this.alamatOutlet, this.idOutlet});
+
   @override
   _FormSuasanaRestoState createState() => _FormSuasanaRestoState();
 }
@@ -335,8 +387,57 @@ class _FormSuasanaRestoState extends State<FormSuasanaResto> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AbubaAppBar(),
+        appBar: _appBar(),
         body: _buildMenu(),
+      ),
+    );
+  }
+
+  Widget _appBar() {
+    return AppBar(
+      elevation: 0.25,
+      backgroundColor: Colors.white,
+      iconTheme: IconThemeData(color: Colors.black),
+      leading: IconButton(
+        icon: Icon(Icons.arrow_back),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Image.asset(
+            'assets/images/logo.png',
+            height: 100.0,
+            width: 120.0,
+          ),
+          new Container(
+            child: new Row(
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.only(right: 15.0),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.favorite,
+                        color: Colors.red[500],
+                        size: 20.0,
+                      ),
+                      SizedBox(
+                        width: 5.0,
+                      ),
+                      Text(
+                        '41 pts',
+                        style: TextStyle(fontSize: 12.0, color: Colors.grey),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
@@ -422,7 +523,7 @@ class _FormSuasanaRestoState extends State<FormSuasanaResto> {
                           child: Text(
                             'PAHAM',
                             style:
-                                TextStyle(fontSize: 13.0, color: Colors.white),
+                            TextStyle(fontSize: 13.0, color: Colors.white),
                           ),
                           color: Colors.blueAccent,
                           onPressed: () {
@@ -456,7 +557,8 @@ class FormTakingOrder extends StatefulWidget {
   _FormTakingOrderState createState() => _FormTakingOrderState();
 }
 
-class _FormTakingOrderState extends State<FormTakingOrder> with TickerProviderStateMixin {
+class _FormTakingOrderState extends State<FormTakingOrder>
+    with TickerProviderStateMixin {
   List<Map> _listData = [
     {'nomor': '1'},
     {'nomor': '2'},
@@ -534,7 +636,7 @@ class _FormTakingOrderState extends State<FormTakingOrder> with TickerProviderSt
                                             horizontal: 10.0),
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             Text(
                                               'Taking Order',
@@ -577,7 +679,7 @@ class _FormTakingOrderState extends State<FormTakingOrder> with TickerProviderSt
                                     child: RaisedButton(
                                       shape: new RoundedRectangleBorder(
                                           borderRadius:
-                                              new BorderRadius.circular(5.0),
+                                          new BorderRadius.circular(5.0),
                                           side: BorderSide(
                                               width: 1.5, color: Colors.white)),
                                       child: Text(
@@ -598,8 +700,8 @@ class _FormTakingOrderState extends State<FormTakingOrder> with TickerProviderSt
                                             return Dialog(
                                               child: Container(
                                                 height: MediaQuery.of(context)
-                                                        .size
-                                                        .height /
+                                                    .size
+                                                    .height /
                                                     2,
                                                 child: Column(
                                                   children: <Widget>[
@@ -612,11 +714,11 @@ class _FormTakingOrderState extends State<FormTakingOrder> with TickerProviderSt
                                                           'ORDER',
                                                           style: TextStyle(
                                                               color:
-                                                                  Colors.white,
+                                                              Colors.white,
                                                               fontSize: 16.0,
                                                               fontWeight:
-                                                                  FontWeight
-                                                                      .w700),
+                                                              FontWeight
+                                                                  .w700),
                                                         ),
                                                       ),
                                                     ),
@@ -632,70 +734,70 @@ class _FormTakingOrderState extends State<FormTakingOrder> with TickerProviderSt
                                                                   title: Text(
                                                                       'Drinks'),
                                                                   controlAffinity:
-                                                                      ListTileControlAffinity
-                                                                          .leading,
+                                                                  ListTileControlAffinity
+                                                                      .leading,
                                                                   activeColor:
-                                                                      Colors
-                                                                          .green,
+                                                                  Colors
+                                                                      .green,
                                                                   value: false,
                                                                   onChanged: (bool
-                                                                      value) {}),
+                                                                  value) {}),
                                                             ),
                                                             Container(
                                                               child: CheckboxListTile(
                                                                   title: Text(
                                                                       'Juice'),
                                                                   controlAffinity:
-                                                                      ListTileControlAffinity
-                                                                          .leading,
+                                                                  ListTileControlAffinity
+                                                                      .leading,
                                                                   activeColor:
-                                                                      Colors
-                                                                          .green,
+                                                                  Colors
+                                                                      .green,
                                                                   value: false,
                                                                   onChanged: (bool
-                                                                      value) {}),
+                                                                  value) {}),
                                                             ),
                                                             Container(
                                                               child: CheckboxListTile(
                                                                   title: Text(
                                                                       'Appetizer'),
                                                                   controlAffinity:
-                                                                      ListTileControlAffinity
-                                                                          .leading,
+                                                                  ListTileControlAffinity
+                                                                      .leading,
                                                                   activeColor:
-                                                                      Colors
-                                                                          .green,
+                                                                  Colors
+                                                                      .green,
                                                                   value: false,
                                                                   onChanged: (bool
-                                                                      value) {}),
+                                                                  value) {}),
                                                             ),
                                                             Container(
                                                               child: CheckboxListTile(
                                                                   title: Text(
                                                                       'Main Course'),
                                                                   controlAffinity:
-                                                                      ListTileControlAffinity
-                                                                          .leading,
+                                                                  ListTileControlAffinity
+                                                                      .leading,
                                                                   activeColor:
-                                                                      Colors
-                                                                          .green,
+                                                                  Colors
+                                                                      .green,
                                                                   value: false,
                                                                   onChanged: (bool
-                                                                      value) {}),
+                                                                  value) {}),
                                                             ),
                                                             Container(
                                                               child: CheckboxListTile(
                                                                   title: Text(
                                                                       'Dessert'),
                                                                   controlAffinity:
-                                                                      ListTileControlAffinity
-                                                                          .leading,
+                                                                  ListTileControlAffinity
+                                                                      .leading,
                                                                   activeColor:
-                                                                      Colors
-                                                                          .green,
+                                                                  Colors
+                                                                      .green,
                                                                   value: false,
                                                                   onChanged: (bool
-                                                                      value) {}),
+                                                                  value) {}),
                                                             ),
                                                           ],
                                                         ),
@@ -703,18 +805,18 @@ class _FormTakingOrderState extends State<FormTakingOrder> with TickerProviderSt
                                                     ),
                                                     Padding(
                                                       padding:
-                                                          EdgeInsets.symmetric(
-                                                              vertical: 10.0),
+                                                      EdgeInsets.symmetric(
+                                                          vertical: 10.0),
                                                       child: Row(
                                                         mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .end,
+                                                        MainAxisAlignment
+                                                            .end,
                                                         children: <Widget>[
                                                           Padding(
                                                             padding:
-                                                                EdgeInsets.only(
-                                                                    right:
-                                                                        10.0),
+                                                            EdgeInsets.only(
+                                                                right:
+                                                                10.0),
                                                             child: RaisedButton(
                                                               color: Colors
                                                                   .red[300],
@@ -724,22 +826,22 @@ class _FormTakingOrderState extends State<FormTakingOrder> with TickerProviderSt
                                                                     color: Colors
                                                                         .white,
                                                                     fontSize:
-                                                                        12.0),
+                                                                    12.0),
                                                               ),
                                                               onPressed: () {
                                                                 Navigator.pop(
                                                                     context);
                                                               },
                                                               splashColor:
-                                                                  Colors
-                                                                      .red[300],
+                                                              Colors
+                                                                  .red[300],
                                                             ),
                                                           ),
                                                           Padding(
                                                             padding:
-                                                                EdgeInsets.only(
-                                                                    right:
-                                                                        10.0),
+                                                            EdgeInsets.only(
+                                                                right:
+                                                                10.0),
                                                             child: RaisedButton(
                                                               color: Colors
                                                                   .green[300],
@@ -749,19 +851,19 @@ class _FormTakingOrderState extends State<FormTakingOrder> with TickerProviderSt
                                                                     color: Colors
                                                                         .white,
                                                                     fontSize:
-                                                                        12.0),
+                                                                    12.0),
                                                               ),
                                                               onPressed: () {
                                                                 Navigator.pop(
                                                                     context);
                                                                 _cardController
                                                                     .animateTo(
-                                                                        _cardController.index +
-                                                                            1);
+                                                                    _cardController.index +
+                                                                        1);
                                                               },
                                                               splashColor:
-                                                                  Colors.green[
-                                                                      300],
+                                                              Colors.green[
+                                                              300],
                                                             ),
                                                           )
                                                         ],
@@ -972,7 +1074,7 @@ class _FormTakingOrderState extends State<FormTakingOrder> with TickerProviderSt
                                             horizontal: 10.0),
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             Text(
                                               'Serving',
@@ -1003,7 +1105,7 @@ class _FormTakingOrderState extends State<FormTakingOrder> with TickerProviderSt
                               children: <Widget>[
                                 Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Flexible(
                                       child: Container(
@@ -1046,8 +1148,8 @@ class _FormTakingOrderState extends State<FormTakingOrder> with TickerProviderSt
                                         child: RaisedButton(
                                             shape: new RoundedRectangleBorder(
                                                 borderRadius:
-                                                    new BorderRadius.circular(
-                                                        5.0)),
+                                                new BorderRadius.circular(
+                                                    5.0)),
                                             child: Text(
                                               'DONE',
                                               style: TextStyle(
@@ -1065,7 +1167,7 @@ class _FormTakingOrderState extends State<FormTakingOrder> with TickerProviderSt
                                 ),
                                 Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Flexible(
                                       child: Container(
@@ -1108,8 +1210,8 @@ class _FormTakingOrderState extends State<FormTakingOrder> with TickerProviderSt
                                         child: RaisedButton(
                                             shape: new RoundedRectangleBorder(
                                                 borderRadius:
-                                                    new BorderRadius.circular(
-                                                        5.0)),
+                                                new BorderRadius.circular(
+                                                    5.0)),
                                             child: Text(
                                               'DONE',
                                               style: TextStyle(
@@ -1127,7 +1229,7 @@ class _FormTakingOrderState extends State<FormTakingOrder> with TickerProviderSt
                                 ),
                                 Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Flexible(
                                       child: Container(
@@ -1170,8 +1272,8 @@ class _FormTakingOrderState extends State<FormTakingOrder> with TickerProviderSt
                                         child: RaisedButton(
                                             shape: new RoundedRectangleBorder(
                                                 borderRadius:
-                                                    new BorderRadius.circular(
-                                                        5.0)),
+                                                new BorderRadius.circular(
+                                                    5.0)),
                                             child: Text(
                                               'DONE',
                                               style: TextStyle(
@@ -1189,7 +1291,7 @@ class _FormTakingOrderState extends State<FormTakingOrder> with TickerProviderSt
                                 ),
                                 Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Flexible(
                                       child: Container(
@@ -1232,8 +1334,8 @@ class _FormTakingOrderState extends State<FormTakingOrder> with TickerProviderSt
                                         child: RaisedButton(
                                             shape: new RoundedRectangleBorder(
                                                 borderRadius:
-                                                    new BorderRadius.circular(
-                                                        5.0)),
+                                                new BorderRadius.circular(
+                                                    5.0)),
                                             child: Text(
                                               'DONE',
                                               style: TextStyle(
@@ -1251,7 +1353,7 @@ class _FormTakingOrderState extends State<FormTakingOrder> with TickerProviderSt
                                 ),
                                 Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Flexible(
                                       child: Container(
@@ -1294,8 +1396,8 @@ class _FormTakingOrderState extends State<FormTakingOrder> with TickerProviderSt
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0)),
+                                              new BorderRadius.circular(
+                                                  5.0)),
                                           child: Text(
                                             'DONE',
                                             style: TextStyle(
@@ -1359,13 +1461,13 @@ class _FormTakingOrderState extends State<FormTakingOrder> with TickerProviderSt
                       onPressed: () {
                         _cardController.index == 3
                             ? Navigator.push(
-                                context,
-                                MyCustomRoute(
-                                  builder: (context) => FormEnjoy(),
-                                ),
-                              )
+                          context,
+                          MyCustomRoute(
+                            builder: (context) => FormEnjoy(),
+                          ),
+                        )
                             : _cardController
-                                .animateTo(_cardController.index + 1);
+                            .animateTo(_cardController.index + 1);
                       },
                       tooltip: 'Next',
                     ),
@@ -1489,7 +1591,7 @@ class _FormEnjoyState extends State<FormEnjoy> {
                           child: Text(
                             'CONFIRM',
                             style:
-                                TextStyle(fontSize: 13.0, color: Colors.white),
+                            TextStyle(fontSize: 13.0, color: Colors.white),
                           ),
                           color: Colors.blueAccent,
                           onPressed: () {
@@ -1615,7 +1717,7 @@ class _FormBersiapState extends State<FormBersiap> {
                           child: Text(
                             'CONFIRM',
                             style:
-                                TextStyle(fontSize: 13.0, color: Colors.white),
+                            TextStyle(fontSize: 13.0, color: Colors.white),
                           ),
                           color: Colors.blueAccent,
                           onPressed: () {
@@ -1653,7 +1755,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
   List<Map> _pertanyaan = [
     {
       'pertanyaan':
-          '1. Membukakan pintu dengan senyuman dan eye contact yang ikhlas',
+      '1. Membukakan pintu dengan senyuman dan eye contact yang ikhlas',
       'score': '1'
     },
     {'pertanyaan': '2. Membukakan pintu dengan sopan santu', 'score': '1'},
@@ -1673,6 +1775,9 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
     {'nomor': '8'},
     {'nomor': '9'},
     {'nomor': '10'},
+    {'nomor': '11'},
+    {'nomor': '12'},
+    {'nomor': '13'},
   ];
 
   List<String> textList = [
@@ -1751,32 +1856,34 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                   width: MediaQuery.of(context).size.width,
                                   height: 55.0,
                                   child: Container(
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 10.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Text(
-                                              '1. Greeting',
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 14.0),
-                                              textAlign: TextAlign.start,
-                                            ),
-                                            Text(
-                                              '1 of ${_listData.length.toString()}',
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 14.0),
-                                              textAlign: TextAlign.start,
-                                            ),
-                                          ],
-                                        ),
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Text(
+                                            '1. Parking',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14.0),
+                                            textAlign: TextAlign.start,
+                                          ),
+                                          Text(
+                                            '1 of ${_listData.length.toString()}',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14.0),
+                                            textAlign: TextAlign.start,
+                                          ),
+                                        ],
                                       ),
-                                      decoration: BoxDecoration(
-                                          color: Color(0xFF2F592F))),
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF2F592F),
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
@@ -1784,7 +1891,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                           Stack(
                             children: <Widget>[
                               Image.asset(
-                                'assets/images/slide greet.jpg',
+                                'assets/images/abuba6.jpg',
                                 fit: BoxFit.cover,
                                 height: MediaQuery.of(context).size.height /
                                     1.55777,
@@ -1794,7 +1901,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                 width: MediaQuery.of(context).size.width,
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  MainAxisAlignment.spaceEvenly,
                                   children: <Widget>[
                                     Container(
                                       child: ButtonTheme(
@@ -1803,8 +1910,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -1816,7 +1923,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                              Color.fromARGB(170, 255, 40, 0),
+                                          Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
                                             showDialog(
                                               barrierDismissible: false,
@@ -1826,7 +1933,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                   alasan: isiCheckbox,
                                                   valueCheck: valueCheckbox,
                                                   selectedAlasan:
-                                                      selectedAlasan,
+                                                  selectedAlasan,
                                                   selectedValue: selectedValue,
                                                   onSelectedAlasanListChanged:
                                                       (alasans) {
@@ -1837,15 +1944,15 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                       if (_currentIndex + 1 <
                                                           _pertanyaan.length) {
                                                         _pertanyaan[
-                                                                _currentIndex]
-                                                            ['score'] = '0';
+                                                        _currentIndex]
+                                                        ['score'] = '0';
                                                         _currentIndex++;
                                                       } else {
                                                         _cardController
                                                             .animateTo(
-                                                                _cardController
-                                                                        .index +
-                                                                    1);
+                                                            _cardController
+                                                                .index +
+                                                                1);
                                                       }
                                                     });
                                                   },
@@ -1859,15 +1966,15 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                     ),
                                     Container(
                                       padding:
-                                          EdgeInsets.symmetric(horizontal: 5.0),
+                                      EdgeInsets.symmetric(horizontal: 5.0),
                                       child: ButtonTheme(
                                         minWidth: 50.0,
                                         height: 50.0,
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -1889,7 +1996,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                   alasan: isiCheckbox,
                                                   valueCheck: valueCheckbox,
                                                   selectedAlasan:
-                                                      selectedAlasan,
+                                                  selectedAlasan,
                                                   selectedValue: selectedValue,
                                                   onSelectedAlasanListChanged:
                                                       (alasans) {
@@ -1897,20 +2004,20 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                   },
                                                   onResult: (finalResult) {
                                                     setState(
-                                                      () {
+                                                          () {
                                                         if (_currentIndex + 1 <
                                                             _pertanyaan
                                                                 .length) {
                                                           _pertanyaan[
-                                                                  _currentIndex]
-                                                              ['score'] = '1';
+                                                          _currentIndex]
+                                                          ['score'] = '1';
                                                           _currentIndex++;
                                                         } else {
                                                           _cardController
                                                               .animateTo(
-                                                                  _cardController
-                                                                          .index +
-                                                                      1);
+                                                              _cardController
+                                                                  .index +
+                                                                  1);
                                                         }
                                                       },
                                                     );
@@ -1930,8 +2037,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -1943,13 +2050,754 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                              Color.fromARGB(170, 50, 205, 50),
+                                          Color.fromARGB(170, 50, 205, 50),
                                           onPressed: () {
                                             setState(() {
                                               if (_currentIndex + 1 <
                                                   _pertanyaan.length) {
                                                 _pertanyaan[_currentIndex]
-                                                    ['score'] = '2';
+                                                ['score'] = '2';
+                                                _currentIndex++;
+                                              } else {
+                                                _cardController.animateTo(
+                                                    _cardController.index + 1);
+                                              }
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                      alignment: Alignment(0.0, 0.0),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          Container(
+                            color: Colors.white,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 25.0, vertical: 10.0),
+                            child: Row(
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    _pertanyaan[_currentIndex]['pertanyaan'],
+                                    style: TextStyle(
+                                        fontSize: 14.0, color: Colors.black87),
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      ListView(
+                        shrinkWrap: true,
+                        physics: ScrollPhysics(),
+                        children: <Widget>[
+                          PreferredSize(
+                            preferredSize: Size.fromHeight(55.0),
+                            child: Column(
+                              children: <Widget>[
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 55.0,
+                                  child: Container(
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Text(
+                                            '2. Toilet',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14.0),
+                                            textAlign: TextAlign.start,
+                                          ),
+                                          Text(
+                                            '2 of ${_listData.length.toString()}',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14.0),
+                                            textAlign: TextAlign.start,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF2F592F),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Stack(
+                            children: <Widget>[
+                              Image.asset(
+                                'assets/images/abuba5.jpg',
+                                fit: BoxFit.cover,
+                                height: MediaQuery.of(context).size.height /
+                                    1.55777,
+                              ),
+                              Positioned(
+                                bottom: 20.0,
+                                width: MediaQuery.of(context).size.width,
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    Container(
+                                      child: ButtonTheme(
+                                        minWidth: 50.0,
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          shape: new RoundedRectangleBorder(
+                                              borderRadius:
+                                              new BorderRadius.circular(
+                                                  5.0),
+                                              side: BorderSide(
+                                                  width: 1.5,
+                                                  color: Colors.white)),
+                                          child: Text(
+                                            '0',
+                                            style: TextStyle(
+                                                fontSize: 18.0,
+                                                color: Colors.white),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          color:
+                                          Color.fromARGB(170, 255, 40, 0),
+                                          onPressed: () {
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                  selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    setState(() {
+                                                      if (_currentIndex + 1 <
+                                                          _pertanyaan.length) {
+                                                        _pertanyaan[
+                                                        _currentIndex]
+                                                        ['score'] = '0';
+                                                        _currentIndex++;
+                                                      } else {
+                                                        _cardController
+                                                            .animateTo(
+                                                            _cardController
+                                                                .index +
+                                                                1);
+                                                      }
+                                                    });
+                                                  },
+                                                );
+                                              },
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                      alignment: Alignment(0.0, 0.0),
+                                    ),
+                                    Container(
+                                      padding:
+                                      EdgeInsets.symmetric(horizontal: 5.0),
+                                      child: ButtonTheme(
+                                        minWidth: 50.0,
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          shape: new RoundedRectangleBorder(
+                                              borderRadius:
+                                              new BorderRadius.circular(
+                                                  5.0),
+                                              side: BorderSide(
+                                                  width: 1.5,
+                                                  color: Colors.white)),
+                                          child: Text(
+                                            '1',
+                                            style: TextStyle(
+                                                fontSize: 18.0,
+                                                color: Colors.white),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          color: Color.fromARGB(
+                                              170, 192, 192, 192),
+                                          onPressed: () {
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                  selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    setState(
+                                                          () {
+                                                        if (_currentIndex + 1 <
+                                                            _pertanyaan
+                                                                .length) {
+                                                          _pertanyaan[
+                                                          _currentIndex]
+                                                          ['score'] = '1';
+                                                          _currentIndex++;
+                                                        } else {
+                                                          _cardController
+                                                              .animateTo(
+                                                              _cardController
+                                                                  .index +
+                                                                  1);
+                                                        }
+                                                      },
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                      alignment: Alignment(0.0, 0.0),
+                                    ),
+                                    Container(
+                                      child: ButtonTheme(
+                                        minWidth: 50.0,
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          shape: new RoundedRectangleBorder(
+                                              borderRadius:
+                                              new BorderRadius.circular(
+                                                  5.0),
+                                              side: BorderSide(
+                                                  width: 1.5,
+                                                  color: Colors.white)),
+                                          child: Text(
+                                            '2',
+                                            style: TextStyle(
+                                                fontSize: 18.0,
+                                                color: Colors.white),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          color:
+                                          Color.fromARGB(170, 50, 205, 50),
+                                          onPressed: () {
+                                            setState(() {
+                                              if (_currentIndex + 1 <
+                                                  _pertanyaan.length) {
+                                                _pertanyaan[_currentIndex]
+                                                ['score'] = '2';
+                                                _currentIndex++;
+                                              } else {
+                                                _cardController.animateTo(
+                                                    _cardController.index + 1);
+                                              }
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                      alignment: Alignment(0.0, 0.0),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          Container(
+                            color: Colors.white,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 25.0, vertical: 10.0),
+                            child: Row(
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    _pertanyaan[_currentIndex]['pertanyaan'],
+                                    style: TextStyle(
+                                        fontSize: 14.0, color: Colors.black87),
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      ListView(
+                        shrinkWrap: true,
+                        physics: ScrollPhysics(),
+                        children: <Widget>[
+                          PreferredSize(
+                            preferredSize: Size.fromHeight(55.0),
+                            child: Column(
+                              children: <Widget>[
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 55.0,
+                                  child: Container(
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Text(
+                                            '3. Washtafel',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14.0),
+                                            textAlign: TextAlign.start,
+                                          ),
+                                          Text(
+                                            '3 of ${_listData.length.toString()}',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14.0),
+                                            textAlign: TextAlign.start,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF2F592F),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Stack(
+                            children: <Widget>[
+                              Image.asset(
+                                'assets/images/abuba4.jpg',
+                                fit: BoxFit.cover,
+                                height: MediaQuery.of(context).size.height /
+                                    1.55777,
+                              ),
+                              Positioned(
+                                bottom: 20.0,
+                                width: MediaQuery.of(context).size.width,
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    Container(
+                                      child: ButtonTheme(
+                                        minWidth: 50.0,
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          shape: new RoundedRectangleBorder(
+                                              borderRadius:
+                                              new BorderRadius.circular(
+                                                  5.0),
+                                              side: BorderSide(
+                                                  width: 1.5,
+                                                  color: Colors.white)),
+                                          child: Text(
+                                            '0',
+                                            style: TextStyle(
+                                                fontSize: 18.0,
+                                                color: Colors.white),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          color:
+                                          Color.fromARGB(170, 255, 40, 0),
+                                          onPressed: () {
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                  selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    setState(() {
+                                                      if (_currentIndex + 1 <
+                                                          _pertanyaan.length) {
+                                                        _pertanyaan[
+                                                        _currentIndex]
+                                                        ['score'] = '0';
+                                                        _currentIndex++;
+                                                      } else {
+                                                        _cardController
+                                                            .animateTo(
+                                                            _cardController
+                                                                .index +
+                                                                1);
+                                                      }
+                                                    });
+                                                  },
+                                                );
+                                              },
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                      alignment: Alignment(0.0, 0.0),
+                                    ),
+                                    Container(
+                                      padding:
+                                      EdgeInsets.symmetric(horizontal: 5.0),
+                                      child: ButtonTheme(
+                                        minWidth: 50.0,
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          shape: new RoundedRectangleBorder(
+                                              borderRadius:
+                                              new BorderRadius.circular(
+                                                  5.0),
+                                              side: BorderSide(
+                                                  width: 1.5,
+                                                  color: Colors.white)),
+                                          child: Text(
+                                            '1',
+                                            style: TextStyle(
+                                                fontSize: 18.0,
+                                                color: Colors.white),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          color: Color.fromARGB(
+                                              170, 192, 192, 192),
+                                          onPressed: () {
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                  selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    setState(
+                                                          () {
+                                                        if (_currentIndex + 1 <
+                                                            _pertanyaan
+                                                                .length) {
+                                                          _pertanyaan[
+                                                          _currentIndex]
+                                                          ['score'] = '1';
+                                                          _currentIndex++;
+                                                        } else {
+                                                          _cardController
+                                                              .animateTo(
+                                                              _cardController
+                                                                  .index +
+                                                                  1);
+                                                        }
+                                                      },
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                      alignment: Alignment(0.0, 0.0),
+                                    ),
+                                    Container(
+                                      child: ButtonTheme(
+                                        minWidth: 50.0,
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          shape: new RoundedRectangleBorder(
+                                              borderRadius:
+                                              new BorderRadius.circular(
+                                                  5.0),
+                                              side: BorderSide(
+                                                  width: 1.5,
+                                                  color: Colors.white)),
+                                          child: Text(
+                                            '2',
+                                            style: TextStyle(
+                                                fontSize: 18.0,
+                                                color: Colors.white),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          color:
+                                          Color.fromARGB(170, 50, 205, 50),
+                                          onPressed: () {
+                                            setState(() {
+                                              if (_currentIndex + 1 <
+                                                  _pertanyaan.length) {
+                                                _pertanyaan[_currentIndex]
+                                                ['score'] = '2';
+                                                _currentIndex++;
+                                              } else {
+                                                _cardController.animateTo(
+                                                    _cardController.index + 1);
+                                              }
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                      alignment: Alignment(0.0, 0.0),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          Container(
+                            color: Colors.white,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 25.0, vertical: 10.0),
+                            child: Row(
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    _pertanyaan[_currentIndex]['pertanyaan'],
+                                    style: TextStyle(
+                                        fontSize: 14.0, color: Colors.black87),
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      ListView(
+                        shrinkWrap: true,
+                        physics: ScrollPhysics(),
+                        children: <Widget>[
+                          PreferredSize(
+                            preferredSize: Size.fromHeight(55.0),
+                            child: Column(
+                              children: <Widget>[
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 55.0,
+                                  child: Container(
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Text(
+                                            '4. Greeting',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14.0),
+                                            textAlign: TextAlign.start,
+                                          ),
+                                          Text(
+                                            '4 of ${_listData.length.toString()}',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14.0),
+                                            textAlign: TextAlign.start,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF2F592F),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Stack(
+                            children: <Widget>[
+                              Image.asset(
+                                'assets/images/slide greet.jpg',
+                                fit: BoxFit.cover,
+                                height: MediaQuery.of(context).size.height /
+                                    1.55777,
+                              ),
+                              Positioned(
+                                bottom: 20.0,
+                                width: MediaQuery.of(context).size.width,
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    Container(
+                                      child: ButtonTheme(
+                                        minWidth: 50.0,
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          shape: new RoundedRectangleBorder(
+                                              borderRadius:
+                                              new BorderRadius.circular(
+                                                  5.0),
+                                              side: BorderSide(
+                                                  width: 1.5,
+                                                  color: Colors.white)),
+                                          child: Text(
+                                            '0',
+                                            style: TextStyle(
+                                                fontSize: 18.0,
+                                                color: Colors.white),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          color:
+                                          Color.fromARGB(170, 255, 40, 0),
+                                          onPressed: () {
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                  selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    setState(() {
+                                                      if (_currentIndex + 1 <
+                                                          _pertanyaan.length) {
+                                                        _pertanyaan[
+                                                        _currentIndex]
+                                                        ['score'] = '0';
+                                                        _currentIndex++;
+                                                      } else {
+                                                        _cardController
+                                                            .animateTo(
+                                                            _cardController
+                                                                .index +
+                                                                1);
+                                                      }
+                                                    });
+                                                  },
+                                                );
+                                              },
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                      alignment: Alignment(0.0, 0.0),
+                                    ),
+                                    Container(
+                                      padding:
+                                      EdgeInsets.symmetric(horizontal: 5.0),
+                                      child: ButtonTheme(
+                                        minWidth: 50.0,
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          shape: new RoundedRectangleBorder(
+                                              borderRadius:
+                                              new BorderRadius.circular(
+                                                  5.0),
+                                              side: BorderSide(
+                                                  width: 1.5,
+                                                  color: Colors.white)),
+                                          child: Text(
+                                            '1',
+                                            style: TextStyle(
+                                                fontSize: 18.0,
+                                                color: Colors.white),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          color: Color.fromARGB(
+                                              170, 192, 192, 192),
+                                          onPressed: () {
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                  selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    setState(
+                                                          () {
+                                                        if (_currentIndex + 1 <
+                                                            _pertanyaan
+                                                                .length) {
+                                                          _pertanyaan[
+                                                          _currentIndex]
+                                                          ['score'] = '1';
+                                                          _currentIndex++;
+                                                        } else {
+                                                          _cardController
+                                                              .animateTo(
+                                                              _cardController
+                                                                  .index +
+                                                                  1);
+                                                        }
+                                                      },
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                      alignment: Alignment(0.0, 0.0),
+                                    ),
+                                    Container(
+                                      child: ButtonTheme(
+                                        minWidth: 50.0,
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          shape: new RoundedRectangleBorder(
+                                              borderRadius:
+                                              new BorderRadius.circular(
+                                                  5.0),
+                                              side: BorderSide(
+                                                  width: 1.5,
+                                                  color: Colors.white)),
+                                          child: Text(
+                                            '2',
+                                            style: TextStyle(
+                                                fontSize: 18.0,
+                                                color: Colors.white),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          color:
+                                          Color.fromARGB(170, 50, 205, 50),
+                                          onPressed: () {
+                                            setState(() {
+                                              if (_currentIndex + 1 <
+                                                  _pertanyaan.length) {
+                                                _pertanyaan[_currentIndex]
+                                                ['score'] = '2';
                                                 _currentIndex++;
                                               } else {
                                                 _cardController.animateTo(
@@ -2001,17 +2849,17 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                             horizontal: 10.0),
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             Text(
-                                              '2. Seating',
+                                              '5. Seating',
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 14.0),
                                               textAlign: TextAlign.start,
                                             ),
                                             Text(
-                                              '2 of ${_listData.length.toString()}',
+                                              '5 of ${_listData.length.toString()}',
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 14.0),
@@ -2039,7 +2887,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                 width: MediaQuery.of(context).size.width,
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  MainAxisAlignment.spaceEvenly,
                                   children: <Widget>[
                                     Container(
                                       child: ButtonTheme(
@@ -2048,8 +2896,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -2061,7 +2909,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                              Color.fromARGB(170, 255, 40, 0),
+                                          Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
                                             showDialog(
                                               barrierDismissible: false,
@@ -2071,7 +2919,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                   alasan: isiCheckbox,
                                                   valueCheck: valueCheckbox,
                                                   selectedAlasan:
-                                                      selectedAlasan,
+                                                  selectedAlasan,
                                                   selectedValue: selectedValue,
                                                   onSelectedAlasanListChanged:
                                                       (alasans) {
@@ -2092,15 +2940,15 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                     ),
                                     Container(
                                       padding:
-                                          EdgeInsets.symmetric(horizontal: 5.0),
+                                      EdgeInsets.symmetric(horizontal: 5.0),
                                       child: ButtonTheme(
                                         minWidth: 50.0,
                                         height: 50.0,
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -2122,7 +2970,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                   alasan: isiCheckbox,
                                                   valueCheck: valueCheckbox,
                                                   selectedAlasan:
-                                                      selectedAlasan,
+                                                  selectedAlasan,
                                                   selectedValue: selectedValue,
                                                   onSelectedAlasanListChanged:
                                                       (alasans) {
@@ -2148,8 +2996,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -2161,7 +3009,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                              Color.fromARGB(170, 50, 205, 50),
+                                          Color.fromARGB(170, 50, 205, 50),
                                           onPressed: () {
                                             _cardController.animateTo(
                                                 _cardController.index + 1);
@@ -2203,17 +3051,17 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                             horizontal: 10.0),
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             Text(
-                                              '3. Taking Order',
+                                              '6. Taking Order',
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 14.0),
                                               textAlign: TextAlign.start,
                                             ),
                                             Text(
-                                              '3 of ${_listData.length.toString()}',
+                                              '6 of ${_listData.length.toString()}',
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 14.0),
@@ -2241,7 +3089,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                 width: MediaQuery.of(context).size.width,
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                  MainAxisAlignment.spaceAround,
                                   children: <Widget>[
                                     Container(
                                       child: ButtonTheme(
@@ -2250,8 +3098,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -2263,7 +3111,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                              Color.fromARGB(170, 255, 40, 0),
+                                          Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
                                             showDialog(
                                               barrierDismissible: false,
@@ -2273,7 +3121,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                   alasan: isiCheckbox,
                                                   valueCheck: valueCheckbox,
                                                   selectedAlasan:
-                                                      selectedAlasan,
+                                                  selectedAlasan,
                                                   selectedValue: selectedValue,
                                                   onSelectedAlasanListChanged:
                                                       (alasans) {
@@ -2294,15 +3142,15 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                     ),
                                     Container(
                                       padding:
-                                          EdgeInsets.symmetric(horizontal: 5.0),
+                                      EdgeInsets.symmetric(horizontal: 5.0),
                                       child: ButtonTheme(
                                         minWidth: 50.0,
                                         height: 50.0,
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -2324,7 +3172,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                   alasan: isiCheckbox,
                                                   valueCheck: valueCheckbox,
                                                   selectedAlasan:
-                                                      selectedAlasan,
+                                                  selectedAlasan,
                                                   selectedValue: selectedValue,
                                                   onSelectedAlasanListChanged:
                                                       (alasans) {
@@ -2350,8 +3198,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -2363,7 +3211,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                              Color.fromARGB(170, 50, 205, 50),
+                                          Color.fromARGB(170, 50, 205, 50),
                                           onPressed: () {
                                             _cardController.animateTo(
                                                 _cardController.index + 1);
@@ -2405,17 +3253,17 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                             horizontal: 10.0),
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             Text(
-                                              '4. Serving Drinks',
+                                              '7. Serving Drinks',
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 14.0),
                                               textAlign: TextAlign.start,
                                             ),
                                             Text(
-                                              '4 of ${_listData.length.toString()}',
+                                              '7 of ${_listData.length.toString()}',
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 14.0),
@@ -2443,7 +3291,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                 width: MediaQuery.of(context).size.width,
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                  MainAxisAlignment.spaceAround,
                                   children: <Widget>[
                                     Container(
                                       child: ButtonTheme(
@@ -2452,8 +3300,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -2465,7 +3313,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                              Color.fromARGB(170, 255, 40, 0),
+                                          Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
                                             showDialog(
                                               barrierDismissible: false,
@@ -2475,7 +3323,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                   alasan: isiCheckbox,
                                                   valueCheck: valueCheckbox,
                                                   selectedAlasan:
-                                                      selectedAlasan,
+                                                  selectedAlasan,
                                                   selectedValue: selectedValue,
                                                   onSelectedAlasanListChanged:
                                                       (alasans) {
@@ -2496,15 +3344,15 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                     ),
                                     Container(
                                       padding:
-                                          EdgeInsets.symmetric(horizontal: 5.0),
+                                      EdgeInsets.symmetric(horizontal: 5.0),
                                       child: ButtonTheme(
                                         minWidth: 50.0,
                                         height: 50.0,
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -2526,7 +3374,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                   alasan: isiCheckbox,
                                                   valueCheck: valueCheckbox,
                                                   selectedAlasan:
-                                                      selectedAlasan,
+                                                  selectedAlasan,
                                                   selectedValue: selectedValue,
                                                   onSelectedAlasanListChanged:
                                                       (alasans) {
@@ -2552,8 +3400,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -2565,7 +3413,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                              Color.fromARGB(170, 50, 205, 50),
+                                          Color.fromARGB(170, 50, 205, 50),
                                           onPressed: () {
                                             _cardController.animateTo(
                                                 _cardController.index + 1);
@@ -2607,17 +3455,17 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                             horizontal: 10.0),
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             Text(
-                                              '5. Serving Starter',
+                                              '8. Serving Starter',
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 14.0),
                                               textAlign: TextAlign.start,
                                             ),
                                             Text(
-                                              '5 of ${_listData.length.toString()}',
+                                              '8 of ${_listData.length.toString()}',
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 14.0),
@@ -2645,7 +3493,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                 width: MediaQuery.of(context).size.width,
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                  MainAxisAlignment.spaceAround,
                                   children: <Widget>[
                                     Container(
                                       child: ButtonTheme(
@@ -2654,8 +3502,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -2667,7 +3515,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                              Color.fromARGB(170, 255, 40, 0),
+                                          Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
                                             showDialog(
                                               barrierDismissible: false,
@@ -2677,7 +3525,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                   alasan: isiCheckbox,
                                                   valueCheck: valueCheckbox,
                                                   selectedAlasan:
-                                                      selectedAlasan,
+                                                  selectedAlasan,
                                                   selectedValue: selectedValue,
                                                   onSelectedAlasanListChanged:
                                                       (alasans) {
@@ -2698,15 +3546,15 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                     ),
                                     Container(
                                       padding:
-                                          EdgeInsets.symmetric(horizontal: 5.0),
+                                      EdgeInsets.symmetric(horizontal: 5.0),
                                       child: ButtonTheme(
                                         minWidth: 50.0,
                                         height: 50.0,
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -2728,7 +3576,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                   alasan: isiCheckbox,
                                                   valueCheck: valueCheckbox,
                                                   selectedAlasan:
-                                                      selectedAlasan,
+                                                  selectedAlasan,
                                                   selectedValue: selectedValue,
                                                   onSelectedAlasanListChanged:
                                                       (alasans) {
@@ -2754,8 +3602,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -2767,7 +3615,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                              Color.fromARGB(170, 50, 205, 50),
+                                          Color.fromARGB(170, 50, 205, 50),
                                           onPressed: () {
                                             _cardController.animateTo(
                                                 _cardController.index + 1);
@@ -2809,17 +3657,17 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                             horizontal: 10.0),
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             Text(
-                                              '6. Serving The Main Course',
+                                              '9. Serving The Main Course',
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 14.0),
                                               textAlign: TextAlign.start,
                                             ),
                                             Text(
-                                              '6 of ${_listData.length.toString()}',
+                                              '9 of ${_listData.length.toString()}',
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 14.0),
@@ -2847,7 +3695,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                 width: MediaQuery.of(context).size.width,
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                  MainAxisAlignment.spaceAround,
                                   children: <Widget>[
                                     Container(
                                       child: ButtonTheme(
@@ -2856,8 +3704,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -2869,7 +3717,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                              Color.fromARGB(170, 255, 40, 0),
+                                          Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
                                             showDialog(
                                               barrierDismissible: false,
@@ -2879,7 +3727,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                   alasan: isiCheckbox,
                                                   valueCheck: valueCheckbox,
                                                   selectedAlasan:
-                                                      selectedAlasan,
+                                                  selectedAlasan,
                                                   selectedValue: selectedValue,
                                                   onSelectedAlasanListChanged:
                                                       (alasans) {
@@ -2900,15 +3748,15 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                     ),
                                     Container(
                                       padding:
-                                          EdgeInsets.symmetric(horizontal: 5.0),
+                                      EdgeInsets.symmetric(horizontal: 5.0),
                                       child: ButtonTheme(
                                         minWidth: 50.0,
                                         height: 50.0,
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -2930,7 +3778,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                   alasan: isiCheckbox,
                                                   valueCheck: valueCheckbox,
                                                   selectedAlasan:
-                                                      selectedAlasan,
+                                                  selectedAlasan,
                                                   selectedValue: selectedValue,
                                                   onSelectedAlasanListChanged:
                                                       (alasans) {
@@ -2956,8 +3804,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -2969,7 +3817,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                              Color.fromARGB(170, 50, 205, 50),
+                                          Color.fromARGB(170, 50, 205, 50),
                                           onPressed: () {
                                             _cardController.animateTo(
                                                 _cardController.index + 1);
@@ -3011,17 +3859,17 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                             horizontal: 10.0),
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             Text(
-                                              '7. Donenes',
+                                              '10. Donenes',
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 14.0),
                                               textAlign: TextAlign.start,
                                             ),
                                             Text(
-                                              '7 of ${_listData.length.toString()}',
+                                              '10 of ${_listData.length.toString()}',
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 14.0),
@@ -3049,7 +3897,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                 width: MediaQuery.of(context).size.width,
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                  MainAxisAlignment.spaceAround,
                                   children: <Widget>[
                                     Container(
                                       child: ButtonTheme(
@@ -3058,8 +3906,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -3071,7 +3919,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                              Color.fromARGB(170, 255, 40, 0),
+                                          Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
                                             showDialog(
                                               barrierDismissible: false,
@@ -3081,7 +3929,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                   alasan: isiCheckbox,
                                                   valueCheck: valueCheckbox,
                                                   selectedAlasan:
-                                                      selectedAlasan,
+                                                  selectedAlasan,
                                                   selectedValue: selectedValue,
                                                   onSelectedAlasanListChanged:
                                                       (alasans) {
@@ -3102,15 +3950,15 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                     ),
                                     Container(
                                       padding:
-                                          EdgeInsets.symmetric(horizontal: 5.0),
+                                      EdgeInsets.symmetric(horizontal: 5.0),
                                       child: ButtonTheme(
                                         minWidth: 50.0,
                                         height: 50.0,
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -3132,7 +3980,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                   alasan: isiCheckbox,
                                                   valueCheck: valueCheckbox,
                                                   selectedAlasan:
-                                                      selectedAlasan,
+                                                  selectedAlasan,
                                                   selectedValue: selectedValue,
                                                   onSelectedAlasanListChanged:
                                                       (alasans) {
@@ -3158,8 +4006,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -3171,7 +4019,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                              Color.fromARGB(170, 50, 205, 50),
+                                          Color.fromARGB(170, 50, 205, 50),
                                           onPressed: () {
                                             _cardController.animateTo(
                                                 _cardController.index + 1);
@@ -3213,17 +4061,17 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                             horizontal: 10.0),
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             Text(
-                                              '8. Following up after the main course',
+                                              '11. Following up after the main course',
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 14.0),
                                               textAlign: TextAlign.start,
                                             ),
                                             Text(
-                                              '8 of ${_listData.length.toString()}',
+                                              '11 of ${_listData.length.toString()}',
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 14.0),
@@ -3251,7 +4099,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                 width: MediaQuery.of(context).size.width,
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                  MainAxisAlignment.spaceAround,
                                   children: <Widget>[
                                     Container(
                                       child: ButtonTheme(
@@ -3260,8 +4108,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -3273,7 +4121,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                              Color.fromARGB(170, 255, 40, 0),
+                                          Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
                                             showDialog(
                                               barrierDismissible: false,
@@ -3283,7 +4131,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                   alasan: isiCheckbox,
                                                   valueCheck: valueCheckbox,
                                                   selectedAlasan:
-                                                      selectedAlasan,
+                                                  selectedAlasan,
                                                   selectedValue: selectedValue,
                                                   onSelectedAlasanListChanged:
                                                       (alasans) {
@@ -3304,15 +4152,15 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                     ),
                                     Container(
                                       padding:
-                                          EdgeInsets.symmetric(horizontal: 5.0),
+                                      EdgeInsets.symmetric(horizontal: 5.0),
                                       child: ButtonTheme(
                                         minWidth: 50.0,
                                         height: 50.0,
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -3334,7 +4182,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                   alasan: isiCheckbox,
                                                   valueCheck: valueCheckbox,
                                                   selectedAlasan:
-                                                      selectedAlasan,
+                                                  selectedAlasan,
                                                   selectedValue: selectedValue,
                                                   onSelectedAlasanListChanged:
                                                       (alasans) {
@@ -3360,8 +4208,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -3373,7 +4221,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                              Color.fromARGB(170, 50, 205, 50),
+                                          Color.fromARGB(170, 50, 205, 50),
                                           onPressed: () {
                                             _cardController.animateTo(
                                                 _cardController.index + 1);
@@ -3415,17 +4263,17 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                             horizontal: 10.0),
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             Text(
-                                              '9. Offering Dessert',
+                                              '12. Offering Dessert',
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 14.0),
                                               textAlign: TextAlign.start,
                                             ),
                                             Text(
-                                              '9 of ${_listData.length.toString()}',
+                                              '12 of ${_listData.length.toString()}',
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 14.0),
@@ -3453,7 +4301,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                 width: MediaQuery.of(context).size.width,
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                  MainAxisAlignment.spaceAround,
                                   children: <Widget>[
                                     Container(
                                       child: ButtonTheme(
@@ -3462,8 +4310,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -3475,7 +4323,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                              Color.fromARGB(170, 255, 40, 0),
+                                          Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
                                             showDialog(
                                               barrierDismissible: false,
@@ -3485,7 +4333,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                   alasan: isiCheckbox,
                                                   valueCheck: valueCheckbox,
                                                   selectedAlasan:
-                                                      selectedAlasan,
+                                                  selectedAlasan,
                                                   selectedValue: selectedValue,
                                                   onSelectedAlasanListChanged:
                                                       (alasans) {
@@ -3506,15 +4354,15 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                     ),
                                     Container(
                                       padding:
-                                          EdgeInsets.symmetric(horizontal: 5.0),
+                                      EdgeInsets.symmetric(horizontal: 5.0),
                                       child: ButtonTheme(
                                         minWidth: 50.0,
                                         height: 50.0,
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -3536,7 +4384,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                   alasan: isiCheckbox,
                                                   valueCheck: valueCheckbox,
                                                   selectedAlasan:
-                                                      selectedAlasan,
+                                                  selectedAlasan,
                                                   selectedValue: selectedValue,
                                                   onSelectedAlasanListChanged:
                                                       (alasans) {
@@ -3562,8 +4410,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -3575,7 +4423,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                              Color.fromARGB(170, 50, 205, 50),
+                                          Color.fromARGB(170, 50, 205, 50),
                                           onPressed: () {
                                             _cardController.animateTo(
                                                 _cardController.index + 1);
@@ -3617,17 +4465,17 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                             horizontal: 10.0),
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             Text(
-                                              '10. Delivering Dessert',
+                                              '13. Delivering Dessert',
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 14.0),
                                               textAlign: TextAlign.start,
                                             ),
                                             Text(
-                                              '10 of ${_listData.length.toString()}',
+                                              '13 of ${_listData.length.toString()}',
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 14.0),
@@ -3655,7 +4503,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                 width: MediaQuery.of(context).size.width,
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                  MainAxisAlignment.spaceAround,
                                   children: <Widget>[
                                     Container(
                                       child: ButtonTheme(
@@ -3664,8 +4512,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -3677,7 +4525,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                              Color.fromARGB(170, 255, 40, 0),
+                                          Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
                                             showDialog(
                                               barrierDismissible: false,
@@ -3687,7 +4535,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                   alasan: isiCheckbox,
                                                   valueCheck: valueCheckbox,
                                                   selectedAlasan:
-                                                      selectedAlasan,
+                                                  selectedAlasan,
                                                   selectedValue: selectedValue,
                                                   onSelectedAlasanListChanged:
                                                       (alasans) {
@@ -3712,15 +4560,15 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                     ),
                                     Container(
                                       padding:
-                                          EdgeInsets.symmetric(horizontal: 5.0),
+                                      EdgeInsets.symmetric(horizontal: 5.0),
                                       child: ButtonTheme(
                                         minWidth: 50.0,
                                         height: 50.0,
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -3742,7 +4590,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                   alasan: isiCheckbox,
                                                   valueCheck: valueCheckbox,
                                                   selectedAlasan:
-                                                      selectedAlasan,
+                                                  selectedAlasan,
                                                   selectedValue: selectedValue,
                                                   onSelectedAlasanListChanged:
                                                       (alasans) {
@@ -3770,8 +4618,8 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -3783,7 +4631,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                              Color.fromARGB(170, 50, 205, 50),
+                                          Color.fromARGB(170, 50, 205, 50),
                                           onPressed: () {
                                             Navigator.push(
                                                 context,
@@ -4160,20 +5008,20 @@ class _FormMockComplaintState extends State<FormMockComplaint> {
                   ),
                   _note1
                       ? Container(
-                          padding: const EdgeInsets.only(
-                            bottom: 10.0,
-                          ),
-                          width: MediaQuery.of(context).size.width,
-                          child: TextField(
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'Note',
-                                labelStyle: TextStyle(fontSize: 16.0)),
-                            maxLines: 3,
-                            style:
-                                TextStyle(color: Colors.black, fontSize: 16.0),
-                          ),
-                        )
+                    padding: const EdgeInsets.only(
+                      bottom: 10.0,
+                    ),
+                    width: MediaQuery.of(context).size.width,
+                    child: TextField(
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Note',
+                          labelStyle: TextStyle(fontSize: 16.0)),
+                      maxLines: 3,
+                      style:
+                      TextStyle(color: Colors.black, fontSize: 16.0),
+                    ),
+                  )
                       : Container(),
                   DropdownButtonFormField(
                     hint: Text('PIC yang dituju',
@@ -4226,7 +5074,7 @@ class _FormMockComplaintState extends State<FormMockComplaint> {
                           child: Text(
                             'COMPLAINT',
                             style:
-                                TextStyle(fontSize: 13.0, color: Colors.white),
+                            TextStyle(fontSize: 13.0, color: Colors.white),
                           ),
                           color: Colors.blueAccent,
                           onPressed: () {
@@ -4347,7 +5195,7 @@ class _FormCloseState extends State<FormClose> {
                           'DONE',
                           style: TextStyle(fontSize: 13.0, color: Colors.white),
                         ),
-                        color: AbubaPallate.yellow,
+                        color: Colors.blueAccent,
                         onPressed: () {
                           Navigator.push(
                               context,
@@ -4455,7 +5303,7 @@ class _FormHandlingState extends State<FormHandling> {
                         child: Text(
                           'Beri score kepuasan Anda terhadap ara mereka menangani complaint Anda',
                           style:
-                              TextStyle(fontSize: 14.0, color: Colors.black54),
+                          TextStyle(fontSize: 14.0, color: Colors.black54),
                           textAlign: TextAlign.center,
                         ),
                       )
@@ -4502,7 +5350,7 @@ class _FormHandlingState extends State<FormHandling> {
                                             context,
                                             MyCustomRoute(
                                                 builder: (context) =>
-                                                    FormLanjutReview()));
+                                                    FormSelesaiMakan()));
                                       });
                                     },
                                   );
@@ -4549,7 +5397,7 @@ class _FormHandlingState extends State<FormHandling> {
                                             context,
                                             MyCustomRoute(
                                                 builder: (context) =>
-                                                    FormLanjutReview()));
+                                                    FormSelesaiMakan()));
                                       });
                                     },
                                   );
@@ -4581,7 +5429,7 @@ class _FormHandlingState extends State<FormHandling> {
                                   context,
                                   MyCustomRoute(
                                       builder: (context) =>
-                                          FormLanjutReview()));
+                                          FormSelesaiMakan()));
                             },
                           ),
                         ),
@@ -4595,19 +5443,143 @@ class _FormHandlingState extends State<FormHandling> {
           ],
         ),
         SizedBox(
-          height: 59.0,
+          height: 86.0,
         ),
         Container(
           color: AbubaPallate.yellow,
           padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
           child: Center(
             child:
-                Text('1. Pihak Outlet mengucapkan maaf atas ketidaknyamanan'),
+            Text('1. Pihak Outlet mengucapkan maaf atas ketidaknyamanan'),
           ),
         ),
         Container(
           child: Image.asset(
             'assets/images/slide 21.png',
+            fit: BoxFit.fitWidth,
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class FormSelesaiMakan extends StatefulWidget {
+  @override
+  _FormSelesaiMakanState createState() => _FormSelesaiMakanState();
+}
+
+class _FormSelesaiMakanState extends State<FormSelesaiMakan> {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        appBar: AbubaAppBar(),
+        body: _buildMenu(),
+      ),
+    );
+  }
+
+  Widget _buildMenu() {
+    return ListView(
+      children: <Widget>[
+        Container(
+          height: 390.0,
+          width: MediaQuery.of(context).size.width,
+          color: Colors.white,
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'Mystery Shopper',
+                      style: TextStyle(color: Colors.black12, fontSize: 12.0),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 15.0),
+                      child: Text(
+                        '|',
+                        style: TextStyle(
+                            color: AbubaPallate.greenabuba, fontSize: 12.0),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 15.0),
+                      child: Text(
+                        'Location',
+                        style: TextStyle(
+                            color: AbubaPallate.greenabuba, fontSize: 12.0),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(20.0, 100.0, 20.0, 20.0),
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Flexible(
+                          child: Text(
+                            'Selesaikan Makan Anda',
+                            style: TextStyle(
+                                color: AbubaPallate.greenabuba,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 20.0),
+                          ),
+                        )
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Flexible(
+                          child: Text(
+                            'Bersiaplah meminta bill, mengawasi clearing table dan melakukan pembayaran',
+                            style: TextStyle(
+                                fontSize: 14.0, color: Colors.black54),
+                            textAlign: TextAlign.center,
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    ButtonTheme(
+                      minWidth: 50.0,
+                      height: 40.0,
+                      child: RaisedButton(
+                        shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(5.0),
+                        ),
+                        child: Text(
+                          'CONFIRM',
+                          style: TextStyle(fontSize: 13.0, color: Colors.white),
+                        ),
+                        color: Colors.blue,
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MyCustomRoute(
+                                  builder: (context) => FormLanjutReview()));
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+        Container(
+          child: Image.asset(
+            'assets/images/slide 23.png',
             fit: BoxFit.fitWidth,
           ),
         )
@@ -4832,7 +5804,7 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                             horizontal: 10.0),
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             Text(
                                               '1. Offering the Bills',
@@ -4870,7 +5842,7 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                 width: MediaQuery.of(context).size.width,
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                  MainAxisAlignment.spaceAround,
                                   children: <Widget>[
                                     Container(
                                       child: ButtonTheme(
@@ -4879,8 +5851,8 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -4892,7 +5864,7 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                              Color.fromARGB(170, 255, 40, 0),
+                                          Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
                                             showDialog(
                                               barrierDismissible: false,
@@ -4902,7 +5874,7 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                                   alasan: isiCheckbox,
                                                   valueCheck: valueCheckbox,
                                                   selectedAlasan:
-                                                      selectedAlasan,
+                                                  selectedAlasan,
                                                   selectedValue: selectedValue,
                                                   onSelectedAlasanListChanged:
                                                       (alasans) {
@@ -4923,15 +5895,15 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                     ),
                                     Container(
                                       padding:
-                                          EdgeInsets.symmetric(horizontal: 5.0),
+                                      EdgeInsets.symmetric(horizontal: 5.0),
                                       child: ButtonTheme(
                                         minWidth: 50.0,
                                         height: 50.0,
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -4953,7 +5925,7 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                                   alasan: isiCheckbox,
                                                   valueCheck: valueCheckbox,
                                                   selectedAlasan:
-                                                      selectedAlasan,
+                                                  selectedAlasan,
                                                   selectedValue: selectedValue,
                                                   onSelectedAlasanListChanged:
                                                       (alasans) {
@@ -4979,8 +5951,8 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -4992,7 +5964,7 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                              Color.fromARGB(170, 50, 205, 50),
+                                          Color.fromARGB(170, 50, 205, 50),
                                           onPressed: () {
                                             _cardController.animateTo(
                                                 _cardController.index + 1);
@@ -5034,7 +6006,7 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                             horizontal: 10.0),
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             Text(
                                               '2. Clearing Table',
@@ -5072,7 +6044,7 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                 width: MediaQuery.of(context).size.width,
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                  MainAxisAlignment.spaceAround,
                                   children: <Widget>[
                                     Container(
                                       child: ButtonTheme(
@@ -5081,8 +6053,8 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -5094,7 +6066,7 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                              Color.fromARGB(170, 255, 40, 0),
+                                          Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
                                             showDialog(
                                               barrierDismissible: false,
@@ -5104,7 +6076,7 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                                   alasan: isiCheckbox,
                                                   valueCheck: valueCheckbox,
                                                   selectedAlasan:
-                                                      selectedAlasan,
+                                                  selectedAlasan,
                                                   selectedValue: selectedValue,
                                                   onSelectedAlasanListChanged:
                                                       (alasans) {
@@ -5125,15 +6097,15 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                     ),
                                     Container(
                                       padding:
-                                          EdgeInsets.symmetric(horizontal: 5.0),
+                                      EdgeInsets.symmetric(horizontal: 5.0),
                                       child: ButtonTheme(
                                         minWidth: 50.0,
                                         height: 50.0,
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -5155,7 +6127,7 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                                   alasan: isiCheckbox,
                                                   valueCheck: valueCheckbox,
                                                   selectedAlasan:
-                                                      selectedAlasan,
+                                                  selectedAlasan,
                                                   selectedValue: selectedValue,
                                                   onSelectedAlasanListChanged:
                                                       (alasans) {
@@ -5181,8 +6153,8 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -5194,7 +6166,7 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                              Color.fromARGB(170, 50, 205, 50),
+                                          Color.fromARGB(170, 50, 205, 50),
                                           onPressed: () {
                                             _cardController.animateTo(
                                                 _cardController.index + 1);
@@ -5236,7 +6208,7 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                             horizontal: 10.0),
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             Text(
                                               '3. Taking Payment and Thanking',
@@ -5274,7 +6246,7 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                 width: MediaQuery.of(context).size.width,
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                  MainAxisAlignment.spaceAround,
                                   children: <Widget>[
                                     Container(
                                       child: ButtonTheme(
@@ -5283,8 +6255,8 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -5296,7 +6268,7 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                              Color.fromARGB(170, 255, 40, 0),
+                                          Color.fromARGB(170, 255, 40, 0),
                                           onPressed: () {
                                             showDialog(
                                               barrierDismissible: false,
@@ -5306,7 +6278,885 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                                   alasan: isiCheckbox,
                                                   valueCheck: valueCheckbox,
                                                   selectedAlasan:
-                                                      selectedAlasan,
+                                                  selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    Navigator.push(
+                                                        context,
+                                                        MyCustomRoute(
+                                                            builder: (context) =>
+                                                                FormSedikitLagi()));
+                                                  },
+                                                );
+                                              },
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                      alignment: Alignment(0.0, 0.0),
+                                    ),
+                                    Container(
+                                      padding:
+                                      EdgeInsets.symmetric(horizontal: 5.0),
+                                      child: ButtonTheme(
+                                        minWidth: 50.0,
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          shape: new RoundedRectangleBorder(
+                                              borderRadius:
+                                              new BorderRadius.circular(
+                                                  5.0),
+                                              side: BorderSide(
+                                                  width: 1.5,
+                                                  color: Colors.white)),
+                                          child: Text(
+                                            '1',
+                                            style: TextStyle(
+                                                fontSize: 18.0,
+                                                color: Colors.white),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          color: Color.fromARGB(
+                                              170, 192, 192, 192),
+                                          onPressed: () {
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                  selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    Navigator.push(
+                                                        context,
+                                                        MyCustomRoute(
+                                                            builder: (context) =>
+                                                                FormSedikitLagi()));
+                                                  },
+                                                );
+                                              },
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                      alignment: Alignment(0.0, 0.0),
+                                    ),
+                                    Container(
+                                      child: ButtonTheme(
+                                        minWidth: 50.0,
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          shape: new RoundedRectangleBorder(
+                                              borderRadius:
+                                              new BorderRadius.circular(
+                                                  5.0),
+                                              side: BorderSide(
+                                                  width: 1.5,
+                                                  color: Colors.white)),
+                                          child: Text(
+                                            '2',
+                                            style: TextStyle(
+                                                fontSize: 18.0,
+                                                color: Colors.white),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          color:
+                                          Color.fromARGB(170, 50, 205, 50),
+                                          onPressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MyCustomRoute(
+                                                    builder: (context) =>
+                                                        FormSedikitLagi()));
+                                          },
+                                        ),
+                                      ),
+                                      alignment: Alignment(0.0, 0.0),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          Container(
+                            color: Colors.white,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20.0, vertical: 10.0),
+                            child: Text(
+                                'Berikan ucapan undangan kepada customer .'),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        bottomNavigationBar: _bottomBar(),
+      ),
+    );
+  }
+
+  Widget _bottomBar() {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      height: 55.0,
+      child: Container(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+                      onPressed: () {
+                        _cardController.animateTo(_cardController.index - 1);
+                      },
+                      tooltip: 'Previous',
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.arrow_forward_ios, color: Colors.white),
+                      onPressed: () {
+                        /*_cardController.index != 10
+                            ?*/
+                        _cardController.animateTo(_cardController.index + 1);
+                        /*: Navigator.push(
+                                context,
+                                MyCustomRoute(
+                                    builder: (context) => FormMockComplaint()));*/
+                      },
+                      tooltip: 'Next',
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+          decoration: BoxDecoration(color: Color(0xFF2F592F))),
+    );
+  }
+
+  Widget _appBar() {
+    return AppBar(
+      elevation: 0.25,
+      backgroundColor: Colors.white,
+      iconTheme: IconThemeData(color: Colors.black),
+      title: Image.asset(
+        'assets/images/logo.png',
+        height: 100.0,
+        width: 120.0,
+      ),
+    );
+  }
+}
+
+class FormSedikitLagi extends StatefulWidget {
+  @override
+  _FormSedikitLagiState createState() => _FormSedikitLagiState();
+}
+
+class _FormSedikitLagiState extends State<FormSedikitLagi> {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        appBar: AbubaAppBar(),
+        body: _buildMenu(),
+      ),
+    );
+  }
+
+  Widget _buildMenu() {
+    return ListView(
+      children: <Widget>[
+        Container(
+          height: 390.0,
+          width: MediaQuery.of(context).size.width,
+          color: Colors.white,
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'Mystery Shopper',
+                      style: TextStyle(color: Colors.black12, fontSize: 12.0),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 15.0),
+                      child: Text(
+                        '|',
+                        style: TextStyle(
+                            color: AbubaPallate.greenabuba, fontSize: 12.0),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 15.0),
+                      child: Text(
+                        'Location',
+                        style: TextStyle(
+                            color: AbubaPallate.greenabuba, fontSize: 12.0),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(20.0, 100.0, 20.0, 20.0),
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Flexible(
+                          child: Text(
+                            'Sedikit Lagi',
+                            style: TextStyle(
+                                color: AbubaPallate.greenabuba,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 20.0),
+                          ),
+                        )
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Flexible(
+                          child: Text(
+                            'Perhatikan suasana outlet, focus pada kerapihan, kebersihan dan kenyamanan',
+                            style: TextStyle(
+                                fontSize: 14.0, color: Colors.black54),
+                            textAlign: TextAlign.center,
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    ButtonTheme(
+                      minWidth: 50.0,
+                      height: 40.0,
+                      child: RaisedButton(
+                        shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(5.0),
+                        ),
+                        child: Text(
+                          'CONFIRM',
+                          style: TextStyle(fontSize: 13.0, color: Colors.white),
+                        ),
+                        color: Colors.blue,
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MyCustomRoute(
+                                  builder: (context) => FormTableSetting()));
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+        Container(
+          child: Image.asset(
+            'assets/images/slide 23.png',
+            fit: BoxFit.fitWidth,
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class FormTableSetting extends StatefulWidget {
+  @override
+  _FormTableSettingState createState() => _FormTableSettingState();
+}
+
+class _FormTableSettingState extends State<FormTableSetting> with TickerProviderStateMixin {
+  List<Map> _listData = [
+    {'nomor': '11'},
+    {'nomor': '12'},
+    {'nomor': '13'}
+  ];
+
+  List<String> textList = [
+    'Menu Baru',
+    'Event',
+    'Upselling',
+    'Hasil Audit',
+    'Pengumuman',
+  ];
+
+  List<String> isiCheckbox = [
+    'Apakah organisasi sudah menetapkan internal dan eksternal isu yang berpengaruh terhadap kelangsungan organisasi?',
+    '',
+    '',
+  ];
+  List<String> valueCheckbox = ['1', '2', '3'];
+  List<String> selectedValue = [];
+  List<String> selectedAlasan = [];
+
+  bool _value1 = false;
+  bool _value2 = false;
+  bool _value3 = false;
+  bool _value4 = false;
+  bool _value5 = false;
+
+  //we omitted the brackets '{}' and are using fat arrow '=>' instead, this is dart syntax
+  void _value1Changed(bool value) => setState(() => _value1 = value);
+  void _value2Changed(bool value) => setState(() => _value2 = value);
+  void _value3Changed(bool value) => setState(() => _value3 = value);
+  void _value4Changed(bool value) => setState(() => _value4 = value);
+  void _value5Changed(bool value) => setState(() => _value5 = value);
+
+  TabController _cardController;
+
+  @override
+  void initState() {
+    super.initState();
+    _cardController = new TabController(vsync: this, length: _listData.length);
+  }
+
+  @override
+  void dispose() {
+    _cardController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: _appBar(),
+        body: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).requestFocus(FocusNode());
+          },
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Expanded(
+                  child: TabBarView(
+                    controller: _cardController,
+                    physics: ScrollPhysics(),
+                    children: <Widget>[
+                      ListView(
+                        shrinkWrap: true,
+                        physics: ScrollPhysics(),
+                        children: <Widget>[
+                          PreferredSize(
+                            preferredSize: Size.fromHeight(55.0),
+                            child: Column(
+                              children: <Widget>[
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 55.0,
+                                  child: Container(
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Text(
+                                              '1. Table Setting',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14.0),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                            Text(
+                                              '1 of ${_listData.length.toString()}',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14.0),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      decoration: BoxDecoration(
+                                          color: Color(0xFF2F592F))),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Stack(
+                            children: <Widget>[
+                              Image.asset(
+                                'assets/images/abuba3.jpg',
+                                fit: BoxFit.cover,
+                                height: MediaQuery.of(context).size.height /
+                                    1.50777,
+                              ),
+                              Positioned(
+                                bottom: 20.0,
+                                width: MediaQuery.of(context).size.width,
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceAround,
+                                  children: <Widget>[
+                                    Container(
+                                      child: ButtonTheme(
+                                        minWidth: 50.0,
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          shape: new RoundedRectangleBorder(
+                                              borderRadius:
+                                              new BorderRadius.circular(
+                                                  5.0),
+                                              side: BorderSide(
+                                                  width: 1.5,
+                                                  color: Colors.white)),
+                                          child: Text(
+                                            '0',
+                                            style: TextStyle(
+                                                fontSize: 18.0,
+                                                color: Colors.white),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          color:
+                                          Color.fromARGB(170, 255, 40, 0),
+                                          onPressed: () {
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                  selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    _cardController.animateTo(
+                                                        _cardController.index +
+                                                            1);
+                                                  },
+                                                );
+                                              },
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                      alignment: Alignment(0.0, 0.0),
+                                    ),
+                                    Container(
+                                      padding:
+                                      EdgeInsets.symmetric(horizontal: 5.0),
+                                      child: ButtonTheme(
+                                        minWidth: 50.0,
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          shape: new RoundedRectangleBorder(
+                                              borderRadius:
+                                              new BorderRadius.circular(
+                                                  5.0),
+                                              side: BorderSide(
+                                                  width: 1.5,
+                                                  color: Colors.white)),
+                                          child: Text(
+                                            '1',
+                                            style: TextStyle(
+                                                fontSize: 18.0,
+                                                color: Colors.white),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          color: Color.fromARGB(
+                                              170, 192, 192, 192),
+                                          onPressed: () {
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                  selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    _cardController.animateTo(
+                                                        _cardController.index +
+                                                            1);
+                                                  },
+                                                );
+                                              },
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                      alignment: Alignment(0.0, 0.0),
+                                    ),
+                                    Container(
+                                      child: ButtonTheme(
+                                        minWidth: 50.0,
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          shape: new RoundedRectangleBorder(
+                                              borderRadius:
+                                              new BorderRadius.circular(
+                                                  5.0),
+                                              side: BorderSide(
+                                                  width: 1.5,
+                                                  color: Colors.white)),
+                                          child: Text(
+                                            '2',
+                                            style: TextStyle(
+                                                fontSize: 18.0,
+                                                color: Colors.white),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          color:
+                                          Color.fromARGB(170, 50, 205, 50),
+                                          onPressed: () {
+                                            _cardController.animateTo(
+                                                _cardController.index + 1);
+                                          },
+                                        ),
+                                      ),
+                                      alignment: Alignment(0.0, 0.0),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          Container(
+                            color: Colors.white,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20.0, vertical: 10.0),
+                            child: Center(
+                              child: Text(
+                                  'Berikan ucapan undangan kepada customer untuk datang kembali'),
+                            ),
+                          )
+                        ],
+                      ),
+                      ListView(
+                        shrinkWrap: true,
+                        physics: ScrollPhysics(),
+                        children: <Widget>[
+                          PreferredSize(
+                            preferredSize: Size.fromHeight(55.0),
+                            child: Column(
+                              children: <Widget>[
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 55.0,
+                                  child: Container(
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Text(
+                                              '2. Kebersihan dan Kerapihan Outlet',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14.0),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                            Text(
+                                              '2 of ${_listData.length.toString()}',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14.0),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      decoration: BoxDecoration(
+                                          color: Color(0xFF2F592F))),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Stack(
+                            children: <Widget>[
+                              Image.asset(
+                                'assets/images/abuba2.jpg',
+                                fit: BoxFit.cover,
+                                height: MediaQuery.of(context).size.height /
+                                    1.50777,
+                              ),
+                              Positioned(
+                                bottom: 20.0,
+                                width: MediaQuery.of(context).size.width,
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceAround,
+                                  children: <Widget>[
+                                    Container(
+                                      child: ButtonTheme(
+                                        minWidth: 50.0,
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          shape: new RoundedRectangleBorder(
+                                              borderRadius:
+                                              new BorderRadius.circular(
+                                                  5.0),
+                                              side: BorderSide(
+                                                  width: 1.5,
+                                                  color: Colors.white)),
+                                          child: Text(
+                                            '0',
+                                            style: TextStyle(
+                                                fontSize: 18.0,
+                                                color: Colors.white),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          color:
+                                          Color.fromARGB(170, 255, 40, 0),
+                                          onPressed: () {
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                  selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    _cardController.animateTo(
+                                                        _cardController.index +
+                                                            1);
+                                                  },
+                                                );
+                                              },
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                      alignment: Alignment(0.0, 0.0),
+                                    ),
+                                    Container(
+                                      padding:
+                                      EdgeInsets.symmetric(horizontal: 5.0),
+                                      child: ButtonTheme(
+                                        minWidth: 50.0,
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          shape: new RoundedRectangleBorder(
+                                              borderRadius:
+                                              new BorderRadius.circular(
+                                                  5.0),
+                                              side: BorderSide(
+                                                  width: 1.5,
+                                                  color: Colors.white)),
+                                          child: Text(
+                                            '1',
+                                            style: TextStyle(
+                                                fontSize: 18.0,
+                                                color: Colors.white),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          color: Color.fromARGB(
+                                              170, 192, 192, 192),
+                                          onPressed: () {
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                  selectedAlasan,
+                                                  selectedValue: selectedValue,
+                                                  onSelectedAlasanListChanged:
+                                                      (alasans) {
+                                                    selectedAlasan = alasans;
+                                                  },
+                                                  onResult: (finalResult) {
+                                                    _cardController.animateTo(
+                                                        _cardController.index +
+                                                            1);
+                                                  },
+                                                );
+                                              },
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                      alignment: Alignment(0.0, 0.0),
+                                    ),
+                                    Container(
+                                      child: ButtonTheme(
+                                        minWidth: 50.0,
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          shape: new RoundedRectangleBorder(
+                                              borderRadius:
+                                              new BorderRadius.circular(
+                                                  5.0),
+                                              side: BorderSide(
+                                                  width: 1.5,
+                                                  color: Colors.white)),
+                                          child: Text(
+                                            '2',
+                                            style: TextStyle(
+                                                fontSize: 18.0,
+                                                color: Colors.white),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          color:
+                                          Color.fromARGB(170, 50, 205, 50),
+                                          onPressed: () {
+                                            _cardController.animateTo(
+                                                _cardController.index + 1);
+                                          },
+                                        ),
+                                      ),
+                                      alignment: Alignment(0.0, 0.0),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          Container(
+                            color: Colors.white,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20.0, vertical: 10.0),
+                            child: Center(
+                              child: Text(
+                                  'Cleaning/clearing tables harus dilakukan maksimal 1 menit.'),
+                            ),
+                          )
+                        ],
+                      ),
+                      ListView(
+                        shrinkWrap: true,
+                        physics: ScrollPhysics(),
+                        children: <Widget>[
+                          PreferredSize(
+                            preferredSize: Size.fromHeight(55.0),
+                            child: Column(
+                              children: <Widget>[
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 55.0,
+                                  child: Container(
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Text(
+                                              '3. Kenyamanan suasana outlet',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14.0),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                            Text(
+                                              '3 of ${_listData.length.toString()}',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14.0),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      decoration: BoxDecoration(
+                                          color: Color(0xFF2F592F))),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Stack(
+                            children: <Widget>[
+                              Image.asset(
+                                'assets/images/abuba1.jpg',
+                                fit: BoxFit.fitHeight,
+                                height: MediaQuery.of(context).size.height /
+                                    1.50777,
+                              ),
+                              Positioned(
+                                bottom: 20.0,
+                                width: MediaQuery.of(context).size.width,
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceAround,
+                                  children: <Widget>[
+                                    Container(
+                                      child: ButtonTheme(
+                                        minWidth: 50.0,
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          shape: new RoundedRectangleBorder(
+                                              borderRadius:
+                                              new BorderRadius.circular(
+                                                  5.0),
+                                              side: BorderSide(
+                                                  width: 1.5,
+                                                  color: Colors.white)),
+                                          child: Text(
+                                            '0',
+                                            style: TextStyle(
+                                                fontSize: 18.0,
+                                                color: Colors.white),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          color:
+                                          Color.fromARGB(170, 255, 40, 0),
+                                          onPressed: () {
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Checkbox(
+                                                  alasan: isiCheckbox,
+                                                  valueCheck: valueCheckbox,
+                                                  selectedAlasan:
+                                                  selectedAlasan,
                                                   selectedValue: selectedValue,
                                                   onSelectedAlasanListChanged:
                                                       (alasans) {
@@ -5329,15 +7179,15 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                     ),
                                     Container(
                                       padding:
-                                          EdgeInsets.symmetric(horizontal: 5.0),
+                                      EdgeInsets.symmetric(horizontal: 5.0),
                                       child: ButtonTheme(
                                         minWidth: 50.0,
                                         height: 50.0,
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -5359,7 +7209,7 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                                   alasan: isiCheckbox,
                                                   valueCheck: valueCheckbox,
                                                   selectedAlasan:
-                                                      selectedAlasan,
+                                                  selectedAlasan,
                                                   selectedValue: selectedValue,
                                                   onSelectedAlasanListChanged:
                                                       (alasans) {
@@ -5387,8 +7237,8 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                         child: RaisedButton(
                                           shape: new RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
-                                                      5.0),
+                                              new BorderRadius.circular(
+                                                  5.0),
                                               side: BorderSide(
                                                   width: 1.5,
                                                   color: Colors.white)),
@@ -5400,7 +7250,7 @@ class _FormFinishingState extends State<FormFinishing> with TickerProviderStateM
                                             textAlign: TextAlign.center,
                                           ),
                                           color:
-                                              Color.fromARGB(170, 50, 205, 50),
+                                          Color.fromARGB(170, 50, 205, 50),
                                           onPressed: () {
                                             Navigator.push(
                                                 context,
@@ -5591,7 +7441,7 @@ class _FormCheckOutState extends State<FormCheckOut> {
                           child: Text(
                             'CHECK OUT',
                             style:
-                                TextStyle(fontSize: 13.0, color: Colors.white),
+                            TextStyle(fontSize: 13.0, color: Colors.white),
                           ),
                           color: Colors.red,
                           onPressed: () {},

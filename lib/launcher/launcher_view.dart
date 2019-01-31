@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_abuba/beranda/beranda_view.dart';
 import 'dart:async';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/landing/landingpage_view.dart';
+import 'package:flutter_abuba/launcher/page_one.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LauncherPage extends StatefulWidget {
   @override
@@ -75,6 +78,8 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
   Animation _animation;
   Animation _animation2;
   GlobalKey globalKey = GlobalKey();
+  TextEditingController _controller = TextEditingController();
+  bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -113,21 +118,28 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
             margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),
             alignment: Alignment.center,
             padding: const EdgeInsets.only(left: 0.0, right: 10.0),
-            child: new Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                new Expanded(
-                  child: PasswordField(
-                    fieldKey: _passwordFieldKey,
-                    helperText: 'Enter your 6 digits PIN',
-                    labelText: 'PIN',
-                    hintText: 'PIN',
-                    onFieldSubmitted: (String value) {},
-                  )
-                ),
-              ],
-            ),
+            child: TextFormField(
+              key: _passwordFieldKey,
+              controller: _controller,
+              obscureText: _obscureText,
+              maxLength: 6,
+              keyboardType: TextInputType.number,
+              onFieldSubmitted: (String value) {},
+              decoration: InputDecoration(
+                border: UnderlineInputBorder(),
+                helperText: 'Enter your 6 digits PIN',
+                labelText: 'PIN',
+                hintText: 'PIN',
+                suffixIcon: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _obscureText = !_obscureText;              
+                    });
+                  },
+                  child: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
+                )
+              ),
+            )
           ),
           new Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -146,9 +158,13 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                   ),
                   onPressed: () {
                     setState(() {
-                      state = 0;
-                      width = double.infinity;
+                      _controller.clear();
                     });
+                    Navigator.push(context,
+                      MaterialPageRoute(
+                        builder: (context) => PageOne()
+                      )
+                    );
                   },
                 ),
               ),
@@ -189,34 +205,6 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
         ],
       ),
     );
-    //   FlatButton(
-    //     shape: new RoundedRectangleBorder(
-    //       borderRadius: new BorderRadius.circular(30.0),
-    //     ),
-    //     color: AbubaPallate.greenabuba,
-    //     onPressed: () => Navigator.pushReplacement(context,
-    //         MyCustomRoute(builder: (context) => LandingPage())),
-    //     child: new Container(
-    //       padding: const EdgeInsets.symmetric(
-    //         vertical: 20.0,
-    //         horizontal: 20.0,
-    //       ),
-    //       child: new Row(
-    //         mainAxisAlignment: MainAxisAlignment.center,
-    //         children: <Widget>[
-    //           new Expanded(
-    //             child: Text(
-    //               "LOGIN",
-    //               textAlign: TextAlign.center,
-    //               style: TextStyle(
-    //                   color: Colors.white,
-    //                   fontWeight: FontWeight.bold),
-    //             ),
-    //           ),
-    //         ],
-    //       ),
-    //     ),
-    //   ),
   }
 
   void animateButton() {
@@ -249,10 +237,22 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
       //   });
       // controller2.forward();
       Navigator.pushReplacement(context,
-        MyCustomRoute(
-          builder: (context) => new LandingPage()
-        )
+          MyCustomRoute(
+              builder: (context) => new BerandaPage(idUser: 1)
+          )
       );
+      /*Firestore.instance
+        .collection('user')
+        .where('pin', isEqualTo: _controller.text)
+        .snapshots()
+        // .listen((data) => data.documents.forEach((doc) => print(doc['nama'])));
+        .listen((data) => data.documents.forEach((doc) {
+          Navigator.pushReplacement(context,
+            MyCustomRoute(
+              builder: (context) => new BerandaPage(idUser: doc['id'])
+            )
+          );
+        }));*/
     });
   }
 
@@ -268,59 +268,5 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
         ),
       );
     }
-  }
-}
-
-class PasswordField extends StatefulWidget {
-  const PasswordField({
-    this.fieldKey,
-    this.hintText,
-    this.labelText,
-    this.helperText,
-    this.onSaved,
-    this.validator,
-    this.onFieldSubmitted,  
-  });
-
-  final Key fieldKey;
-  final String hintText;
-  final String labelText;
-  final String helperText;
-  final FormFieldSetter<String> onSaved;
-  final FormFieldValidator<String> validator;
-  final ValueChanged<String> onFieldSubmitted;
-
-  @override
-  _PasswordFieldState createState() => new _PasswordFieldState();
-}
-
-class _PasswordFieldState extends State<PasswordField> {
-  bool _obscureText = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return new TextFormField(
-      key: widget.fieldKey,
-      obscureText: _obscureText,
-      maxLength: 6,
-      onSaved: widget.onSaved,
-      validator: widget.validator,
-      keyboardType: TextInputType.number,
-      onFieldSubmitted: widget.onFieldSubmitted,
-      decoration: InputDecoration(
-        border: UnderlineInputBorder(),
-        hintText: widget.hintText,
-        labelText: widget.labelText,
-        helperText: widget.helperText,
-        suffixIcon: GestureDetector(
-          onTap: () {
-            setState(() {
-              _obscureText = !_obscureText;              
-            });
-          },
-          child: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
-        )
-      ),
-    );
   }
 }
