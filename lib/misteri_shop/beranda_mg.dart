@@ -6,6 +6,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:flutter_abuba/misteri_shop/outlet/grid_data_search.dart';
 import 'package:flutter_abuba/misteri_shop/benchmark/grid_data_search.dart';
 import 'report/form_report.dart';
+import 'presentase/form_persentase.dart';
 
 class BerandaMG extends StatefulWidget {
   final int idUser;
@@ -213,6 +214,64 @@ class _BerandaMGState extends State<BerandaMG> {
                 ),
               ),
 
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MyCustomRoute(
+                          builder: (context) => FormPersentase()));
+                },
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Stack(
+                      overflow: Overflow.visible,
+                      children: <Widget>[
+                        Container(
+                          height: 70.0,
+                          width: 70.0,
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              border: Border.all(
+                                  color: Colors.grey, width: 1.0),
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(18.0))),
+                        ),
+                        Positioned(
+                          bottom: 22.5,
+                          left: 25.0,
+                          child: Icon(MdiIcons.heart,
+                              size: 25.0, color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 10.0),
+                      child: Text(
+                        'Persentase',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 12.0),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 0.0),
+                      child: Text(
+                        'Outlet',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 12.0),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
