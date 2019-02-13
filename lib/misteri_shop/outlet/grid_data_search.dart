@@ -54,29 +54,29 @@ class _FormCariLokasiState extends State<FormCariLokasi> {
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-    Firestore.instance
-      .collection('mystery_shopper')
-      .where('user', isEqualTo: widget.idUser)
-      .snapshots()
-      .listen((data) => data.documents.forEach((doc) {
-        if (doc['checkout'] == null) {
-          Firestore.instance
-            .collection('outlet')
-            .where('id', isEqualTo: doc['id_outlet'])
-            .snapshots()
-            .listen((data2) => data2.documents.forEach((doc2) {
-              Navigator.pushReplacement(context,
-                MyCustomRoute(
-                  builder: (context) => FormSuasanaResto(outlet: doc2['nama_outlet'], imageOutlet: doc2['image'], alamatOutlet: doc2['alamat'], idOutlet: doc2['id'])
-                )
-              );
-            }));
-        }
-      }));
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   Firestore.instance
+  //     .collection('mystery_shopper')
+  //     .where('user', isEqualTo: widget.idUser)
+  //     .snapshots()
+  //     .listen((data) => data.documents.forEach((doc) {
+  //       if (doc['checkout'] == null) {
+  //         Firestore.instance
+  //           .collection('outlet')
+  //           .where('id', isEqualTo: doc['id_outlet'])
+  //           .snapshots()
+  //           .listen((data2) => data2.documents.forEach((doc2) {
+  //             Navigator.pushReplacement(context,
+  //               MyCustomRoute(
+  //                 builder: (context) => FormSuasanaResto(outlet: doc2['nama_outlet'], imageOutlet: doc2['image'], alamatOutlet: doc2['alamat'], idOutlet: doc2['id'])
+  //               )
+  //             );
+  //           }));
+  //       }
+  //     }));
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -170,6 +170,7 @@ class _FormCariLokasiState extends State<FormCariLokasi> {
                       ? StreamBuilder(
                           stream: Firestore.instance
                             .collection('outlet')
+                            .orderBy('nama_outlet', descending: false)
                             .snapshots(),
                           builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                             if (!snapshot.hasData)
@@ -254,25 +255,6 @@ class _FormCariLokasiState extends State<FormCariLokasi> {
       elevation: 0.25,
       backgroundColor: Colors.white,
       iconTheme: IconThemeData(color: Colors.black),
-      actions: <Widget>[
-        IconButton(
-          tooltip: 'Add Outlet',
-          icon: Icon(Icons.add),
-          onPressed:() {
-            setState(() {
-              _controllerSearch.clear();
-              queryResultSet = [];
-              tempSearchStore = [];
-              search = false;
-            });
-            Navigator.push(context,
-              MaterialPageRoute(
-                builder: (_) => AddOutlet()
-              )
-            );
-          }
-        ),
-      ],
       title: _appBarTitle,
     );
   }
@@ -344,154 +326,6 @@ class CardListState extends State<CardList> {
           ),
         );
       }).toList()
-    );
-  }
-}
-
-class AddOutlet extends StatefulWidget {
-  @override
-  _AddOutletState createState() => _AddOutletState();
-}
-
-class _AddOutletState extends State<AddOutlet> {
-  TextEditingController _controllerOutlet = TextEditingController();
-  TextEditingController _controllerAlamat = TextEditingController();
-  TextEditingController _controllerSearchKey = TextEditingController();
-  var maxid = 0;
-  var index;
-
-  void addOutlet() {
-    Firestore.instance
-      .collection('dumper_outlet')
-      .snapshots()
-      .listen((data) => data.documents.forEach((doc) {
-        var maxid_bantu = doc['max_id'];
-        var index_bantu = data.documents[0].reference;
-
-        setState(() {
-          maxid = maxid_bantu + 1;
-          index = index_bantu;
-        });
-      }));
-    Firestore.instance.runTransaction((Transaction transaction) async {
-      CollectionReference reference = Firestore.instance.collection('outlet');
-      await reference.add({
-        'id': maxid,
-        'nama_outlet': _controllerOutlet.text,
-        'alamat': _controllerAlamat.text,
-        'image': 'assets/images/slide2.png',
-        'searchKey': _controllerSearchKey.text.substring(0,1).toUpperCase(),
-      });
-
-      DocumentSnapshot snapshot = await transaction.get(index);
-      await transaction.update(snapshot.reference, {
-        'max_id': maxid,
-      });
-    });
-    Navigator.pop(context);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Add Outlet'),
-      ),
-      body: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).requestFocus(FocusNode());
-        },
-        child: ListView(
-          physics: ScrollPhysics(),
-          children: <Widget>[
-            Container(
-              width: width,
-              margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),
-              alignment: Alignment.center,
-              padding: const EdgeInsets.only(left: 0.0, right: 10.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  border: UnderlineInputBorder(),
-                  labelStyle: TextStyle(fontSize: 14.0),
-                  labelText: 'Nama Outlet'
-                ),
-                controller: _controllerOutlet,
-                keyboardType: TextInputType.text,
-                textCapitalization: TextCapitalization.sentences,
-                style: TextStyle(fontSize: 15.0, color: Colors.black),
-              ),
-            ),
-            Container(
-              width: width,
-              margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),
-              alignment: Alignment.center,
-              padding: const EdgeInsets.only(left: 0.0, right: 10.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  border: UnderlineInputBorder(),
-                  labelStyle: TextStyle(fontSize: 14.0),
-                  labelText: 'Search Key'
-                ),
-                controller: _controllerSearchKey,
-                maxLength: 1,
-                keyboardType: TextInputType.text,
-                textCapitalization: TextCapitalization.characters,
-                style: TextStyle(fontSize: 15.0, color: Colors.black),
-              ),
-            ),
-            Container(
-              width: width,
-              margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),
-              alignment: Alignment.center,
-              padding: const EdgeInsets.only(left: 0.0, right: 10.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  border: UnderlineInputBorder(),
-                  labelStyle: TextStyle(fontSize: 14.0),
-                  labelText: 'Alamat Outlet'
-                ),
-                controller: _controllerAlamat,
-                maxLines: 3,
-                textCapitalization: TextCapitalization.sentences,
-                keyboardType: TextInputType.multiline,
-                style: TextStyle(fontSize: 15.0, color: Colors.black),
-              ),
-            ),
-            Container(
-              width: width,
-              margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
-              alignment: Alignment.center,
-              child: FlatButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                ),
-                color: AbubaPallate.greenabuba,
-                onPressed: addOutlet,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(vertical: 20.0,horizontal: 20.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Expanded(
-                        child: Text(
-                          "SAVE",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              )
-            )
-          ],
-        ),
-      ),
     );
   }
 }
