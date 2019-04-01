@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_abuba/constant.dart';
-import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
 
 class CreateQC extends StatefulWidget {
   @override
@@ -9,10 +6,6 @@ class CreateQC extends StatefulWidget {
 }
 
 class _CreateQCState extends State<CreateQC> with TickerProviderStateMixin {
-  int _number = 1;
-  int _itemCount;
-  int _currentIndex;
-  bool _autoplay;
 
   List<Map> _title = [
     {
@@ -59,10 +52,6 @@ class _CreateQCState extends State<CreateQC> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    _currentIndex = 0;
-    _autoplay = false;
-    _itemCount = _title.length;
-    _controller = new SwiperController();
     super.initState();
     _cardController = new TabController(vsync: this, length: _listData.length);
   }
@@ -74,9 +63,6 @@ class _CreateQCState extends State<CreateQC> with TickerProviderStateMixin {
     _cardController.dispose();
     super.dispose();
   }
-
-  SwiperController _controller;
-  TextEditingController numberController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -512,8 +498,8 @@ class _CreateQCState extends State<CreateQC> with TickerProviderStateMixin {
       backgroundColor: Colors.white,
       iconTheme: IconThemeData(color: Colors.black),
       title: Image.asset(
-        'assets/images/logo.png',
-        height: 100.0,
+        'assets/images/logo2.png',
+        height: 150.0,
         width: 120.0,
       ),
     );

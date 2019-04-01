@@ -13,7 +13,6 @@ import 'package:flutter_abuba/isoft/operation_page/logbook/beranda_logbook.dart'
 import 'package:flutter_abuba/isoft/operation_page/dailychecklist/beranda_checklist.dart';
 import 'kitchen/form_inspection.dart';
 import 'internalaudit/beranda_audit.dart';
-import 'form_temperature.dart';
 import 'correctiveaction/beranda_corrective.dart';
 import 'meeting/beranda_meeting.dart';
 import 'changemanagement/beranda_management.dart';
@@ -22,6 +21,11 @@ import 'qcchecklist/beranda_qc.dart';
 import 'documentcontrol/beranda_document.dart';
 
 class BerandaOperation extends StatefulWidget {
+  final int idUser;
+  final String namaUser;
+  final String departmentUser;
+  BerandaOperation({this.idUser, this.namaUser, this.departmentUser});
+
   @override
   _BerandaOperationState createState() => _BerandaOperationState();
 }
@@ -757,7 +761,7 @@ class _BerandaOperationState extends State<BerandaOperation> {
                       onTap: () => Navigator.push(
                           context,
                           MyCustomRoute(
-                              builder: (context) => MenuLogBook())),
+                              builder: (context) => MenuLogBook(idUser: widget.idUser, departmentUser: widget.departmentUser, namaUser: widget.namaUser))),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
@@ -1865,8 +1869,8 @@ Widget _appBar() {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Image.asset(
-          'assets/images/logo.png',
-          height: 100.0,
+          'assets/images/logo2.png',
+          height: 150.0,
           width: 120.0,
         ),
         new Container(

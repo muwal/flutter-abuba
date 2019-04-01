@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_abuba/beranda/beranda_view.dart';
 import 'package:flutter_abuba/constant.dart';
-import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
+import 'package:flutter_abuba/misteri_shop/point_trend_check/point_trend_check.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import 'package:flutter_abuba/misteri_shop/outlet/grid_data_search.dart';
@@ -10,19 +11,50 @@ import 'presentase/form_persentase.dart';
 
 class BerandaMG extends StatefulWidget {
   final int idUser;
-  BerandaMG({this.idUser});
+  final String aksesStatus;
+  BerandaMG({this.idUser, this.aksesStatus});
 
   @override
   _BerandaMGState createState() => _BerandaMGState();
 }
 
 class _BerandaMGState extends State<BerandaMG> {
+  Widget _appBarTitle = Image.asset(
+    'assets/images/logo2.png',
+    height: 150.0,
+    width: 120.0,
+  );
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        appBar: AbubaAppBar(),
-        body: _buildMenu(),
+      child: WillPopScope(
+        onWillPop: () {
+          Navigator.push(context,
+            MaterialPageRoute(
+              builder: (_) => BerandaPage(idUser: widget.idUser, aksesStatus: widget.aksesStatus)
+            )
+          );
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            elevation: 0.25,
+            backgroundColor: Colors.white,
+            iconTheme: IconThemeData(color: Colors.black),
+            title: _appBarTitle,
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.push(context,
+                  MaterialPageRoute(
+                    builder: (_) => BerandaPage(idUser: widget.idUser, aksesStatus: widget.aksesStatus)
+                  )
+                );
+              },
+            ),
+          ),
+          body: _buildMenu(),
+        ),
       ),
     );
   }
@@ -68,7 +100,7 @@ class _BerandaMGState extends State<BerandaMG> {
                   Navigator.push(
                       context,
                       MyCustomRoute(
-                          builder: (context) => FormCariLokasi(idUser: widget.idUser)));
+                          builder: (context) => FormCariLokasi(idUser: widget.idUser, aksesStatus: widget.aksesStatus)));
                 },
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -77,27 +109,23 @@ class _BerandaMGState extends State<BerandaMG> {
                       overflow: Overflow.visible,
                       children: <Widget>[
                         Container(
-                          height: 70.0,
-                          width: 70.0,
+                          height: 50.0,
+                          width: 50.0,
                           decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              border: Border.all(
-                                  color: Colors.grey, width: 1.0),
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(18.0))),
-                        ),
-                        Positioned(
-                          bottom: 22.5,
-                          left: 25.0,
-                          child: Icon(MdiIcons.heart,
-                              size: 25.0, color: Colors.grey),
+                            image: DecorationImage(
+                              image: AssetImage(
+                                'assets/images/start_review.png',
+                              ),
+                              fit: BoxFit.cover
+                            )
+                          ),
                         ),
                       ],
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 10.0),
                       child: Text(
-                        'Cari',
+                        'Start',
                         style: TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 12.0),
                       ),
@@ -105,7 +133,7 @@ class _BerandaMGState extends State<BerandaMG> {
                     Padding(
                       padding: EdgeInsets.only(top: 0.0),
                       child: Text(
-                        'Outlet',
+                        'Review',
                         style: TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 12.0),
                       ),
@@ -118,7 +146,7 @@ class _BerandaMGState extends State<BerandaMG> {
                   Navigator.push(
                       context,
                       MyCustomRoute(
-                          builder: (context) => FormReport()));
+                          builder: (context) => FormReport(idUser: widget.idUser, aksesStatus: widget.aksesStatus)));
                 },
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -127,20 +155,16 @@ class _BerandaMGState extends State<BerandaMG> {
                       overflow: Overflow.visible,
                       children: <Widget>[
                         Container(
-                          height: 70.0,
-                          width: 70.0,
+                          height: 50.0,
+                          width: 50.0,
                           decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              border: Border.all(
-                                  color: Colors.grey, width: 1.0),
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(18.0))),
-                        ),
-                        Positioned(
-                          bottom: 22.5,
-                          left: 25.0,
-                          child: Icon(MdiIcons.heart,
-                              size: 25.0, color: Colors.grey),
+                            image: DecorationImage(
+                              image: AssetImage(
+                                'assets/images/report.png',
+                              ),
+                              fit: BoxFit.cover
+                            )
+                          ),
                         ),
                       ],
                     ),
@@ -168,7 +192,7 @@ class _BerandaMGState extends State<BerandaMG> {
                   Navigator.push(
                       context,
                       MyCustomRoute(
-                          builder: (context) => FormBenchmark()));
+                          builder: (context) => FormBenchmark(idUser: widget.idUser)));
                 },
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -177,20 +201,16 @@ class _BerandaMGState extends State<BerandaMG> {
                       overflow: Overflow.visible,
                       children: <Widget>[
                         Container(
-                          height: 70.0,
-                          width: 70.0,
+                          height: 50.0,
+                          width: 50.0,
                           decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              border: Border.all(
-                                  color: Colors.grey, width: 1.0),
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(18.0))),
-                        ),
-                        Positioned(
-                          bottom: 22.5,
-                          left: 25.0,
-                          child: Icon(MdiIcons.heart,
-                              size: 25.0, color: Colors.grey),
+                            image: DecorationImage(
+                              image: AssetImage(
+                                'assets/images/benchmark.png',
+                              ),
+                              fit: BoxFit.cover
+                            )
+                          ),
                         ),
                       ],
                     ),
@@ -236,27 +256,23 @@ class _BerandaMGState extends State<BerandaMG> {
                       overflow: Overflow.visible,
                       children: <Widget>[
                         Container(
-                          height: 70.0,
-                          width: 70.0,
+                          height: 50.0,
+                          width: 50.0,
                           decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              border: Border.all(
-                                  color: Colors.grey, width: 1.0),
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(18.0))),
-                        ),
-                        Positioned(
-                          bottom: 22.5,
-                          left: 25.0,
-                          child: Icon(MdiIcons.heart,
-                              size: 25.0, color: Colors.grey),
+                            image: DecorationImage(
+                              image: AssetImage(
+                                'assets/images/outlet_performance.png',
+                              ),
+                              fit: BoxFit.cover
+                            )
+                          ),
                         ),
                       ],
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 10.0),
                       child: Text(
-                        'Persentase',
+                        'Outlet',
                         style: TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 12.0),
                       ),
@@ -264,7 +280,53 @@ class _BerandaMGState extends State<BerandaMG> {
                     Padding(
                       padding: EdgeInsets.only(top: 0.0),
                       child: Text(
-                        'Outlet',
+                        'Performance',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 12.0),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MyCustomRoute(
+                          builder: (context) => PointTrendCheck()));
+                },
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Stack(
+                      overflow: Overflow.visible,
+                      children: <Widget>[
+                        Container(
+                          height: 50.0,
+                          width: 50.0,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(
+                                'assets/images/outlet_performance.png',
+                              ),
+                              fit: BoxFit.cover
+                            )
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 10.0),
+                      child: Text(
+                        'Point',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 12.0),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 0.0),
+                      child: Text(
+                        'Check Trend',
                         style: TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 12.0),
                       ),

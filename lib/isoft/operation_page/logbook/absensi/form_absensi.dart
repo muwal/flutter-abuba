@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
-// import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 
 class FormAbsensi extends StatefulWidget {
   @override
@@ -24,7 +22,16 @@ class _FormAbsensiState extends State<FormAbsensi> {
     return SafeArea(
       child: Scaffold(
         key: _scaffoldKey,
-        appBar: AbubaAppBar(),
+        appBar: AppBar(
+          elevation: 0.25,
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.black),
+          title: Image.asset(
+            'assets/images/logo2.png',
+            height: 150.0,
+            width: 120.0,
+          ),
+        ),
         body: GestureDetector(
             onTap: () {
               FocusScope.of(context).requestFocus(FocusNode());

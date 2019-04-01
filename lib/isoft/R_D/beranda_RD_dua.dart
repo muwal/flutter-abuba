@@ -230,8 +230,8 @@ class _MenuRDduaState extends State<MenuRDdua> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Image.asset(
-            'assets/images/logo.png',
-            height: 100.0,
+            'assets/images/logo2.png',
+            height: 150.0,
             width: 120.0,
           ),
           new Container(

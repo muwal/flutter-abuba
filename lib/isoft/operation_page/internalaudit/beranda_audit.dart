@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/isoft/operation_page/internalaudit/form_jadwal_start.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 
 import 'form_createnew.dart';
 import 'form_jadwalaudit.dart';
@@ -23,7 +22,16 @@ class _MenuAuditState extends State<MenuAudit> {
     return SafeArea(
       child: Scaffold(
         key: _scaffoldState,
-        appBar: AbubaAppBar(),
+        appBar: AppBar(
+          elevation: 0.25,
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.black),
+          title: Image.asset(
+            'assets/images/logo2.png',
+            height: 150.0,
+            width: 120.0,
+          ),
+        ),
         body: _buildLogMenu(),
       ),
     );

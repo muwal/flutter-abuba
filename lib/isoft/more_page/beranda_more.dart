@@ -12,7 +12,6 @@ class BerandaMore extends StatefulWidget {
 class _BerandaMoreState extends State<BerandaMore> {
   @override
   Widget build(BuildContext context) {
-    /*FlutterStatusbarcolor.setStatusBarColor(AbubaPallate.greenabuba);*/
     return SafeArea(
       child: Scaffold(
         appBar: _appBar(),
@@ -222,16 +221,16 @@ class _BerandaMoreState extends State<BerandaMore> {
   Widget _appBar() {
     return AppBar(
       elevation: 0.0,
-      backgroundColor: AbubaPallate.greenabuba,
-      iconTheme: IconThemeData(color: Colors.white),
+      backgroundColor: Colors.white,
+      iconTheme: IconThemeData(color: Colors.black),
       flexibleSpace: Padding(
         padding: const EdgeInsets.only(right: 8.0, left: 50.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Image.asset(
-              'assets/images/logo_light.png',
-              height: 100.0,
+              'assets/images/logo2.png',
+              height: 150.0,
               width: 120.0,
             ),
             new Container(

@@ -15,7 +15,6 @@ class _FormMaintenanceState extends State<FormMaintenance> {
   List<String> valueCheckbox = ['1', '2', '3', '4', '5'];
   List<String> selectedValue = [];
   List<String> selectedAlasan = [];
-  String _lokasiUndo = "";
 
   void _dialogDetail(int index) {
     showDialog(
@@ -232,8 +231,8 @@ Widget _appBar() {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Image.asset(
-          'assets/images/logo.png',
-          height: 100.0,
+          'assets/images/logo2.png',
+          height: 150.0,
           width: 120.0,
         ),
         new Container(

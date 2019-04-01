@@ -18,6 +18,8 @@ class PageOneState extends State<PageOne> {
   bool _obscureText = true;
   TapGestureRecognizer _tapRecognizer;
   DateTime _now = DateTime.now();
+  var maxid = 0;
+  var index;
 
   @override
   void initState() {
@@ -37,6 +39,15 @@ class PageOneState extends State<PageOne> {
   }
 
   void _signUp() {
+    Firestore.instance
+      .collection('dumper_user')
+      .snapshots()
+      .listen((data) => data.documents.forEach((doc) {
+        setState(() {
+          maxid = doc['maxid'] + 1;
+          index = data.documents[0].reference;
+        });
+      }));
     Firestore.instance.runTransaction((Transaction transaction) async {
       CollectionReference reference = Firestore.instance.collection('user');
       await reference.add({
@@ -44,6 +55,12 @@ class PageOneState extends State<PageOne> {
         'nama': _controllerNama.text,
         'pin': _controllerPin.text,
         'created_date': _now.toString().substring(0, 10),
+        'id': maxid,
+      });
+
+      DocumentSnapshot snapshot = await transaction.get(index);
+      await transaction.update(snapshot.reference, {
+        'maxid': maxid,
       });
     });
     Navigator.pop(context);
@@ -181,25 +198,6 @@ class PageOneState extends State<PageOne> {
                 ),
               ),
             ),
-            // Center(
-            //   child: FlatButton(
-            //     child: Text(
-            //       "Already have an account ? Sign In",
-            //       style: TextStyle(
-            //         color: Colors.black54,
-            //         fontSize: 14.0,
-            //       ),
-            //       textAlign: TextAlign.end,
-            //     ),
-            //     onPressed: () {
-            //       Navigator.push(context,
-            //         MaterialPageRoute(
-            //           builder: (context) => PageOne()
-            //         )
-            //       );
-            //     },
-            //   ),
-            // ),
           ],
         ),
       )

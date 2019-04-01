@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
-import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 import 'package:flutter_abuba/isoft/operation_page/changemanagement/management_approval.dart';
 import 'package:flutter_abuba/isoft/operation_page/changemanagement/management_create.dart';
 import 'package:flutter_abuba/isoft/operation_page/changemanagement/management_report.dart';
@@ -17,7 +16,16 @@ class _BerandaManagementState extends State<BerandaManagement> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AbubaAppBar(),
+        appBar: AppBar(
+          elevation: 0.25,
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.black),
+          title: Image.asset(
+            'assets/images/logo2.png',
+            height: 150.0,
+            width: 120.0,
+          ),
+        ),
         body: _buildLogMenu(),
       ),
     );

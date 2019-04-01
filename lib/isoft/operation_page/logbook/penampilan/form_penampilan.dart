@@ -1,19 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_abuba/constant.dart';
-import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
 
 class FormPenampilan extends StatefulWidget {
   @override
   _FormPenampilanState createState() => _FormPenampilanState();
 }
 
-class _FormPenampilanState extends State<FormPenampilan>
-    with TickerProviderStateMixin {
-  int _number = 1;
-  int _itemCount;
-  int _currentIndex;
-  bool _autoplay;
+class _FormPenampilanState extends State<FormPenampilan> with TickerProviderStateMixin {
 
   List<Map> _title = [
     {
@@ -102,10 +94,6 @@ class _FormPenampilanState extends State<FormPenampilan>
 
   @override
   void initState() {
-    _currentIndex = 0;
-    _autoplay = false;
-    _itemCount = _title.length;
-    _controller = new SwiperController();
     super.initState();
     _cardController = new TabController(vsync: this, length: _listData.length);
   }
@@ -117,9 +105,6 @@ class _FormPenampilanState extends State<FormPenampilan>
     _cardController.dispose();
     super.dispose();
   }
-
-  SwiperController _controller;
-  TextEditingController numberController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -583,8 +568,8 @@ class _FormPenampilanState extends State<FormPenampilan>
       backgroundColor: Colors.white,
       iconTheme: IconThemeData(color: Colors.black),
       title: Image.asset(
-        'assets/images/logo.png',
-        height: 100.0,
+        'assets/images/logo2.png',
+        height: 150.0,
         width: 120.0,
       ),
     );

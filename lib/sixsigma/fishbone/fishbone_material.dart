@@ -125,8 +125,8 @@ class _FishBoneState extends State<FishBone> {
       backgroundColor: Colors.white,
       iconTheme: IconThemeData(color: Colors.black),
       title: Image.asset(
-        'assets/images/logo.png',
-        height: 100.0,
+        'assets/images/logo2.png',
+        height: 150.0,
         width: 120.0,
       ),
       bottom: PreferredSize(

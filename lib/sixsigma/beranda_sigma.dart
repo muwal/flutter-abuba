@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
-import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 import 'package:flutter_abuba/sixsigma/5why/beranda_5whys.dart';
 import 'package:flutter_abuba/sixsigma/a3_report/beranda_a3.dart';
 import 'package:flutter_abuba/sixsigma/data_collection/beranda_data_collection.dart';
@@ -12,6 +11,11 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'problemsolving/beranda_problem.dart';
 
 class BerandaSigma extends StatefulWidget {
+  final int idUser;
+  final String namaUser;
+  final String departmentUser;
+  BerandaSigma({this.idUser, this.namaUser, this.departmentUser});
+
   @override
   _BerandaSigmaState createState() => _BerandaSigmaState();
 }
@@ -21,7 +25,16 @@ class _BerandaSigmaState extends State<BerandaSigma> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AbubaAppBar(),
+        appBar: AppBar(
+          elevation: 0.25,
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.black),
+          title: Image.asset(
+            'assets/images/logo2.png',
+            height: 150.0,
+            width: 120.0,
+          ),
+        ),
         body: _buildMenu(),
       ),
     );
@@ -168,7 +181,7 @@ class _BerandaSigmaState extends State<BerandaSigma> {
                   Navigator.push(
                       context,
                       MyCustomRoute(
-                          builder: (context) => BerandaVoice()));
+                          builder: (context) => BerandaVoice(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser)));
                 },
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -218,7 +231,7 @@ class _BerandaSigmaState extends State<BerandaSigma> {
                   Navigator.push(
                       context,
                       MyCustomRoute(
-                          builder: (context) => BerandaProject()));
+                          builder: (context) => BerandaProject(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser)));
                 },
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -276,7 +289,7 @@ class _BerandaSigmaState extends State<BerandaSigma> {
                   Navigator.push(
                       context,
                       MyCustomRoute(
-                          builder: (context) => BerandaAtiga()));
+                          builder: (context) => BerandaAtiga(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser)));
                 },
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -376,7 +389,7 @@ class _BerandaSigmaState extends State<BerandaSigma> {
                   Navigator.push(
                       context,
                       MyCustomRoute(
-                          builder: (context) => BerandaDataCollection()));
+                          builder: (context) => BerandaDataCollection(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser)));
                 },
                 child: Column(
                   mainAxisSize: MainAxisSize.min,

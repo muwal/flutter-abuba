@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
-import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 import 'package:flutter_abuba/sixsigma/a3_report/form_report.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import 'form_a3_report.dart';
-/*import 'form_report.dart';*/
 
 class BerandaAtiga extends StatefulWidget {
+  final int idUser;
+  final String namaUser;
+  final String departmentUser;
+  BerandaAtiga({this.idUser, this.namaUser, this.departmentUser});
+
   @override
   _BerandaAtigaState createState() => _BerandaAtigaState();
 }
@@ -17,7 +20,16 @@ class _BerandaAtigaState extends State<BerandaAtiga> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AbubaAppBar(),
+        appBar: AppBar(
+          elevation: 0.25,
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.black),
+          title: Image.asset(
+            'assets/images/logo2.png',
+            height: 150.0,
+            width: 120.0,
+          ),
+        ),
         body: _buildMenu(),
       ),
     );
@@ -64,7 +76,7 @@ class _BerandaAtigaState extends State<BerandaAtiga> {
                   Navigator.push(
                       context,
                       MyCustomRoute(
-                          builder: (context) => FormA3Report()));
+                          builder: (context) => FormA3Report(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser,)));
                 },
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -106,7 +118,7 @@ class _BerandaAtigaState extends State<BerandaAtiga> {
                   Navigator.push(
                       context,
                       MyCustomRoute(
-                          builder: (context) => FormReport()));
+                          builder: (context) => FormReport(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser)));
                 },
                 child: Column(
                   mainAxisSize: MainAxisSize.min,

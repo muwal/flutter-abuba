@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
-import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 import 'package:flutter_abuba/sixsigma/5why/form_5why.dart';
 import 'package:flutter_abuba/sixsigma/5why/form_report.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -16,7 +15,16 @@ class _Beranda5WhysState extends State<Beranda5Whys> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AbubaAppBar(),
+        appBar: AppBar(
+          elevation: 0.25,
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.black),
+          title: Image.asset(
+            'assets/images/logo2.png',
+            height: 150.0,
+            width: 120.0,
+          ),
+        ),
         body: _buildMenu(),
       ),
     );

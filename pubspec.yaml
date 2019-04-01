@@ -15,6 +15,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  firebase_auth: any
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -29,12 +30,19 @@ dependencies:
   smooth_star_rating: ^1.0.1
   flutter_swiper: ^1.1.4
   cloud_firestore: ^0.9.0
-  firebase_core: ^0.3.0
-  dio: ^1.0.0
+  firebase_core: ^0.3.1+1
+  firebase_storage: ^2.0.1+1
+  mailer: ^2.2.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.7.0
+
+flutter_icons:
+  android: "launcher_icon" 
+  ios: true
+  image_path: "assets/images/icon2.png"
 
 
 # For information on the generic Dart part of this file, see the
@@ -50,10 +58,13 @@ flutter:
   assets:
     - assets/images/img_gojek_logo.png
     - assets/images/logo.png
+    - assets/images/logo2.png
     - assets/images/logo_splash.png
+    - assets/images/logo_splash2.png
     - assets/images/logo_light.png
     - assets/images/map.png
     - assets/images/map_2.png
+    - assets/images/open_door.jpg
     - assets/images/slide greet.jpg
     - assets/images/slide 4.png
     - assets/images/slide 4copy.png
@@ -80,7 +91,16 @@ flutter:
     - assets/images/abuba4.jpg
     - assets/images/abuba5.jpg
     - assets/images/abuba6.jpg
-
+    - assets/images/Billing.jpeg
+    - assets/images/Greeting.jpeg
+    - assets/images/Pre Bushing.jpeg
+    - assets/images/Seating.jpeg
+    - assets/images/Taking Order.jpeg
+    - assets/images/benchmark.png
+    - assets/images/mg.png
+    - assets/images/report.png
+    - assets/images/start_review.png
+    - assets/images/outlet_performance.png
   fonts:
     - family: NeoSans
       fonts:

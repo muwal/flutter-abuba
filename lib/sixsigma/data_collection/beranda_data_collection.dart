@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
-import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 import 'package:flutter_abuba/sixsigma/data_collection/form_report.dart';
 import 'package:flutter_abuba/sixsigma/data_collection/form_data_collection.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-/*import 'form_report.dart';*/
 
 class BerandaDataCollection extends StatefulWidget {
+  final int idUser;
+  final String namaUser;
+  final String departmentUser;
+  BerandaDataCollection({this.idUser, this.namaUser, this.departmentUser});
+
   @override
   _BerandaDataCollectionState createState() => _BerandaDataCollectionState();
 }
@@ -16,7 +19,16 @@ class _BerandaDataCollectionState extends State<BerandaDataCollection> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AbubaAppBar(),
+        appBar: AppBar(
+          elevation: 0.25,
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.black),
+          title: Image.asset(
+            'assets/images/logo2.png',
+            height: 150.0,
+            width: 120.0,
+          ),
+        ),
         body: _buildMenu(),
       ),
     );
@@ -63,7 +75,7 @@ class _BerandaDataCollectionState extends State<BerandaDataCollection> {
                   Navigator.push(
                       context,
                       MyCustomRoute(
-                          builder: (context) => FormDataCollection()));
+                          builder: (context) => FormDataCollection(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser)));
                 },
                 child: Column(
                   mainAxisSize: MainAxisSize.min,

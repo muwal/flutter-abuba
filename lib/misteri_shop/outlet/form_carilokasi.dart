@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
-import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_abuba/misteri_shop/outlet/form_after_checkin.dart';
 
@@ -10,7 +9,14 @@ class FormCheckIn extends StatefulWidget {
   final String imageOutlet;
   final String alamatOutlet;
   final int idUser;
-  FormCheckIn({this.outlet,this.imageOutlet,this.alamatOutlet,this.idOutlet,this.idUser});
+  final String aksesStatus;
+  FormCheckIn(
+      {this.outlet,
+      this.imageOutlet,
+      this.alamatOutlet,
+      this.idOutlet,
+      this.idUser,
+      this.aksesStatus});
 
   @override
   _FormCheckInState createState() => _FormCheckInState();
@@ -18,14 +24,22 @@ class FormCheckIn extends StatefulWidget {
 
 class _FormCheckInState extends State<FormCheckIn> {
   DateTime checkinNow = DateTime.now();
-  var maxid;
-  var index;
+  var maxid = 0;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AbubaAppBar(),
+        appBar: AppBar(
+          elevation: 0.25,
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.black),
+          title: Image.asset(
+            'assets/images/logo2.png',
+            height: 150.0,
+            width: 120.0,
+          ),
+        ),
         body: Scrollbar(
           child: ListView(
             children: <Widget>[
@@ -42,14 +56,16 @@ class _FormCheckInState extends State<FormCheckIn> {
                         children: <Widget>[
                           Text(
                             'Mystery Shopper',
-                            style: TextStyle(color: Colors.black12, fontSize: 12.0),
+                            style: TextStyle(
+                                color: Colors.black12, fontSize: 12.0),
                           ),
                           Padding(
                             padding: EdgeInsets.only(left: 15.0),
                             child: Text(
                               '|',
                               style: TextStyle(
-                                  color: AbubaPallate.greenabuba, fontSize: 12.0),
+                                  color: AbubaPallate.greenabuba,
+                                  fontSize: 12.0),
                             ),
                           ),
                           Padding(
@@ -57,7 +73,8 @@ class _FormCheckInState extends State<FormCheckIn> {
                             child: Text(
                               'Location',
                               style: TextStyle(
-                                  color: AbubaPallate.greenabuba, fontSize: 12.0),
+                                  color: AbubaPallate.greenabuba,
+                                  fontSize: 12.0),
                             ),
                           ),
                         ],
@@ -77,6 +94,7 @@ class _FormCheckInState extends State<FormCheckIn> {
                                       color: AbubaPallate.greenabuba,
                                       fontWeight: FontWeight.w700,
                                       fontSize: 20.0),
+                                  textAlign: TextAlign.center,
                                 ),
                               )
                             ],
@@ -89,6 +107,7 @@ class _FormCheckInState extends State<FormCheckIn> {
                                   widget.alamatOutlet,
                                   style: TextStyle(
                                       fontSize: 14.0, color: Colors.black54),
+                                  textAlign: TextAlign.center,
                                 ),
                               )
                             ],
@@ -104,40 +123,44 @@ class _FormCheckInState extends State<FormCheckIn> {
                                   borderRadius: new BorderRadius.circular(5.0)),
                               child: Text(
                                 'CHECK IN',
-                                style:
-                                TextStyle(fontSize: 13.0, color: Colors.white),
+                                style: TextStyle(
+                                    fontSize: 13.0, color: Colors.white),
                               ),
                               color: Colors.green,
                               onPressed: () {
-                                Firestore.instance
-                                    .collection('dumper_mystery_shopper')
-                                    .snapshots()
-                                    .listen((data) => data.documents.forEach((doc) {
-                                  setState(() {
-                                    maxid = doc['max_id'];
-                                    index = data.documents[0].reference;
-                                  });
-                                }));
-                                Firestore.instance.runTransaction((Transaction transaction) async {
-                                  CollectionReference reference = Firestore.instance.collection('mystery_shopper');
-                                  await reference.add({
-                                    'id': maxid + 1,
+                                DocumentReference docReference = Firestore
+                                    .instance
+                                    .collection('mystery_shopper')
+                                    .document();
+
+                                docReference.setData(
+                                  {
                                     'user': widget.idUser,
                                     'checkIn': checkinNow,
                                     'checkOut': null,
-                                    'outlet': widget.idOutlet
-                                  });
-
-                                  DocumentSnapshot snapshot = await transaction.get(index);
-                                  await transaction.update(snapshot.reference, {
-                                    'max_id': maxid + 1,
-                                  });
-                                });
-                                // print(maxid_bantu);
-                                Navigator.push(context,
-                                  MyCustomRoute(
-                                    builder: (context) => FormSuasanaResto(idOutlet: widget.idOutlet,alamatOutlet: widget.alamatOutlet,outlet: widget.outlet,imageOutlet: widget.imageOutlet,idUser: widget.idUser, idMysteryGuest: maxid),
-                                  )
+                                    'outlet': widget.outlet
+                                  },
+                                ).then(
+                                  (doc) {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MyCustomRoute(
+                                        builder: (context) => FormSuasanaResto(
+                                            idOutlet: widget.idOutlet,
+                                            alamatOutlet: widget.alamatOutlet,
+                                            outlet: widget.outlet,
+                                            imageOutlet: widget.imageOutlet,
+                                            idUser: widget.idUser,
+                                            idMysteryGuest: maxid,
+                                            index: docReference.documentID,
+                                            aksesStatus: widget.aksesStatus),
+                                      ),
+                                    );
+                                  },
+                                ).catchError(
+                                  (error) {
+                                    print(error);
+                                  },
                                 );
                               },
                             ),
@@ -149,8 +172,8 @@ class _FormCheckInState extends State<FormCheckIn> {
                 ),
               ),
               Container(
-                child: Image.asset(
-                  'assets/images/slide2.png',
+                child: Image.network(
+                  widget.imageOutlet,
                   fit: BoxFit.fitWidth,
                 ),
               )

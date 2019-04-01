@@ -17,14 +17,14 @@ class _ReportState extends State<Report> {
         child: Scaffold(
           appBar: _appBar(),
           body: TabBarView(
-            children: <Widget>[_Material(), _Jasa()],
+            children: <Widget>[_material(), _jasa()],
           ),
         ),
       ),
     );
   }
 
-  Widget _Material() {
+  Widget _material() {
     return ListView(
       children: <Widget>[
         Container(
@@ -143,7 +143,7 @@ class _ReportState extends State<Report> {
     );
   }
 
-  Widget _Jasa() {
+  Widget _jasa() {
     return ListView(
       children: <Widget>[
         Container(
@@ -457,8 +457,8 @@ class _ReportState extends State<Report> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Image.asset(
-            'assets/images/logo.png',
-            height: 100.0,
+            'assets/images/logo2.png',
+            height: 150.0,
             width: 120.0,
           ),
           new Container(

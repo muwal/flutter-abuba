@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/isoft/operation_page/logbook/linecheck/beranda_linecheck.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
-
-import 'package:flutter_abuba/isoft/operation_page/logbook/performance/beranda_performance.dart';
 import 'package:flutter_abuba/isoft/operation_page/logbook/events/beranda_events.dart';
-import 'package:flutter_abuba/isoft/operation_page/logbook/bahanbaku/beranda_bahanbaku.dart';
-import 'package:flutter_abuba/isoft/operation_page/logbook/absensi/beranda_absensi.dart';
 import 'package:flutter_abuba/isoft/operation_page/logbook/deployment/beranda_deploy.dart';
 import 'package:flutter_abuba/isoft/operation_page/logbook/penampilan/beranda_penampilan.dart';
 import 'package:flutter_abuba/isoft/operation_page/logbook/briefing/beranda_briefing.dart';
 
 class MenuLogBook extends StatefulWidget {
+  final int idUser;
+  final String namaUser;
+  final String departmentUser;
+  MenuLogBook({this.idUser, this.namaUser, this.departmentUser});
+
   @override
   _MenuLogBookState createState() => _MenuLogBookState();
 }
@@ -22,7 +22,16 @@ class _MenuLogBookState extends State<MenuLogBook> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AbubaAppBar(),
+        appBar: AppBar(
+          elevation: 0.25,
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.black),
+          title: Image.asset(
+            'assets/images/logo2.png',
+            height: 150.0,
+            width: 120.0,
+          ),
+        ),
         body: _buildLogMenu(),
       ),
     );
@@ -510,7 +519,7 @@ class _MenuLogBookState extends State<MenuLogBook> {
                     onTap: () => Navigator.push(
                         context,
                         MyCustomRoute(
-                            builder: (context) => BerandaLinecheck())),
+                            builder: (context) => BerandaLinecheck(idUser: widget.idUser, departmentUser: widget.departmentUser, namaUser: widget.namaUser))),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[

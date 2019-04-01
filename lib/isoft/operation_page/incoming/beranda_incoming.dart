@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
-import 'package:flutter_abuba/isoft/operation_page/changemanagement/management_review_detail.dart';
 import 'package:flutter_abuba/isoft/operation_page/incoming/form_inspection.dart';
-import 'package:flutter_abuba/isoft/operation_page/incoming/search.dart';
 
 class BerandaIncoming extends StatefulWidget {
   @override
@@ -260,14 +258,12 @@ class _BerandaIncomingState extends State<BerandaIncoming> {
         IconButton(
           tooltip: 'Search',
           icon: Icon(Icons.search),
-          onPressed: () {
-            // showSearch(context: context, delegate: DataSearch());
-          }
+          onPressed: () {}
         )
       ],
       title: Image.asset(
-        'assets/images/logo.png',
-        height: 100.0,
+        'assets/images/logo2.png',
+        height: 150.0,
         width: 120.0,
       ),
     );

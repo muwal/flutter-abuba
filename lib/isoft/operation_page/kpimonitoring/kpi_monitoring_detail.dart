@@ -52,43 +52,7 @@ class _DashboardKpiMonitoringDetailState
     {'title_pertama' : 'People Development', 'title_kedua': 'Meeting koordinasi dengan tim outlet', 'subtitle_pertama': 'Sony, Ridwan', 'subtitle_kedua': '17/08/2018', 'value_kpi': '4'},
   ];
 
-  List<String> _titlePertama = [
-    "Plan",
-    "Do",
-    "Check",
-    "Adjust",
-  ];
-
-  List<String> _titleKedua = [
-    'Meeting koordinasi dengan tim outlet',
-    'Meeting koordinasi dengan tim outlet',
-    'Meeting koordinasi dengan tim outlet',
-    'Meeting koordinasi dengan tim outlet',
-  ];
-
-  List<String> _subtitlePertama = [
-    'Sony, Ridwan',
-    'Sony, Ridwan',
-    'Sony, Ridwan',
-    'Sony, Ridwan',
-  ];
-
-  List<String> _subtitleKedua = [
-    '17/08/2018',
-    '17/08/2018',
-    '17/08/2018',
-    '17/08/2018',
-  ];
-
-  List<String> _valueKPI = [
-    '1',
-    '2',
-    '3',
-    '4',
-  ];
-
   TextEditingController _controllerNote = new TextEditingController();
-  GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -6336,8 +6300,8 @@ class _DashboardKpiMonitoringDetailState
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Image.asset(
-            'assets/images/logo.png',
-            height: 100.0,
+            'assets/images/logo2.png',
+            height: 150.0,
             width: 120.0,
           ),
           new Container(

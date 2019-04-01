@@ -8,6 +8,50 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:421767019485:android:aa3946f1df40d4fd",
+        "android_client_info": {
+          "package_name": "com.abubasteak.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "421767019485-n79vle22o7463sfm58n678odvjh07dal.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.abubasteak.app",
+            "certificate_hash": "ebf474e08267e3c730d8087e59404a98c23b73bd"
+          }
+        },
+        {
+          "client_id": "421767019485-43d1bvu848im51di4rcc40u3te1s5t8o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHx2aZLrCRfIjJl02vBGbp2W4D2pGPSRI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "421767019485-43d1bvu848im51di4rcc40u3te1s5t8o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:421767019485:android:3fbde679dd7939d2",
         "android_client_info": {
           "package_name": "com.abubasteak.isoft"

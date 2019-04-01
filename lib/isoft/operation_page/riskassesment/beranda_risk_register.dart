@@ -3,7 +3,6 @@ import 'package:flutter_abuba/isoft/IT_page/risk_register/risk_register_create.d
 import 'package:flutter_abuba/isoft/IT_page/risk_register/risk_register_report.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 
 class BerandaRiskRegister extends StatefulWidget {
   @override
@@ -18,7 +17,16 @@ class _BerandaRiskRegisterState extends State<BerandaRiskRegister> {
     return SafeArea(
       child: Scaffold(
         key: _scaffoldState,
-        appBar: AbubaAppBar(),
+        appBar: AppBar(
+          elevation: 0.25,
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.black),
+          title: Image.asset(
+            'assets/images/logo2.png',
+            height: 150.0,
+            width: 120.0,
+          ),
+        ),
         body: _buildLogMenu(),
       ),
     );

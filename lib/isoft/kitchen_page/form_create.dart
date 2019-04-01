@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
-import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 
 class FormCreate extends StatefulWidget {
   @override
@@ -15,12 +14,7 @@ class _FormCreateState extends State<FormCreate> {
     {"id": 2, "sumber": "B"},
   ];
 
-  Color _colorLowSe = Colors.grey;
-  Color _colorMedSe = Colors.grey;
-  Color _colorHighSe = Colors.grey;
-
   Color _colorLowLi = Colors.grey;
-  Color _colorMedLi = Colors.grey;
   Color _colorHighLi = Colors.grey;
 
   String _risk = ' ';
@@ -30,7 +24,16 @@ class _FormCreateState extends State<FormCreate> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AbubaAppBar(),
+        appBar: AppBar(
+          elevation: 0.25,
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.black),
+          title: Image.asset(
+            'assets/images/logo2.png',
+            height: 150.0,
+            width: 120.0,
+          ),
+        ),
         body: _buildCreate(),
       ),
     );
@@ -216,7 +219,6 @@ class _FormCreateState extends State<FormCreate> {
                               onPressed: () {
                                 setState(() {
                                   _colorLowLi = Colors.grey;
-                                  _colorMedLi = Colors.grey;
                                   _colorHighLi = Colors.redAccent;
 
                                   _risk = 'NO';
@@ -239,7 +241,6 @@ class _FormCreateState extends State<FormCreate> {
                               onPressed: () {
                                 setState(() {
                                   _colorLowLi = Colors.green[400];
-                                  _colorMedLi = Colors.grey;
                                   _colorHighLi = Colors.grey;
 
                                   _risk = 'YES';
@@ -289,7 +290,6 @@ class _FormCreateState extends State<FormCreate> {
                               onPressed: () {
                                 setState(() {
                                   _colorLowLi = Colors.grey;
-                                  _colorMedLi = Colors.grey;
                                   _colorHighLi = Colors.redAccent;
 
                                   _risk = 'NO';
@@ -312,7 +312,6 @@ class _FormCreateState extends State<FormCreate> {
                               onPressed: () {
                                 setState(() {
                                   _colorLowLi = Colors.green[400];
-                                  _colorMedLi = Colors.grey;
                                   _colorHighLi = Colors.grey;
 
                                   _risk = 'YES';
@@ -362,7 +361,6 @@ class _FormCreateState extends State<FormCreate> {
                               onPressed: () {
                                 setState(() {
                                   _colorLowLi = Colors.grey;
-                                  _colorMedLi = Colors.grey;
                                   _colorHighLi = Colors.redAccent;
 
                                   _risk = 'NO';
@@ -385,7 +383,6 @@ class _FormCreateState extends State<FormCreate> {
                               onPressed: () {
                                 setState(() {
                                   _colorLowLi = Colors.green[400];
-                                  _colorMedLi = Colors.grey;
                                   _colorHighLi = Colors.grey;
 
                                   _risk = 'YES';
@@ -435,7 +432,6 @@ class _FormCreateState extends State<FormCreate> {
                               onPressed: () {
                                 setState(() {
                                   _colorLowLi = Colors.grey;
-                                  _colorMedLi = Colors.grey;
                                   _colorHighLi = Colors.redAccent;
 
                                   _risk = 'NO';
@@ -458,7 +454,6 @@ class _FormCreateState extends State<FormCreate> {
                               onPressed: () {
                                 setState(() {
                                   _colorLowLi = Colors.green[400];
-                                  _colorMedLi = Colors.grey;
                                   _colorHighLi = Colors.grey;
 
                                   _risk = 'YES';
@@ -508,7 +503,6 @@ class _FormCreateState extends State<FormCreate> {
                               onPressed: () {
                                 setState(() {
                                   _colorLowLi = Colors.grey;
-                                  _colorMedLi = Colors.grey;
                                   _colorHighLi = Colors.redAccent;
 
                                   _risk = 'NO';
@@ -531,7 +525,6 @@ class _FormCreateState extends State<FormCreate> {
                               onPressed: () {
                                 setState(() {
                                   _colorLowLi = Colors.green[400];
-                                  _colorMedLi = Colors.grey;
                                   _colorHighLi = Colors.grey;
 
                                   _risk = 'YES';
@@ -581,7 +574,6 @@ class _FormCreateState extends State<FormCreate> {
                               onPressed: () {
                                 setState(() {
                                   _colorLowLi = Colors.grey;
-                                  _colorMedLi = Colors.grey;
                                   _colorHighLi = Colors.redAccent;
 
                                   _risk = 'NO';
@@ -604,7 +596,6 @@ class _FormCreateState extends State<FormCreate> {
                               onPressed: () {
                                 setState(() {
                                   _colorLowLi = Colors.green[400];
-                                  _colorMedLi = Colors.grey;
                                   _colorHighLi = Colors.grey;
 
                                   _risk = 'YES';
@@ -654,7 +645,6 @@ class _FormCreateState extends State<FormCreate> {
                               onPressed: () {
                                 setState(() {
                                   _colorLowLi = Colors.grey;
-                                  _colorMedLi = Colors.grey;
                                   _colorHighLi = Colors.redAccent;
 
                                   _risk = 'NO';
@@ -677,7 +667,6 @@ class _FormCreateState extends State<FormCreate> {
                               onPressed: () {
                                 setState(() {
                                   _colorLowLi = Colors.green[400];
-                                  _colorMedLi = Colors.grey;
                                   _colorHighLi = Colors.grey;
 
                                   _risk = 'YES';
@@ -727,7 +716,6 @@ class _FormCreateState extends State<FormCreate> {
                               onPressed: () {
                                 setState(() {
                                   _colorLowLi = Colors.grey;
-                                  _colorMedLi = Colors.grey;
                                   _colorHighLi = Colors.redAccent;
 
                                   _risk = 'NO';
@@ -750,7 +738,6 @@ class _FormCreateState extends State<FormCreate> {
                               onPressed: () {
                                 setState(() {
                                   _colorLowLi = Colors.green[400];
-                                  _colorMedLi = Colors.grey;
                                   _colorHighLi = Colors.grey;
 
                                   _risk = 'YES';

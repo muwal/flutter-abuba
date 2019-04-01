@@ -16,7 +16,6 @@ class _DashboardKpiMonitoringState extends State<DashboardKpiMonitoring> {
   Color _progressColor = AbubaPallate.green;
   bool _badgetingShow = false;
   Color _badgetingColor = Colors.grey;
-  bool _badgetingShow2 = false;
   Color _badgetingColor2 = Colors.grey;
 
   String _name = 'Routine';
@@ -112,8 +111,7 @@ class _DashboardKpiMonitoringState extends State<DashboardKpiMonitoring> {
                       animationDuration: 1000,
                       linearStrokeCap: LinearStrokeCap.butt,
                       progressColor: Colors.green[300],
-                    ),
-                ),
+                    )),
                 Container(
                     alignment: Alignment.centerLeft,
                     padding: const EdgeInsets.only(
@@ -164,7 +162,6 @@ class _DashboardKpiMonitoringState extends State<DashboardKpiMonitoring> {
                             _badgetingColor2 = Colors.grey;
                             _progressShow = true;
                             _badgetingShow = false;
-                            _badgetingShow2 = false;
                             _name = 'Routine';
                           });
                         },
@@ -198,7 +195,6 @@ class _DashboardKpiMonitoringState extends State<DashboardKpiMonitoring> {
                             _badgetingColor2 = Colors.grey;
                             _progressShow = false;
                             _badgetingShow = true;
-                            _badgetingShow2 = false;
                             _name = 'Non-routine';
                           });
                         },
@@ -232,7 +228,6 @@ class _DashboardKpiMonitoringState extends State<DashboardKpiMonitoring> {
                             _badgetingColor2 = AbubaPallate.green;
                             _progressShow = false;
                             _badgetingShow = false;
-                            _badgetingShow2 = true;
                             _name = 'Project';
                           });
                         },
@@ -833,8 +828,8 @@ class _DashboardKpiMonitoringState extends State<DashboardKpiMonitoring> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Image.asset(
-            'assets/images/logo.png',
-            height: 100.0,
+            'assets/images/logo2.png',
+            height: 150.0,
             width: 120.0,
           ),
           new Container(

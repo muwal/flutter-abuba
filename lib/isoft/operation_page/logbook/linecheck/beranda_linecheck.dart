@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
-import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 import 'package:flutter_abuba/isoft/operation_page/logbook/linecheck/form_linechekc.dart';
 import 'package:flutter_abuba/isoft/operation_page/logbook/linecheck/form_report.dart';
 import 'package:flutter_abuba/isoft/operation_page/logbook/linecheck/form_analysis.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class BerandaLinecheck extends StatefulWidget {
+  final int idUser;
+  final String namaUser;
+  final String departmentUser;
+  BerandaLinecheck({this.idUser, this.namaUser, this.departmentUser});
+
   @override
   _BerandaLinecheckState createState() => _BerandaLinecheckState();
 }
@@ -16,7 +20,16 @@ class _BerandaLinecheckState extends State<BerandaLinecheck> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AbubaAppBar(),
+        appBar: AppBar(
+          elevation: 0.25,
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.black),
+          title: Image.asset(
+            'assets/images/logo2.png',
+            height: 150.0,
+            width: 120.0,
+          ),
+        ),
         body: _buildMenu(),
       ),
     );
@@ -65,7 +78,7 @@ class _BerandaLinecheckState extends State<BerandaLinecheck> {
                 children: <Widget>[
                   GestureDetector(
                     onTap: () => Navigator.push(context,
-                        MyCustomRoute(builder: (context) => FormLineCheck())),
+                        MyCustomRoute(builder: (context) => FormLineCheck(idUser: widget.idUser, departmentUser: widget.departmentUser, namaUser: widget.namaUser))),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_abuba/isoft/R_D/RD_daftar_detail.dart';
-import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 import 'package:flutter_abuba/constant.dart';
 
 class RDdaftar extends StatefulWidget {
@@ -39,7 +38,18 @@ class _RDdaftarState extends State<RDdaftar> {
     final double width = MediaQuery.of(context).size.width;
 
     return SafeArea(
-      child: Scaffold(appBar: AbubaAppBar(), body: _buildFormRisk(width)),
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 0.25,
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.black),
+          title: Image.asset(
+            'assets/images/logo2.png',
+            height: 150.0,
+            width: 120.0,
+          ),
+        ),
+        body: _buildFormRisk(width)),
     );
   }
 

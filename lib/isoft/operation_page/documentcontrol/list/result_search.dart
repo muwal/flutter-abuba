@@ -63,9 +63,6 @@ class _ResultSearchState extends State<ResultSearch> {
 
   @override
   Widget build(BuildContext context) {
-    Color backgroundColor = Theme.of(context).cardColor;
-    Color foregroundColor = Theme.of(context).accentColor;
-
     return SafeArea(
       child: Scaffold(
         appBar: _appBar(widget.indexSelected),
@@ -773,8 +770,8 @@ class _ResultSearchState extends State<ResultSearch> {
       backgroundColor: Colors.white,
       iconTheme: IconThemeData(color: Colors.black),
       title: Image.asset(
-        'assets/images/logo.png',
-        height: 100.0,
+        'assets/images/logo2.png',
+        height: 150.0,
         width: 120.0,
       ),
       bottom: PreferredSize(

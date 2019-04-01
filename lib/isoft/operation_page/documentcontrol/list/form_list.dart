@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/isoft/operation_page/documentcontrol/list/detail_list.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -14,7 +13,16 @@ class _FormListState extends State<FormList> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AbubaAppBar(),
+        appBar: AppBar(
+          elevation: 0.25,
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.black),
+          title: Image.asset(
+            'assets/images/logo2.png',
+            height: 150.0,
+            width: 120.0,
+          ),
+        ),
         body: GestureDetector(
           onTap: () {
             FocusScope.of(context).requestFocus(FocusNode());

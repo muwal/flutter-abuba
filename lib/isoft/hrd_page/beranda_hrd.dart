@@ -30,8 +30,6 @@ class _MenuHRDState extends State<MenuHRD> {
   List<int> _counterLikeIdea = [0, 20, 100];
   List<int> _counterViewIdea = [100, 50, 33];
 
-  final _scaffoldState = GlobalKey<ScaffoldState>();
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -622,8 +620,8 @@ class _MenuHRDState extends State<MenuHRD> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Image.asset(
-            'assets/images/logo.png',
-            height: 100.0,
+            'assets/images/logo2.png',
+            height: 150.0,
             width: 120.0,
           ),
           new Container(

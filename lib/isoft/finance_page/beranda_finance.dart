@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
-
 import 'purchasing/beranda_purchasing.dart';
 import 'package:flutter_abuba/creative_page/form_comment.dart';
 import 'package:flutter_abuba/creative_page/form_create.dart';
@@ -1410,8 +1408,8 @@ class _BerandaFinanceState extends State<BerandaFinance> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Image.asset(
-            'assets/images/logo.png',
-            height: 100.0,
+            'assets/images/logo2.png',
+            height: 150.0,
             width: 120.0,
           ),
           new Container(

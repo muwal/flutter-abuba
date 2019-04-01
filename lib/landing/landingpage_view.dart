@@ -1,10 +1,8 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/beranda/beranda_view.dart';
-// import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-class LandingPage extends StatefulWidget {
-  @override
+class LandingPage extends StatefulWidget {@override
   _LandingPageState createState() => _LandingPageState();
 }
 

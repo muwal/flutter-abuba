@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import 'detail_quality.dart';
 import 'detail_quantity.dart';
-import 'detail_waktu.dart';
 
 class FormMaterial extends StatefulWidget {
   @override
@@ -50,11 +48,11 @@ class _FormMaterialState extends State<FormMaterial>
           body: TabBarView(
             controller: _tabController,
             children: <Widget>[
-              _QualityForm(),
-              _QuantityForm(),
-              _WaktuForm(),
-              _KomunikasiForm(),
-              _HargaForm(),
+              _qualityForm(),
+              _quantityForm(),
+              _waktuForm(),
+              _komunikasiForm(),
+              _hargaForm(),
             ],
           ),
         ),
@@ -62,7 +60,7 @@ class _FormMaterialState extends State<FormMaterial>
     );
   }
 
-  Widget _QualityForm() {
+  Widget _qualityForm() {
     return ListView(
       children: <Widget>[
         Padding(
@@ -246,7 +244,7 @@ class _FormMaterialState extends State<FormMaterial>
     );
   }
 
-  Widget _QuantityForm() {
+  Widget _quantityForm() {
     return ListView(
       children: <Widget>[
         Padding(
@@ -432,7 +430,7 @@ class _FormMaterialState extends State<FormMaterial>
     );
   }
 
-  Widget _WaktuForm() {
+  Widget _waktuForm() {
     return ListView(
       children: <Widget>[
         Padding(
@@ -613,7 +611,7 @@ class _FormMaterialState extends State<FormMaterial>
     );
   }
 
-  Widget _KomunikasiForm() {
+  Widget _komunikasiForm() {
     void _showModalSheet() {
       showModalBottomSheet(
         context: context,
@@ -999,7 +997,7 @@ class _FormMaterialState extends State<FormMaterial>
     );
   }
 
-  Widget _HargaForm() {
+  Widget _hargaForm() {
     void _showModalSheetHarga() {
       showModalBottomSheet(
         context: context,
@@ -1378,8 +1376,8 @@ class _FormMaterialState extends State<FormMaterial>
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Image.asset(
-            'assets/images/logo.png',
-            height: 100.0,
+            'assets/images/logo2.png',
+            height: 150.0,
             width: 120.0,
           ),
           new Container(

@@ -174,58 +174,6 @@ class _FormDetailState extends State<FormDetail> with TickerProviderStateMixin {
     Color backgroundColor = Theme.of(context).cardColor;
     Color foregroundColor = Theme.of(context).accentColor;
 
-    void _showDialog() {
-      // flutter defined function
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          // return object of type Dialog
-          return AlertDialog(
-            titlePadding: EdgeInsets.all(0.0),
-            title: Container(
-              color: Colors.blue,
-              padding: EdgeInsets.all(12.0),
-              child: new Text(
-                "REVIEW",
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-            content: new Text("Alert Dialog body"),
-            actions: <Widget>[
-              // usually buttons at the bottom of the dialog
-              ButtonTheme(
-                minWidth: 50.0,
-                child: OutlineButton(
-                  child: Text(
-                    'Cancel',
-                    style: TextStyle(fontSize: 13.0, color: Colors.black54),
-                  ),
-                  borderSide: BorderSide(color: Colors.black54, width: 1.0),
-                  highlightedBorderColor: Colors.black54,
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ),
-              ButtonTheme(
-                minWidth: 50.0,
-                child: RaisedButton(
-                  child: Text(
-                    'Save',
-                    style: TextStyle(fontSize: 13.0, color: Colors.white),
-                  ),
-                  color: AbubaPallate.greenabuba,
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ),
-            ],
-          );
-        },
-      );
-    }
-
     return SafeArea(
       child: Scaffold(
         appBar: _appBar(),
@@ -1986,8 +1934,8 @@ class _FormDetailState extends State<FormDetail> with TickerProviderStateMixin {
       backgroundColor: Colors.white,
       iconTheme: IconThemeData(color: Colors.black),
       title: Image.asset(
-        'assets/images/logo.png',
-        height: 100.0,
+        'assets/images/logo2.png',
+        height: 150.0,
         width: 120.0,
       ),
       bottom: PreferredSize(

@@ -1,7 +1,6 @@
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:intl/intl.dart';
 
@@ -42,10 +41,6 @@ class _ManagementCreateState extends State<ManagementCreate> {
   Color _colorLowSe = Colors.grey;
   Color _colorMedSe = Colors.grey;
   Color _colorHighSe = Colors.grey;
-  
-  Color _colorLowLi = Colors.grey;
-  Color _colorMedLi = Colors.grey;
-  Color _colorHighLi = Colors.grey;
 
   List<Map> myList = [
     {"nomor":1},
@@ -61,7 +56,16 @@ class _ManagementCreateState extends State<ManagementCreate> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: AbubaAppBar(),
+        appBar: AppBar(
+          elevation: 0.25,
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.black),
+          title: Image.asset(
+            'assets/images/logo2.png',
+            height: 150.0,
+            width: 120.0,
+          ),
+        ),
         body: _buildFormRisk(width)
       ),
     );

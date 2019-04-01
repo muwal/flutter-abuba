@@ -1,12 +1,18 @@
+import 'dart:async';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_abuba/constant.dart';
+import 'package:flutter_abuba/misteri_shop/beranda_mg.dart';
 import 'package:flutter_abuba/misteri_shop/outlet/form_carilokasi.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_abuba/misteri_shop/outlet/search_service.dart';
 
 class FormCariLokasi extends StatefulWidget {
   final int idUser;
-  FormCariLokasi({this.idUser});
+  final String aksesStatus;
+  FormCariLokasi({this.idUser, this.aksesStatus});
 
   @override
   _FormCariLokasiState createState() => _FormCariLokasiState();
@@ -14,8 +20,8 @@ class FormCariLokasi extends StatefulWidget {
 
 class _FormCariLokasiState extends State<FormCariLokasi> {
   Widget _appBarTitle = Image.asset(
-    'assets/images/logo.png',
-    height: 100.0,
+    'assets/images/logo2.png',
+    height: 150.0,
     width: 120.0,
   );
 
@@ -54,150 +60,165 @@ class _FormCariLokasiState extends State<FormCariLokasi> {
     }
   }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   Firestore.instance
-  //     .collection('mystery_shopper')
-  //     .where('user', isEqualTo: widget.idUser)
-  //     .snapshots()
-  //     .listen((data) => data.documents.forEach((doc) {
-  //       if (doc['checkout'] == null) {
-  //         Firestore.instance
-  //           .collection('outlet')
-  //           .where('id', isEqualTo: doc['id_outlet'])
-  //           .snapshots()
-  //           .listen((data2) => data2.documents.forEach((doc2) {
-  //             Navigator.pushReplacement(context,
-  //               MyCustomRoute(
-  //                 builder: (context) => FormSuasanaResto(outlet: doc2['nama_outlet'], imageOutlet: doc2['image'], alamatOutlet: doc2['alamat'], idOutlet: doc2['id'])
-  //               )
-  //             );
-  //           }));
-  //       }
-  //     }));
-  // }
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  Future<FirebaseUser> getUser() async {
+    return await _auth.currentUser();
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomPadding: false,
-        appBar: _appBar(),
-        body: GestureDetector(
-          onTap: () {
-            FocusScope.of(context).requestFocus(FocusNode());
-          },
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      'Mystery Shopper',
-                      style: TextStyle(color: Colors.black12, fontSize: 12.0),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 15.0),
-                      child: Text(
-                        '|',
-                        style:
-                            TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
+      child: WillPopScope(
+        onWillPop: () {
+          if (widget.aksesStatus == 'mg') {
+            showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Text('Are you sure?'),
+                content: Text('Do you want to exit Abuba Steak App ?'),
+                actions: <Widget>[
+                  FlatButton(
+                    onPressed: () => Navigator.of(context).pop(false),
+                    child: Text('No'),
+                  ),
+                  FlatButton(
+                    onPressed: () async {
+                      await _auth.signOut().then((_) {
+                        SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+                      });
+                    },
+                    child: Text('Yes'),
+                  )
+                ],
+              )
+            );
+          } else {
+            Navigator.pushReplacement(context,
+              MaterialPageRoute(
+                builder: (context) => BerandaMG(idUser: widget.idUser)
+              )
+            );
+          }
+        },
+        child: Scaffold(
+          resizeToAvoidBottomPadding: false,
+          appBar: _appBar(),
+          body: GestureDetector(
+            onTap: () {
+              FocusScope.of(context).requestFocus(FocusNode());
+            },
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        'Mystery Shopper',
+                        style: TextStyle(color: Colors.black12, fontSize: 12.0),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 15.0),
-                      child: Text(
-                        'Location',
-                        style:
-                            TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(10.0),
-                child: TextField(
-                  onChanged: (val) {
-                    setState(() {
-                      search = true;
-                    });
-                    initiateSearch(val);
-                  },
-                  controller: _controllerSearch,
-                  decoration: InputDecoration(
-                    suffixIcon: !search
-                      ? null
-                      : IconButton(
-                          onPressed: () {
-                            setState(() {
-                              _controllerSearch.clear();
-                              queryResultSet = [];
-                              tempSearchStore = [];
-                              search = false;
-                            });
-                          },
-                          icon: Icon(Icons.close),
-                          color: Colors.black,
-                          iconSize: 20.0,
+                      Padding(
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          '|',
+                          style:
+                              TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
                         ),
-                    prefixIcon: IconButton(
-                      color: Colors.black,
-                      icon: Icon(Icons.search),
-                      iconSize: 20.0,
-                      onPressed: null,
-                    ),
-                    contentPadding: EdgeInsets.only(left: 25.0),
-                    hintText: 'Search by name',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0)
-                    )
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          'Location',
+                          style:
+                              TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 10.0,
-              ),
-              Expanded(
-                child: ListView(
-                  physics: ScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  children: <Widget>[
-                    !search
-                      ? StreamBuilder(
-                          stream: Firestore.instance
-                            .collection('outlet')
-                            .orderBy('nama_outlet', descending: false)
-                            .snapshots(),
-                          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                            if (!snapshot.hasData)
-                              return Container(
-                                child: Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                              );
-
-                            return CardList(document: snapshot.data.documents, idUser: widget.idUser);
-                          },
-                        )
-                      : GridView.count(
-                          padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 4.0,
-                          mainAxisSpacing: 4.0,
-                          primary: false,
-                          shrinkWrap: true,
-                          children: tempSearchStore.map((element) {
-                            return buildResultCard(element);
-                          }).toList()
-                        ),
-                  ],
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: TextField(
+                    onChanged: (val) {
+                      setState(() {
+                        search = true;
+                      });
+                      initiateSearch(val);
+                    },
+                    controller: _controllerSearch,
+                    decoration: InputDecoration(
+                      suffixIcon: !search
+                        ? null
+                        : IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _controllerSearch.clear();
+                                queryResultSet = [];
+                                tempSearchStore = [];
+                                search = false;
+                              });
+                            },
+                            icon: Icon(Icons.close),
+                            color: Colors.black,
+                            iconSize: 20.0,
+                          ),
+                      prefixIcon: IconButton(
+                        color: Colors.black,
+                        icon: Icon(Icons.search),
+                        iconSize: 20.0,
+                        onPressed: null,
+                      ),
+                      contentPadding: EdgeInsets.only(left: 25.0),
+                      hintText: 'Search by name',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4.0)
+                      )
+                    ),
+                  ),
                 ),
-              )
-            ],
+                SizedBox(
+                  height: 10.0,
+                ),
+                Expanded(
+                  child: ListView(
+                    physics: ScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    children: <Widget>[
+                      !search
+                        ? StreamBuilder(
+                            stream: Firestore.instance
+                              .collection('outlet')
+                              .orderBy('nama_outlet', descending: false)
+                              .snapshots(),
+                            builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                              if (!snapshot.hasData)
+                                return Container(
+                                  child: Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                );
+
+                              return CardList(document: snapshot.data.documents, idUser: widget.idUser, aksesStatus: widget.aksesStatus,);
+                            },
+                          )
+                        : GridView.count(
+                            padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 4.0,
+                            mainAxisSpacing: 4.0,
+                            primary: false,
+                            shrinkWrap: true,
+                            children: tempSearchStore.map((element) {
+                              return buildResultCard(element);
+                            }).toList()
+                          ),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -215,7 +236,7 @@ class _FormCariLokasiState extends State<FormCariLokasi> {
         });
         Navigator.push(context,
           MyCustomRoute(
-            builder: (context) => FormCheckIn(outlet: data['nama_outlet'], imageOutlet: data['image'], alamatOutlet: data['alamat'], idOutlet: data['id'], idUser: widget.idUser)
+            builder: (context) => FormCheckIn(outlet: data['nama_outlet'], imageOutlet: data['image'], alamatOutlet: data['alamat'], idOutlet: data['id'], idUser: widget.idUser, aksesStatus: widget.aksesStatus,)
           )
         );
       },
@@ -225,7 +246,7 @@ class _FormCariLokasiState extends State<FormCariLokasi> {
         child: Column(
           children: <Widget>[
             Container(
-              child: Image.asset(
+              child: Image.network(
                 data['image'],
                 fit: BoxFit.fitWidth,
               ),
@@ -251,19 +272,38 @@ class _FormCariLokasiState extends State<FormCariLokasi> {
   }
 
   Widget _appBar() {
-    return AppBar(
-      elevation: 0.25,
-      backgroundColor: Colors.white,
-      iconTheme: IconThemeData(color: Colors.black),
-      title: _appBarTitle,
-    );
+    return widget.aksesStatus == 'mg'
+      ? AppBar(
+          elevation: 0.25,
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.black),
+          title: _appBarTitle,
+          automaticallyImplyLeading: false,
+        )
+      : AppBar(
+          elevation: 0.25,
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.black),
+          title: _appBarTitle,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pushReplacement(context,
+                MaterialPageRoute(
+                  builder: (_) => BerandaMG(idUser: widget.idUser,)
+                )
+              );
+            },
+          ),
+        );
   }
 }
 
 class CardList extends StatefulWidget {
-  CardList({this.document, this.idUser});
+  CardList({this.document, this.idUser, this.aksesStatus});
   final List<DocumentSnapshot> document;
   final int idUser;
+  final String aksesStatus;
 
   @override
   CardListState createState() {
@@ -292,7 +332,7 @@ class CardListState extends State<CardList> {
             });
             Navigator.push(context,
               MyCustomRoute(
-                builder: (context) => FormCheckIn(outlet: widget.document[index].data['nama_outlet'], imageOutlet: widget.document[index].data['image'], alamatOutlet: widget.document[index].data['alamat'], idOutlet: widget.document[index].data['id'], idUser: widget.idUser,)
+                builder: (context) => FormCheckIn(outlet: widget.document[index].data['nama_outlet'], imageOutlet: widget.document[index].data['image'], alamatOutlet: widget.document[index].data['alamat'], idOutlet: widget.document[index].data['id'], idUser: widget.idUser, aksesStatus: widget.aksesStatus,)
               )
             );
           },
@@ -302,7 +342,7 @@ class CardListState extends State<CardList> {
             child: Column(
               children: <Widget>[
                 Container(
-                  child: Image.asset(
+                  child: Image.network(
                     widget.document[index].data['image'],
                     fit: BoxFit.fitWidth,
                   ),

@@ -1,831 +1,1200 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_abuba/beranda/beranda_appbardua.dart';
 import 'package:flutter_abuba/constant.dart';
-
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:intl/intl.dart';
 
 class FormDetail extends StatefulWidget {
+  var index;
+  FormDetail({this.index});
+
   @override
   _FormDetailState createState() => _FormDetailState();
 }
 
-class _FormDetailState extends State<FormDetail> {
+class _FormDetailState extends State<FormDetail> with TickerProviderStateMixin {
+  final formatter = NumberFormat('#,###');
   bool _note = false;
   bool _notedua = false;
   bool _notetiga = false;
-  TextEditingController controllerNoteSatu = new TextEditingController();
+  bool _noteEmpat = false;
+  bool _noteLima = false;
+  bool _noteEnam = false;
 
-  final dateFormat = DateFormat("MMMM d, yyyy");
-  DateTime dateStart;
-  DateTime dateEnd;
-  DateTime dateSchedule;
+  AnimationController animationController;
+
+  String problem = '';
+  String userName = '';
+  String userDepartment = '';
+  String status = '';
+  String man = '';
+  String material = '';
+  String method = '';
+  String environment = '';
+  String deskripsi = '';
+  String financialImprovement = '';
+  String financialImprovementDate = '';
+  String financialSaving = '';
+  String financialSavingDate = '';
+  String quality = '';
+  String qualityDate = '';
+
+  String financialImprovementHasil = '';
+  String financialImprovementDateHasil = '';
+  String financialSavingHasil = '';
+  String financialSavingDateHasil = '';
+  String qualityHasil = '';
+  String qualityDateHasil = '';
+  String createdDate = '';
+
+  String noteFinancialImprovement = '';
+  String noteFinancialSaving = '';
+  String noteQuality = '';
+  String noteFinancialImprovementHasil = '';
+  String noteFinancialSavingHasil = '';
+  String noteQualityHasil = '';
+  String noCreativeIdea = '';
+
+  String define = '';
+  String measure = '';
+  String analysis = '';
+  String improve = '';
+  String control = '';
+
+  @override
+  void initState() {
+    super.initState();
+    Firestore.instance.collection('creative-idea').document(widget.index).snapshots().listen((data){
+      setState(() {
+        problem = data.data['problem'];
+        userName = data.data['userCreated'];
+        userDepartment = data.data['userDepartment'];
+        status = data.data['status'];
+        deskripsi = data.data['description'];
+        man = data.data['man'];
+        material = data.data['material'];
+        method = data.data['method'];
+        environment = data.data['environment'];
+        financialImprovement = data.data['financial_improvement'];
+        financialSaving = data.data['financial_saving'];
+        quality = data.data['quality'];
+
+        financialImprovementHasil = data.data['financial_improvement_hasil'];
+        financialSavingHasil = data.data['financial_saving_hasil'];
+        qualityHasil = data.data['quality_hasil'];
+
+        financialImprovementDate = data.data['dateFinancialImprovement'].toString().substring(8, 10) + '/' + data.data['dateFinancialImprovement'].toString().substring(5, 7) + '/' + data.data['dateFinancialImprovement'].toString().substring(0, 4);
+        financialSavingDate = data.data['dateFinancialSaving'].toString().substring(8, 10) + '/' + data.data['dateFinancialSaving'].toString().substring(5, 7) + '/' + data.data['dateFinancialSaving'].toString().substring(0, 4);
+        qualityDate = data.data['dateQuality'].toString().substring(8, 10) + '/' + data.data['dateQuality'].toString().substring(5, 7) + '/' + data.data['dateQuality'].toString().substring(0, 4);
+
+        financialImprovementDateHasil = data.data['dateFinancialImprovementHasil'].toString().substring(8, 10) + '/' + data.data['dateFinancialImprovementHasil'].toString().substring(5, 7) + '/' + data.data['dateFinancialImprovementHasil'].toString().substring(0, 4);
+        financialSavingDateHasil = data.data['dateFinancialSavingHasil'].toString().substring(8, 10) + '/' + data.data['dateFinancialSavingHasil'].toString().substring(5, 7) + '/' + data.data['dateFinancialSavingHasil'].toString().substring(0, 4);
+        qualityDateHasil = data.data['dateQualityHasil'].toString().substring(8, 10) + '/' + data.data['dateQualityHasil'].toString().substring(5, 7) + '/' + data.data['dateQualityHasil'].toString().substring(0, 4);
+
+        createdDate = data.data['dateCreated'].toString().substring(8, 10) + '/' + data.data['dateCreated'].toString().substring(5, 7) + '/' + data.data['dateCreated'].toString().substring(0, 4);
+
+        noteFinancialImprovement = data.data['noteFinancialImprovement'];
+        noteFinancialSaving = data.data['noteFinancialSaving'];
+        noteQuality = data.data['noteQuality'];
+
+        noteFinancialImprovementHasil = data.data['noteFinancialImprovementHasil'];
+        noteFinancialSavingHasil = data.data['noteFinancialSavingHasil'];
+        noteQualityHasil = data.data['noteQualityHasil'];
+
+        define = data.data['define'].toString().substring(8, 10) + '/' + data.data['define'].toString().substring(5, 7) + '/' + data.data['define'].toString().substring(0, 4);
+        measure = data.data['measure'].toString().substring(8, 10) + '/' + data.data['measure'].toString().substring(5, 7) + '/' + data.data['measure'].toString().substring(0, 4);
+        analysis = data.data['analysis'].toString().substring(8, 10) + '/' + data.data['analysis'].toString().substring(5, 7) + '/' + data.data['analysis'].toString().substring(0, 4);
+        improve = data.data['improve'].toString().substring(8, 10) + '/' + data.data['improve'].toString().substring(5, 7) + '/' + data.data['improve'].toString().substring(0, 4);
+        control = data.data['control'].toString().substring(8, 10) + '/' + data.data['control'].toString().substring(5, 7) + '/' + data.data['control'].toString().substring(0, 4);
+
+        noCreativeIdea = data.data['creativeIdeaNo'].toString().padLeft(4, '0');
+      });
+    });
+
+    animationController = AnimationController(vsync: this, duration: Duration(seconds: 3));
+    animationController.reverse(
+      from: animationController.value == 0.0
+        ? 1.0
+        : animationController.value
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AbubaAppBar(),
+        appBar: AppBar(
+          elevation: 0.25,
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.black),
+          title: Image.asset(
+            'assets/images/logo2.png',
+            height: 150.0,
+            width: 120.0,
+          ),
+        ),
         body: GestureDetector(
           onTap: () {
             FocusScope.of(context).requestFocus(FocusNode());
           },
-          child: _buildDetail(),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildDetail() {
-    return Scrollbar(
-      child: ListView(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Flexible(
-                  child: Text(
-                    'Creative Idea',
-                    style: TextStyle(color: Colors.black12, fontSize: 12.0),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 15.0),
-                  child: Text(
-                    '|',
-                    style: TextStyle(
-                        color: AbubaPallate.greenabuba, fontSize: 12.0),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 15.0),
-                  child: Text(
-                    'Detail',
-                    style: TextStyle(
-                        color: AbubaPallate.greenabuba, fontSize: 12.0),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            color: Colors.white,
-            child: Column(
+          child: Scrollbar(
+            child: ListView(
               children: <Widget>[
                 Padding(
-                  padding:
-                      const EdgeInsets.only(right: 20.0, left: 20.0, top: 16.0),
+                  padding: const EdgeInsets.all(20.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Flexible(
                         child: Text(
-                          'Creative Ideas',
-                          style: TextStyle(color: AbubaPallate.green),
+                          'Creative Idea',
+                          style: TextStyle(color: Colors.black12, fontSize: 12.0),
                         ),
-                      )
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          '|',
+                          style: TextStyle(
+                              color: AbubaPallate.greenabuba, fontSize: 12.0),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          'Detail',
+                          style: TextStyle(
+                              color: AbubaPallate.greenabuba, fontSize: 12.0),
+                        ),
+                      ),
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(5.0, 8.0, 20.0, 5.0),
-                  child: ListTile(
-                    onTap: null,
-                    leading: Container(
-                      width: 50.0,
-                      height: 50.0,
-                      decoration: new BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: new DecorationImage(
-                          fit: BoxFit.fill,
-                          image: NetworkImage(
-                              "https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTE5NTU2MzE2NDE4MzExNjkx/jackie-chan-9542080-1-402.jpg"),
+                AnimatedBuilder(
+                  animation: animationController,
+                  builder: (_, Widget child) {
+                    return animationController.isAnimating
+                      ? Container(
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        )
+                      : Column(
+                          children: <Widget>[
+                            Container(
+                  color: Colors.white,
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(right: 20.0, left: 20.0, top: 16.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Flexible(
+                              child: Text(
+                                'Creative Ideas',
+                                style: TextStyle(color: AbubaPallate.green),
+                              ),
+                            )
+                          ],
                         ),
                       ),
-                    ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(5.0, 8.0, 20.0, 5.0),
+                        child: ListTile(
+                          onTap: null,
+                          leading: Container(
+                            width: 50.0,
+                            height: 50.0,
+                            decoration: new BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: new DecorationImage(
+                                fit: BoxFit.fill,
+                                image: NetworkImage("https://image.flaticon.com/icons/png/512/149/149071.png"),
+                              ),
+                            ),
+                          ),
+                          title: Text(
+                            'No. Creative Idea  $noCreativeIdea',
+                            style: TextStyle(
+                                color: Colors.black54, fontSize: 12.0),
+                          ),
+                          subtitle: Padding(
+                            padding: const EdgeInsets.only(top: 5.0),
+                            child: Text(
+                              '$userName . $userDepartment',
+                              style: TextStyle(
+                                  color: Colors.grey[500], fontSize: 10.0),
+                            ),
+                          ),
+                          trailing: ButtonTheme(
+                            minWidth: 50.0,
+                            height: 20.0,
+                            child: RaisedButton(
+                              color: status == 'Pending' ? Colors.red[300] : AbubaPallate.menuBluebird,
+                              elevation: 0.0,
+                              child: Text(
+                                status,
+                                style: TextStyle(fontSize: 12.0, color: Colors.white),
+                              ),
+                              onPressed: () {},
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 15.0,
+                ),
+                Container(
+                  color: Colors.white,
+                  child: ExpansionTile(
                     title: Text(
-                      'Meningkatkan sales sebanyak 25% lewat upselling',
+                      'Problem',
                       style: TextStyle(
-                          color: Colors.black54, fontSize: 12.0),
-                    ),
-                    subtitle: Padding(
-                      padding: const EdgeInsets.only(top: 5.0),
-                      child: Text(
-                        'Ridwan . Outlet Cipete . 2h',
-                        style: TextStyle(
-                            color: Colors.grey[500], fontSize: 10.0),
+                        fontSize: 14.0
                       ),
                     ),
-                    trailing: ButtonTheme(
-                      minWidth: 50.0,
-                      height: 20.0,
-                      child: RaisedButton(
-                        color: AbubaPallate.menuBluebird,
-                        elevation: 0.0,
+                    children: <Widget>[
+                      Container(
+                        alignment: Alignment.topLeft,
+                        padding: const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 15.0),
                         child: Text(
-                          'Approved',
-                          style: TextStyle(fontSize: 12.0, color: Colors.white),
+                          problem,
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            color: Colors.black38
+                          )
                         ),
-                        onPressed: () {},
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  color: Colors.white,
+                  child: ExpansionTile(
+                    title: Text(
+                      'Akar Masalah',
+                      style: TextStyle(
+                        fontSize: 14.0
                       ),
                     ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 15.0,
-          ),
-          Container(
-            color: Colors.white,
-            child: ExpansionTile(
-              title: Text(
-                'Problem',
-                style: TextStyle(
-                  fontSize: 14.0
-                ),
-              ),
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 15.0),
-                  child: Text(
-                    'Periode January – Maret 2018, sales di outlet A hanya 60% dari target. Hal ini membuat bonus karyawan menjadi berkurang 10%',
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      color: Colors.black38
-                    )
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            color: Colors.white,
-            child: ExpansionTile(
-              title: Text(
-                'Akar Masalah',
-                style: TextStyle(
-                  fontSize: 14.0
-                ),
-              ),
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 6.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Flexible(
-                            child: Text(
-                              'Man',
-                              style: TextStyle(
-                                  fontSize: 13.0, color: Colors.black54),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 5.0,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Flexible(
-                            child: Text(
-                              'Kasir tidak menawarkan produk upselling kepada customer',
-                              style: TextStyle(
-                                  fontSize: 12.0, color: Colors.black38),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(15.0, 12.0, 15.0, 6.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Flexible(
-                            child: Text(
-                              'Material',
-                              style: TextStyle(
-                                  fontSize: 13.0, color: Colors.black54),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 5.0,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Flexible(
-                            child: Text(
-                              'Tidak ada menu baru yang menarik',
-                              style: TextStyle(
-                                  fontSize: 12.0, color: Colors.black38),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(15.0, 12.0, 15.0, 6.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Flexible(
-                            child: Text(
-                              'Method',
-                              style: TextStyle(
-                                  fontSize: 13.0, color: Colors.black54),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 5.0,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Flexible(
-                            child: Text(
-                              'Customer bosan dengan penawaran manual yang berulang',
-                              style: TextStyle(
-                                  fontSize: 12.0, color: Colors.black38),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(15.0, 12.0, 15.0, 15.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Flexible(
-                            child: Text(
-                              'Environment',
-                              style: TextStyle(
-                                  fontSize: 13.0, color: Colors.black54),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 5.0,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Flexible(
-                            child: Text(
-                              'Kasir tidak menawarkan produk upseeling kepada customer',
-                              style: TextStyle(
-                                  fontSize: 12.0, color: Colors.black38),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            color: Colors.white,
-            child: ExpansionTile(
-              title: Text(
-                'Ide',
-                style: TextStyle(
-                  fontSize: 14.0
-                ),
-              ),
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 6.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Flexible(
-                            child: Text(
-                              'Deskripsi',
-                              style: TextStyle(
-                                  fontSize: 13.0, color: Colors.black54),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 5.0,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Flexible(
-                            child: Text(
-                              'Kasir menawarkan produk upseeling dalam bentuk pairing product kepada customer yang berulang tahun di hari kedatangan',
-                              style: TextStyle(
-                                  fontSize: 12.0, color: Colors.black38),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(15.0, 12.0, 15.0, 6.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Flexible(
-                            child: Text(
-                              'Financial Improvement',
-                              style: TextStyle(
-                                  fontSize: 13.0, color: Colors.black54),
-                            ),
-                          ),
-                          Flexible(
-                            child: Text(
-                              '27/12/2018',
-                              style: TextStyle(
-                                  fontSize: 12.0, color: Colors.black38),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 3.0,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Flexible(
-                            child: Text(
-                              'IDR 100,000,000',
-                              style: TextStyle(
-                                  fontSize: 12.0, color: Colors.black38),
-                            ),
-                          ),
-                          Flexible(
-                            child: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  _note = !_note;
-                                });
-                              },
-                              child: Text(
-                                'Note',
-                                style: TextStyle(
-                                    fontSize: 13.5,
-                                    color: AbubaPallate.menuBluebird),
-                              ),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 3.0),
-                  child: _note
-                      ? Container(
-                          width: 330.0,
-                          child: TextField(
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: 'Note',
-                              hintStyle: TextStyle(
-                                fontSize: 12.0
-                              )
-                            ),
-                            controller: controllerNoteSatu,
-                            maxLines: 3,
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
-                          ),
-                        )
-                      : Container(),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(15.0, 12.0, 15.0, 6.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Flexible(
-                            child: Text(
-                              'Financial Saving',
-                              style: TextStyle(
-                                  fontSize: 13.0, color: Colors.black54),
-                            ),
-                          ),
-                          Flexible(
-                            child: Text(
-                              '27/12/2018',
-                              style: TextStyle(
-                                  fontSize: 12.0, color: Colors.black38),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 3.0,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Flexible(
-                            child: Text(
-                              'IDR 100,000,000',
-                              style: TextStyle(
-                                  fontSize: 12.0, color: Colors.black38),
-                            ),
-                          ),
-                          Flexible(
-                            child: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  _notedua = !_notedua;
-                                });
-                              },
-                              child: Text(
-                                'Note',
-                                style: TextStyle(
-                                    fontSize: 13.5,
-                                    color: AbubaPallate.menuBluebird),
-                              ),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 3.0),
-                  child: _notedua
-                      ? Container(
-                          width: 330.0,
-                          child: TextField(
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: 'Note',
-                              hintStyle: TextStyle(
-                                fontSize: 12.0
-                              )
-                            ),
-                            controller: controllerNoteSatu,
-                            maxLines: 3,
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
-                          ),
-                        )
-                      : Container(),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(15.0, 12.0, 15.0, 6.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Flexible(
-                            child: Text(
-                              'Quality',
-                              style: TextStyle(
-                                  fontSize: 13.0, color: Colors.black54),
-                            ),
-                          ),
-                          Flexible(
-                            child: Text(
-                              '27/12/2018',
-                              style: TextStyle(
-                                  fontSize: 12.0, color: Colors.black38),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 3.0,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Flexible(
-                            child: Text(
-                              'Menurunkan jumlah customer complaint',
-                              style: TextStyle(
-                                  fontSize: 12.0, color: Colors.black38),
-                            ),
-                          ),
-                          Flexible(
-                            child: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  _notetiga = !_notetiga;
-                                });
-                              },
-                              child: Text(
-                                'Note',
-                                style: TextStyle(
-                                    fontSize: 13.5,
-                                    color: AbubaPallate.menuBluebird),
-                              ),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
-                  child: _notetiga
-                      ? Container(
-                          width: 330.0,
-                          child: TextField(
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: 'Note',
-                              hintStyle: TextStyle(
-                                fontSize: 12.0
-                              )
-                            ),
-                            controller: controllerNoteSatu,
-                            maxLines: 3,
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
-                          ),
-                        )
-                      : Container(),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            color: Colors.white,
-            child: ExpansionTile(
-              title: Text(
-                'Pelaksana',
-                style: TextStyle(
-                  fontSize: 14.0
-                ),
-              ),
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 3.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                        width: 100.0,
-                        child: Row(
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 6.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
-                            Flexible(
-                              child: Text(
-                                '123456',
-                                style: TextStyle(
-                                    fontSize: 13.0, color: Colors.black54),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: 100.0,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Flexible(
-                              child: Text(
-                                'Sony Ramdhani',
-                                style: TextStyle(
-                                    fontSize: 12.0, color: Colors.black38),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: 100.0,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Flexible(
-                              child: Text(
-                                'IT',
-                                style: TextStyle(
-                                    fontSize: 12.0, color: Colors.black38),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 3.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                        width: 100.0,
-                        child: Row(
-                          children: <Widget>[
-                            Flexible(
-                              child: Text(
-                                '123456',
-                                style: TextStyle(
-                                    fontSize: 13.0, color: Colors.black54),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: 100.0,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Flexible(
-                              child: Text(
-                                'Ridwan Syawall',
-                                style: TextStyle(
-                                    fontSize: 12.0, color: Colors.black38),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: 100.0,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Flexible(
-                              child: Text(
-                                'HRD',
-                                style: TextStyle(
-                                    fontSize: 12.0, color: Colors.black38),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 15.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                        width: 100.0,
-                        child: Row(
-                          children: <Widget>[
-                            Flexible(
-                              child: Text(
-                                '123456',
-                                style: TextStyle(
-                                    fontSize: 13.0, color: Colors.black54),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: 100.0,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Flexible(
-                              child: Text(
-                                'Rizal Muharami',
-                                style: TextStyle(
-                                    fontSize: 12.0, color: Colors.black38),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: 100.0,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Flexible(
-                              child: Text(
-                                'QA',
-                                style: TextStyle(
-                                    fontSize: 12.0, color: Colors.black38),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            color: Colors.white,
-            child: ExpansionTile(
-              title: Text(
-                'Status',
-                style: TextStyle(
-                  fontSize: 14.0
-                ),
-              ),
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 15.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Flexible(
-                        child: Text(
-                            'No. Creative Idea',
-                            style: TextStyle(
-                                fontSize: 12.0, color: Colors.black38)),
-                      ),
-                      Flexible(
-                        child: Text(
-                            '0123456',
-                            style: TextStyle(
-                                fontSize: 12.0, color: Colors.black38)),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            color: Colors.white,
-            child: ExpansionTile(
-              title: Text(
-                'Informasi Pengiriman',
-                style: TextStyle(
-                  fontSize: 14.0
-                ),
-              ),
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 12.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                        width: 100.0,
-                        child: Row(
-                          children: <Widget>[
-                            Flexible(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    'Tanggal Kirim',
+                            Row(
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    'Man',
                                     style: TextStyle(
-                                        color: Colors.grey[500], fontSize: 10.0),
+                                        fontSize: 13.0, color: Colors.black54),
                                   ),
-                                  SizedBox(
-                                    height: 3.0,
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5.0,
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    man,
+                                    style: TextStyle(
+                                        fontSize: 12.0, color: Colors.black38),
                                   ),
-                                  Text(
-                                    '17/08/2018',
-                                    style: TextStyle(color: Colors.black54, fontSize: 12.0),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(15.0, 12.0, 15.0, 6.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    'Material',
+                                    style: TextStyle(
+                                        fontSize: 13.0, color: Colors.black54),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5.0,
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    material,
+                                    style: TextStyle(
+                                        fontSize: 12.0, color: Colors.black38),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(15.0, 12.0, 15.0, 6.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    'Method',
+                                    style: TextStyle(
+                                        fontSize: 13.0, color: Colors.black54),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5.0,
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    method,
+                                    style: TextStyle(
+                                        fontSize: 12.0, color: Colors.black38),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(15.0, 12.0, 15.0, 15.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    'Environment',
+                                    style: TextStyle(
+                                        fontSize: 13.0, color: Colors.black54),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5.0,
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    environment,
+                                    style: TextStyle(
+                                        fontSize: 12.0, color: Colors.black38),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  color: Colors.white,
+                  child: ExpansionTile(
+                    title: Text(
+                      'Ide',
+                      style: TextStyle(
+                        fontSize: 14.0
+                      ),
+                    ),
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 6.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    'Deskripsi',
+                                    style: TextStyle(
+                                        fontSize: 13.0, color: Colors.black54),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5.0,
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    deskripsi,
+                                    style: TextStyle(
+                                        fontSize: 12.0, color: Colors.black38),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(15.0, 12.0, 15.0, 6.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    'Financial Improvement',
+                                    style: TextStyle(
+                                        fontSize: 13.0, color: Colors.black54),
+                                  ),
+                                ),
+                                Flexible(
+                                  child: Text(
+                                    financialImprovementDate,
+                                    style: TextStyle(
+                                        fontSize: 12.0, color: Colors.black38),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 3.0,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    'IDR ${formatter.format(int.tryParse(financialImprovement))}',
+                                    style: TextStyle(
+                                        fontSize: 12.0, color: Colors.black38),
+                                  ),
+                                ),
+                                Flexible(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        _note = !_note;
+                                      });
+                                    },
+                                    child: Text(
+                                      'Note',
+                                      style: TextStyle(
+                                          fontSize: 13.5,
+                                          color: AbubaPallate.menuBluebird),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 3.0),
+                        child: _note
+                            ? Container(
+                                width: MediaQuery.of(context).size.width,
+                                padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 6.0),
+                                color: Colors.white,
+                                child: Container(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 15.0, bottom: 15.0, left: 10.0),
+                                    child: Text(
+                                      noteFinancialImprovement,
+                                      style: TextStyle(color: Colors.black38),
+                                    ),
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[200],
+                                    border: Border.all(color: Colors.black12, width: 2.0)
+                                  ),
+                                ),
+                              )
+                            : Container(),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(15.0, 12.0, 15.0, 6.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    'Financial Saving',
+                                    style: TextStyle(
+                                        fontSize: 13.0, color: Colors.black54),
+                                  ),
+                                ),
+                                Flexible(
+                                  child: Text(
+                                    financialSavingDate,
+                                    style: TextStyle(
+                                        fontSize: 12.0, color: Colors.black38),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 3.0,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    'IDR ${formatter.format(int.tryParse(financialSaving))}',
+                                    style: TextStyle(
+                                        fontSize: 12.0, color: Colors.black38),
+                                  ),
+                                ),
+                                Flexible(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        _notedua = !_notedua;
+                                      });
+                                    },
+                                    child: Text(
+                                      'Note',
+                                      style: TextStyle(
+                                          fontSize: 13.5,
+                                          color: AbubaPallate.menuBluebird),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 3.0),
+                        child: _notedua
+                            ? Container(
+                                width: MediaQuery.of(context).size.width,
+                                padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 6.0),
+                                color: Colors.white,
+                                child: Container(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 15.0, bottom: 15.0, left: 10.0),
+                                    child: Text(
+                                      noteFinancialSaving,
+                                      style: TextStyle(color: Colors.black38),
+                                    ),
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[200],
+                                    border: Border.all(color: Colors.black12, width: 2.0)
+                                  ),
+                                ),
+                              )
+                            : Container(),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(15.0, 12.0, 15.0, 6.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    'Quality',
+                                    style: TextStyle(
+                                        fontSize: 13.0, color: Colors.black54),
+                                  ),
+                                ),
+                                Flexible(
+                                  child: Text(
+                                    qualityDate,
+                                    style: TextStyle(
+                                        fontSize: 12.0, color: Colors.black38),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 3.0,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    quality,
+                                    style: TextStyle(
+                                        fontSize: 12.0, color: Colors.black38),
+                                  ),
+                                ),
+                                Flexible(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        _notetiga = !_notetiga;
+                                      });
+                                    },
+                                    child: Text(
+                                      'Note',
+                                      style: TextStyle(
+                                          fontSize: 13.5,
+                                          color: AbubaPallate.menuBluebird),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
+                        child: _notetiga
+                            ? Container(
+                                width: MediaQuery.of(context).size.width,
+                                padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 6.0),
+                                color: Colors.white,
+                                child: Container(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 15.0, bottom: 15.0, left: 10.0),
+                                    child: Text(
+                                      noteQuality,
+                                      style: TextStyle(color: Colors.black38),
+                                    ),
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[200],
+                                    border: Border.all(color: Colors.black12, width: 2.0)
+                                  ),
+                                ),
+                              )
+                            : Container(),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  color: Colors.white,
+                  child: ExpansionTile(
+                    title: Text(
+                      'Timeline',
+                      style: TextStyle(
+                        fontSize: 14.0
+                      ),
+                    ),
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(15.0, 12.0, 15.0, 6.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    'Define',
+                                    style: TextStyle(
+                                        fontSize: 13.0, color: Colors.black54),
+                                  ),
+                                ),
+                                Flexible(
+                                  child: Text(
+                                    define,
+                                    style: TextStyle(
+                                        fontSize: 12.0, color: Colors.black38),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(15.0, 12.0, 15.0, 6.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    'Measure',
+                                    style: TextStyle(
+                                        fontSize: 13.0, color: Colors.black54),
+                                  ),
+                                ),
+                                Flexible(
+                                  child: Text(
+                                    measure,
+                                    style: TextStyle(
+                                        fontSize: 12.0, color: Colors.black38),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(15.0, 12.0, 15.0, 6.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    'Analysis',
+                                    style: TextStyle(
+                                        fontSize: 13.0, color: Colors.black54),
+                                  ),
+                                ),
+                                Flexible(
+                                  child: Text(
+                                    analysis,
+                                    style: TextStyle(
+                                        fontSize: 12.0, color: Colors.black38),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(15.0, 12.0, 15.0, 6.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    'Improve',
+                                    style: TextStyle(
+                                        fontSize: 13.0, color: Colors.black54),
+                                  ),
+                                ),
+                                Flexible(
+                                  child: Text(
+                                    improve,
+                                    style: TextStyle(
+                                        fontSize: 12.0, color: Colors.black38),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(15.0, 12.0, 15.0, 12.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    'Control',
+                                    style: TextStyle(
+                                        fontSize: 13.0, color: Colors.black54),
+                                  ),
+                                ),
+                                Flexible(
+                                  child: Text(
+                                    control,
+                                    style: TextStyle(
+                                        fontSize: 12.0, color: Colors.black38),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  color: Colors.white,
+                  child: ExpansionTile(
+                    title: Text(
+                      'Hasil',
+                      style: TextStyle(
+                        fontSize: 14.0
+                      ),
+                    ),
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(15.0, 12.0, 15.0, 6.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    'Financial Improvement',
+                                    style: TextStyle(
+                                        fontSize: 13.0, color: Colors.black54),
+                                  ),
+                                ),
+                                Flexible(
+                                  child: Text(
+                                    financialImprovementDateHasil,
+                                    style: TextStyle(
+                                        fontSize: 12.0, color: Colors.black38),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 3.0,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    'IDR ${formatter.format(int.tryParse(financialImprovementHasil))}',
+                                    style: TextStyle(
+                                        fontSize: 12.0, color: Colors.black38),
+                                  ),
+                                ),
+                                Flexible(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        _noteEmpat = !_noteEmpat;
+                                      });
+                                    },
+                                    child: Text(
+                                      'Note',
+                                      style: TextStyle(
+                                          fontSize: 13.5,
+                                          color: AbubaPallate.menuBluebird),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 3.0),
+                        child: _noteEmpat
+                            ? Container(
+                                width: MediaQuery.of(context).size.width,
+                                padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 6.0),
+                                color: Colors.white,
+                                child: Container(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 15.0, bottom: 15.0, left: 10.0),
+                                    child: Text(
+                                      noteFinancialImprovementHasil,
+                                      style: TextStyle(color: Colors.black38),
+                                    ),
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[200],
+                                    border: Border.all(color: Colors.black12, width: 2.0)
+                                  ),
+                                ),
+                              )
+                            : Container(),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(15.0, 12.0, 15.0, 6.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    'Financial Saving',
+                                    style: TextStyle(
+                                        fontSize: 13.0, color: Colors.black54),
+                                  ),
+                                ),
+                                Flexible(
+                                  child: Text(
+                                    financialSavingDateHasil,
+                                    style: TextStyle(
+                                        fontSize: 12.0, color: Colors.black38),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 3.0,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    'IDR ${formatter.format(int.tryParse(financialSavingHasil))}',
+                                    style: TextStyle(
+                                        fontSize: 12.0, color: Colors.black38),
+                                  ),
+                                ),
+                                Flexible(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        _noteLima = !_noteLima;
+                                      });
+                                    },
+                                    child: Text(
+                                      'Note',
+                                      style: TextStyle(
+                                          fontSize: 13.5,
+                                          color: AbubaPallate.menuBluebird),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 3.0),
+                        child: _noteLima
+                            ? Container(
+                                width: MediaQuery.of(context).size.width,
+                                padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 6.0),
+                                color: Colors.white,
+                                child: Container(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 15.0, bottom: 15.0, left: 10.0),
+                                    child: Text(
+                                      noteFinancialSavingHasil,
+                                      style: TextStyle(color: Colors.black38),
+                                    ),
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[200],
+                                    border: Border.all(color: Colors.black12, width: 2.0)
+                                  ),
+                                ),
+                              )
+                            : Container(),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(15.0, 12.0, 15.0, 6.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    'Quality',
+                                    style: TextStyle(
+                                        fontSize: 13.0, color: Colors.black54),
+                                  ),
+                                ),
+                                Flexible(
+                                  child: Text(
+                                    qualityDateHasil,
+                                    style: TextStyle(
+                                        fontSize: 12.0, color: Colors.black38),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 3.0,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Flexible(
+                                  child: Text(
+                                    qualityHasil,
+                                    style: TextStyle(
+                                        fontSize: 12.0, color: Colors.black38),
+                                  ),
+                                ),
+                                Flexible(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        _noteEnam = !_noteEnam;
+                                      });
+                                    },
+                                    child: Text(
+                                      'Note',
+                                      style: TextStyle(
+                                          fontSize: 13.5,
+                                          color: AbubaPallate.menuBluebird),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
+                        child: _noteEnam
+                            ? Container(
+                                width: MediaQuery.of(context).size.width,
+                                padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 6.0),
+                                color: Colors.white,
+                                child: Container(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 15.0, bottom: 15.0, left: 10.0),
+                                    child: Text(
+                                      noteQualityHasil,
+                                      style: TextStyle(color: Colors.black38),
+                                    ),
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[200],
+                                    border: Border.all(color: Colors.black12, width: 2.0)
+                                  ),
+                                ),
+                              )
+                            : Container(),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  color: Colors.white,
+                  child: ExpansionTile(
+                    title: Text(
+                      'Informasi Pengiriman',
+                      style: TextStyle(
+                        fontSize: 14.0
+                      ),
+                    ),
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 12.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Container(
+                              width: 100.0,
+                              child: Row(
+                                children: <Widget>[
+                                  Flexible(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                          'Tanggal Kirim',
+                                          style: TextStyle(
+                                              color: Colors.grey[500], fontSize: 10.0),
+                                        ),
+                                        SizedBox(
+                                          height: 3.0,
+                                        ),
+                                        Text(
+                                          createdDate,
+                                          style: TextStyle(color: Colors.black54, fontSize: 12.0),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              width: 100.0,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Flexible(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                          'Dari',
+                                          style: TextStyle(
+                                              color: Colors.grey[500], fontSize: 10.0),
+                                        ),
+                                        SizedBox(
+                                          height: 3.0,
+                                        ),
+                                        Text(
+                                          '$userName . $userDepartment',
+                                          style: TextStyle(color: Colors.black54, fontSize: 12.0),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              width: 100.0,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end ,
+                                children: <Widget>[
+                                  Flexible(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                          'Kepada',
+                                          style: TextStyle(
+                                              color: Colors.grey[500], fontSize: 10.0),
+                                        ),
+                                        SizedBox(
+                                          height: 3.0,
+                                        ),
+                                        Text(
+                                          'Sony IT',
+                                          style: TextStyle(color: Colors.black54, fontSize: 12.0),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
@@ -833,87 +1202,37 @@ class _FormDetailState extends State<FormDetail> {
                           ],
                         ),
                       ),
-                      Container(
-                        width: 100.0,
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 0.0),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
-                            Flexible(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    'Dari',
-                                    style: TextStyle(
-                                        color: Colors.grey[500], fontSize: 10.0),
-                                  ),
-                                  SizedBox(
-                                    height: 3.0,
-                                  ),
-                                  Text(
-                                    'Ridwan HRD',
-                                    style: TextStyle(color: Colors.black54, fontSize: 12.0),
-                                  ),
-                                ],
+                            ButtonTheme(
+                              minWidth: 50.0,
+                              height: 20.0,
+                              child: OutlineButton(
+                                borderSide: BorderSide(color: AbubaPallate.greenabuba),
+                                child: Text(
+                                  'Approve',
+                                  style: TextStyle(fontSize: 12.0, color: AbubaPallate.greenabuba),
+                                ),
+                                onPressed: () {},
                               ),
                             ),
                           ],
                         ),
-                      ),
-                      Container(
-                        width: 100.0,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end ,
-                          children: <Widget>[
-                            Flexible(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    'Kepada',
-                                    style: TextStyle(
-                                        color: Colors.grey[500], fontSize: 10.0),
-                                  ),
-                                  SizedBox(
-                                    height: 3.0,
-                                  ),
-                                  Text(
-                                    'Sony IT',
-                                    style: TextStyle(color: Colors.black54, fontSize: 12.0),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      )
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 0.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      ButtonTheme(
-                        minWidth: 50.0,
-                        height: 20.0,
-                        child: OutlineButton(
-                          borderSide: BorderSide(color: AbubaPallate.greenabuba),
-                          child: Text(
-                            'Approve',
-                            style: TextStyle(fontSize: 12.0, color: AbubaPallate.greenabuba),
-                          ),
-                          onPressed: () {},
-                        ),
-                      ),
-                    ],
-                  ),
+                          ],
+                        );
+                  },
                 )
               ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
