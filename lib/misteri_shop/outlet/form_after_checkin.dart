@@ -850,7 +850,7 @@ class _FormTakingOrderState extends State<FormTakingOrder> with TickerProviderSt
                                                 icon: Icon(Icons.navigate_next, color: Colors.white, size: 28.0),
                                                 onPressed: () {
                                                   if (menuID.contains(null) || menuName.contains(null)) {
-                                                    
+
                                                   } else {
                                                     DocumentReference docReference = Firestore.instance.collection('mystery_shopper').document(widget.index);
 
@@ -946,7 +946,7 @@ class _FormTakingOrderState extends State<FormTakingOrder> with TickerProviderSt
                                       child: StreamBuilder(
                                         stream: Firestore.instance.collection('mystery_shopper').document(widget.index).snapshots(),
                                         builder: (context, snapshot) {
-                                          if (!snapshot.hasData && snapshot.data == null) 
+                                          if (!snapshot.hasData && snapshot.data == null)
                                             return Container(
                                               child: Center(
                                                 child: CircularProgressIndicator(),
@@ -1037,7 +1037,7 @@ class _FormTakingOrderState extends State<FormTakingOrder> with TickerProviderSt
                                                                   int standarSecond = (int.tryParse(standarSplit[0]) * 60) + (int.tryParse(standarSplit[1]));
                                                                   List<String> orderTimeDoneSplit = elapsedTime.split(':');
                                                                   int actualSecond = (int.tryParse(orderTimeDoneSplit[0]) * 60) + (int.tryParse(orderTimeDoneSplit[1]) * 60) + (int.tryParse(orderTimeDoneSplit[2]));
-                                                                  
+
                                                                   setState(() {
                                                                     if (actualSecond > standarSecond && actualSecond <= standarSecond + 120) {
                                                                       score.removeAt(index);
@@ -1767,7 +1767,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                       child: CircularProgressIndicator(),
                                     ),
                                   );
-                                
+
                                 return Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
@@ -1857,7 +1857,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                             setState(() {
                                                               bobotBantuGreeting = double.tryParse(snapshot.data.documents[0].data['bobot'].toString());
                                                               bobotGreeting.add(snapshot.data.documents[0].data['bobot_pertanyaan']);
-                                                              
+
                                                               scoreGreeting.removeAt(indexGreeting);
                                                               scoreGreeting.insert(indexGreeting, 1);
                                                               warnaGreeting.removeAt(indexGreeting);
@@ -2110,7 +2110,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                           ),
 
                         ],
-                      ),                
+                      ),
                       ListView(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
@@ -2175,7 +2175,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                     warnaSeating.add('abu');
                                   }
                                 }
-                                
+
                                 return Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
@@ -2222,7 +2222,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                             setState(() {
                                                               bobotBantuSeating = double.tryParse(snapshot.data.documents[0].data['bobot'].toString());
                                                               bobotSeating.add(snapshot.data.documents[0].data['bobot_pertanyaan']);
-                                                              
+
                                                               scoreSeating.removeAt(indexSeating);
                                                               scoreSeating.insert(indexSeating, 0);
                                                               warnaSeating.removeAt(indexSeating);
@@ -2265,7 +2265,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                             setState(() {
                                                               bobotBantuSeating = double.tryParse(snapshot.data.documents[0].data['bobot'].toString());
                                                               bobotSeating.add(snapshot.data.documents[0].data['bobot_pertanyaan']);
-                                                              
+
                                                               scoreSeating.removeAt(indexSeating);
                                                               scoreSeating.insert(indexSeating, 1);
                                                               warnaSeating.removeAt(indexSeating);
@@ -2306,7 +2306,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                             setState(() {
                                                               bobotBantuSeating = double.tryParse(snapshot.data.documents[0].data['bobot'].toString());
                                                               bobotSeating.add(snapshot.data.documents[0].data['bobot_pertanyaan']);
-                                                              
+
                                                               scoreSeating.removeAt(indexSeating);
                                                               scoreSeating.insert(indexSeating, 2);
                                                               warnaSeating.removeAt(indexSeating);
@@ -2516,9 +2516,9 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                               ],
                             ),
                           ),
-                        
+
                         ],
-                      ),                  
+                      ),
                       ListView(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
@@ -2583,7 +2583,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                     warnaTakingOrder.add('abu');
                                   }
                                 }
-                                
+
                                 return Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
@@ -2630,7 +2630,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                             setState(() {
                                                               bobotBantuTakingOrder = double.tryParse(snapshot.data.documents[0].data['bobot'].toString());
                                                               bobotTakingOrder.add(snapshot.data.documents[0].data['bobot_pertanyaan']);
-                                                              
+
                                                               scoreTakingOrder.removeAt(indexTakingOrder);
                                                               scoreTakingOrder.insert(indexTakingOrder, 0);
                                                               warnaTakingOrder.removeAt(indexTakingOrder);
@@ -2673,7 +2673,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                             setState(() {
                                                               bobotBantuTakingOrder = double.tryParse(snapshot.data.documents[0].data['bobot'].toString());
                                                               bobotTakingOrder.add(snapshot.data.documents[0].data['bobot_pertanyaan']);
-                                                              
+
                                                               scoreTakingOrder.removeAt(indexTakingOrder);
                                                               scoreTakingOrder.insert(indexTakingOrder, 1);
                                                               warnaTakingOrder.removeAt(indexTakingOrder);
@@ -2714,7 +2714,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                             setState(() {
                                                               bobotBantuTakingOrder = double.tryParse(snapshot.data.documents[0].data['bobot'].toString());
                                                               bobotTakingOrder.add(snapshot.data.documents[0].data['bobot_pertanyaan']);
-                                                              
+
                                                               scoreTakingOrder.removeAt(indexTakingOrder);
                                                               scoreTakingOrder.insert(indexTakingOrder, 2);
                                                               warnaTakingOrder.removeAt(indexTakingOrder);
@@ -2887,7 +2887,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                         indexTakingOrder = jumlahTakingOrder - 1;
 
                                                         for (int i = 0; i < scoreTakingOrder.length; i++) {
-                                                          hasilTakingOrder += double.tryParse(bobotTakingOrder[0][i].toString()) * double.tryParse(scoreTakingOrder[i].toString());
+                                                            hasilTakingOrder += double.tryParse(bobotTakingOrder[0][i].toString()) * double.tryParse(scoreTakingOrder[i].toString());
                                                         }
                                                         hasilTakingOrder = hasilTakingOrder / 2;
 
@@ -2925,7 +2925,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                               ],
                             ),
                           ),
-                        
+
                         ],
                       ),
                       ListView(
@@ -3011,7 +3011,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                 } else if (indexServingProduct == 7) {
                                   imageLink = 'assets/images/slide 13.png';
                                 }
-                                
+
                                 return Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
@@ -3058,7 +3058,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                             setState(() {
                                                               bobotBantuServingProduct = double.tryParse(snapshot.data.documents[0].data['bobot'].toString());
                                                               bobotServingProduct.add(snapshot.data.documents[0].data['bobot_pertanyaan']);
-                                                              
+
                                                               scoreServingProduct.removeAt(indexServingProduct);
                                                               scoreServingProduct.insert(indexServingProduct, 0);
                                                               warnaServingProduct.removeAt(indexServingProduct);
@@ -3101,7 +3101,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                             setState(() {
                                                               bobotBantuServingProduct = double.tryParse(snapshot.data.documents[0].data['bobot'].toString());
                                                               bobotServingProduct.add(snapshot.data.documents[0].data['bobot_pertanyaan']);
-                                                              
+
                                                               scoreServingProduct.removeAt(indexServingProduct);
                                                               scoreServingProduct.insert(indexServingProduct, 1);
                                                               warnaServingProduct.removeAt(indexServingProduct);
@@ -3142,7 +3142,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                                                             setState(() {
                                                               bobotBantuServingProduct = double.tryParse(snapshot.data.documents[0].data['bobot'].toString());
                                                               bobotServingProduct.add(snapshot.data.documents[0].data['bobot_pertanyaan']);
-                                                            
+
                                                               scoreServingProduct.removeAt(indexServingProduct);
                                                               scoreServingProduct.insert(indexServingProduct, 2);
                                                               warnaServingProduct.removeAt(indexServingProduct);
@@ -3403,10 +3403,10 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
                               ],
                             ),
                           ),
-                        
+
                         ],
                       ),
-                    
+
                     ],
                   ),
                 ),
@@ -3682,7 +3682,7 @@ class _FormMockComplaintState extends State<FormMockComplaint> with TickerProvid
                                             child: CircularProgressIndicator(),
                                           ),
                                         );
-                                      
+
                                       return DropdownButtonFormField<String>(
                                         decoration: InputDecoration(
                                           labelText: 'Product',
@@ -3702,7 +3702,7 @@ class _FormMockComplaintState extends State<FormMockComplaint> with TickerProvid
                                         value: _myProduct,
                                         onChanged: (String newValue) {
                                           setState(() {
-                                            _myProduct = newValue; 
+                                            _myProduct = newValue;
                                             _product = int.tryParse(newValue);
                                           });
                                         },
@@ -3734,7 +3734,7 @@ class _FormMockComplaintState extends State<FormMockComplaint> with TickerProvid
                                             child: CircularProgressIndicator(),
                                           ),
                                         );
-                                      
+
                                       return DropdownButtonFormField<String>(
                                         decoration: InputDecoration(
                                           labelText: 'Service',
@@ -3754,7 +3754,7 @@ class _FormMockComplaintState extends State<FormMockComplaint> with TickerProvid
                                         value: _myService,
                                         onChanged: (String newValue) {
                                           setState(() {
-                                            _myService = newValue; 
+                                            _myService = newValue;
                                             _service = int.tryParse(newValue);
                                           });
                                         },
@@ -3829,7 +3829,7 @@ class _FormMockComplaintState extends State<FormMockComplaint> with TickerProvid
                                         child: CircularProgressIndicator(),
                                       ),
                                     );
-                                  
+
                                   return DropdownButtonFormField<String>(
                                     decoration: InputDecoration(
                                       labelText: 'PIC',
@@ -3845,7 +3845,7 @@ class _FormMockComplaintState extends State<FormMockComplaint> with TickerProvid
                                     value: _myCoba,
                                     onChanged: (String newValue) {
                                       setState(() {
-                                        _myCoba = newValue; 
+                                        _myCoba = newValue;
                                         coba = int.tryParse(newValue);
                                       });
                                     },
@@ -4277,7 +4277,7 @@ class _FormHandlingState extends State<FormHandling> {
                                                 setState(() {
                                                   bobotBantuComplaint = double.tryParse(snapshot.data.documents[0].data['bobot'].toString());
                                                   bobotComplaint.add(snapshot.data.documents[0].data['bobot_pertanyaan']);
-                                                  
+
                                                   scoreComplaint.removeAt(indexComplaint);
                                                   scoreComplaint.insert(indexComplaint, 0);
                                                   warnaComplaint.removeAt(indexComplaint);
@@ -4320,7 +4320,7 @@ class _FormHandlingState extends State<FormHandling> {
                                                 setState(() {
                                                   bobotBantuComplaint = double.tryParse(snapshot.data.documents[0].data['bobot'].toString());
                                                   bobotComplaint.add(snapshot.data.documents[0].data['bobot_pertanyaan']);
-                                                  
+
                                                   scoreComplaint.removeAt(indexComplaint);
                                                   scoreComplaint.insert(indexComplaint, 1);
                                                   warnaComplaint.removeAt(indexComplaint);
@@ -4361,7 +4361,7 @@ class _FormHandlingState extends State<FormHandling> {
                                                 setState(() {
                                                   bobotBantuComplaint = double.tryParse(snapshot.data.documents[0].data['bobot'].toString());
                                                   bobotComplaint.add(snapshot.data.documents[0].data['bobot_pertanyaan']);
-                                                  
+
                                                   scoreComplaint.removeAt(indexComplaint);
                                                   scoreComplaint.insert(indexComplaint, 2);
                                                   warnaComplaint.removeAt(indexComplaint);
@@ -4624,7 +4624,7 @@ class _FormHandlingState extends State<FormHandling> {
               ),
             ],
           ),
-        
+
         ),
       ),
     );
@@ -4967,7 +4967,7 @@ class _FormPreBushingState extends State<FormPreBushing> with TickerProviderStat
                                     warnaPreBushing.add('abu');
                                   }
                                 }
-                                
+
                                 return Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
@@ -5014,7 +5014,7 @@ class _FormPreBushingState extends State<FormPreBushing> with TickerProviderStat
                                                             setState(() {
                                                               bobotBantuPreBushing = double.tryParse(snapshot.data.documents[0].data['bobot'].toString());
                                                               bobotPreBushing.add(snapshot.data.documents[0].data['bobot_pertanyaan']);
-                                                              
+
                                                               scorePreBushing.removeAt(indexPreBushing);
                                                               scorePreBushing.insert(indexPreBushing, 0);
                                                               warnaPreBushing.removeAt(indexPreBushing);
@@ -5057,7 +5057,7 @@ class _FormPreBushingState extends State<FormPreBushing> with TickerProviderStat
                                                             setState(() {
                                                               bobotBantuPreBushing = double.tryParse(snapshot.data.documents[0].data['bobot'].toString());
                                                               bobotPreBushing.add(snapshot.data.documents[0].data['bobot_pertanyaan']);
-                                                              
+
                                                               scorePreBushing.removeAt(indexPreBushing);
                                                               scorePreBushing.insert(indexPreBushing, 1);
                                                               warnaPreBushing.removeAt(indexPreBushing);
@@ -5098,7 +5098,7 @@ class _FormPreBushingState extends State<FormPreBushing> with TickerProviderStat
                                                             setState(() {
                                                               bobotBantuPreBushing = double.tryParse(snapshot.data.documents[0].data['bobot'].toString());
                                                               bobotPreBushing.add(snapshot.data.documents[0].data['bobot_pertanyaan']);
-                                                              
+
                                                               scorePreBushing.removeAt(indexPreBushing);
                                                               scorePreBushing.insert(indexPreBushing, 2);
                                                               warnaPreBushing.removeAt(indexPreBushing);
@@ -5359,7 +5359,7 @@ class _FormPreBushingState extends State<FormPreBushing> with TickerProviderStat
                               ],
                             ),
                           ),
-                        
+
                         ],
                       ),
                     ],
@@ -5724,7 +5724,7 @@ class _FormCleanlinessState extends State<FormCleanliness> with TickerProviderSt
                                 } else {
                                   imageFile = 'assets/images/slide 25.png';
                                 }
-                                
+
                                 return Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
@@ -5771,7 +5771,7 @@ class _FormCleanlinessState extends State<FormCleanliness> with TickerProviderSt
                                                             setState(() {
                                                               bobotBantuCleanliness = double.tryParse(snapshot.data.documents[0].data['bobot'].toString());
                                                               bobotCleanliness.add(snapshot.data.documents[0].data['bobot_pertanyaan']);
-                                                              
+
                                                               scoreCleanliness.removeAt(indexCleanliness);
                                                               scoreCleanliness.insert(indexCleanliness, 0);
                                                               warnaCleanliness.removeAt(indexCleanliness);
@@ -5814,7 +5814,7 @@ class _FormCleanlinessState extends State<FormCleanliness> with TickerProviderSt
                                                             setState(() {
                                                               bobotBantuCleanliness = double.tryParse(snapshot.data.documents[0].data['bobot'].toString());
                                                               bobotCleanliness.add(snapshot.data.documents[0].data['bobot_pertanyaan']);
-                                                              
+
                                                               scoreCleanliness.removeAt(indexCleanliness);
                                                               scoreCleanliness.insert(indexCleanliness, 1);
                                                               warnaCleanliness.removeAt(indexCleanliness);
@@ -5855,7 +5855,7 @@ class _FormCleanlinessState extends State<FormCleanliness> with TickerProviderSt
                                                             setState(() {
                                                               bobotBantuCleanliness = double.tryParse(snapshot.data.documents[0].data['bobot'].toString());
                                                               bobotCleanliness.add(snapshot.data.documents[0].data['bobot_pertanyaan']);
-                                                              
+
                                                               scoreCleanliness.removeAt(indexCleanliness);
                                                               scoreCleanliness.insert(indexCleanliness, 2);
                                                               warnaCleanliness.removeAt(indexCleanliness);
@@ -6057,7 +6057,7 @@ class _FormCleanlinessState extends State<FormCleanliness> with TickerProviderSt
                                                         indexCleanliness++;
                                                       } else {
                                                         indexCleanliness = jumlahCleanliness - 1;
-                                                        
+
                                                         for (int i = 0; i < scoreCleanliness.length; i++) {
                                                           hasilCleanliness += double.tryParse(bobotCleanliness[0][i].toString()) * double.tryParse(scoreCleanliness[i].toString());
                                                         }
@@ -6103,7 +6103,7 @@ class _FormCleanlinessState extends State<FormCleanliness> with TickerProviderSt
                               ],
                             ),
                           ),
-                        
+
                         ],
                       ),
                     ],
@@ -6491,7 +6491,7 @@ class _FormTableSettingState extends State<FormTableSetting> with TickerProvider
                                     warnaBilling.add('abu');
                                   }
                                 }
-                                
+
                                 return Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
@@ -6538,7 +6538,7 @@ class _FormTableSettingState extends State<FormTableSetting> with TickerProvider
                                                             setState(() {
                                                               bobotBantuBilling = double.tryParse(snapshot.data.documents[0].data['bobot'].toString());
                                                               bobotBilling.add(snapshot.data.documents[0].data['bobot_pertanyaan']);
-                                                              
+
                                                               scoreBilling.removeAt(indexBilling);
                                                               scoreBilling.insert(indexBilling, 0);
                                                               warnaBilling.removeAt(indexBilling);
@@ -6581,7 +6581,7 @@ class _FormTableSettingState extends State<FormTableSetting> with TickerProvider
                                                             setState(() {
                                                               bobotBantuBilling = double.tryParse(snapshot.data.documents[0].data['bobot'].toString());
                                                               bobotBilling.add(snapshot.data.documents[0].data['bobot_pertanyaan']);
-                                                              
+
                                                               scoreBilling.removeAt(indexBilling);
                                                               scoreBilling.insert(indexBilling, 1);
                                                               warnaBilling.removeAt(indexBilling);
@@ -6622,7 +6622,7 @@ class _FormTableSettingState extends State<FormTableSetting> with TickerProvider
                                                             setState(() {
                                                               bobotBantuBilling = double.tryParse(snapshot.data.documents[0].data['bobot'].toString());
                                                               bobotBilling.add(snapshot.data.documents[0].data['bobot_pertanyaan']);
-                                                              
+
                                                               scoreBilling.removeAt(indexBilling);
                                                               scoreBilling.insert(indexBilling, 2);
                                                               warnaBilling.removeAt(indexBilling);
@@ -6865,7 +6865,7 @@ class _FormTableSettingState extends State<FormTableSetting> with TickerProvider
                           ),
 
                         ],
-                      ),                  
+                      ),
                       ListView(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
@@ -6932,7 +6932,7 @@ class _FormTableSettingState extends State<FormTableSetting> with TickerProvider
                                     warnaThanking.add('abu');
                                   }
                                 }
-                                
+
                                 return Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
@@ -6979,7 +6979,7 @@ class _FormTableSettingState extends State<FormTableSetting> with TickerProvider
                                                             setState(() {
                                                               bobotBantuThanking = double.tryParse(snapshot.data.documents[0].data['bobot'].toString());
                                                               bobotThanking.add(snapshot.data.documents[0].data['bobot_pertanyaan']);
-                                                              
+
                                                               scoreThanking.removeAt(indexThanking);
                                                               scoreThanking.insert(indexThanking, 0);
                                                               warnaThanking.removeAt(indexThanking);
@@ -7022,7 +7022,7 @@ class _FormTableSettingState extends State<FormTableSetting> with TickerProvider
                                                             setState(() {
                                                               bobotBantuThanking = double.tryParse(snapshot.data.documents[0].data['bobot'].toString());
                                                               bobotThanking.add(snapshot.data.documents[0].data['bobot_pertanyaan']);
-                                                              
+
                                                               scoreThanking.removeAt(indexThanking);
                                                               scoreThanking.insert(indexThanking, 1);
                                                               warnaThanking.removeAt(indexThanking);
@@ -7063,7 +7063,7 @@ class _FormTableSettingState extends State<FormTableSetting> with TickerProvider
                                                             setState(() {
                                                               bobotBantuThanking = double.tryParse(snapshot.data.documents[0].data['bobot'].toString());
                                                               bobotThanking.add(snapshot.data.documents[0].data['bobot_pertanyaan']);
-                                                              
+
                                                               scoreThanking.removeAt(indexThanking);
                                                               scoreThanking.insert(indexThanking, 2);
                                                               warnaThanking.removeAt(indexThanking);
@@ -7340,7 +7340,7 @@ class _FormTableSettingState extends State<FormTableSetting> with TickerProvider
                                     warnaParking.add('abu');
                                   }
                                 }
-                                
+
                                 return Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
@@ -7387,7 +7387,7 @@ class _FormTableSettingState extends State<FormTableSetting> with TickerProvider
                                                             setState(() {
                                                               bobotBantuParking = double.tryParse(snapshot.data.documents[0].data['bobot'].toString());
                                                               bobotParking.add(snapshot.data.documents[0].data['bobot_pertanyaan']);
-                                                              
+
                                                               scoreParking.removeAt(indexParking);
                                                               scoreParking.insert(indexParking, 0);
                                                               warnaParking.removeAt(indexParking);
@@ -7430,7 +7430,7 @@ class _FormTableSettingState extends State<FormTableSetting> with TickerProvider
                                                             setState(() {
                                                               bobotBantuParking = double.tryParse(snapshot.data.documents[0].data['bobot'].toString());
                                                               bobotParking.add(snapshot.data.documents[0].data['bobot_pertanyaan']);
-                                                              
+
                                                               scoreParking.removeAt(indexParking);
                                                               scoreParking.insert(indexParking, 1);
                                                               warnaParking.removeAt(indexParking);
@@ -7471,7 +7471,7 @@ class _FormTableSettingState extends State<FormTableSetting> with TickerProvider
                                                             setState(() {
                                                               bobotBantuParking = double.tryParse(snapshot.data.documents[0].data['bobot'].toString());
                                                               bobotParking.add(snapshot.data.documents[0].data['bobot_pertanyaan']);
-                                                              
+
                                                               scoreParking.removeAt(indexParking);
                                                               scoreParking.insert(indexParking, 2);
                                                               warnaParking.removeAt(indexParking);
@@ -7733,7 +7733,7 @@ class _FormTableSettingState extends State<FormTableSetting> with TickerProvider
                               ],
                             ),
                           ),
-                        
+
                         ],
                       ),
                     ],
@@ -7799,7 +7799,7 @@ class _FormCheckOutState extends State<FormCheckOut> {
   String serviceNote = '';
   String pic = '';
   String complaint;
-  
+
   List<dynamic> parkingScore = [];
   List<dynamic> parkingNote = [];
   List<dynamic> greetingScore = [];

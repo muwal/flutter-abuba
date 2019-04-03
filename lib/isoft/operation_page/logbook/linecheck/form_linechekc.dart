@@ -11,11 +11,23 @@ class FormLineCheck extends StatefulWidget {
 
   @override
   _FormLineCheckState createState() => _FormLineCheckState();
+
+
 }
 
 class _FormLineCheckState extends State<FormLineCheck>
     with TickerProviderStateMixin {
   AnimationController animationController;
+
+  double hasilGrafik = 0.0;
+  double finalBantu = 0.0;
+  double FixAreaLuar = 0.0;
+  int nilai_cp = 0;
+
+  DateTime timeStart;
+  DateTime done;
+
+  int jumlahCriticalPoint = 0;
 
   int indexAreaLuar = 0;
   int jumlahAreaLuar = 0;
@@ -34,6 +46,7 @@ class _FormLineCheckState extends State<FormLineCheck>
   double finalAreaLuar = 0.0;
   double bobotBantuAreaLuar = 0.0;
   TextEditingController _controllerAreaLuar = TextEditingController();
+//  String noteArray = _controllerAreaLuar;
 
   int indexDinningArea = 0;
   int jumlahDinningArea = 0;
@@ -198,6 +211,7 @@ class _FormLineCheckState extends State<FormLineCheck>
   TextEditingController _controllerFoodCooked = TextEditingController();
 
   TextEditingController _controllerNote = TextEditingController();
+  List<dynamic> testing = [];
 
   bool _answer0 = false;
   Color _answer0Color = Colors.grey;
@@ -233,6 +247,7 @@ class _FormLineCheckState extends State<FormLineCheck>
   void initState() {
     _cardController = new TabController(vsync: this, length: 10);
     setState(() {
+
       Firestore.instance.collection('area_luar').snapshots().listen((data) {
         jmlAreaLuar = data.documents[0].data['pertanyaan'];
         parameterAreaLuar = data.documents[0].data['bobot'];
@@ -433,7 +448,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                               ),
                             ),
                           ),
-                          SizedBox(
+                          /*SizedBox(
                             width: MediaQuery.of(context).size.width,
                             height: 55.0,
                             child: Container(
@@ -456,7 +471,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                 const Radius.circular(5.0)),
                                           ),
                                           child: new Text(
-                                            'SCORE : 100',
+                                            'SCORE : ${FixAreaLuar.toString()}',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.w700,
@@ -473,7 +488,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                 const Radius.circular(5.0)),
                                           ),
                                           child: new Text(
-                                            'CRITICAL : 20',
+                                            'CRITICAL : ${jumlahCriticalPoint.toString()}',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.w700,
@@ -495,7 +510,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                             child: Divider(
                               height: 1.0,
                             ),
-                          )
+                          )*/
                         ],
                       ),
                     ),
@@ -507,563 +522,669 @@ class _FormLineCheckState extends State<FormLineCheck>
                           child: Container(
                             child: CircularProgressIndicator(),
                             alignment: Alignment(0.0, 0.0),
-                            height: MediaQuery.of(context).size.height *
-                                0.648,
+                            /*height: MediaQuery.of(context).size.height * 0.648,*/
+                            height: MediaQuery.of(context).size.height * 0.736,
                           ),
                         )
                             : Container(
-                          height:
-                          MediaQuery.of(context).size.height * 0.648,
+                          /*height: MediaQuery.of(context).size.height * 0.648,*/
+                          height: MediaQuery.of(context).size.height * 0.736,
                           color: Colors.white,
                           child: Scrollbar(
                             child: ListView(
                               shrinkWrap: true,
                               physics: ScrollPhysics(),
                               children: List.generate(
-                                jmlAreaLuar.length,
-                                    (index) {
-                                  indexAreaLuar = index;
-                                  jawabanSplitAreaLuar =
-                                      jawabanSplitAreaLuarBantu[index]
-                                          .split(r"!@#$");
-                                  if (scoreAreaLuar.length <
-                                      jumlahAreaLuar) {
-                                    for (int a = 0;
-                                    a < jumlahAreaLuar;
-                                    a++) {
-                                      scoreAreaLuar.add(null);
-                                      warnaAreaLuar.add('abu');
-                                    }
-                                  }
+                                jmlAreaLuar.length, (index) {
+                                indexAreaLuar = index;
+                                String counter = (index+1).toString();
+                                jawabanSplitAreaLuar =
+                                    jawabanSplitAreaLuarBantu[index]
+                                        .split(r"!@#$");
+                                if (scoreAreaLuar.length <
+                                    jumlahAreaLuar) {
+                                  for (int a = 0;
+                                  a < jumlahAreaLuar;
+                                  a++) {
+                                    scoreAreaLuar.add(null);
+                                    noteAreaLuar.add(null);
 
-                                  return Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      criticalAreaLuar[index] == 'false'
-                                          ? Padding(
-                                        padding: EdgeInsets.only(
-                                            right: 15.0,
-                                            left: 15.0,
-                                            bottom: 8.0,
-                                            top: 8.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment
-                                              .spaceBetween,
-                                          children: <Widget>[
-                                            Flexible(
-                                              child: Text(
-                                                systemAreaLuar[
-                                                index],
-                                                style: TextStyle(
-                                                    color: Colors
-                                                        .green,
-                                                    fontWeight:
-                                                    FontWeight
-                                                        .w700,
-                                                    fontSize: 16.0),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                          : Padding(
-                                        padding: EdgeInsets.only(
-                                            right: 15.0,
-                                            left: 15.0,
-                                            bottom: 8.0,
-                                            top: 8.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment
-                                              .spaceBetween,
-                                          children: <Widget>[
-                                            Flexible(
-                                              child: Text(
-                                                systemAreaLuar[
-                                                index],
-                                                style: TextStyle(
-                                                    color: Colors
-                                                        .green,
-                                                    fontWeight:
-                                                    FontWeight
-                                                        .w700,
-                                                    fontSize: 16.0),
-                                              ),
-                                            ),
-                                            Flexible(
-                                              child: Text(
-                                                'CRITICAL',
-                                                style: TextStyle(
-                                                    color:
-                                                    Colors.red,
-                                                    fontWeight:
-                                                    FontWeight
-                                                        .w700,
-                                                    fontSize: 16.0),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Row(
+                                    warnaAreaLuar.add('abu');
+                                  }
+                                }
+
+                                return Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    criticalAreaLuar[index] == 'false'
+                                        ? Padding(
+                                      padding: EdgeInsets.only(
+                                          right: 15.0,
+                                          left: 15.0,
+                                          bottom: 8.0,
+                                          top: 8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment
+                                            .spaceBetween,
                                         children: <Widget>[
                                           Flexible(
-                                            child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  right: 15.0,
-                                                  left: 15.0,
-                                                  top: 10.0,
-                                                  bottom: 50.0),
-                                              child: Text(
-                                                jmlAreaLuar[index],
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 20.0),
-                                                textAlign:
-                                                TextAlign.start,
-                                              ),
+                                            child: Text(
+                                              systemAreaLuar[
+                                              index],
+                                              style: TextStyle(
+                                                  color: Colors
+                                                      .green,
+                                                  fontWeight:
+                                                  FontWeight
+                                                      .w700,
+                                                  fontSize: 16.0),
                                             ),
                                           ),
                                         ],
                                       ),
-                                      Padding(
-                                        padding:
-                                        const EdgeInsets.symmetric(
-                                            horizontal: 15.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment
-                                              .spaceBetween,
-                                          children: <Widget>[
-                                            jawabanSplitAreaLuar[0] ==
-                                                'null'
-                                                ? Container()
-                                                : Tooltip(
-                                              message:
-                                              jawabanSplitAreaLuar ==
-                                                  null
-                                                  ? ''
-                                                  : jawabanSplitAreaLuar[
-                                              0],
-                                              preferBelow: false,
-                                              child: Container(
-                                                child: ButtonTheme(
-                                                  minWidth: 50.0,
-                                                  height: 50.0,
-                                                  child:
-                                                  RaisedButton(
-                                                    shape:
-                                                    new RoundedRectangleBorder(
-                                                      borderRadius:
-                                                      new BorderRadius
-                                                          .circular(
-                                                          5.0),
-                                                      side:
-                                                      BorderSide(
-                                                        width: 1.5,
-                                                        color: warnaAreaLuar.length ==
-                                                            0
-                                                            ? Color.fromARGB(
-                                                            170,
-                                                            192,
-                                                            192,
-                                                            192)
-                                                            : warnaAreaLuar[index] ==
-                                                            'merah'
-                                                            ? Colors
-                                                            .white
-                                                            : Color.fromARGB(
-                                                            170,
-                                                            192,
-                                                            192,
-                                                            192),
-                                                      ),
+                                    )
+                                        : Padding(
+                                      padding: EdgeInsets.only(
+                                          right: 15.0,
+                                          left: 15.0,
+                                          bottom: 8.0,
+                                          top: 8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment
+                                            .spaceBetween,
+                                        children: <Widget>[
+                                          Flexible(
+                                            child: Text(
+                                              systemAreaLuar[
+                                              index],
+                                              style: TextStyle(
+                                                  color: Colors
+                                                      .green,
+                                                  fontWeight:
+                                                  FontWeight
+                                                      .w700,
+                                                  fontSize: 16.0),
+                                            ),
+                                          ),
+                                          Flexible(
+                                            child: Text(
+                                              'CRITICAL',
+                                              style: TextStyle(
+                                                  color:
+                                                  Colors.red,
+                                                  fontWeight:
+                                                  FontWeight
+                                                      .w700,
+                                                  fontSize: 16.0),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Row(
+                                      children: <Widget>[
+                                        Flexible(
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                                right: 15.0,
+                                                left: 15.0,
+                                                top: 10.0,
+                                                bottom: 50.0),
+                                            child: Text(
+                                              jmlAreaLuar[index],
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 20.0),
+                                              textAlign:
+                                              TextAlign.start,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Padding(
+                                      padding:
+                                      const EdgeInsets.symmetric(
+                                          horizontal: 15.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment
+                                            .spaceBetween,
+                                        children: <Widget>[
+                                          jawabanSplitAreaLuar[0] ==
+                                              'null'
+                                              ? Container()
+                                              : Tooltip(
+                                            message:
+                                            jawabanSplitAreaLuar ==
+                                                null
+                                                ? ''
+                                                : jawabanSplitAreaLuar[
+                                            0],
+                                            preferBelow: false,
+                                            child: Container(
+                                              child: ButtonTheme(
+                                                minWidth: 50.0,
+                                                height: 50.0,
+                                                child:
+                                                RaisedButton(
+                                                  shape:
+                                                  new RoundedRectangleBorder(
+                                                    borderRadius:
+                                                    new BorderRadius
+                                                        .circular(
+                                                        5.0),
+                                                    side:
+                                                    BorderSide(
+                                                      width: 1.5,
+                                                      color: warnaAreaLuar.length ==
+                                                          0
+                                                          ? Color.fromARGB(
+                                                          170,
+                                                          192,
+                                                          192,
+                                                          192)
+                                                          : warnaAreaLuar[index] ==
+                                                          'merah'
+                                                          ? Colors
+                                                          .white
+                                                          : Color.fromARGB(
+                                                          170,
+                                                          192,
+                                                          192,
+                                                          192),
                                                     ),
-                                                    child: Text(
-                                                      '0',
-                                                      style:
-                                                      TextStyle(
+                                                  ),
+                                                  child: Text(
+                                                    '0',
+                                                    style:
+                                                    TextStyle(
+                                                      fontSize:
+                                                      18.0,
+                                                      color: warnaAreaLuar.length ==
+                                                          0
+                                                          ? Color.fromARGB(
+                                                          170,
+                                                          255,
+                                                          40,
+                                                          0)
+                                                          : warnaAreaLuar[index] ==
+                                                          'merah'
+                                                          ? Colors
+                                                          .white
+                                                          : Color.fromARGB(
+                                                          170,
+                                                          255,
+                                                          40,
+                                                          0),
+                                                    ),
+                                                    textAlign:
+                                                    TextAlign
+                                                        .center,
+                                                  ),
+                                                  color: warnaAreaLuar
+                                                      .length ==
+                                                      0
+                                                      ? Colors
+                                                      .white
+                                                      : warnaAreaLuar[index] ==
+                                                      'merah'
+                                                      ? Color.fromARGB(
+                                                      170,
+                                                      255,
+                                                      40,
+                                                      0)
+                                                      : Colors
+                                                      .white,
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      /*if (bobotAreaLuar.length < jumlahAreaLuar) {
+                                                                      bobotAreaLuar.add(bobotPertanyaanAreaLuar[index]);
+                                                                      bobotBantuAreaLuar = double.tryParse(bobotAreaLuar[index].toString());
+                                                                    } else {
+
+                                                                    }*/
+
+                                                      if (criticalAreaLuar[
+                                                      index] ==
+                                                          'false') {
+                                                        print(
+                                                            'false');
+                                                      } else if (criticalAreaLuar[
+                                                      index] ==
+                                                          'true') {
+                                                        if (scoreAreaLuar[
+                                                        index] ==
+                                                            null) {
+                                                          jumlahCriticalPoint =
+                                                              jumlahCriticalPoint +
+                                                                  1;
+                                                          print(
+                                                              jumlahCriticalPoint);
+                                                        } else {
+                                                          if (scoreAreaLuar[index] ==
+                                                              2) {
+                                                            jumlahCriticalPoint =
+                                                                jumlahCriticalPoint + 1;
+                                                            print(
+                                                                jumlahCriticalPoint);
+                                                          } else if (scoreAreaLuar[index] ==
+                                                              0 ||
+                                                              scoreAreaLuar[index] ==
+                                                                  1) {
+                                                            jumlahCriticalPoint =
+                                                                jumlahCriticalPoint + 0;
+                                                            print(
+                                                                jumlahCriticalPoint);
+                                                          }
+                                                        }
+                                                      }
+
+                                                      scoreAreaLuar
+                                                          .removeAt(
+                                                          index);
+                                                      scoreAreaLuar
+                                                          .insert(
+                                                          index,
+                                                          0);
+                                                      warnaAreaLuar
+                                                          .removeAt(
+                                                          index);
+                                                      warnaAreaLuar
+                                                          .insert(
+                                                          index,
+                                                          'merah');
+                                                    });
+                                                  },
+                                                ),
+                                              ),
+                                              alignment:
+                                              Alignment(
+                                                  0.0, 0.0),
+                                            ),
+                                          ),
+                                          jawabanSplitAreaLuar[1] ==
+                                              'null'
+                                              ? Container()
+                                              : Tooltip(
+                                            message:
+                                            jawabanSplitAreaLuar ==
+                                                null
+                                                ? ''
+                                                : jawabanSplitAreaLuar[
+                                            1],
+                                            preferBelow: false,
+                                            child: Container(
+                                              padding: EdgeInsets
+                                                  .symmetric(
+                                                  horizontal:
+                                                  5.0),
+                                              child: ButtonTheme(
+                                                minWidth: 50.0,
+                                                height: 50.0,
+                                                child:
+                                                RaisedButton(
+                                                  shape:
+                                                  new RoundedRectangleBorder(
+                                                    borderRadius:
+                                                    new BorderRadius
+                                                        .circular(
+                                                        5.0),
+                                                    side:
+                                                    BorderSide(
+                                                      width: 1.5,
+                                                      color: warnaAreaLuar.length ==
+                                                          0
+                                                          ? Color.fromARGB(
+                                                          170,
+                                                          192,
+                                                          192,
+                                                          192)
+                                                          : warnaAreaLuar[index] ==
+                                                          'kuning'
+                                                          ? Colors
+                                                          .white
+                                                          : Color.fromARGB(
+                                                          170,
+                                                          192,
+                                                          192,
+                                                          192),
+                                                    ),
+                                                  ),
+                                                  child: Text(
+                                                    '1',
+                                                    style: TextStyle(
                                                         fontSize:
                                                         18.0,
                                                         color: warnaAreaLuar.length ==
                                                             0
                                                             ? Color.fromARGB(
                                                             170,
-                                                            255,
-                                                            40,
-                                                            0)
-                                                            : warnaAreaLuar[index] ==
-                                                            'merah'
-                                                            ? Colors
-                                                            .white
-                                                            : Color.fromARGB(
-                                                            170,
-                                                            255,
-                                                            40,
-                                                            0),
-                                                      ),
-                                                      textAlign:
-                                                      TextAlign
-                                                          .center,
-                                                    ),
-                                                    color: warnaAreaLuar
-                                                        .length ==
-                                                        0
-                                                        ? Colors
-                                                        .white
-                                                        : warnaAreaLuar[index] ==
-                                                        'merah'
-                                                        ? Color.fromARGB(
-                                                        170,
-                                                        255,
-                                                        40,
-                                                        0)
-                                                        : Colors
-                                                        .white,
-                                                    onPressed: () {
-                                                      setState(() {
-                                                        /*if (bobotAreaLuar.length < jumlahAreaLuar) {
-                                                                      bobotAreaLuar.add(bobotPertanyaanAreaLuar[index]);
-                                                                      bobotBantuAreaLuar = double.tryParse(bobotAreaLuar[index].toString());
-                                                                    } else {
-
-                                                                    }*/
-
-                                                        scoreAreaLuar
-                                                            .removeAt(
-                                                            index);
-                                                        scoreAreaLuar
-                                                            .insert(
-                                                            index,
-                                                            0);
-                                                        warnaAreaLuar
-                                                            .removeAt(
-                                                            index);
-                                                        warnaAreaLuar
-                                                            .insert(
-                                                            index,
-                                                            'merah');
-                                                      });
-                                                    },
+                                                            247,
+                                                            202,
+                                                            24)
+                                                            : warnaAreaLuar[index] == 'kuning'
+                                                            ? Colors.white
+                                                            : Color.fromARGB(170, 247, 202, 24)),
+                                                    textAlign:
+                                                    TextAlign
+                                                        .center,
                                                   ),
+                                                  color: warnaAreaLuar
+                                                      .length ==
+                                                      0
+                                                      ? Colors
+                                                      .white
+                                                      : warnaAreaLuar[index] ==
+                                                      'kuning'
+                                                      ? Color.fromARGB(
+                                                      170,
+                                                      247,
+                                                      202,
+                                                      24)
+                                                      : Colors
+                                                      .white,
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      if (criticalAreaLuar[
+                                                      index] ==
+                                                          'false') {
+                                                        print(
+                                                            'false');
+                                                      } else if (criticalAreaLuar[
+                                                      index] ==
+                                                          'true') {
+                                                        if (scoreAreaLuar[
+                                                        index] ==
+                                                            null) {
+                                                          jumlahCriticalPoint =
+                                                              jumlahCriticalPoint +
+                                                                  1;
+                                                          print(
+                                                              jumlahCriticalPoint);
+                                                        } else {
+                                                          if (scoreAreaLuar[index] ==
+                                                              2) {
+                                                            jumlahCriticalPoint =
+                                                                jumlahCriticalPoint + 1;
+                                                            print(
+                                                                jumlahCriticalPoint);
+                                                          } else if (scoreAreaLuar[index] ==
+                                                              0 ||
+                                                              scoreAreaLuar[index] ==
+                                                                  1) {
+                                                            jumlahCriticalPoint =
+                                                                jumlahCriticalPoint + 0;
+                                                            print(
+                                                                jumlahCriticalPoint);
+                                                          }
+                                                        }
+                                                      }
+
+                                                      scoreAreaLuar
+                                                          .removeAt(
+                                                          index);
+                                                      scoreAreaLuar
+                                                          .insert(
+                                                          index,
+                                                          1);
+                                                      warnaAreaLuar
+                                                          .removeAt(
+                                                          index);
+                                                      warnaAreaLuar
+                                                          .insert(
+                                                          index,
+                                                          'kuning');
+                                                    });
+                                                  },
                                                 ),
-                                                alignment:
-                                                Alignment(
-                                                    0.0, 0.0),
                                               ),
+                                              alignment:
+                                              Alignment(
+                                                  0.0, 0.0),
                                             ),
-                                            jawabanSplitAreaLuar[1] ==
-                                                'null'
-                                                ? Container()
-                                                : Tooltip(
-                                              message:
-                                              jawabanSplitAreaLuar ==
-                                                  null
-                                                  ? ''
-                                                  : jawabanSplitAreaLuar[
-                                              1],
-                                              preferBelow: false,
-                                              child: Container(
-                                                padding: EdgeInsets
-                                                    .symmetric(
-                                                    horizontal:
-                                                    5.0),
-                                                child: ButtonTheme(
-                                                  minWidth: 50.0,
-                                                  height: 50.0,
-                                                  child:
-                                                  RaisedButton(
-                                                    shape:
-                                                    new RoundedRectangleBorder(
-                                                      borderRadius:
-                                                      new BorderRadius
-                                                          .circular(
-                                                          5.0),
-                                                      side:
-                                                      BorderSide(
-                                                        width: 1.5,
+                                          ),
+                                          jawabanSplitAreaLuar[2] ==
+                                              'null'
+                                              ? Container()
+                                              : Tooltip(
+                                            message:
+                                            jawabanSplitAreaLuar ==
+                                                null
+                                                ? ''
+                                                : jawabanSplitAreaLuar[
+                                            2],
+                                            preferBelow: false,
+                                            child: Container(
+                                              child: ButtonTheme(
+                                                minWidth: 50.0,
+                                                height: 50.0,
+                                                child:
+                                                RaisedButton(
+                                                  shape:
+                                                  new RoundedRectangleBorder(
+                                                    borderRadius:
+                                                    new BorderRadius
+                                                        .circular(
+                                                        5.0),
+                                                    side:
+                                                    BorderSide(
+                                                      width: 1.5,
+                                                      color: warnaAreaLuar.length ==
+                                                          0
+                                                          ? Color.fromARGB(
+                                                          170,
+                                                          192,
+                                                          192,
+                                                          192)
+                                                          : warnaAreaLuar[index] ==
+                                                          'hijau'
+                                                          ? Colors
+                                                          .white
+                                                          : Color.fromARGB(
+                                                          170,
+                                                          192,
+                                                          192,
+                                                          192),
+                                                    ),
+                                                  ),
+                                                  child: Text(
+                                                    '2',
+                                                    style: TextStyle(
+                                                        fontSize:
+                                                        18.0,
                                                         color: warnaAreaLuar.length ==
                                                             0
                                                             ? Color.fromARGB(
                                                             170,
-                                                            192,
-                                                            192,
-                                                            192)
-                                                            : warnaAreaLuar[index] ==
-                                                            'kuning'
-                                                            ? Colors
-                                                            .white
-                                                            : Color.fromARGB(
-                                                            170,
-                                                            192,
-                                                            192,
-                                                            192),
-                                                      ),
-                                                    ),
-                                                    child: Text(
-                                                      '1',
-                                                      style: TextStyle(
-                                                          fontSize:
-                                                          18.0,
-                                                          color: warnaAreaLuar.length ==
-                                                              0
-                                                              ? Color.fromARGB(
-                                                              170,
-                                                              247,
-                                                              202,
-                                                              24)
-                                                              : warnaAreaLuar[index] == 'kuning'
-                                                              ? Colors.white
-                                                              : Color.fromARGB(170, 247, 202, 24)),
-                                                      textAlign:
-                                                      TextAlign
-                                                          .center,
-                                                    ),
-                                                    color: warnaAreaLuar
-                                                        .length ==
-                                                        0
-                                                        ? Colors
-                                                        .white
-                                                        : warnaAreaLuar[index] ==
-                                                        'kuning'
-                                                        ? Color.fromARGB(
-                                                        170,
-                                                        247,
-                                                        202,
-                                                        24)
-                                                        : Colors
-                                                        .white,
-                                                    onPressed: () {
-                                                      setState(() {
-                                                        /*if (bobotAreaLuar.length < jumlahAreaLuar) {
-                                                                      bobotAreaLuar.add(bobotPertanyaanAreaLuar[index]);
-                                                                      bobotBantuAreaLuar = double.tryParse(bobotAreaLuar[index].toString());
-                                                                    } else {
-
-                                                                    }*/
-
-                                                        scoreAreaLuar
-                                                            .removeAt(
-                                                            index);
-                                                        scoreAreaLuar
-                                                            .insert(
-                                                            index,
-                                                            1);
-                                                        warnaAreaLuar
-                                                            .removeAt(
-                                                            index);
-                                                        warnaAreaLuar
-                                                            .insert(
-                                                            index,
-                                                            'kuning');
-                                                      });
-                                                    },
+                                                            50,
+                                                            205,
+                                                            50)
+                                                            : warnaAreaLuar[index] == 'hijau'
+                                                            ? Colors.white
+                                                            : Color.fromARGB(170, 50, 205, 50)),
+                                                    textAlign:
+                                                    TextAlign
+                                                        .center,
                                                   ),
-                                                ),
-                                                alignment:
-                                                Alignment(
-                                                    0.0, 0.0),
-                                              ),
-                                            ),
-                                            jawabanSplitAreaLuar[2] ==
-                                                'null'
-                                                ? Container()
-                                                : Tooltip(
-                                              message:
-                                              jawabanSplitAreaLuar ==
-                                                  null
-                                                  ? ''
-                                                  : jawabanSplitAreaLuar[
-                                              2],
-                                              preferBelow: false,
-                                              child: Container(
-                                                child: ButtonTheme(
-                                                  minWidth: 50.0,
-                                                  height: 50.0,
-                                                  child:
-                                                  RaisedButton(
-                                                    shape:
-                                                    new RoundedRectangleBorder(
-                                                      borderRadius:
-                                                      new BorderRadius
-                                                          .circular(
-                                                          5.0),
-                                                      side:
-                                                      BorderSide(
-                                                        width: 1.5,
-                                                        color: warnaAreaLuar.length ==
-                                                            0
-                                                            ? Color.fromARGB(
-                                                            170,
-                                                            192,
-                                                            192,
-                                                            192)
-                                                            : warnaAreaLuar[index] ==
-                                                            'hijau'
-                                                            ? Colors
-                                                            .white
-                                                            : Color.fromARGB(
-                                                            170,
-                                                            192,
-                                                            192,
-                                                            192),
-                                                      ),
-                                                    ),
-                                                    child: Text(
-                                                      '2',
-                                                      style: TextStyle(
-                                                          fontSize:
-                                                          18.0,
-                                                          color: warnaAreaLuar.length ==
-                                                              0
-                                                              ? Color.fromARGB(
-                                                              170,
-                                                              50,
-                                                              205,
-                                                              50)
-                                                              : warnaAreaLuar[index] == 'hijau'
-                                                              ? Colors.white
-                                                              : Color.fromARGB(170, 50, 205, 50)),
-                                                      textAlign:
-                                                      TextAlign
-                                                          .center,
-                                                    ),
-                                                    color: warnaAreaLuar
-                                                        .length ==
-                                                        0
-                                                        ? Colors
-                                                        .white
-                                                        : warnaAreaLuar[index] ==
-                                                        'hijau'
-                                                        ? Color.fromARGB(
-                                                        170,
-                                                        50,
-                                                        205,
-                                                        50)
-                                                        : Colors
-                                                        .white,
-                                                    onPressed: () {
-                                                      setState(() {
-                                                        /*if (bobotAreaLuar.length < jumlahAreaLuar) {
-                                                                      bobotAreaLuar.add(bobotPertanyaanAreaLuar[index]);
-                                                                      bobotBantuAreaLuar = double.tryParse(bobotAreaLuar[index].toString());
-                                                                    } else {
+                                                  color: warnaAreaLuar
+                                                      .length ==
+                                                      0
+                                                      ? Colors
+                                                      .white
+                                                      : warnaAreaLuar[index] ==
+                                                      'hijau'
+                                                      ? Color.fromARGB(
+                                                      170,
+                                                      50,
+                                                      205,
+                                                      50)
+                                                      : Colors
+                                                      .white,
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      if (criticalAreaLuar[
+                                                      index] ==
+                                                          'false') {
+                                                        print(
+                                                            'false');
+                                                      } else if (criticalAreaLuar[
+                                                      index] ==
+                                                          'true') {
+                                                        if (scoreAreaLuar[
+                                                        index] ==
+                                                            2) {
+                                                          jumlahCriticalPoint =
+                                                              jumlahCriticalPoint +
+                                                                  0;
+                                                          print(
+                                                              jumlahCriticalPoint);
+                                                        } else {
+                                                          if (scoreAreaLuar[index] ==
+                                                              2) {
+                                                            jumlahCriticalPoint =
+                                                                jumlahCriticalPoint + 0;
+                                                            print(
+                                                                jumlahCriticalPoint);
+                                                          } else if (scoreAreaLuar[index] ==
+                                                              0 ||
+                                                              scoreAreaLuar[index] ==
+                                                                  1) {
+                                                            jumlahCriticalPoint =
+                                                                jumlahCriticalPoint - 1;
+                                                            print(
+                                                                jumlahCriticalPoint);
+                                                          }
+                                                        }
+                                                      }
 
-                                                                    }*/
-
-                                                        scoreAreaLuar
-                                                            .removeAt(
-                                                            index);
-                                                        scoreAreaLuar
-                                                            .insert(
-                                                            index,
-                                                            2);
-                                                        warnaAreaLuar
-                                                            .removeAt(
-                                                            index);
-                                                        warnaAreaLuar
-                                                            .insert(
-                                                            index,
-                                                            'hijau');
-                                                      });
-                                                    },
-                                                  ),
+                                                      scoreAreaLuar
+                                                          .removeAt(
+                                                          index);
+                                                      scoreAreaLuar
+                                                          .insert(
+                                                          index,
+                                                          2);
+                                                      warnaAreaLuar
+                                                          .removeAt(
+                                                          index);
+                                                      warnaAreaLuar
+                                                          .insert(
+                                                          index,
+                                                          'hijau');
+                                                    });
+                                                  },
                                                 ),
-                                                alignment:
-                                                Alignment(
-                                                    0.0, 0.0),
                                               ),
+                                              alignment:
+                                              Alignment(
+                                                  0.0, 0.0),
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
-                                      Padding(
-                                        padding:
-                                        const EdgeInsets.symmetric(
-                                            horizontal: 2.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment
-                                              .spaceBetween,
-                                          children: <Widget>[
-                                            IconButton(
-                                              icon: Icon(Icons.camera_alt,
-                                                  color: AbubaPallate
-                                                      .greenabuba),
-                                              onPressed: () async {
-                                                var selectedImage =
-                                                await ImagePicker
-                                                    .pickImage(
-                                                    source:
-                                                    ImageSource
-                                                        .camera);
-                                              },
-                                            ),
-                                            IconButton(
-                                              icon: Icon(Icons.event_note,
-                                                  color: AbubaPallate
-                                                      .greenabuba),
-                                              onPressed: () {
-                                                showDialog(
-                                                  context: context,
-                                                  builder: (context) {
-                                                    return AlertDialog(
-                                                      title: Text('NOTE'),
-                                                      content: Container(
-                                                        width: 300.0,
-                                                        child: TextField(
-                                                          controller:
-                                                          _controllerNote,
-                                                          decoration:
-                                                          InputDecoration(
-                                                            border:
-                                                            OutlineInputBorder(),
-                                                            hintText:
-                                                            'Note',
-                                                            hintStyle: TextStyle(
-                                                                fontSize:
-                                                                12.0),
-                                                          ),
-                                                          maxLines: 3,
-                                                          style:
-                                                          TextStyle(
-                                                            color: Colors
-                                                                .black,
-                                                          ),
+                                    ),
+                                    Padding(
+                                      padding:
+                                      const EdgeInsets.symmetric(
+                                          horizontal: 2.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment
+                                            .spaceBetween,
+                                        children: <Widget>[
+                                          IconButton(
+                                            icon: Icon(Icons.camera_alt,
+                                                color: AbubaPallate
+                                                    .greenabuba),
+                                            onPressed: () async {
+                                              var selectedImage =
+                                              await ImagePicker
+                                                  .pickImage(
+                                                  source:
+                                                  ImageSource
+                                                      .camera);
+                                            },
+                                          ),
+                                          IconButton(
+                                            icon: Icon(Icons.event_note,
+                                                color: AbubaPallate
+                                                    .greenabuba),
+                                            onPressed: () {
+                                              if (noteAreaLuar[index] == null) {
+                                                _controllerAreaLuar.text = '';
+                                              }else {
+                                                _controllerAreaLuar.text = noteAreaLuar[index];
+                                              }
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return AlertDialog(
+                                                    title: Text('NOTE'),
+                                                    content: Container(
+                                                      width: 300.0,
+                                                      child: TextField(
+                                                        controller:
+                                                        _controllerAreaLuar,
+                                                        decoration:
+                                                        InputDecoration(
+                                                          border:
+                                                          OutlineInputBorder(),
+                                                          hintText:
+                                                          'Note',
+                                                          hintStyle: TextStyle(
+                                                              fontSize:
+                                                              12.0),
+                                                        ),
+                                                        maxLines: 3,
+                                                        style:
+                                                        TextStyle(
+                                                          color: Colors
+                                                              .black,
                                                         ),
                                                       ),
-                                                      actions: <Widget>[
-                                                        FlatButton(
-                                                          splashColor: Colors
-                                                              .greenAccent,
-                                                          child: Text(
-                                                            'OK',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .green),
-                                                          ),
-                                                          onPressed: () {
-                                                            Navigator.of(
-                                                                context)
-                                                                .pop();
-                                                          },
-                                                        )
-                                                      ],
-                                                    );
-                                                  },
-                                                );
-                                              },
-                                            ),
-                                          ],
-                                        ),
+                                                    ),
+                                                    actions: <Widget>[
+                                                      FlatButton(
+                                                        splashColor: Colors
+                                                            .greenAccent,
+                                                        child: Text(
+                                                          'OK',
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .green),
+                                                        ),
+                                                        onPressed: () {
+                                                          noteAreaLuar
+                                                              .removeAt(
+                                                              index);
+                                                          noteAreaLuar
+                                                              .insert(
+                                                              index,
+                                                              _controllerAreaLuar.text);
+                                                          print(noteAreaLuar);
+                                                          Navigator.of(
+                                                              context)
+                                                              .pop();
+                                                        },
+                                                      )
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                            },
+                                          ),
+                                        ],
                                       ),
-                                      Divider(
-                                        height: 2.0,
-                                      ),
-                                    ],
-                                  );
-                                },
+                                    ),
+                                    Divider(
+                                      height: 2.0,
+                                    ),
+                                  ],
+                                );
+                              },
                               ).toList(),
                             ),
                           ),
@@ -1175,13 +1296,13 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                 for (int i = 0;
                                                 i < scoreAreaLuar.length;
                                                 i++) {
-                                                  hasilAreaLuar += double.tryParse(bobotPertanyaanAreaLuar
-                                                  [i]
-                                                      .toString()) *
+                                                  hasilAreaLuar += double.tryParse(
+                                                      bobotPertanyaanAreaLuar[
+                                                      i]
+                                                          .toString()) *
                                                       double.tryParse(
                                                           scoreAreaLuar[i]
                                                               .toString());
-
                                                 }
                                                 hasilAreaLuar =
                                                     hasilAreaLuar / 2;
@@ -1191,7 +1312,10 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                   hasilAreaLuar = hasilAreaLuar;
                                                 }
                                                 finalAreaLuar = (hasilAreaLuar *
-                                                    parameterAreaLuar) / 100;
+                                                    parameterAreaLuar) /
+                                                    100;
+
+                                                DateTime timeStart = DateTime.now();
 
                                                 print(bobotPertanyaanAreaLuar);
                                                 print(scoreAreaLuar);
@@ -1199,9 +1323,8 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                 print(finalAreaLuar);
                                                 _cardController.animateTo(
                                                     _cardController.index + 1);
-
-
-                                              };
+                                              }
+                                              ;
                                             },
                                             tooltip: 'Next',
                                           ),
@@ -1259,7 +1382,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                               ),
                             ),
                           ),
-                          SizedBox(
+                          /*SizedBox(
                             width: MediaQuery.of(context).size.width,
                             height: 55.0,
                             child: Container(
@@ -1299,7 +1422,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                 const Radius.circular(5.0)),
                                           ),
                                           child: new Text(
-                                            'CRITICAL : 20',
+                                            'CRITICAL : ${jumlahCriticalPoint.toString()}',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.w700,
@@ -1321,7 +1444,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                             child: Divider(
                               height: 1.0,
                             ),
-                          )
+                          )*/
                         ],
                       ),
                     ),
@@ -1334,12 +1457,12 @@ class _FormLineCheckState extends State<FormLineCheck>
                               child: CircularProgressIndicator(),
                             ),
                             alignment: Alignment(0.0, 0.0),
-                            height: MediaQuery.of(context).size.height *
-                                0.648,
+                            /*height: MediaQuery.of(context).size.height * 0.648,*/
+                            height: MediaQuery.of(context).size.height * 0.736,
                           )
                               : Container(
-                            height: MediaQuery.of(context).size.height *
-                                0.648,
+                            /*height: MediaQuery.of(context).size.height * 0.648,*/
+                            height: MediaQuery.of(context).size.height * 0.736,
                             color: Colors.white,
                             child: Scrollbar(
                               child: ListView(
@@ -1356,6 +1479,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                                     for (int a = 0;
                                     a < jumlahDinningArea;
                                     a++) {
+                                      noteDinningArea.add(null);
                                       scoreDinningArea.add(null);
                                       warnaDinningArea.add('abu');
                                     }
@@ -1549,12 +1673,40 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                         .white,
                                                     onPressed: () {
                                                       setState(() {
-                                                        /*bobotDinningArea.add(
-                                                                        bobotPertanyaanDinningArea[
-                                                                            index]);
-                                                                    bobotBantuDinningArea =
-                                                                        double.tryParse(
-                                                                            bobotDinningArea[index].toString());*/
+                                                        if (criticalDinningArea[
+                                                        index] ==
+                                                            'false') {
+                                                          print(
+                                                              'false');
+                                                        } else if (criticalDinningArea[
+                                                        index] ==
+                                                            'true') {
+                                                          if (scoreDinningArea[
+                                                          index] ==
+                                                              null) {
+                                                            jumlahCriticalPoint =
+                                                                jumlahCriticalPoint +
+                                                                    1;
+                                                            print(
+                                                                jumlahCriticalPoint);
+                                                          } else {
+                                                            if (scoreDinningArea[index] ==
+                                                                2) {
+                                                              jumlahCriticalPoint =
+                                                                  jumlahCriticalPoint + 1;
+                                                              print(
+                                                                  jumlahCriticalPoint);
+                                                            } else if (scoreDinningArea[index] ==
+                                                                0 ||
+                                                                scoreDinningArea[index] ==
+                                                                    1) {
+                                                              jumlahCriticalPoint =
+                                                                  jumlahCriticalPoint + 0;
+                                                              print(
+                                                                  jumlahCriticalPoint);
+                                                            }
+                                                          }
+                                                        }
 
                                                         scoreDinningArea
                                                             .removeAt(
@@ -1662,12 +1814,40 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                         .white,
                                                     onPressed: () {
                                                       setState(() {
-                                                        /*bobotDinningArea.add(
-                                                                        bobotPertanyaanDinningArea[
-                                                                            index]);
-                                                                    bobotBantuDinningArea =
-                                                                        double.tryParse(
-                                                                            bobotDinningArea[index].toString());*/
+                                                        if (criticalDinningArea[
+                                                        index] ==
+                                                            'false') {
+                                                          print(
+                                                              'false');
+                                                        } else if (criticalDinningArea[
+                                                        index] ==
+                                                            'true') {
+                                                          if (scoreDinningArea[
+                                                          index] ==
+                                                              null) {
+                                                            jumlahCriticalPoint =
+                                                                jumlahCriticalPoint +
+                                                                    1;
+                                                            print(
+                                                                jumlahCriticalPoint);
+                                                          } else {
+                                                            if (scoreDinningArea[index] ==
+                                                                2) {
+                                                              jumlahCriticalPoint =
+                                                                  jumlahCriticalPoint + 1;
+                                                              print(
+                                                                  jumlahCriticalPoint);
+                                                            } else if (scoreDinningArea[index] ==
+                                                                0 ||
+                                                                scoreDinningArea[index] ==
+                                                                    1) {
+                                                              jumlahCriticalPoint =
+                                                                  jumlahCriticalPoint + 0;
+                                                              print(
+                                                                  jumlahCriticalPoint);
+                                                            }
+                                                          }
+                                                        }
 
                                                         scoreDinningArea
                                                             .removeAt(
@@ -1771,12 +1951,40 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                         .white,
                                                     onPressed: () {
                                                       setState(() {
-                                                        /*bobotDinningArea.add(
-                                                                        bobotPertanyaanDinningArea[
-                                                                            index]);
-                                                                    bobotBantuDinningArea =
-                                                                        double.tryParse(
-                                                                            bobotDinningArea[index].toString());*/
+                                                        if (criticalDinningArea[
+                                                        index] ==
+                                                            'false') {
+                                                          print(
+                                                              'false');
+                                                        } else if (criticalDinningArea[
+                                                        index] ==
+                                                            'true') {
+                                                          if (scoreDinningArea[
+                                                          index] ==
+                                                              2) {
+                                                            jumlahCriticalPoint =
+                                                                jumlahCriticalPoint +
+                                                                    0;
+                                                            print(
+                                                                jumlahCriticalPoint);
+                                                          } else {
+                                                            if (scoreDinningArea[index] ==
+                                                                2) {
+                                                              jumlahCriticalPoint =
+                                                                  jumlahCriticalPoint + 0;
+                                                              print(
+                                                                  jumlahCriticalPoint);
+                                                            } else if (scoreDinningArea[index] ==
+                                                                0 ||
+                                                                scoreDinningArea[index] ==
+                                                                    1) {
+                                                              jumlahCriticalPoint =
+                                                                  jumlahCriticalPoint - 1;
+                                                              print(
+                                                                  jumlahCriticalPoint);
+                                                            }
+                                                          }
+                                                        }
 
                                                         scoreDinningArea
                                                             .removeAt(
@@ -1831,6 +2039,11 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                   color: AbubaPallate
                                                       .greenabuba),
                                               onPressed: () {
+                                                if (noteDinningArea[index] == null) {
+                                                  _controllerDinningArea.text = '';
+                                                }else {
+                                                  _controllerDinningArea.text = noteDinningArea[index];
+                                                }
                                                 showDialog(
                                                   context: context,
                                                   builder: (context) {
@@ -1840,7 +2053,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                         width: 300.0,
                                                         child: TextField(
                                                           controller:
-                                                          _controllerNote,
+                                                          _controllerDinningArea,
                                                           decoration:
                                                           InputDecoration(
                                                             border:
@@ -1870,6 +2083,14 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                                     .green),
                                                           ),
                                                           onPressed: () {
+                                                            noteDinningArea
+                                                                .removeAt(
+                                                                index);
+                                                            noteDinningArea
+                                                                .insert(
+                                                                index,
+                                                                _controllerDinningArea.text);
+                                                            print(noteDinningArea);
                                                             Navigator.of(
                                                                 context)
                                                                 .pop();
@@ -2001,9 +2222,11 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                 for (int i = 0;
                                                 i < scoreDinningArea.length;
                                                 i++) {
-                                                  hasilDinningArea += double.tryParse(bobotPertanyaanDinningArea
-                                                  [i]
-                                                      .toString()) *
+                                                  hasilDinningArea += double
+                                                      .tryParse(
+                                                      bobotPertanyaanDinningArea[
+                                                      i]
+                                                          .toString()) *
                                                       double.tryParse(
                                                           scoreDinningArea[i]
                                                               .toString());
@@ -2013,18 +2236,23 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                 if (hasilDinningArea > 1.0) {
                                                   hasilDinningArea = 1.0;
                                                 } else {
-                                                  hasilDinningArea = hasilDinningArea;
+                                                  hasilDinningArea =
+                                                      hasilDinningArea;
                                                 }
-                                                finalDinningArea = (hasilDinningArea *
-                                                    parameterDinningArea) / 100;
+                                                finalDinningArea =
+                                                    (hasilDinningArea *
+                                                        parameterDinningArea) /
+                                                        100;
 
-                                                print(bobotPertanyaanDinningArea);
+                                                print(
+                                                    bobotPertanyaanDinningArea);
                                                 print(scoreDinningArea);
                                                 print(hasilDinningArea);
                                                 print(finalDinningArea);
                                                 _cardController.animateTo(
                                                     _cardController.index + 1);
-                                              };
+                                              }
+                                              ;
                                             },
                                             tooltip: 'Next',
                                           ),
@@ -2082,7 +2310,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                               ),
                             ),
                           ),
-                          SizedBox(
+                          /*SizedBox(
                             width: MediaQuery.of(context).size.width,
                             height: 55.0,
                             child: Container(
@@ -2122,7 +2350,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                 const Radius.circular(5.0)),
                                           ),
                                           child: new Text(
-                                            'CRITICAL : 20',
+                                            'CRITICAL : ${jumlahCriticalPoint.toString()}',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.w700,
@@ -2144,7 +2372,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                             child: Divider(
                               height: 1.0,
                             ),
-                          )
+                          )*/
                         ],
                       ),
                     ),
@@ -2156,12 +2384,12 @@ class _FormLineCheckState extends State<FormLineCheck>
                             child: Center(
                               child: CircularProgressIndicator(),
                             ),
-                            height: MediaQuery.of(context).size.height *
-                                0.648,
+                            /*height: MediaQuery.of(context).size.height * 0.648,*/
+                            height: MediaQuery.of(context).size.height * 0.736,
                           )
                               : Container(
-                            height: MediaQuery.of(context).size.height *
-                                0.648,
+                            /*height: MediaQuery.of(context).size.height * 0.648,*/
+                            height: MediaQuery.of(context).size.height * 0.736,
                             color: Colors.white,
                             child: Scrollbar(
                               child: ListView(
@@ -2178,6 +2406,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                                         for (int a = 0;
                                         a < jumlahService;
                                         a++) {
+                                          noteService.add(null);
                                           scoreService.add(null);
                                           warnaService.add('abu');
                                         }
@@ -2370,7 +2599,40 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                             .white,
                                                         onPressed: () {
                                                           setState(() {
-
+                                                            if (criticalService[
+                                                            index] ==
+                                                                'false') {
+                                                              print(
+                                                                  'false');
+                                                            } else if (criticalService[
+                                                            index] ==
+                                                                'true') {
+                                                              if (scoreService[
+                                                              index] ==
+                                                                  null) {
+                                                                jumlahCriticalPoint =
+                                                                    jumlahCriticalPoint +
+                                                                        1;
+                                                                print(
+                                                                    jumlahCriticalPoint);
+                                                              } else {
+                                                                if (scoreService[index] ==
+                                                                    2) {
+                                                                  jumlahCriticalPoint =
+                                                                      jumlahCriticalPoint + 1;
+                                                                  print(
+                                                                      jumlahCriticalPoint);
+                                                                } else if (scoreService[index] ==
+                                                                    0 ||
+                                                                    scoreService[index] ==
+                                                                        1) {
+                                                                  jumlahCriticalPoint =
+                                                                      jumlahCriticalPoint + 0;
+                                                                  print(
+                                                                      jumlahCriticalPoint);
+                                                                }
+                                                              }
+                                                            }
 
                                                             scoreService
                                                                 .removeAt(
@@ -2478,7 +2740,40 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                             .white,
                                                         onPressed: () {
                                                           setState(() {
-
+                                                            if (criticalService[
+                                                            index] ==
+                                                                'false') {
+                                                              print(
+                                                                  'false');
+                                                            } else if (criticalService[
+                                                            index] ==
+                                                                'true') {
+                                                              if (scoreService[
+                                                              index] ==
+                                                                  null) {
+                                                                jumlahCriticalPoint =
+                                                                    jumlahCriticalPoint +
+                                                                        1;
+                                                                print(
+                                                                    jumlahCriticalPoint);
+                                                              } else {
+                                                                if (scoreService[index] ==
+                                                                    2) {
+                                                                  jumlahCriticalPoint =
+                                                                      jumlahCriticalPoint + 1;
+                                                                  print(
+                                                                      jumlahCriticalPoint);
+                                                                } else if (scoreService[index] ==
+                                                                    0 ||
+                                                                    scoreService[index] ==
+                                                                        1) {
+                                                                  jumlahCriticalPoint =
+                                                                      jumlahCriticalPoint + 0;
+                                                                  print(
+                                                                      jumlahCriticalPoint);
+                                                                }
+                                                              }
+                                                            }
 
                                                             scoreService
                                                                 .removeAt(
@@ -2582,7 +2877,40 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                             .white,
                                                         onPressed: () {
                                                           setState(() {
-
+                                                            if (criticalService[
+                                                            index] ==
+                                                                'false') {
+                                                              print(
+                                                                  'false');
+                                                            } else if (criticalService[
+                                                            index] ==
+                                                                'true') {
+                                                              if (scoreService[
+                                                              index] ==
+                                                                  2) {
+                                                                jumlahCriticalPoint =
+                                                                    jumlahCriticalPoint +
+                                                                        0;
+                                                                print(
+                                                                    jumlahCriticalPoint);
+                                                              } else {
+                                                                if (scoreService[index] ==
+                                                                    2) {
+                                                                  jumlahCriticalPoint =
+                                                                      jumlahCriticalPoint + 0;
+                                                                  print(
+                                                                      jumlahCriticalPoint);
+                                                                } else if (scoreService[index] ==
+                                                                    0 ||
+                                                                    scoreService[index] ==
+                                                                        1) {
+                                                                  jumlahCriticalPoint =
+                                                                      jumlahCriticalPoint - 1;
+                                                                  print(
+                                                                      jumlahCriticalPoint);
+                                                                }
+                                                              }
+                                                            }
 
                                                             scoreService
                                                                 .removeAt(
@@ -2637,6 +2965,11 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                       color: AbubaPallate
                                                           .greenabuba),
                                                   onPressed: () {
+                                                    if (noteService[index] == null) {
+                                                      _controllerService.text = '';
+                                                    }else {
+                                                      _controllerService.text = noteService[index];
+                                                    }
                                                     showDialog(
                                                       context: context,
                                                       builder: (context) {
@@ -2646,7 +2979,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                             width: 300.0,
                                                             child: TextField(
                                                               controller:
-                                                              _controllerNote,
+                                                              _controllerService,
                                                               decoration:
                                                               InputDecoration(
                                                                 border:
@@ -2676,6 +3009,14 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                                         .green),
                                                               ),
                                                               onPressed: () {
+                                                                noteService
+                                                                    .removeAt(
+                                                                    index);
+                                                                noteService
+                                                                    .insert(
+                                                                    index,
+                                                                    _controllerService.text);
+                                                                print(noteService);
                                                                 Navigator.of(
                                                                     context)
                                                                     .pop();
@@ -2806,22 +3147,23 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                 for (int i = 0;
                                                 i < scoreService.length;
                                                 i++) {
-                                                  hasilService += double.tryParse(bobotPertanyaanService
-                                                  [i]
-                                                      .toString()) *
+                                                  hasilService += double.tryParse(
+                                                      bobotPertanyaanService[
+                                                      i]
+                                                          .toString()) *
                                                       double.tryParse(
                                                           scoreService[i]
                                                               .toString());
                                                 }
-                                                hasilService =
-                                                    hasilService / 2;
+                                                hasilService = hasilService / 2;
                                                 if (hasilService > 1.0) {
                                                   hasilService = 1.0;
                                                 } else {
                                                   hasilService = hasilService;
                                                 }
                                                 finalService = (hasilService *
-                                                    parameterService) / 100;
+                                                    parameterService) /
+                                                    100;
 
                                                 print(bobotPertanyaanService);
                                                 print(scoreService);
@@ -2829,7 +3171,8 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                 print(finalService);
                                                 _cardController.animateTo(
                                                     _cardController.index + 1);
-                                              };
+                                              }
+                                              ;
                                             },
                                             tooltip: 'Next',
                                           ),
@@ -2887,7 +3230,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                               ),
                             ),
                           ),
-                          SizedBox(
+                          /*SizedBox(
                             width: MediaQuery.of(context).size.width,
                             height: 55.0,
                             child: Container(
@@ -2927,7 +3270,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                 const Radius.circular(5.0)),
                                           ),
                                           child: new Text(
-                                            'CRITICAL : 20',
+                                            'CRITICAL : ${jumlahCriticalPoint.toString()}',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.w700,
@@ -2949,7 +3292,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                             child: Divider(
                               height: 1.0,
                             ),
-                          )
+                          )*/
                         ],
                       ),
                     ),
@@ -2962,12 +3305,12 @@ class _FormLineCheckState extends State<FormLineCheck>
                               child: CircularProgressIndicator(),
                             ),
                             alignment: Alignment(0.0, 0.0),
-                            height: MediaQuery.of(context).size.height *
-                                0.648,
+                            /*height: MediaQuery.of(context).size.height * 0.648,*/
+                            height: MediaQuery.of(context).size.height * 0.736,
                           )
                               : Container(
-                            height: MediaQuery.of(context).size.height *
-                                0.648,
+                            /*height: MediaQuery.of(context).size.height * 0.648,*/
+                            height: MediaQuery.of(context).size.height * 0.736,
                             color: Colors.white,
                             child: Scrollbar(
                               child: ListView(
@@ -2984,6 +3327,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                                         for (int a = 0;
                                         a < jumlahCashier;
                                         a++) {
+                                          noteCashier.add(null);
                                           scoreCashier.add(null);
                                           warnaCashier.add('abu');
                                         }
@@ -3176,7 +3520,40 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                             .white,
                                                         onPressed: () {
                                                           setState(() {
-
+                                                            if (criticalCashier[
+                                                            index] ==
+                                                                'false') {
+                                                              print(
+                                                                  'false');
+                                                            } else if (criticalCashier[
+                                                            index] ==
+                                                                'true') {
+                                                              if (scoreCashier[
+                                                              index] ==
+                                                                  null) {
+                                                                jumlahCriticalPoint =
+                                                                    jumlahCriticalPoint +
+                                                                        1;
+                                                                print(
+                                                                    jumlahCriticalPoint);
+                                                              } else {
+                                                                if (scoreCashier[index] ==
+                                                                    2) {
+                                                                  jumlahCriticalPoint =
+                                                                      jumlahCriticalPoint + 1;
+                                                                  print(
+                                                                      jumlahCriticalPoint);
+                                                                } else if (scoreCashier[index] ==
+                                                                    0 ||
+                                                                    scoreCashier[index] ==
+                                                                        1) {
+                                                                  jumlahCriticalPoint =
+                                                                      jumlahCriticalPoint + 0;
+                                                                  print(
+                                                                      jumlahCriticalPoint);
+                                                                }
+                                                              }
+                                                            }
 
                                                             scoreCashier
                                                                 .removeAt(
@@ -3284,7 +3661,40 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                             .white,
                                                         onPressed: () {
                                                           setState(() {
-
+                                                            if (criticalCashier[
+                                                            index] ==
+                                                                'false') {
+                                                              print(
+                                                                  'false');
+                                                            } else if (criticalCashier[
+                                                            index] ==
+                                                                'true') {
+                                                              if (scoreCashier[
+                                                              index] ==
+                                                                  null) {
+                                                                jumlahCriticalPoint =
+                                                                    jumlahCriticalPoint +
+                                                                        1;
+                                                                print(
+                                                                    jumlahCriticalPoint);
+                                                              } else {
+                                                                if (scoreCashier[index] ==
+                                                                    2) {
+                                                                  jumlahCriticalPoint =
+                                                                      jumlahCriticalPoint + 1;
+                                                                  print(
+                                                                      jumlahCriticalPoint);
+                                                                } else if (scoreCashier[index] ==
+                                                                    0 ||
+                                                                    scoreCashier[index] ==
+                                                                        1) {
+                                                                  jumlahCriticalPoint =
+                                                                      jumlahCriticalPoint + 0;
+                                                                  print(
+                                                                      jumlahCriticalPoint);
+                                                                }
+                                                              }
+                                                            }
 
                                                             scoreCashier
                                                                 .removeAt(
@@ -3388,8 +3798,40 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                             .white,
                                                         onPressed: () {
                                                           setState(() {
-
-
+                                                            if (criticalCashier[
+                                                            index] ==
+                                                                'false') {
+                                                              print(
+                                                                  'false');
+                                                            } else if (criticalCashier[
+                                                            index] ==
+                                                                'true') {
+                                                              if (scoreCashier[
+                                                              index] ==
+                                                                  2) {
+                                                                jumlahCriticalPoint =
+                                                                    jumlahCriticalPoint +
+                                                                        0;
+                                                                print(
+                                                                    jumlahCriticalPoint);
+                                                              } else {
+                                                                if (scoreCashier[index] ==
+                                                                    2) {
+                                                                  jumlahCriticalPoint =
+                                                                      jumlahCriticalPoint + 0;
+                                                                  print(
+                                                                      jumlahCriticalPoint);
+                                                                } else if (scoreCashier[index] ==
+                                                                    0 ||
+                                                                    scoreCashier[index] ==
+                                                                        1) {
+                                                                  jumlahCriticalPoint =
+                                                                      jumlahCriticalPoint - 1;
+                                                                  print(
+                                                                      jumlahCriticalPoint);
+                                                                }
+                                                              }
+                                                            }
                                                             scoreCashier
                                                                 .removeAt(
                                                                 index);
@@ -3443,6 +3885,11 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                       color: AbubaPallate
                                                           .greenabuba),
                                                   onPressed: () {
+                                                    if (noteCashier[index] == null) {
+                                                      _controllerCashier.text = '';
+                                                    }else {
+                                                      _controllerCashier.text = noteCashier[index];
+                                                    }
                                                     showDialog(
                                                       context: context,
                                                       builder: (context) {
@@ -3452,7 +3899,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                             width: 300.0,
                                                             child: TextField(
                                                               controller:
-                                                              _controllerNote,
+                                                              _controllerCashier,
                                                               decoration:
                                                               InputDecoration(
                                                                 border:
@@ -3482,6 +3929,9 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                                         .green),
                                                               ),
                                                               onPressed: () {
+                                                                noteCashier.removeAt(index);
+                                                                noteCashier.insert(index, _controllerCashier.text);
+                                                                print(noteCashier);
                                                                 Navigator.of(
                                                                     context)
                                                                     .pop();
@@ -3612,22 +4062,23 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                 for (int i = 0;
                                                 i < scoreCashier.length;
                                                 i++) {
-                                                  hasilCashier += double.tryParse(bobotPertanyaanCashier
-                                                  [i]
-                                                      .toString()) *
+                                                  hasilCashier += double.tryParse(
+                                                      bobotPertanyaanCashier[
+                                                      i]
+                                                          .toString()) *
                                                       double.tryParse(
                                                           scoreCashier[i]
                                                               .toString());
                                                 }
-                                                hasilCashier =
-                                                    hasilCashier / 2;
+                                                hasilCashier = hasilCashier / 2;
                                                 if (hasilCashier > 1.0) {
                                                   hasilCashier = 1.0;
                                                 } else {
                                                   hasilCashier = hasilCashier;
                                                 }
                                                 finalCashier = (hasilCashier *
-                                                    parameterCashier) / 100;
+                                                    parameterCashier) /
+                                                    100;
 
                                                 print(bobotPertanyaanCashier);
                                                 print(scoreCashier);
@@ -3635,7 +4086,8 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                 print(finalCashier);
                                                 _cardController.animateTo(
                                                     _cardController.index + 1);
-                                              };
+                                              }
+                                              ;
                                             },
                                             tooltip: 'Next',
                                           ),
@@ -3693,7 +4145,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                               ),
                             ),
                           ),
-                          SizedBox(
+                          /*SizedBox(
                             width: MediaQuery.of(context).size.width,
                             height: 55.0,
                             child: Container(
@@ -3733,7 +4185,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                 const Radius.circular(5.0)),
                                           ),
                                           child: new Text(
-                                            'CRITICAL : 20',
+                                            'CRITICAL : ${jumlahCriticalPoint.toString()}',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.w700,
@@ -3755,7 +4207,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                             child: Divider(
                               height: 1.0,
                             ),
-                          )
+                          )*/
                         ],
                       ),
                     ),
@@ -3768,12 +4220,12 @@ class _FormLineCheckState extends State<FormLineCheck>
                               child: CircularProgressIndicator(),
                             ),
                             alignment: Alignment(0.0, 0.0),
-                            height: MediaQuery.of(context).size.height *
-                                0.648,
+                            /*height: MediaQuery.of(context).size.height * 0.648,*/
+                            height: MediaQuery.of(context).size.height * 0.736,
                           )
                               : Container(
-                            height: MediaQuery.of(context).size.height *
-                                0.648,
+                            /*height: MediaQuery.of(context).size.height * 0.648,*/
+                            height: MediaQuery.of(context).size.height * 0.736,
                             color: Colors.white,
                             child: Scrollbar(
                               child: ListView(
@@ -3791,6 +4243,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                                     for (int a = 0;
                                     a < jumlahCashierAccuracy;
                                     a++) {
+                                      noteCashierAccuracy.add(null);
                                       scoreCashierAccuracy.add(null);
                                       warnaCashierAccuracy.add('abu');
                                     }
@@ -3985,8 +4438,40 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                         .white,
                                                     onPressed: () {
                                                       setState(() {
-
-
+                                                        if (criticalCashierAccuracy[
+                                                        index] ==
+                                                            'false') {
+                                                          print(
+                                                              'false');
+                                                        } else if (criticalCashierAccuracy[
+                                                        index] ==
+                                                            'true') {
+                                                          if (scoreCashierAccuracy[
+                                                          index] ==
+                                                              null) {
+                                                            jumlahCriticalPoint =
+                                                                jumlahCriticalPoint +
+                                                                    1;
+                                                            print(
+                                                                jumlahCriticalPoint);
+                                                          } else {
+                                                            if (scoreCashierAccuracy[index] ==
+                                                                2) {
+                                                              jumlahCriticalPoint =
+                                                                  jumlahCriticalPoint + 1;
+                                                              print(
+                                                                  jumlahCriticalPoint);
+                                                            } else if (scoreCashierAccuracy[index] ==
+                                                                0 ||
+                                                                scoreCashierAccuracy[index] ==
+                                                                    1) {
+                                                              jumlahCriticalPoint =
+                                                                  jumlahCriticalPoint + 0;
+                                                              print(
+                                                                  jumlahCriticalPoint);
+                                                            }
+                                                          }
+                                                        }
                                                         scoreCashierAccuracy
                                                             .removeAt(
                                                             index);
@@ -4094,7 +4579,40 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                         .white,
                                                     onPressed: () {
                                                       setState(() {
-
+                                                        if (criticalCashierAccuracy[
+                                                        index] ==
+                                                            'false') {
+                                                          print(
+                                                              'false');
+                                                        } else if (criticalCashierAccuracy[
+                                                        index] ==
+                                                            'true') {
+                                                          if (scoreCashierAccuracy[
+                                                          index] ==
+                                                              null) {
+                                                            jumlahCriticalPoint =
+                                                                jumlahCriticalPoint +
+                                                                    1;
+                                                            print(
+                                                                jumlahCriticalPoint);
+                                                          } else {
+                                                            if (scoreCashierAccuracy[index] ==
+                                                                2) {
+                                                              jumlahCriticalPoint =
+                                                                  jumlahCriticalPoint + 1;
+                                                              print(
+                                                                  jumlahCriticalPoint);
+                                                            } else if (scoreCashierAccuracy[index] ==
+                                                                0 ||
+                                                                scoreCashierAccuracy[index] ==
+                                                                    1) {
+                                                              jumlahCriticalPoint =
+                                                                  jumlahCriticalPoint + 0;
+                                                              print(
+                                                                  jumlahCriticalPoint);
+                                                            }
+                                                          }
+                                                        }
 
                                                         scoreCashierAccuracy
                                                             .removeAt(
@@ -4199,7 +4717,40 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                         .white,
                                                     onPressed: () {
                                                       setState(() {
-
+                                                        if (criticalCashierAccuracy[
+                                                        index] ==
+                                                            'false') {
+                                                          print(
+                                                              'false');
+                                                        } else if (criticalCashierAccuracy[
+                                                        index] ==
+                                                            'true') {
+                                                          if (scoreCashierAccuracy[
+                                                          index] ==
+                                                              2) {
+                                                            jumlahCriticalPoint =
+                                                                jumlahCriticalPoint +
+                                                                    0;
+                                                            print(
+                                                                jumlahCriticalPoint);
+                                                          } else {
+                                                            if (scoreCashierAccuracy[index] ==
+                                                                2) {
+                                                              jumlahCriticalPoint =
+                                                                  jumlahCriticalPoint + 0;
+                                                              print(
+                                                                  jumlahCriticalPoint);
+                                                            } else if (scoreCashierAccuracy[index] ==
+                                                                0 ||
+                                                                scoreCashierAccuracy[index] ==
+                                                                    1) {
+                                                              jumlahCriticalPoint =
+                                                                  jumlahCriticalPoint - 1;
+                                                              print(
+                                                                  jumlahCriticalPoint);
+                                                            }
+                                                          }
+                                                        }
 
                                                         scoreCashierAccuracy
                                                             .removeAt(
@@ -4254,6 +4805,11 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                   color: AbubaPallate
                                                       .greenabuba),
                                               onPressed: () {
+                                                if (noteCashierAccuracy[index] == null) {
+                                                  _controllerCashierAccuracy.text = '';
+                                                }else {
+                                                  _controllerCashierAccuracy.text = noteCashierAccuracy[index];
+                                                }
                                                 showDialog(
                                                   context: context,
                                                   builder: (context) {
@@ -4263,7 +4819,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                         width: 300.0,
                                                         child: TextField(
                                                           controller:
-                                                          _controllerNote,
+                                                          _controllerCashierAccuracy,
                                                           decoration:
                                                           InputDecoration(
                                                             border:
@@ -4293,6 +4849,14 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                                     .green),
                                                           ),
                                                           onPressed: () {
+                                                            noteCashierAccuracy
+                                                                .removeAt(
+                                                                index);
+                                                            noteCashierAccuracy
+                                                                .insert(
+                                                                index,
+                                                                _controllerCashierAccuracy.text);
+                                                            print(noteCashierAccuracy);
                                                             Navigator.of(
                                                                 context)
                                                                 .pop();
@@ -4422,32 +4986,43 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                 );
                                               } else {
                                                 for (int i = 0;
-                                                i < scoreCashierAccuracy.length;
+                                                i <
+                                                    scoreCashierAccuracy
+                                                        .length;
                                                 i++) {
-                                                  hasilCashierAccuracy += double.tryParse(bobotPertanyaanCashierAccuracy
-                                                  [i]
-                                                      .toString()) *
+                                                  hasilCashierAccuracy += double
+                                                      .tryParse(
+                                                      bobotPertanyaanCashierAccuracy[
+                                                      i]
+                                                          .toString()) *
                                                       double.tryParse(
-                                                          scoreCashierAccuracy[i]
+                                                          scoreCashierAccuracy[
+                                                          i]
                                                               .toString());
                                                 }
                                                 hasilCashierAccuracy =
                                                     hasilCashierAccuracy / 2;
-                                                if (hasilCashierAccuracy > 1.0) {
+                                                if (hasilCashierAccuracy >
+                                                    1.0) {
                                                   hasilCashierAccuracy = 1.0;
                                                 } else {
-                                                  hasilCashierAccuracy = hasilCashierAccuracy;
+                                                  hasilCashierAccuracy =
+                                                      hasilCashierAccuracy;
                                                 }
-                                                finalCashierAccuracy = (hasilCashierAccuracy *
-                                                    parameterCashierAccuracy) / 100;
+                                                finalCashierAccuracy =
+                                                    (hasilCashierAccuracy *
+                                                        parameterCashierAccuracy) /
+                                                        100;
 
-                                                print(bobotPertanyaanCashierAccuracy);
+                                                print(
+                                                    bobotPertanyaanCashierAccuracy);
                                                 print(scoreCashierAccuracy);
                                                 print(hasilCashierAccuracy);
                                                 print(finalCashierAccuracy);
                                                 _cardController.animateTo(
                                                     _cardController.index + 1);
-                                              };
+                                              }
+                                              ;
                                             },
                                             tooltip: 'Next',
                                           ),
@@ -4505,7 +5080,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                               ),
                             ),
                           ),
-                          SizedBox(
+                          /*SizedBox(
                             width: MediaQuery.of(context).size.width,
                             height: 55.0,
                             child: Container(
@@ -4545,7 +5120,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                 const Radius.circular(5.0)),
                                           ),
                                           child: new Text(
-                                            'CRITICAL : 20',
+                                            'CRITICAL : ${jumlahCriticalPoint.toString()}',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.w700,
@@ -4567,7 +5142,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                             child: Divider(
                               height: 1.0,
                             ),
-                          )
+                          )*/
                         ],
                       ),
                     ),
@@ -4580,12 +5155,12 @@ class _FormLineCheckState extends State<FormLineCheck>
                               child: CircularProgressIndicator(),
                             ),
                             alignment: Alignment(0.0, 0.0),
-                            height: MediaQuery.of(context).size.height *
-                                0.648,
+                            /*height: MediaQuery.of(context).size.height * 0.648,*/
+                            height: MediaQuery.of(context).size.height * 0.736,
                           )
                               : Container(
-                            height: MediaQuery.of(context).size.height *
-                                0.648,
+                            /*height: MediaQuery.of(context).size.height * 0.648,*/
+                            height: MediaQuery.of(context).size.height * 0.736,
                             color: Colors.white,
                             child: Scrollbar(
                               child: ListView(
@@ -4599,6 +5174,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                                           .split(r"!@#$");
                                   if (scoreBoh.length < jumlahBoh) {
                                     for (int a = 0; a < jumlahBoh; a++) {
+                                      noteBoh.add(null);
                                       scoreBoh.add(null);
                                       warnaBoh.add('abu');
                                     }
@@ -4788,7 +5364,22 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                         .white,
                                                     onPressed: () {
                                                       setState(() {
-
+                                                        if (criticalBoh[index] == 'false') {
+                                                          print('false');
+                                                        }else if (criticalBoh[index] == 'true'){
+                                                          if (scoreBoh[index] == null) {
+                                                            jumlahCriticalPoint = jumlahCriticalPoint + 1;
+                                                            print(jumlahCriticalPoint);
+                                                          }else{
+                                                            if (scoreBoh[index] == 2) {
+                                                              jumlahCriticalPoint = jumlahCriticalPoint + 1;
+                                                              print(jumlahCriticalPoint);
+                                                            }else if (scoreBoh[index] == 0 || scoreBoh[index] == 1) {
+                                                              jumlahCriticalPoint = jumlahCriticalPoint + 0;
+                                                              print(jumlahCriticalPoint);
+                                                            }
+                                                          }
+                                                        }
 
                                                         scoreBoh
                                                             .removeAt(
@@ -4894,7 +5485,22 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                         .white,
                                                     onPressed: () {
                                                       setState(() {
-
+                                                        if (criticalBoh[index] == 'false') {
+                                                          print('false');
+                                                        }else if (criticalBoh[index] == 'true'){
+                                                          if (scoreBoh[index] == null) {
+                                                            jumlahCriticalPoint = jumlahCriticalPoint + 1;
+                                                            print(jumlahCriticalPoint);
+                                                          }else{
+                                                            if (scoreBoh[index] == 2) {
+                                                              jumlahCriticalPoint = jumlahCriticalPoint + 1;
+                                                              print(jumlahCriticalPoint);
+                                                            }else if (scoreBoh[index] == 0 || scoreBoh[index] == 1) {
+                                                              jumlahCriticalPoint = jumlahCriticalPoint + 0;
+                                                              print(jumlahCriticalPoint);
+                                                            }
+                                                          }
+                                                        }
 
                                                         scoreBoh
                                                             .removeAt(
@@ -4996,8 +5602,22 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                         .white,
                                                     onPressed: () {
                                                       setState(() {
-
-
+                                                        if (criticalBoh[index] == 'false') {
+                                                          print('false');
+                                                        }else if (criticalBoh[index] == 'true'){
+                                                          if (scoreBoh[index] == 2) {
+                                                            jumlahCriticalPoint = jumlahCriticalPoint + 0 ;
+                                                            print(jumlahCriticalPoint);
+                                                          }else{
+                                                            if (scoreBoh[index] == 2) {
+                                                              jumlahCriticalPoint = jumlahCriticalPoint + 0;
+                                                              print(jumlahCriticalPoint);
+                                                            }else if (scoreBoh[index] == 0 || scoreBoh[index] == 1) {
+                                                              jumlahCriticalPoint = jumlahCriticalPoint - 1;
+                                                              print(jumlahCriticalPoint);
+                                                            }
+                                                          }
+                                                        }
                                                         scoreBoh
                                                             .removeAt(
                                                             index);
@@ -5050,6 +5670,11 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                   color: AbubaPallate
                                                       .greenabuba),
                                               onPressed: () {
+                                                if (noteBoh[index] == null) {
+                                                  _controllerBoh.text = '';
+                                                }else {
+                                                  _controllerBoh.text = noteBoh[index];
+                                                }
                                                 showDialog(
                                                   context: context,
                                                   builder: (context) {
@@ -5059,7 +5684,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                         width: 300.0,
                                                         child: TextField(
                                                           controller:
-                                                          _controllerNote,
+                                                          _controllerBoh,
                                                           decoration:
                                                           InputDecoration(
                                                             border:
@@ -5089,6 +5714,14 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                                     .green),
                                                           ),
                                                           onPressed: () {
+                                                            noteBoh
+                                                                .removeAt(
+                                                                index);
+                                                            noteBoh
+                                                                .insert(
+                                                                index,
+                                                                _controllerBoh.text);
+                                                            print(noteBoh);
                                                             Navigator.of(
                                                                 context)
                                                                 .pop();
@@ -5218,22 +5851,22 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                 for (int i = 0;
                                                 i < scoreBoh.length;
                                                 i++) {
-                                                  hasilBoh += double.tryParse(bobotPertanyaanBoh
-                                                  [i]
-                                                      .toString()) *
+                                                  hasilBoh += double.tryParse(
+                                                      bobotPertanyaanBoh[i]
+                                                          .toString()) *
                                                       double.tryParse(
                                                           scoreBoh[i]
                                                               .toString());
                                                 }
-                                                hasilBoh =
-                                                    hasilBoh / 2;
+                                                hasilBoh = hasilBoh / 2;
                                                 if (hasilBoh > 1.0) {
                                                   hasilBoh = 1.0;
                                                 } else {
                                                   hasilBoh = hasilBoh;
                                                 }
-                                                finalBoh = (hasilBoh *
-                                                    parameterBoh) / 100;
+                                                finalBoh =
+                                                    (hasilBoh * parameterBoh) /
+                                                        100;
 
                                                 print(bobotPertanyaanBoh);
                                                 print(scoreBoh);
@@ -5241,7 +5874,8 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                 print(finalBoh);
                                                 _cardController.animateTo(
                                                     _cardController.index + 1);
-                                              };
+                                              }
+                                              ;
                                             },
                                             tooltip: 'Next',
                                           ),
@@ -5299,7 +5933,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                               ),
                             ),
                           ),
-                          SizedBox(
+                          /*SizedBox(
                             width: MediaQuery.of(context).size.width,
                             height: 55.0,
                             child: Container(
@@ -5339,7 +5973,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                 const Radius.circular(5.0)),
                                           ),
                                           child: new Text(
-                                            'CRITICAL : 20',
+                                            'CRITICAL : ${jumlahCriticalPoint.toString()}',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.w700,
@@ -5361,7 +5995,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                             child: Divider(
                               height: 1.0,
                             ),
-                          )
+                          )*/
                         ],
                       ),
                     ),
@@ -5374,12 +6008,12 @@ class _FormLineCheckState extends State<FormLineCheck>
                               child: CircularProgressIndicator(),
                             ),
                             alignment: Alignment(0.0, 0.0),
-                            height: MediaQuery.of(context).size.height *
-                                0.648,
+                            /*height: MediaQuery.of(context).size.height * 0.648,*/
+                            height: MediaQuery.of(context).size.height * 0.736,
                           )
                               : Container(
-                            height: MediaQuery.of(context).size.height *
-                                0.648,
+                            /*height: MediaQuery.of(context).size.height * 0.648,*/
+                            height: MediaQuery.of(context).size.height * 0.736,
                             color: Colors.white,
                             child: Scrollbar(
                               child: ListView(
@@ -5396,6 +6030,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                                     for (int a = 0;
                                     a < jumlahWarehouse;
                                     a++) {
+                                      noteWarehouse.add(null);
                                       scoreWarehouse.add(null);
                                       warnaWarehouse.add('abu');
                                     }
@@ -5588,8 +6223,22 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                         .white,
                                                     onPressed: () {
                                                       setState(() {
-
-
+                                                        if (criticalWarehouse[index] == 'false') {
+                                                          print('false');
+                                                        }else if (criticalWarehouse[index] == 'true'){
+                                                          if (scoreWarehouse[index] == null) {
+                                                            jumlahCriticalPoint = jumlahCriticalPoint + 1;
+                                                            print(jumlahCriticalPoint);
+                                                          }else{
+                                                            if (scoreWarehouse[index] == 2) {
+                                                              jumlahCriticalPoint = jumlahCriticalPoint + 1;
+                                                              print(jumlahCriticalPoint);
+                                                            }else if (scoreWarehouse[index] == 0 || scoreWarehouse[index] == 1) {
+                                                              jumlahCriticalPoint = jumlahCriticalPoint + 0;
+                                                              print(jumlahCriticalPoint);
+                                                            }
+                                                          }
+                                                        }
                                                         scoreWarehouse
                                                             .removeAt(
                                                             index);
@@ -5696,7 +6345,22 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                         .white,
                                                     onPressed: () {
                                                       setState(() {
-
+                                                        if (criticalWarehouse[index] == 'false') {
+                                                          print('false');
+                                                        }else if (criticalWarehouse[index] == 'true'){
+                                                          if (scoreWarehouse[index] == null) {
+                                                            jumlahCriticalPoint = jumlahCriticalPoint + 1;
+                                                            print(jumlahCriticalPoint);
+                                                          }else{
+                                                            if (scoreWarehouse[index] == 2) {
+                                                              jumlahCriticalPoint = jumlahCriticalPoint + 1;
+                                                              print(jumlahCriticalPoint);
+                                                            }else if (scoreWarehouse[index] == 0 || scoreWarehouse[index] == 1) {
+                                                              jumlahCriticalPoint = jumlahCriticalPoint + 0;
+                                                              print(jumlahCriticalPoint);
+                                                            }
+                                                          }
+                                                        }
 
                                                         scoreWarehouse
                                                             .removeAt(
@@ -5800,8 +6464,22 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                         .white,
                                                     onPressed: () {
                                                       setState(() {
-
-
+                                                        if (criticalWarehouse[index] == 'false') {
+                                                          print('false');
+                                                        }else if (criticalWarehouse[index] == 'true'){
+                                                          if (scoreWarehouse[index] == 2) {
+                                                            jumlahCriticalPoint = jumlahCriticalPoint + 0 ;
+                                                            print(jumlahCriticalPoint);
+                                                          }else{
+                                                            if (scoreWarehouse[index] == 2) {
+                                                              jumlahCriticalPoint = jumlahCriticalPoint + 0;
+                                                              print(jumlahCriticalPoint);
+                                                            }else if (scoreWarehouse[index] == 0 || scoreWarehouse[index] == 1) {
+                                                              jumlahCriticalPoint = jumlahCriticalPoint - 1;
+                                                              print(jumlahCriticalPoint);
+                                                            }
+                                                          }
+                                                        }
                                                         scoreWarehouse
                                                             .removeAt(
                                                             index);
@@ -5855,6 +6533,11 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                   color: AbubaPallate
                                                       .greenabuba),
                                               onPressed: () {
+                                                if (noteWarehouse[index] == null) {
+                                                  _controllerWarehouse.text = '';
+                                                }else {
+                                                  _controllerWarehouse.text = noteWarehouse[index];
+                                                }
                                                 showDialog(
                                                   context: context,
                                                   builder: (context) {
@@ -5864,7 +6547,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                         width: 300.0,
                                                         child: TextField(
                                                           controller:
-                                                          _controllerNote,
+                                                          _controllerWarehouse,
                                                           decoration:
                                                           InputDecoration(
                                                             border:
@@ -5894,6 +6577,14 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                                     .green),
                                                           ),
                                                           onPressed: () {
+                                                            noteWarehouse
+                                                                .removeAt(
+                                                                index);
+                                                            noteWarehouse
+                                                                .insert(
+                                                                index,
+                                                                _controllerWarehouse.text);
+                                                            print(noteWarehouse);
                                                             Navigator.of(
                                                                 context)
                                                                 .pop();
@@ -6025,9 +6716,10 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                 for (int i = 0;
                                                 i < scoreWarehouse.length;
                                                 i++) {
-                                                  hasilWarehouse += double.tryParse(bobotPertanyaanWarehouse
-                                                  [i]
-                                                      .toString()) *
+                                                  hasilWarehouse += double.tryParse(
+                                                      bobotPertanyaanWarehouse[
+                                                      i]
+                                                          .toString()) *
                                                       double.tryParse(
                                                           scoreWarehouse[i]
                                                               .toString());
@@ -6037,10 +6729,13 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                 if (hasilWarehouse > 1.0) {
                                                   hasilWarehouse = 1.0;
                                                 } else {
-                                                  hasilWarehouse = hasilWarehouse;
+                                                  hasilWarehouse =
+                                                      hasilWarehouse;
                                                 }
-                                                finalWarehouse = (hasilWarehouse *
-                                                    parameterWarehouse) / 100;
+                                                finalWarehouse =
+                                                    (hasilWarehouse *
+                                                        parameterWarehouse) /
+                                                        100;
 
                                                 print(bobotPertanyaanWarehouse);
                                                 print(scoreWarehouse);
@@ -6048,7 +6743,8 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                 print(finalWarehouse);
                                                 _cardController.animateTo(
                                                     _cardController.index + 1);
-                                              };
+                                              }
+                                              ;
                                             },
                                             tooltip: 'Next',
                                           ),
@@ -6106,7 +6802,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                               ),
                             ),
                           ),
-                          SizedBox(
+                          /*SizedBox(
                             width: MediaQuery.of(context).size.width,
                             height: 55.0,
                             child: Container(
@@ -6146,7 +6842,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                 const Radius.circular(5.0)),
                                           ),
                                           child: new Text(
-                                            'CRITICAL : 20',
+                                            'CRITICAL : ${jumlahCriticalPoint.toString()}',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.w700,
@@ -6168,7 +6864,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                             child: Divider(
                               height: 1.0,
                             ),
-                          )
+                          )*/
                         ],
                       ),
                     ),
@@ -6180,13 +6876,13 @@ class _FormLineCheckState extends State<FormLineCheck>
                           child: Container(
                             child: CircularProgressIndicator(),
                             alignment: Alignment(0.0, 0.0),
-                            height: MediaQuery.of(context).size.height *
-                                0.648,
+                            /*height: MediaQuery.of(context).size.height * 0.648,*/
+                            height: MediaQuery.of(context).size.height * 0.736,
                           ),
                         )
                             : Container(
-                          height:
-                          MediaQuery.of(context).size.height * 0.648,
+                          /*height: MediaQuery.of(context).size.height * 0.648,*/
+                          height: MediaQuery.of(context).size.height * 0.736,
                           color: Colors.white,
                           child: Scrollbar(
                             child: ListView(
@@ -6204,6 +6900,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                                     for (int a = 0;
                                     a < jumlahSocialBlock;
                                     a++) {
+                                      noteSocialBlock.add(null);
                                       scoreSocialBlock.add(null);
                                       warnaSocialBlock.add('abu');
                                     }
@@ -6397,8 +7094,22 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                         .white,
                                                     onPressed: () {
                                                       setState(() {
-
-
+                                                        if (criticalSocialBlock[index] == 'false') {
+                                                          print('false');
+                                                        }else if (criticalSocialBlock[index] == 'true'){
+                                                          if (scoreSocialBlock[index] == null) {
+                                                            jumlahCriticalPoint = jumlahCriticalPoint + 1;
+                                                            print(jumlahCriticalPoint);
+                                                          }else{
+                                                            if (scoreSocialBlock[index] == 2) {
+                                                              jumlahCriticalPoint = jumlahCriticalPoint + 1;
+                                                              print(jumlahCriticalPoint);
+                                                            }else if (scoreSocialBlock[index] == 0 || scoreSocialBlock[index] == 1) {
+                                                              jumlahCriticalPoint = jumlahCriticalPoint + 0;
+                                                              print(jumlahCriticalPoint);
+                                                            }
+                                                          }
+                                                        }
                                                         scoreSocialBlock
                                                             .removeAt(
                                                             index);
@@ -6505,8 +7216,22 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                         .white,
                                                     onPressed: () {
                                                       setState(() {
-
-
+                                                        if (criticalSocialBlock[index] == 'false') {
+                                                          print('false');
+                                                        }else if (criticalSocialBlock[index] == 'true'){
+                                                          if (scoreSocialBlock[index] == null) {
+                                                            jumlahCriticalPoint = jumlahCriticalPoint + 1;
+                                                            print(jumlahCriticalPoint);
+                                                          }else{
+                                                            if (scoreSocialBlock[index] == 2) {
+                                                              jumlahCriticalPoint = jumlahCriticalPoint + 1;
+                                                              print(jumlahCriticalPoint);
+                                                            }else if (scoreSocialBlock[index] == 0 || scoreSocialBlock[index] == 1) {
+                                                              jumlahCriticalPoint = jumlahCriticalPoint + 0;
+                                                              print(jumlahCriticalPoint);
+                                                            }
+                                                          }
+                                                        }
                                                         scoreSocialBlock
                                                             .removeAt(
                                                             index);
@@ -6609,8 +7334,22 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                         .white,
                                                     onPressed: () {
                                                       setState(() {
-
-
+                                                        if (criticalSocialBlock[index] == 'false') {
+                                                          print('false');
+                                                        }else if (criticalSocialBlock[index] == 'true'){
+                                                          if (scoreSocialBlock[index] == 2) {
+                                                            jumlahCriticalPoint = jumlahCriticalPoint + 0 ;
+                                                            print(jumlahCriticalPoint);
+                                                          }else{
+                                                            if (scoreSocialBlock[index] == 2) {
+                                                              jumlahCriticalPoint = jumlahCriticalPoint + 0;
+                                                              print(jumlahCriticalPoint);
+                                                            }else if (scoreSocialBlock[index] == 0 || scoreSocialBlock[index] == 1) {
+                                                              jumlahCriticalPoint = jumlahCriticalPoint - 1;
+                                                              print(jumlahCriticalPoint);
+                                                            }
+                                                          }
+                                                        }
                                                         scoreSocialBlock
                                                             .removeAt(
                                                             index);
@@ -6664,6 +7403,11 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                   color: AbubaPallate
                                                       .greenabuba),
                                               onPressed: () {
+                                                if (noteSocialBlock[index] == null) {
+                                                  _controllerSocialBlock.text = '';
+                                                }else {
+                                                  _controllerSocialBlock.text = noteSocialBlock[index];
+                                                }
                                                 showDialog(
                                                   context: context,
                                                   builder: (context) {
@@ -6673,7 +7417,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                         width: 300.0,
                                                         child: TextField(
                                                           controller:
-                                                          _controllerNote,
+                                                          _controllerSocialBlock,
                                                           decoration:
                                                           InputDecoration(
                                                             border:
@@ -6703,6 +7447,14 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                                     .green),
                                                           ),
                                                           onPressed: () {
+                                                            noteSocialBlock
+                                                                .removeAt(
+                                                                index);
+                                                            noteSocialBlock
+                                                                .insert(
+                                                                index,
+                                                                _controllerSocialBlock.text);
+                                                            print(noteSocialBlock);
                                                             Navigator.of(
                                                                 context)
                                                                 .pop();
@@ -6751,9 +7503,11 @@ class _FormLineCheckState extends State<FormLineCheck>
                                         MainAxisAlignment.center,
                                         children: <Widget>[
                                           IconButton(
-                                            icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+                                            icon: Icon(Icons.arrow_back_ios,
+                                                color: Colors.white),
                                             onPressed: () {
-                                              _cardController.animateTo(_cardController.index - 1);
+                                              _cardController.animateTo(
+                                                  _cardController.index - 1);
                                             },
                                             tooltip: 'Previous',
                                           ),
@@ -6834,9 +7588,11 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                 for (int i = 0;
                                                 i < scoreSocialBlock.length;
                                                 i++) {
-                                                  hasilSocialBlock += double.tryParse(bobotPertanyaanSocialBlock
-                                                  [i]
-                                                      .toString()) *
+                                                  hasilSocialBlock += double
+                                                      .tryParse(
+                                                      bobotPertanyaanSocialBlock[
+                                                      i]
+                                                          .toString()) *
                                                       double.tryParse(
                                                           scoreSocialBlock[i]
                                                               .toString());
@@ -6846,18 +7602,23 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                 if (hasilSocialBlock > 1.0) {
                                                   hasilSocialBlock = 1.0;
                                                 } else {
-                                                  hasilSocialBlock = hasilSocialBlock;
+                                                  hasilSocialBlock =
+                                                      hasilSocialBlock;
                                                 }
-                                                finalSocialBlock = (hasilSocialBlock *
-                                                    parameterSocialBlock) / 100;
+                                                finalSocialBlock =
+                                                    (hasilSocialBlock *
+                                                        parameterSocialBlock) /
+                                                        100;
 
-                                                print(bobotPertanyaanSocialBlock);
+                                                print(
+                                                    bobotPertanyaanSocialBlock);
                                                 print(scoreSocialBlock);
                                                 print(hasilSocialBlock);
                                                 print(finalSocialBlock);
                                                 _cardController.animateTo(
                                                     _cardController.index + 1);
-                                              };
+                                              }
+                                              ;
                                             },
                                             tooltip: 'Next',
                                           ),
@@ -6915,7 +7676,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                               ),
                             ),
                           ),
-                          SizedBox(
+                          /*SizedBox(
                             width: MediaQuery.of(context).size.width,
                             height: 55.0,
                             child: Container(
@@ -6955,7 +7716,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                 const Radius.circular(5.0)),
                                           ),
                                           child: new Text(
-                                            'CRITICAL : 20',
+                                            'CRITICAL : ${jumlahCriticalPoint.toString()}',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.w700,
@@ -6977,7 +7738,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                             child: Divider(
                               height: 1.0,
                             ),
-                          )
+                          )*/
                         ],
                       ),
                     ),
@@ -6989,13 +7750,13 @@ class _FormLineCheckState extends State<FormLineCheck>
                           child: Container(
                             child: CircularProgressIndicator(),
                             alignment: Alignment(0.0, 0.0),
-                            height: MediaQuery.of(context).size.height *
-                                0.648,
+                            /*height: MediaQuery.of(context).size.height * 0.648,*/
+                            height: MediaQuery.of(context).size.height * 0.736,
                           ),
                         )
                             : Container(
-                          height:
-                          MediaQuery.of(context).size.height * 0.648,
+                          /*height: MediaQuery.of(context).size.height * 0.648,*/
+                          height: MediaQuery.of(context).size.height * 0.736,
                           color: Colors.white,
                           child: Scrollbar(
                             child: ListView(
@@ -7013,6 +7774,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                                     for (int a = 0;
                                     a < jumlahPersonal;
                                     a++) {
+                                      notePersonal.add(null);
                                       scorePersonal.add(null);
                                       warnaPersonal.add('abu');
                                     }
@@ -7205,8 +7967,22 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                         .white,
                                                     onPressed: () {
                                                       setState(() {
-
-
+                                                        if (criticalPersonal[index] == 'false') {
+                                                          print('false');
+                                                        }else if (criticalPersonal[index] == 'true'){
+                                                          if (scorePersonal[index] == null) {
+                                                            jumlahCriticalPoint = jumlahCriticalPoint + 1;
+                                                            print(jumlahCriticalPoint);
+                                                          }else{
+                                                            if (scorePersonal[index] == 2) {
+                                                              jumlahCriticalPoint = jumlahCriticalPoint + 1;
+                                                              print(jumlahCriticalPoint);
+                                                            }else if (scorePersonal[index] == 0 || scorePersonal[index] == 1) {
+                                                              jumlahCriticalPoint = jumlahCriticalPoint + 0;
+                                                              print(jumlahCriticalPoint);
+                                                            }
+                                                          }
+                                                        }
                                                         scorePersonal
                                                             .removeAt(
                                                             index);
@@ -7313,8 +8089,22 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                         .white,
                                                     onPressed: () {
                                                       setState(() {
-
-
+                                                        if (criticalPersonal[index] == 'false') {
+                                                          print('false');
+                                                        }else if (criticalPersonal[index] == 'true'){
+                                                          if (scorePersonal[index] == null) {
+                                                            jumlahCriticalPoint = jumlahCriticalPoint + 1;
+                                                            print(jumlahCriticalPoint);
+                                                          }else{
+                                                            if (scorePersonal[index] == 2) {
+                                                              jumlahCriticalPoint = jumlahCriticalPoint + 1;
+                                                              print(jumlahCriticalPoint);
+                                                            }else if (scorePersonal[index] == 0 || scorePersonal[index] == 1) {
+                                                              jumlahCriticalPoint = jumlahCriticalPoint + 0;
+                                                              print(jumlahCriticalPoint);
+                                                            }
+                                                          }
+                                                        }
                                                         scorePersonal
                                                             .removeAt(
                                                             index);
@@ -7417,8 +8207,22 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                         .white,
                                                     onPressed: () {
                                                       setState(() {
-
-
+                                                        if (criticalPersonal[index] == 'false') {
+                                                          print('false');
+                                                        }else if (criticalPersonal[index] == 'true'){
+                                                          if (scorePersonal[index] == 2) {
+                                                            jumlahCriticalPoint = jumlahCriticalPoint + 0 ;
+                                                            print(jumlahCriticalPoint);
+                                                          }else{
+                                                            if (scorePersonal[index] == 2) {
+                                                              jumlahCriticalPoint = jumlahCriticalPoint + 0;
+                                                              print(jumlahCriticalPoint);
+                                                            }else if (scorePersonal[index] == 0 || scorePersonal[index] == 1) {
+                                                              jumlahCriticalPoint = jumlahCriticalPoint - 1;
+                                                              print(jumlahCriticalPoint);
+                                                            }
+                                                          }
+                                                        }
                                                         scorePersonal
                                                             .removeAt(
                                                             index);
@@ -7472,6 +8276,11 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                   color: AbubaPallate
                                                       .greenabuba),
                                               onPressed: () {
+                                                if (notePersonal[index] == null) {
+                                                  _controllerPersonal.text = '';
+                                                }else {
+                                                  _controllerPersonal.text = notePersonal[index];
+                                                }
                                                 showDialog(
                                                   context: context,
                                                   builder: (context) {
@@ -7481,7 +8290,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                         width: 300.0,
                                                         child: TextField(
                                                           controller:
-                                                          _controllerNote,
+                                                          _controllerPersonal,
                                                           decoration:
                                                           InputDecoration(
                                                             border:
@@ -7511,6 +8320,14 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                                     .green),
                                                           ),
                                                           onPressed: () {
+                                                            notePersonal
+                                                                .removeAt(
+                                                                index);
+                                                            notePersonal
+                                                                .insert(
+                                                                index,
+                                                                _controllerPersonal.text);
+                                                            print(notePersonal);
                                                             Navigator.of(
                                                                 context)
                                                                 .pop();
@@ -7559,9 +8376,11 @@ class _FormLineCheckState extends State<FormLineCheck>
                                         MainAxisAlignment.center,
                                         children: <Widget>[
                                           IconButton(
-                                            icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+                                            icon: Icon(Icons.arrow_back_ios,
+                                                color: Colors.white),
                                             onPressed: () {
-                                              _cardController.animateTo(_cardController.index - 1);
+                                              _cardController.animateTo(
+                                                  _cardController.index - 1);
                                             },
                                             tooltip: 'Previous',
                                           ),
@@ -7642,9 +8461,10 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                 for (int i = 0;
                                                 i < scorePersonal.length;
                                                 i++) {
-                                                  hasilPersonal += double.tryParse(bobotPertanyaanPersonal
-                                                  [i]
-                                                      .toString()) *
+                                                  hasilPersonal += double.tryParse(
+                                                      bobotPertanyaanPersonal[
+                                                      i]
+                                                          .toString()) *
                                                       double.tryParse(
                                                           scorePersonal[i]
                                                               .toString());
@@ -7657,7 +8477,8 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                   hasilPersonal = hasilPersonal;
                                                 }
                                                 finalPersonal = (hasilPersonal *
-                                                    parameterPersonal) / 100;
+                                                    parameterPersonal) /
+                                                    100;
 
                                                 print(bobotPertanyaanPersonal);
                                                 print(scorePersonal);
@@ -7665,7 +8486,8 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                 print(finalPersonal);
                                                 _cardController.animateTo(
                                                     _cardController.index + 1);
-                                              };
+                                              }
+                                              ;
                                             },
                                             tooltip: 'Next',
                                           ),
@@ -7723,7 +8545,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                               ),
                             ),
                           ),
-                          SizedBox(
+                          /*SizedBox(
                             width: MediaQuery.of(context).size.width,
                             height: 55.0,
                             child: Container(
@@ -7763,7 +8585,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                 const Radius.circular(5.0)),
                                           ),
                                           child: new Text(
-                                            'CRITICAL : 20',
+                                            'CRITICAL : ${jumlahCriticalPoint.toString()}',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.w700,
@@ -7785,7 +8607,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                             child: Divider(
                               height: 1.0,
                             ),
-                          )
+                          )*/
                         ],
                       ),
                     ),
@@ -7797,13 +8619,13 @@ class _FormLineCheckState extends State<FormLineCheck>
                           child: Container(
                             child: CircularProgressIndicator(),
                             alignment: Alignment(0.0, 0.0),
-                            height: MediaQuery.of(context).size.height *
-                                0.648,
+                            /*height: MediaQuery.of(context).size.height * 0.648,*/
+                            height: MediaQuery.of(context).size.height * 0.736,
                           ),
                         )
                             : Container(
-                          height:
-                          MediaQuery.of(context).size.height * 0.648,
+                          /*height: MediaQuery.of(context).size.height * 0.648,*/
+                          height: MediaQuery.of(context).size.height * 0.736,
                           color: Colors.white,
                           child: Scrollbar(
                             child: ListView(
@@ -7821,6 +8643,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                                     for (int a = 0;
                                     a < jumlahFoodCooked;
                                     a++) {
+                                      noteFoodCooked.add(null);
                                       scoreFoodCooked.add(null);
                                       warnaFoodCooked.add('abu');
                                     }
@@ -8013,8 +8836,22 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                         .white,
                                                     onPressed: () {
                                                       setState(() {
-
-
+                                                        if (criticalFoodCooked[index] == 'false') {
+                                                          print('false');
+                                                        }else if (criticalFoodCooked[index] == 'true'){
+                                                          if (scoreFoodCooked[index] == null) {
+                                                            jumlahCriticalPoint = jumlahCriticalPoint + 1;
+                                                            print(jumlahCriticalPoint);
+                                                          }else{
+                                                            if (scoreFoodCooked[index] == 2) {
+                                                              jumlahCriticalPoint = jumlahCriticalPoint + 1;
+                                                              print(jumlahCriticalPoint);
+                                                            }else if (scoreFoodCooked[index] == 0 || scoreFoodCooked[index] == 1) {
+                                                              jumlahCriticalPoint = jumlahCriticalPoint + 0;
+                                                              print(jumlahCriticalPoint);
+                                                            }
+                                                          }
+                                                        }
                                                         scoreFoodCooked
                                                             .removeAt(
                                                             index);
@@ -8121,8 +8958,22 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                         .white,
                                                     onPressed: () {
                                                       setState(() {
-
-
+                                                        if (criticalFoodCooked[index] == 'false') {
+                                                          print('false');
+                                                        }else if (criticalFoodCooked[index] == 'true'){
+                                                          if (scoreFoodCooked[index] == null) {
+                                                            jumlahCriticalPoint = jumlahCriticalPoint + 1;
+                                                            print(jumlahCriticalPoint);
+                                                          }else{
+                                                            if (scoreFoodCooked[index] == 2) {
+                                                              jumlahCriticalPoint = jumlahCriticalPoint + 1;
+                                                              print(jumlahCriticalPoint);
+                                                            }else if (scoreFoodCooked[index] == 0 || scoreFoodCooked[index] == 1) {
+                                                              jumlahCriticalPoint = jumlahCriticalPoint + 0;
+                                                              print(jumlahCriticalPoint);
+                                                            }
+                                                          }
+                                                        }
                                                         scoreFoodCooked
                                                             .removeAt(
                                                             index);
@@ -8225,8 +9076,22 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                         .white,
                                                     onPressed: () {
                                                       setState(() {
-
-
+                                                        if (criticalFoodCooked[index] == 'false') {
+                                                          print('false');
+                                                        }else if (criticalFoodCooked[index] == 'true'){
+                                                          if (scoreFoodCooked[index] == 2) {
+                                                            jumlahCriticalPoint = jumlahCriticalPoint + 0 ;
+                                                            print(jumlahCriticalPoint);
+                                                          }else{
+                                                            if (scoreFoodCooked[index] == 2) {
+                                                              jumlahCriticalPoint = jumlahCriticalPoint + 0;
+                                                              print(jumlahCriticalPoint);
+                                                            }else if (scoreFoodCooked[index] == 0 || scoreFoodCooked[index] == 1) {
+                                                              jumlahCriticalPoint = jumlahCriticalPoint - 1;
+                                                              print(jumlahCriticalPoint);
+                                                            }
+                                                          }
+                                                        }
                                                         scoreFoodCooked
                                                             .removeAt(
                                                             index);
@@ -8280,6 +9145,11 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                   color: AbubaPallate
                                                       .greenabuba),
                                               onPressed: () {
+                                                if (noteFoodCooked[index] == null) {
+                                                  _controllerFoodCooked.text = '';
+                                                }else {
+                                                  _controllerFoodCooked.text = noteFoodCooked[index];
+                                                }
                                                 showDialog(
                                                   context: context,
                                                   builder: (context) {
@@ -8289,7 +9159,7 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                         width: 300.0,
                                                         child: TextField(
                                                           controller:
-                                                          _controllerNote,
+                                                          _controllerFoodCooked,
                                                           decoration:
                                                           InputDecoration(
                                                             border:
@@ -8319,6 +9189,14 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                                     .green),
                                                           ),
                                                           onPressed: () {
+                                                            noteFoodCooked
+                                                                .removeAt(
+                                                                index);
+                                                            noteFoodCooked
+                                                                .insert(
+                                                                index,
+                                                                _controllerFoodCooked.text);
+                                                            print(noteFoodCooked);
                                                             Navigator.of(
                                                                 context)
                                                                 .pop();
@@ -8367,9 +9245,11 @@ class _FormLineCheckState extends State<FormLineCheck>
                                         MainAxisAlignment.center,
                                         children: <Widget>[
                                           IconButton(
-                                            icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+                                            icon: Icon(Icons.arrow_back_ios,
+                                                color: Colors.white),
                                             onPressed: () {
-                                              _cardController.animateTo(_cardController.index - 1);
+                                              _cardController.animateTo(
+                                                  _cardController.index - 1);
                                             },
                                             tooltip: 'Previous',
                                           ),
@@ -8450,35 +9330,63 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                 for (int i = 0;
                                                 i < scoreFoodCooked.length;
                                                 i++) {
-                                                  hasilFoodCooked += double.tryParse(bobotPertanyaanFoodCooked
-                                                  [i]
-                                                      .toString()) *
+                                                  hasilFoodCooked +=
                                                       double.tryParse(
-                                                          scoreFoodCooked[i]
-                                                              .toString());
+                                                          bobotPertanyaanFoodCooked[
+                                                          i]
+                                                              .toString()) *
+                                                          double.tryParse(
+                                                              scoreFoodCooked[i]
+                                                                  .toString());
                                                 }
                                                 hasilFoodCooked =
                                                     hasilFoodCooked / 2;
                                                 if (hasilFoodCooked > 1.0) {
                                                   hasilFoodCooked = 1.0;
                                                 } else {
-                                                  hasilFoodCooked = hasilFoodCooked;
+                                                  hasilFoodCooked =
+                                                      hasilFoodCooked;
                                                 }
-                                                finalFoodCooked = (hasilFoodCooked *
-                                                    parameterFoodCooked) / 100;
+                                                finalFoodCooked =
+                                                    (hasilFoodCooked *
+                                                        parameterFoodCooked) /
+                                                        100;
 
-                                                print(bobotPertanyaanFoodCooked);
+                                                print(
+                                                    bobotPertanyaanFoodCooked);
                                                 print(scoreFoodCooked);
                                                 print(hasilFoodCooked);
                                                 print(finalFoodCooked);
 
-                                                double finalBantu = finalAreaLuar + finalDinningArea + finalService + finalCashier + finalCashierAccuracy + finalBoh + finalWarehouse + finalSocialBlock + finalPersonal + finalFoodCooked;
-                                                //double hasilGrafik = finalBantu - (finalBantu * 2 / 100);
+                                                DateTime done = DateTime.now();
+
+                                                if (jumlahCriticalPoint >= 1 && jumlahCriticalPoint <= 5) {
+                                                  nilai_cp = 2;
+                                                } else if (jumlahCriticalPoint >= 6 && jumlahCriticalPoint <= 11) {
+                                                  nilai_cp = 4;
+                                                } else if (jumlahCriticalPoint >= 12 && jumlahCriticalPoint <= 20) {
+                                                  nilai_cp = 8;
+                                                }
+
+                                                finalBantu = finalAreaLuar +
+                                                    finalDinningArea +
+                                                    finalService +
+                                                    finalCashier +
+                                                    finalCashierAccuracy +
+                                                    finalBoh +
+                                                    finalWarehouse +
+                                                    finalSocialBlock +
+                                                    finalPersonal +
+                                                    finalFoodCooked;
+                                                hasilGrafik = finalBantu -
+                                                    (finalBantu * nilai_cp / 100);
 
                                                 print(finalBantu);
-                                                //print(hasilGrafik);
+                                                print(hasilGrafik);
+                                                print(nilai_cp);
+                                                print(jumlahCriticalPoint);
 
-                                                /*DocumentReference
+                                                DocumentReference
                                                 docReference = Firestore
                                                     .instance
                                                     .collection('linecheck')
@@ -8487,30 +9395,66 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                   'AreaLuar_score': scoreAreaLuar,
                                                   'AreaLuar_note': noteAreaLuar,
                                                   'hasilAreaLuar': hasilAreaLuar,
+                                                  'DinningArea_score': scoreDinningArea,
+                                                  'DinningArea_note': noteDinningArea,
+                                                  'hasilDinningArea': hasilDinningArea,
+                                                  'Service_score': scoreService,
+                                                  'Service_note': noteService,
+                                                  'hasilService': hasilService,
+                                                  'Cashier_score': scoreCashier,
+                                                  'Cashier_note': noteCashier,
+                                                  'hasilCashier': hasilCashier,
+                                                  'CashierAccuracy_score': scoreCashierAccuracy,
+                                                  'CashierAccuracy_note': noteCashierAccuracy,
+                                                  'hasilCashierAccuracy': hasilCashierAccuracy,
+                                                  'Boh_score': scoreBoh,
+                                                  'Boh_note': noteBoh,
+                                                  'hasilBoh': hasilBoh,
+                                                  'Warehouse_score': scoreWarehouse,
+                                                  'Warehouse_note': noteWarehouse,
+                                                  'hasilWarehouse': hasilWarehouse,
+                                                  'SocialBlock_score': scoreSocialBlock,
+                                                  'SocialBlock_note': noteSocialBlock,
+                                                  'hasilSocialBlock': hasilSocialBlock,
+                                                  'Personal_score': scorePersonal,
+                                                  'Personal_note': notePersonal,
+                                                  'hasilPersonal': hasilPersonal,
+                                                  'FoodCooked_score': scoreFoodCooked,
+                                                  'FoodCooked_note': noteFoodCooked,
+                                                  'hasilFoodCooked': hasilFoodCooked,
+                                                  'timeStart': timeStart,
+                                                  'timeDone': done,
+                                                  'hasilGrafik': hasilGrafik,
+                                                  'total_cp': jumlahCriticalPoint,
+                                                  'nilai_cp': nilai_cp,
                                                   'idUser': widget.idUser,
                                                 }).then((doc) {
-                                                  finalAreaLuar = hasilAreaLuar *
-                                                      bobotBantuAreaLuar;
-                                                  _cardController.animateTo(
-                                                      _cardController.index +
-                                                          1);
+                                                  /*finalAreaLuar = hasilAreaLuar *
+                                                      bobotBantuAreaLuar;*/
+                                                  print('sucess');
                                                 }).catchError((error) {
                                                   print(error);
-                                                });*/
+                                                });
 
                                                 showDialog(
                                                     barrierDismissible: false,
                                                     context: context,
-                                                    builder: (context) => Dialog(
+                                                    builder:
+                                                        (context) => Dialog(
                                                       child: Container(
                                                         height: 180.0,
                                                         child: Column(
-                                                          children: <Widget>[
+                                                          children: <
+                                                              Widget>[
                                                             Container(
-                                                              color: AbubaPallate.greenabuba,
-                                                              height: 50.0,
-                                                              child: Center(
-                                                                child: Text(
+                                                              color: AbubaPallate
+                                                                  .greenabuba,
+                                                              height:
+                                                              50.0,
+                                                              child:
+                                                              Center(
+                                                                child:
+                                                                Text(
                                                                   'SUCCESSFUL!',
                                                                   style: TextStyle(
                                                                       color: Colors.white,
@@ -8520,23 +9464,36 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                               ),
                                                             ),
                                                             SizedBox(
-                                                              height: 20.0,
+                                                              height:
+                                                              20.0,
                                                             ),
                                                             Container(
-                                                              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-                                                              child: Text(
-                                                                'Project',
-                                                                style: TextStyle(
-                                                                  fontSize: 16.0,
+                                                              padding: EdgeInsets.symmetric(
+                                                                  horizontal:
+                                                                  10.0,
+                                                                  vertical:
+                                                                  10.0),
+                                                              child:
+                                                              Text(
+                                                                'Create Success',
+                                                                style:
+                                                                TextStyle(
+                                                                  fontSize:
+                                                                  16.0,
                                                                 ),
                                                               ),
                                                             ),
                                                             Row(
-                                                              mainAxisAlignment: MainAxisAlignment.end,
-                                                              children: <Widget>[
+                                                              mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .end,
+                                                              children: <
+                                                                  Widget>[
                                                                 FlatButton(
-                                                                  child: Text('OK'),
-                                                                  onPressed: () {
+                                                                  child:
+                                                                  Text('OK'),
+                                                                  onPressed:
+                                                                      () {
                                                                     Navigator.pop(context);
                                                                   },
                                                                 )
@@ -8545,10 +9502,9 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                           ],
                                                         ),
                                                       ),
-                                                    )
-                                                ).whenComplete(() {
-                                                  // Navigator.pop(context);
-                                                  print('success');
+                                                    )).whenComplete(() {
+                                                  Navigator.pop(context);
+                                                  //print('success');
                                                 });
                                               };
                                             },
