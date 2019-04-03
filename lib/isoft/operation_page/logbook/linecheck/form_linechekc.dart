@@ -12,7 +12,6 @@ class FormLineCheck extends StatefulWidget {
   @override
   _FormLineCheckState createState() => _FormLineCheckState();
 
-
 }
 
 class _FormLineCheckState extends State<FormLineCheck>
@@ -46,7 +45,8 @@ class _FormLineCheckState extends State<FormLineCheck>
   double finalAreaLuar = 0.0;
   double bobotBantuAreaLuar = 0.0;
   TextEditingController _controllerAreaLuar = TextEditingController();
-//  String noteArray = _controllerAreaLuar;
+  List<dynamic> pertanyaanAreaLuar = [];
+
 
   int indexDinningArea = 0;
   int jumlahDinningArea = 0;
@@ -65,6 +65,7 @@ class _FormLineCheckState extends State<FormLineCheck>
   double finalDinningArea = 0.0;
   double bobotBantuDinningArea = 0.0;
   TextEditingController _controllerDinningArea = TextEditingController();
+  List<dynamic> pertanyaanDinningArea = [];
 
   int indexService = 0;
   int jumlahService = 0;
@@ -83,6 +84,7 @@ class _FormLineCheckState extends State<FormLineCheck>
   double finalService = 0.0;
   double bobotBantuService = 0.0;
   TextEditingController _controllerService = TextEditingController();
+  List<dynamic> pertanyaanService = [];
 
   int indexCashier = 0;
   int jumlahCashier = 0;
@@ -101,6 +103,7 @@ class _FormLineCheckState extends State<FormLineCheck>
   double finalCashier = 0.0;
   double bobotBantuCashier = 0.0;
   TextEditingController _controllerCashier = TextEditingController();
+  List<dynamic> pertanyaanCashier = [];
 
   int indexCashierAccuracy = 0;
   int jumlahCashierAccuracy = 0;
@@ -119,6 +122,7 @@ class _FormLineCheckState extends State<FormLineCheck>
   double finalCashierAccuracy = 0.0;
   double bobotBantuCashierAccuracy = 0.0;
   TextEditingController _controllerCashierAccuracy = TextEditingController();
+  List<dynamic> pertanyaanCashierAccuracy = [];
 
   int indexBoh = 0;
   int jumlahBoh = 0;
@@ -137,6 +141,7 @@ class _FormLineCheckState extends State<FormLineCheck>
   double finalBoh = 0.0;
   double bobotBantuBoh = 0.0;
   TextEditingController _controllerBoh = TextEditingController();
+  List<dynamic> pertanyaanBoh = [];
 
   int indexWarehouse = 0;
   int jumlahWarehouse = 0;
@@ -155,6 +160,7 @@ class _FormLineCheckState extends State<FormLineCheck>
   double finalWarehouse = 0.0;
   double bobotBantuWarehouse = 0.0;
   TextEditingController _controllerWarehouse = TextEditingController();
+  List<dynamic> pertanyaanWarehouse = [];
 
   int indexSocialBlock = 0;
   int jumlahSocialBlock = 0;
@@ -173,6 +179,7 @@ class _FormLineCheckState extends State<FormLineCheck>
   double finalSocialBlock = 0.0;
   double bobotBantuSocialBlock = 0.0;
   TextEditingController _controllerSocialBlock = TextEditingController();
+  List<dynamic> pertanyaanSocialBlock = [];
 
   int indexPersonal = 0;
   int jumlahPersonal = 0;
@@ -191,6 +198,7 @@ class _FormLineCheckState extends State<FormLineCheck>
   double finalPersonal = 0.0;
   double bobotBantuPersonal = 0.0;
   TextEditingController _controllerPersonal = TextEditingController();
+  List<dynamic> pertanyaanPersonal = [];
 
   int indexFoodCooked = 0;
   int jumlahFoodCooked = 0;
@@ -209,6 +217,7 @@ class _FormLineCheckState extends State<FormLineCheck>
   double finalFoodCooked = 0.0;
   double bobotBantuFoodCooked = 0.0;
   TextEditingController _controllerFoodCooked = TextEditingController();
+  List<dynamic> pertanyaanFoodCooked = [];
 
   TextEditingController _controllerNote = TextEditingController();
   List<dynamic> testing = [];
@@ -257,6 +266,7 @@ class _FormLineCheckState extends State<FormLineCheck>
 
         jumlahAreaLuar = data.documents[0].data['pertanyaan'].length;
         jawabanSplitAreaLuarBantu = data.documents[0].data['jawaban'];
+        pertanyaanAreaLuar = data.documents[0].data['pertanyaan'];
       });
 
       Firestore.instance.collection('dinning_area').snapshots().listen((data) {
@@ -268,6 +278,7 @@ class _FormLineCheckState extends State<FormLineCheck>
 
         jumlahDinningArea = data.documents[0].data['pertanyaan'].length;
         jawabanSplitDinningAreaBantu = data.documents[0].data['jawaban'];
+        pertanyaanDinningArea = data.documents[0].data['pertanyaan'];
       });
 
       Firestore.instance.collection('service').snapshots().listen((data) {
@@ -279,6 +290,7 @@ class _FormLineCheckState extends State<FormLineCheck>
 
         jumlahService = data.documents[0].data['pertanyaan'].length;
         jawabanSplitServiceBantu = data.documents[0].data['jawaban'];
+        pertanyaanService = data.documents[0].data['pertanyaan'];
       });
 
       Firestore.instance.collection('cashier').snapshots().listen((data) {
@@ -290,6 +302,7 @@ class _FormLineCheckState extends State<FormLineCheck>
 
         jumlahCashier = data.documents[0].data['pertanyaan'].length;
         jawabanSplitCashierBantu = data.documents[0].data['jawaban'];
+        pertanyaanCashier = data.documents[0].data['pertanyaan'];
       });
 
       Firestore.instance
@@ -305,6 +318,7 @@ class _FormLineCheckState extends State<FormLineCheck>
 
         jumlahCashierAccuracy = data.documents[0].data['pertanyaan'].length;
         jawabanSplitCashierAccuracyBantu = data.documents[0].data['jawaban'];
+        pertanyaanCashierAccuracy = data.documents[0].data['pertanyaan'];
       });
 
       Firestore.instance.collection('boh').snapshots().listen((data) {
@@ -316,6 +330,7 @@ class _FormLineCheckState extends State<FormLineCheck>
 
         jumlahBoh = data.documents[0].data['pertanyaan'].length;
         jawabanSplitBohBantu = data.documents[0].data['jawaban'];
+        pertanyaanBoh = data.documents[0].data['pertanyaan'];
       });
 
       Firestore.instance.collection('warehouse').snapshots().listen((data) {
@@ -327,6 +342,7 @@ class _FormLineCheckState extends State<FormLineCheck>
 
         jumlahWarehouse = data.documents[0].data['pertanyaan'].length;
         jawabanSplitWarehouseBantu = data.documents[0].data['jawaban'];
+        pertanyaanWarehouse = data.documents[0].data['pertanyaan'];
       });
 
       Firestore.instance.collection('social_block').snapshots().listen((data) {
@@ -338,6 +354,7 @@ class _FormLineCheckState extends State<FormLineCheck>
 
         jumlahSocialBlock = data.documents[0].data['pertanyaan'].length;
         jawabanSplitSocialBlockBantu = data.documents[0].data['jawaban'];
+        pertanyaanSocialBlock = data.documents[0].data['pertanyaan'];
       });
 
       Firestore.instance
@@ -352,6 +369,7 @@ class _FormLineCheckState extends State<FormLineCheck>
 
         jumlahPersonal = data.documents[0].data['pertanyaan'].length;
         jawabanSplitPersonalBantu = data.documents[0].data['jawaban'];
+        pertanyaanPersonal = data.documents[0].data['pertanyaan'];
       });
 
       Firestore.instance.collection('food_cooked').snapshots().listen((data) {
@@ -363,6 +381,7 @@ class _FormLineCheckState extends State<FormLineCheck>
 
         jumlahFoodCooked = data.documents[0].data['pertanyaan'].length;
         jawabanSplitFoodCookedBantu = data.documents[0].data['jawaban'];
+        pertanyaanFoodCooked = data.documents[0].data['pertanyaan'];
       });
     });
 
@@ -9428,6 +9447,16 @@ class _FormLineCheckState extends State<FormLineCheck>
                                                   'total_cp': jumlahCriticalPoint,
                                                   'nilai_cp': nilai_cp,
                                                   'idUser': widget.idUser,
+                                                  'pertanyaanAreaLuar': pertanyaanAreaLuar,
+                                                  'pertanyaanDinningArea': pertanyaanDinningArea,
+                                                  'pertanyaanService': pertanyaanService,
+                                                  'pertanyaanCashier': pertanyaanCashier,
+                                                  'pertanyaanCashierAccuracy': pertanyaanCashierAccuracy,
+                                                  'pertanyaanBoh': pertanyaanBoh,
+                                                  'pertanyaanWarehouse': pertanyaanWarehouse,
+                                                  'pertanyaanSocialBlock': pertanyaanSocialBlock,
+                                                  'pertanyaanPersonal': pertanyaanPersonal,
+                                                  'pertanyaanFoodCooked': pertanyaanFoodCooked,
                                                 }).then((doc) {
                                                   /*finalAreaLuar = hasilAreaLuar *
                                                       bobotBantuAreaLuar;*/

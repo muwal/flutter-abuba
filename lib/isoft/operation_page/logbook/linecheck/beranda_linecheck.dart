@@ -122,7 +122,7 @@ class _BerandaLinecheckState extends State<BerandaLinecheck> {
                           Navigator.push(
                               context,
                               MyCustomRoute(
-                                  builder: (context) => FormReport()));
+                                  builder: (context) => FormReport(idUser: widget.idUser, departmentUser: widget.departmentUser, namaUser: widget.namaUser)));
                         },
                         child: Stack(
                           overflow: Overflow.visible,
