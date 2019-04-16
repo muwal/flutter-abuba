@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/isoft/operation_page/logbook/linecheck/form_linechekc.dart';
+import 'package:flutter_abuba/isoft/operation_page/logbook/linecheck/form_carilokasi.dart';
 import 'package:flutter_abuba/isoft/operation_page/logbook/linecheck/form_report.dart';
 import 'package:flutter_abuba/isoft/operation_page/logbook/linecheck/form_analysis.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -78,7 +79,7 @@ class _BerandaLinecheckState extends State<BerandaLinecheck> {
                 children: <Widget>[
                   GestureDetector(
                     onTap: () => Navigator.push(context,
-                        MyCustomRoute(builder: (context) => FormLineCheck(idUser: widget.idUser, departmentUser: widget.departmentUser, namaUser: widget.namaUser))),
+                        MyCustomRoute(builder: (context) => FormCariLokasi(idUser: widget.idUser, departmentUser: widget.departmentUser, namaUser: widget.namaUser))),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[

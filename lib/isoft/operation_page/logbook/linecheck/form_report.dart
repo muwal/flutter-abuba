@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
@@ -37,42 +39,73 @@ class _FormReportState extends State<FormReport> {
 
   List<dynamic> AreaLuarScore = [];
   List<dynamic> AreaLuarNote = [];
+  List<dynamic> criticalAreaLuar = [];
+  List<dynamic> systemAreaLuar = [];
   List<dynamic> DinningAreaScore = [];
   List<dynamic> DinningAreaNote = [];
+  List<dynamic> criticalDinningArea = [];
+  List<dynamic> systemDinningArea = [];
   List<dynamic> ServiceScore = [];
   List<dynamic> ServiceNote = [];
+  List<dynamic> criticalService = [];
+  List<dynamic> systemService = [];
   List<dynamic> CashierScore = [];
   List<dynamic> CashierNote = [];
+  List<dynamic> criticalCashier = [];
+  List<dynamic> systemCashier = [];
   List<dynamic> CashierAccuracyScore = [];
   List<dynamic> CashierAccuracyNote = [];
+  List<dynamic> criticalCashierAccuracy = [];
+  List<dynamic> systemCashierAccuracy = [];
   List<dynamic> BohScore = [];
   List<dynamic> BohNote = [];
+  List<dynamic> criticalBoh = [];
+  List<dynamic> systemBoh = [];
   List<dynamic> WarehouseScore = [];
   List<dynamic> WarehouseNote = [];
+  List<dynamic> criticalWarehouse = [];
+  List<dynamic> systemWarehouse = [];
   List<dynamic> SocialBlockScore = [];
   List<dynamic> SocialBlockNote = [];
+  List<dynamic> criticalSocialBlock = [];
+  List<dynamic> systemSocialBlock = [];
   List<dynamic> PersonalScore = [];
   List<dynamic> PersonalNote = [];
+  List<dynamic> criticalPersonal = [];
+  List<dynamic> systemPersonal = [];
   List<dynamic> FoodCookedScore = [];
   List<dynamic> FoodCookedNote = [];
+  List<dynamic> criticalFoodCooked = [];
+  List<dynamic> systemFoodCooked = [];
 
-  double hasilParking = 0;
-  double hasilGreeting = 0;
-  double hasilSeating = 0;
-  double hasilTakingOrder = 0;
-  double hasilServingProduct = 0;
-  double hasilCleanliness = 0;
-  double hasilPreBushing = 0;
-  double hasilBilling = 0;
-  double hasilThanking = 0;
-  double hasilComplaint = 0;
-  double hasilServingTime = 0;
-  double hasilGrafik = 0;
+  List<dynamic> pertanyaanAreaLuar = [];
+  List<dynamic> pertanyaanDinningRoom = [];
+  List<dynamic> pertanyaanService = [];
+  List<dynamic> pertanyaanCashier = [];
+  List<dynamic> pertanyaanCashierAccuracy = [];
+  List<dynamic> pertanyaanBOH = [];
+  List<dynamic> pertanyaanWareHouse = [];
+  List<dynamic> pertanyaanSocialBlock = [];
+  List<dynamic> pertanyaanPersonalHygiene = [];
+  List<dynamic> pertanyaanFoodCompletely = [];
+
+  double hasilAreaLuar = 0.0;
+  double hasilDinningArea = 0.0;
+  double hasilService = 0.0;
+  double hasilCashier = 0.0;
+  double hasilCashierAccuracy = 0.0;
+  double hasilBoh = 0.0;
+  double hasilWarehouse = 0.0;
+  double hasilSocialBlock = 0.0;
+  double hasilPersonal = 0.0;
+  double hasilFoodCooked = 0.0;
+  double hasilGrafik = 0.0;
 
   List<bool> buttonView = [];
   bool showDataFiltered = false;
   bool showHelper = false;
   String helperText = '';
+  String outlet;
 
   @override
   Widget build(BuildContext context) {
@@ -253,14 +286,9 @@ class _FormReportState extends State<FormReport> {
           child: Column(
             children: <Widget>[
               StreamBuilder(
-                  stream: showDataFiltered
-                      ? Firestore.instance
-                          .collection('linecheck')
-                          .where('timeDone', isGreaterThanOrEqualTo: dateStart)
-                          .snapshots()
-                      : Firestore.instance.collection('linecheck').snapshots(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                  stream: showDataFiltered ? Firestore.instance.collection('linecheck').where('timeStart', isGreaterThanOrEqualTo: dateStart).orderBy('timeStart', descending: false).snapshots()
+                      : Firestore.instance.collection('linecheck').orderBy('timeStart', descending: false).snapshots(),
+                  builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (!snapshot.hasData && snapshot.data == null)
                       return Container(
                         child: Center(
@@ -278,56 +306,457 @@ class _FormReportState extends State<FormReport> {
                         DateTime tanggalBantu = DateTime.tryParse(snapshot
                             .data.documents[index].data['timeStart']
                             .toString());
-                        return ListTile(
-                          onTap: null,
-                          title: Container(
-                            width: 150.0,
-                            child: Row(
-                              children: <Widget>[
-                                Flexible(
-                                  child: Text(
-                                    snapshot.data.documents[index].data['timeDone'].toString(),
-                                    style: TextStyle(fontSize: 14.0, color: Colors.black54, fontWeight: FontWeight.w700),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          trailing: GestureDetector(
-                            onTap: () async {
-                              Firestore.instance.collection('linecheck')
-                                  .document(snapshot.data.documents[index].documentID)
-                                  .snapshots().listen((data) {
-                                    setState(() {
-                                      idCollection = data.documentID;
-                                      print(idCollection);
-                                    });
-                              });
-
-                              Navigator.push(context,
-                                  MyCustomRoute(
-                                      builder: (context) => DetailReport(idCollection: idCollection, idUser: widget.idUser, namaUser: widget.namaUser)
-                                  )
-                              );
-                            },
-                            child: Container(
-                              width: 150.0,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: <Widget>[
-                                  Flexible(
-                                    child: Text(
-                                      'Report',
-                                      style: TextStyle(
-                                          fontSize: 13.0, color: buttonView[index] ? Colors.black54 : Colors.blue),
-                                      textAlign: TextAlign.right,
-                                    ),
-                                  )
-                                ],
+                        if (showDataFiltered && dateEnd != null && dateStart != null) {
+                          if (tanggalBantu.isAfter(dateEnd.subtract(Duration(days: -1))) == true || snapshot.data.documents[index].data['timeDone'] == null) {
+                            return Container ();
+                          }else{
+                            return ListTile(
+                              onTap: null,
+                              title: Container(
+                                width: 150.0,
+                                child: Row(
+                                  children: <Widget>[
+                                    Flexible(
+                                      child: Text(
+                                        snapshot
+                                            .data.documents[index].data['outlet']
+                                            .toString(),
+                                        style: TextStyle(
+                                            fontSize: 14.0,
+                                            color: Colors.black54,
+                                            fontWeight: FontWeight.w700),
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
-                          ),
-                        );
+                              trailing: GestureDetector(
+                                onTap: () async {
+                                  Firestore.instance
+                                      .collection('linecheck')
+                                      .document(
+                                      snapshot.data.documents[index].documentID)
+                                      .snapshots()
+                                      .listen((data) {
+                                    setState(() {
+                                      pertanyaanAreaLuar = data.data['pertanyaanAreaLuar'];
+                                      pertanyaanBOH = data.data['pertanyaanBoh'];
+                                      pertanyaanCashier = data.data['pertanyaanCashier'];
+                                      pertanyaanCashierAccuracy = data.data['pertanyaanCashierAccuracy'];
+                                      pertanyaanDinningRoom = data.data['pertanyaanCashierAccuracy'];
+                                      pertanyaanFoodCompletely = data.data['pertanyaanFoodCooked'];
+                                      pertanyaanPersonalHygiene = data.data['pertanyaanPersonal'];
+                                      pertanyaanService = data.data['pertanyaanService'];
+                                      pertanyaanSocialBlock = data.data['pertanyaanSocialBlock'];
+                                      pertanyaanWareHouse = data.data['pertanyaanWarehouse'];
+
+                                      idCollection = data.documentID;
+                                      hasilAreaLuar = data.data['hasilAreaLuar'];
+                                      hasilDinningArea =
+                                      data.data['hasilDinningArea'];
+                                      hasilService = data.data['hasilService'];
+                                      hasilCashier = data.data['hasilCashier'];
+                                      hasilCashierAccuracy =
+                                      data.data['hasilCashierAccuracy'];
+                                      hasilBoh = data.data['hasilBoh'];
+                                      hasilWarehouse = data.data['hasilWarehouse'];
+                                      hasilSocialBlock =
+                                      data.data['hasilSocialBlock'];
+                                      hasilPersonal = data.data['hasilPersonal'];
+                                      hasilFoodCooked =
+                                      data.data['hasilFoodCooked'];
+                                      hasilGrafik = data.data['hasilGrafik'];
+
+                                      AreaLuarScore = data.data['AreaLuar_score'];
+                                      DinningAreaScore =
+                                      data.data['DinningArea_score'];
+                                      ServiceScore = data.data['Service_score'];
+                                      CashierScore = data.data['Cashier_score'];
+                                      CashierAccuracyScore =
+                                      data.data['CashierAccuracy_score'];
+                                      BohScore = data.data['Boh_score'];
+                                      WarehouseScore = data.data['Warehouse_score'];
+                                      SocialBlockScore =
+                                      data.data['SocialBlock_score'];
+                                      PersonalScore = data.data['Personal_score'];
+                                      FoodCookedScore =
+                                      data.data['FoodCooked_score'];
+
+                                      criticalAreaLuar =
+                                      data.data['criticalAreaLuar'];
+                                      systemAreaLuar = data.data['sistemAreaLuar'];
+                                      criticalDinningArea =
+                                      data.data['criticalDinningArea'];
+                                      systemDinningArea =
+                                      data.data['sistemDinningArea'];
+                                      criticalService =
+                                      data.data['criticalService'];
+                                      systemService = data.data['sistemService'];
+                                      criticalCashier =
+                                      data.data['criticalCashier'];
+                                      systemCashier = data.data['sistemCashier'];
+                                      criticalCashierAccuracy =
+                                      data.data['criticalCashierAccuracy'];
+                                      systemCashierAccuracy =
+                                      data.data['sistemCashierAccuracy'];
+                                      criticalBoh = data.data['criticalBoh'];
+                                      systemBoh = data.data['sistemBoh'];
+                                      criticalWarehouse =
+                                      data.data['criticalWarehouse'];
+                                      systemWarehouse =
+                                      data.data['sistemWarehouse'];
+                                      criticalSocialBlock =
+                                      data.data['criticalSocialBlock'];
+                                      systemSocialBlock =
+                                      data.data['sistemSocialBlock'];
+                                      criticalPersonal =
+                                      data.data['criticalPersonal'];
+                                      systemPersonal = data.data['sistemPersonal'];
+                                      criticalFoodCooked =
+                                      data.data['criticalFoodCooked'];
+                                      systemFoodCooked =
+                                      data.data['sistemFoodCooked'];
+                                      outlet = data.data['outlet'];
+                                      tanggal = data['timeStart'].toString().substring(8, 10) + '/' + data['timeStart'].toString().substring(5, 7) + '/' + data['timeStart'].toString().substring(0, 4);
+                                      waktuStart = data['timeStart'].toString().substring(11, 16);
+                                      if (data['timeDone'] == null) {
+                                        waktuEnd = '00.00';
+                                      } else {
+                                        waktuEnd = data['timeDone'].toString().substring(11, 16);
+                                      }
+                                    });
+                                  });
+
+                                  setState(() {
+                                    buttonView.removeAt(index);
+                                    buttonView.insert(index, true);
+                                  });
+                                  await new Future.delayed(Duration(seconds: 3));
+                                  setState(() {
+                                    buttonView.removeAt(index);
+                                    buttonView.insert(index, false);
+                                  });
+
+                                  Navigator.push(
+                                    context,
+                                    MyCustomRoute(
+                                      builder: (context) => DetailReport(
+                                          idCollection: idCollection,
+                                          idUser: widget.idUser,
+                                          namaUser: widget.namaUser,
+                                          hasilGrafik: hasilGrafik,
+                                          hasilAreaLuar: hasilAreaLuar,
+                                          hasilDinningArea: hasilDinningArea,
+                                          hasilService: hasilService,
+                                          hasilCashier: hasilCashier,
+                                          hasilCashierAccuracy:
+                                          hasilCashierAccuracy,
+                                          hasilBoh: hasilBoh,
+                                          hasilWarehouse: hasilWarehouse,
+                                          hasilSocialBlock: hasilSocialBlock,
+                                          hasilPersonal: hasilPersonal,
+                                          hasilFoodCooked: hasilFoodCooked,
+                                          AreaLuarScore: AreaLuarScore,
+                                          DinningAreaScore: DinningAreaScore,
+                                          ServiceScore: ServiceScore,
+                                          CashierScore: CashierScore,
+                                          CashierAccuracyScore:
+                                          CashierAccuracyScore,
+                                          BohScore: BohScore,
+                                          WarehouseScore: WarehouseScore,
+                                          SocialBlockScore: SocialBlockScore,
+                                          PersonalScore: PersonalScore,
+                                          FoodCookedScore: FoodCookedScore,
+                                          criticalAreaLuar: criticalAreaLuar,
+                                          systemAreaLuar: systemAreaLuar,
+                                          criticalDinningArea: criticalDinningArea,
+                                          systemDinningArea: systemDinningArea,
+                                          criticalService: criticalService,
+                                          systemService: systemService,
+                                          criticalCashier: criticalCashier,
+                                          systemCashier: systemCashier,
+                                          criticalCashierAccuracy:
+                                          criticalCashierAccuracy,
+                                          systemCashierAccuracy:
+                                          systemCashierAccuracy,
+                                          criticalBoh: criticalBoh,
+                                          systemBoh: systemBoh,
+                                          criticalWarehouse: criticalWarehouse,
+                                          systemWarehouse: systemWarehouse,
+                                          criticalSocialBlock: criticalSocialBlock,
+                                          systemSocialBlock: systemSocialBlock,
+                                          criticalPersonal: criticalPersonal,
+                                          systemPersonal: systemPersonal,
+                                          criticalFoodCooked: criticalFoodCooked,
+                                          systemFoodCooked: systemFoodCooked,
+                                          outlet: outlet,
+                                          waktuStart: waktuStart,
+                                          waktuEnd: waktuEnd,
+                                          tanggal: tanggal,
+                                          pertanyaanAreaLuar: pertanyaanAreaLuar,
+                                          pertanyaanBOH: pertanyaanBOH,
+                                          pertanyaanCashier: pertanyaanCashier,
+                                          pertanyaanCashierAccuracy: pertanyaanCashierAccuracy,
+                                          pertanyaanDinningRoom: pertanyaanDinningRoom,
+                                          pertanyaanFoodCompletely: pertanyaanFoodCompletely,
+                                          pertanyaanPersonalHygiene: pertanyaanPersonalHygiene,
+                                          pertanyaanService: pertanyaanService,
+                                          pertanyaanSocialBlock: pertanyaanSocialBlock,
+                                          pertanyaanWareHouse: pertanyaanWareHouse
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  width: 150.0,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      Flexible(
+                                        child: Text(
+                                          buttonView[index]
+                                              ? 'Preparing data ...'
+                                              : snapshot.data.documents[index].data['timeStart'].toString().substring(8, 10) + '/' + snapshot.data.documents[index].data['timeStart'].toString().substring(5, 7) + '/' + snapshot.data.documents[index].data['timeStart'].toString().substring(0, 4),
+                                          style: TextStyle(
+                                              fontSize: 13.0,
+                                              color: buttonView[index]
+                                                  ? Colors.black54
+                                                  : Colors.blue),
+                                          textAlign: TextAlign.right,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
+                        }else{
+                          if (snapshot.data.documents[index].data['timeDone'] == null) {
+                            return Container();
+                          }else{
+                            return ListTile(
+                              onTap: null,
+                              title: Container(
+                                width: 150.0,
+                                child: Row(
+                                  children: <Widget>[
+                                    Flexible(
+                                      child: Text(
+                                        snapshot
+                                            .data.documents[index].data['outlet']
+                                            .toString(),
+                                        style: TextStyle(
+                                            fontSize: 14.0,
+                                            color: Colors.black54,
+                                            fontWeight: FontWeight.w700),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              trailing: GestureDetector(
+                                onTap: () async {
+                                  Firestore.instance
+                                      .collection('linecheck')
+                                      .document(
+                                      snapshot.data.documents[index].documentID)
+                                      .snapshots()
+                                      .listen((data) {
+                                    setState(() {
+                                      pertanyaanAreaLuar = data.data['pertanyaanAreaLuar'];
+                                      pertanyaanBOH = data.data['pertanyaanBoh'];
+                                      pertanyaanCashier = data.data['pertanyaanCashier'];
+                                      pertanyaanCashierAccuracy = data.data['pertanyaanCashierAccuracy'];
+                                      pertanyaanDinningRoom = data.data['pertanyaanCashierAccuracy'];
+                                      pertanyaanFoodCompletely = data.data['pertanyaanFoodCooked'];
+                                      pertanyaanPersonalHygiene = data.data['pertanyaanPersonal'];
+                                      pertanyaanService = data.data['pertanyaanService'];
+                                      pertanyaanSocialBlock = data.data['pertanyaanSocialBlock'];
+                                      pertanyaanWareHouse = data.data['pertanyaanWarehouse'];
+
+                                      idCollection = data.documentID;
+                                      hasilAreaLuar = data.data['hasilAreaLuar'];
+                                      hasilDinningArea =
+                                      data.data['hasilDinningArea'];
+                                      hasilService = data.data['hasilService'];
+                                      hasilCashier = data.data['hasilCashier'];
+                                      hasilCashierAccuracy =
+                                      data.data['hasilCashierAccuracy'];
+                                      hasilBoh = data.data['hasilBoh'];
+                                      hasilWarehouse = data.data['hasilWarehouse'];
+                                      hasilSocialBlock =
+                                      data.data['hasilSocialBlock'];
+                                      hasilPersonal = data.data['hasilPersonal'];
+                                      hasilFoodCooked =
+                                      data.data['hasilFoodCooked'];
+                                      hasilGrafik = data.data['hasilGrafik'];
+
+                                      AreaLuarScore = data.data['AreaLuar_score'];
+                                      DinningAreaScore =
+                                      data.data['DinningArea_score'];
+                                      ServiceScore = data.data['Service_score'];
+                                      CashierScore = data.data['Cashier_score'];
+                                      CashierAccuracyScore =
+                                      data.data['CashierAccuracy_score'];
+                                      BohScore = data.data['Boh_score'];
+                                      WarehouseScore = data.data['Warehouse_score'];
+                                      SocialBlockScore =
+                                      data.data['SocialBlock_score'];
+                                      PersonalScore = data.data['Personal_score'];
+                                      FoodCookedScore =
+                                      data.data['FoodCooked_score'];
+
+                                      criticalAreaLuar =
+                                      data.data['criticalAreaLuar'];
+                                      systemAreaLuar = data.data['sistemAreaLuar'];
+                                      criticalDinningArea =
+                                      data.data['criticalDinningArea'];
+                                      systemDinningArea =
+                                      data.data['sistemDinningArea'];
+                                      criticalService =
+                                      data.data['criticalService'];
+                                      systemService = data.data['sistemService'];
+                                      criticalCashier =
+                                      data.data['criticalCashier'];
+                                      systemCashier = data.data['sistemCashier'];
+                                      criticalCashierAccuracy =
+                                      data.data['criticalCashierAccuracy'];
+                                      systemCashierAccuracy =
+                                      data.data['sistemCashierAccuracy'];
+                                      criticalBoh = data.data['criticalBoh'];
+                                      systemBoh = data.data['sistemBoh'];
+                                      criticalWarehouse =
+                                      data.data['criticalWarehouse'];
+                                      systemWarehouse =
+                                      data.data['sistemWarehouse'];
+                                      criticalSocialBlock =
+                                      data.data['criticalSocialBlock'];
+                                      systemSocialBlock =
+                                      data.data['sistemSocialBlock'];
+                                      criticalPersonal =
+                                      data.data['criticalPersonal'];
+                                      systemPersonal = data.data['sistemPersonal'];
+                                      criticalFoodCooked =
+                                      data.data['criticalFoodCooked'];
+                                      systemFoodCooked =
+                                      data.data['sistemFoodCooked'];
+                                      outlet = data.data['outlet'];
+                                      tanggal = data['timeStart'].toString().substring(8, 10) + '/' + data['timeStart'].toString().substring(5, 7) + '/' + data['timeStart'].toString().substring(0, 4);
+                                      waktuStart = data['timeStart'].toString().substring(11, 16);
+                                      if (data['timeDone'] == null) {
+                                        waktuEnd = '00.00';
+                                      } else {
+                                        waktuEnd = data['timeDone'].toString().substring(11, 16);
+                                      }
+                                    });
+                                  });
+
+                                  setState(() {
+                                    buttonView.removeAt(index);
+                                    buttonView.insert(index, true);
+                                  });
+                                  await new Future.delayed(Duration(seconds: 3));
+                                  setState(() {
+                                    buttonView.removeAt(index);
+                                    buttonView.insert(index, false);
+                                  });
+
+                                  Navigator.push(
+                                    context,
+                                    MyCustomRoute(
+                                      builder: (context) => DetailReport(
+                                          idCollection: idCollection,
+                                          idUser: widget.idUser,
+                                          namaUser: widget.namaUser,
+                                          hasilGrafik: hasilGrafik,
+                                          hasilAreaLuar: hasilAreaLuar,
+                                          hasilDinningArea: hasilDinningArea,
+                                          hasilService: hasilService,
+                                          hasilCashier: hasilCashier,
+                                          hasilCashierAccuracy:
+                                          hasilCashierAccuracy,
+                                          hasilBoh: hasilBoh,
+                                          hasilWarehouse: hasilWarehouse,
+                                          hasilSocialBlock: hasilSocialBlock,
+                                          hasilPersonal: hasilPersonal,
+                                          hasilFoodCooked: hasilFoodCooked,
+                                          AreaLuarScore: AreaLuarScore,
+                                          DinningAreaScore: DinningAreaScore,
+                                          ServiceScore: ServiceScore,
+                                          CashierScore: CashierScore,
+                                          CashierAccuracyScore:
+                                          CashierAccuracyScore,
+                                          BohScore: BohScore,
+                                          WarehouseScore: WarehouseScore,
+                                          SocialBlockScore: SocialBlockScore,
+                                          PersonalScore: PersonalScore,
+                                          FoodCookedScore: FoodCookedScore,
+                                          criticalAreaLuar: criticalAreaLuar,
+                                          systemAreaLuar: systemAreaLuar,
+                                          criticalDinningArea: criticalDinningArea,
+                                          systemDinningArea: systemDinningArea,
+                                          criticalService: criticalService,
+                                          systemService: systemService,
+                                          criticalCashier: criticalCashier,
+                                          systemCashier: systemCashier,
+                                          criticalCashierAccuracy:
+                                          criticalCashierAccuracy,
+                                          systemCashierAccuracy:
+                                          systemCashierAccuracy,
+                                          criticalBoh: criticalBoh,
+                                          systemBoh: systemBoh,
+                                          criticalWarehouse: criticalWarehouse,
+                                          systemWarehouse: systemWarehouse,
+                                          criticalSocialBlock: criticalSocialBlock,
+                                          systemSocialBlock: systemSocialBlock,
+                                          criticalPersonal: criticalPersonal,
+                                          systemPersonal: systemPersonal,
+                                          criticalFoodCooked: criticalFoodCooked,
+                                          systemFoodCooked: systemFoodCooked,
+                                          outlet: outlet,
+                                          waktuStart: waktuStart,
+                                          waktuEnd: waktuEnd,
+                                          tanggal: tanggal,
+                                          pertanyaanAreaLuar: pertanyaanAreaLuar,
+                                          pertanyaanBOH: pertanyaanBOH,
+                                          pertanyaanCashier: pertanyaanCashier,
+                                          pertanyaanCashierAccuracy: pertanyaanCashierAccuracy,
+                                          pertanyaanDinningRoom: pertanyaanDinningRoom,
+                                          pertanyaanFoodCompletely: pertanyaanFoodCompletely,
+                                          pertanyaanPersonalHygiene: pertanyaanPersonalHygiene,
+                                          pertanyaanService: pertanyaanService,
+                                          pertanyaanSocialBlock: pertanyaanSocialBlock,
+                                          pertanyaanWareHouse: pertanyaanWareHouse,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  width: 150.0,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      Flexible(
+                                        child: Text(
+                                          buttonView[index]
+                                              ? 'Preparing data ...'
+                                              : snapshot.data.documents[index].data['timeStart'].toString().substring(8, 10) + '/' + snapshot.data.documents[index].data['timeStart'].toString().substring(5, 7) + '/' + snapshot.data.documents[index].data['timeStart'].toString().substring(0, 4),
+                                          style: TextStyle(
+                                              fontSize: 13.0,
+                                              color: buttonView[index]
+                                                  ? Colors.black54
+                                                  : Colors.blue),
+                                          textAlign: TextAlign.right,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
+                        }
                       }),
                     );
                   })

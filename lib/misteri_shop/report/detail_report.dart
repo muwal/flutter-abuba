@@ -90,9 +90,7 @@ class DetailReport extends StatefulWidget {
 }
 
 class _DetailReportState extends State<DetailReport> {
-  final GlobalKey<AnimatedCircularChartState> _chartKey = new GlobalKey<AnimatedCircularChartState>();
-
-  bool _gambarParking = false;
+  final GlobalKey<AnimatedCircularChartState> _chartKey = new GlobalKey<AnimatedCircularChartState>();bool _gambarParking = false;
   bool _gambarServingProduct = false;
   bool _gambarPreBushing = false;
   bool _gambarCleanliness = false;

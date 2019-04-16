@@ -826,7 +826,7 @@ class _BerandaOperationState extends State<BerandaOperation> {
                       onTap: () => Navigator.push(
                           context,
                           MyCustomRoute(
-                              builder: (context) => MenuChecklist())),
+                              builder: (context) => MenuChecklist(idUser: widget.idUser, departmentUser: widget.departmentUser, namaUser: widget.namaUser))),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
