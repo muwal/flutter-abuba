@@ -1,0 +1,237 @@
+name: flutter_abuba
+description: A new Flutter application.
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# Read more about versioning at semver.org.
+version: 2.0.6+20
+
+environment:
+  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  firebase_auth: any
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^0.1.2
+  datetime_picker_formfield: ^0.1.8
+  flutter_datetime_picker: ^1.2.4
+  percent_indicator: ^1.0.13
+  material_design_icons_flutter: ^3.0.3392
+  flutter_circular_chart: ^0.1.0
+  badges: ^0.0.6
+  image_picker: ^0.6.0+10
+  url_launcher: ^5.0.0
+  smooth_star_rating: ^1.0.1
+  flutter_swiper: ^1.1.4
+  cloud_firestore: ^0.9.0
+  firebase_core: ^0.3.4
+  firebase_storage: ^2.0.1+1
+  mailer: ^2.2.1
+  qrscan: ^0.1.6
+  chewie: ^0.9.7
+  get_version: ^0.1.0
+  flutter_masked_text: ^0.8.0
+  search_widget: ^0.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_launcher_icons: ^0.7.0
+
+flutter_icons:
+  android: "launcher_icon" 
+  ios: true
+  image_path: "assets/images/icon2.png"
+
+
+# For information on the generic Dart part of this file, see the
+# following page: https://www.dartlang.org/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+  assets:
+    - assets/images/img_gojek_logo.png
+    - assets/images/logo.png
+    - assets/images/logo2.png
+    - assets/images/logo_splash.png
+    - assets/images/logo_splash2.png
+    - assets/images/logo_light.png
+    - assets/images/map.png
+    - assets/images/map_2.png
+    - assets/images/open_door.jpg
+    - assets/images/slide greet.jpg
+    - assets/images/slide 4.png
+    - assets/images/slide 4copy.png
+    - assets/images/slide 7.png
+    - assets/images/slide 8.png
+    - assets/images/slide 11.png
+    - assets/images/slide 12.png
+    - assets/images/slide 13.png
+    - assets/images/slide 14.png
+    - assets/images/slide 15.png
+    - assets/images/slide 16.png
+    - assets/images/slide 18.png
+    - assets/images/slide 19.png
+    - assets/images/slide 21.png
+    - assets/images/slide 23.png
+    - assets/images/slide 24.png
+    - assets/images/slide 25.png
+    - assets/images/slide 26.png
+    - assets/images/slide2.png
+    - assets/images/slide3.png
+    - assets/images/abuba1.jpg
+    - assets/images/abuba2.jpg
+    - assets/images/abuba3.jpg
+    - assets/images/abuba4.jpg
+    - assets/images/abuba5.jpg
+    - assets/images/abuba6.jpg
+    - assets/images/Billing.jpeg
+    - assets/images/Greeting.jpeg
+    - assets/images/Pre Bushing.jpeg
+    - assets/images/Seating.jpeg
+    - assets/images/Taking Order.jpeg
+    - assets/images/benchmark.png
+    - assets/images/mg.png
+    - assets/images/report.png
+    - assets/images/start_review.png
+    - assets/images/outlet_performance.png
+    - assets/images/qrcode.png
+    - assets/images/home page/appraisal performance.png
+    - assets/images/home page/inventory.png
+    - assets/images/home page/isoft.png
+    - assets/images/home page/mystery shopper.png
+    - assets/images/home page/online training.png
+    - assets/images/home page/six sigma.png
+    - assets/images/iso/change management.png
+    - assets/images/iso/corrective action.png
+    - assets/images/iso/document control.png
+    - assets/images/iso/internal audit.png
+    - assets/images/iso/kpi.png
+    - assets/images/iso/management review.png
+    - assets/images/iso/minute of meeting.png
+    - assets/images/iso/qc.png
+    - assets/images/iso/risk assesment.png
+    - assets/images/isoft/audit.png
+    - assets/images/isoft/finance.png
+    - assets/images/isoft/hrd.png
+    - assets/images/isoft/it.png
+    - assets/images/isoft/kitchen.png
+    - assets/images/isoft/more.png
+    - assets/images/isoft/operation.png
+    - assets/images/isoft/r&ddua.png
+    - assets/images/operational/briefing.png
+    - assets/images/operational/daily checklist.png
+    - assets/images/operational/incoming.png
+    - assets/images/operational/kitchen.png
+    - assets/images/operational/more.png
+    - assets/images/hrd/create new.png
+    - assets/images/hrd/maintenance.png
+    - assets/images/hrd/open status.png
+    - assets/images/hrd/perbaikan.png
+    - assets/images/hrd/recruitment.png
+    - assets/images/hrd/report.png
+    - assets/images/hrd/reschedule task.png
+    - assets/images/hrd/risk register.png
+    - assets/images/hrd/riwayat.png
+    - assets/images/hrd/today task.png
+    - assets/images/hrd/training.png
+    - assets/images/hrd/verifikasi.png
+    - assets/images/IT/maintenance.png
+    - assets/images/IT/perbaikan.png
+    - assets/images/IT/report.png
+    - assets/images/IT/reschedule tasks.png
+    - assets/images/IT/risk register.png
+    - assets/images/IT/riwayat.png
+    - assets/images/kitchen/analysis.png
+    - assets/images/incoming/inspection.png
+    - assets/images/six sigma/5 why.png
+    - assets/images/six sigma/a3 report.png
+    - assets/images/six sigma/collection plan.png
+    - assets/images/six sigma/fishbone.png
+    - assets/images/six sigma/problem solving.png
+    - assets/images/six sigma/project charter.png
+    - assets/images/six sigma/voice of customer.png
+    - assets/images/purchasing.png
+    - assets/images/r&d.png
+    - assets/images/mg-performance.png
+    - assets/images/user/inne.jpeg
+    - assets/images/user/Ibu DEWI KURNIASIH - FAT MANAGER.png
+    - assets/images/user/INDAH.jpeg
+    - assets/images/user/Pak ANDI LALA - BUSINESS DEVELOPMENT MANAGER.jpeg
+    - assets/images/user/Pak RIZAL BAYDILLAH - HRD MANAGER.jpeg
+    - assets/images/user/Pak SONNY RAMADHAN - IT ASST. MANAGER.jpg
+    - assets/images/user/DIRUT (2).jpg
+    - assets/images/user/Pak ADE RIDWAN - INTERNAL AUDIT MANAGER.jpeg
+    - assets/images/user/Pak YASIR - OPERASIONAL MANAGER.jpeg
+    - assets/images/six sigma/criticsicon.png   
+    - assets/images/six sigma/projectscreening.png
+    - assets/images/scanner.png
+    - assets/images/scannerBlue.png
+    - assets/images/filter.png
+    - assets/images/templateCount.png
+    - assets/images/templateCountBlue.png
+    - assets/images/Line_graph.png
+    - assets/images/IT/maintenanceIT.png
+    - assets/images/iso/change management2.png
+    - assets/images/iso/corrective action2.png
+    - assets/images/iso/document control2.png
+    - assets/images/iso/internal audit2.png
+    - assets/images/iso/kpi2.png
+    - assets/images/iso/management review2.png
+    - assets/images/iso/minute of meeting2.png
+    - assets/images/iso/qc2.png
+    - assets/images/iso/risk assesment2.png
+    - assets/images/bgabuba.png
+    - assets/images/hrd/report2.png
+    - assets/images/hrd/reschedule task2.png
+    - assets/images/hrd/today task2.png
+    - assets/images/hrd/create new2.png
+    - assets/images/hrd/verifikasi2.png
+    - assets/images/hrd/open status2.png
+    - assets/images/hrd/maintenance2.png
+    - assets/images/hrd/perbaikan2.png
+    - assets/images/iso/daily checklist2.png
+  fonts:
+    - family: NeoSans
+      fonts:
+        - asset: assets/fonts/Neo Sans Std Medium TR.otf
+    - family: NeoSansBold
+      fonts:
+        - asset: assets/fonts/Neo Sans Std Medium TR.otf
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.io/assets-and-images/#resolution-aware.
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.io/assets-and-images/#from-packages
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.io/custom-fonts/#from-packages
