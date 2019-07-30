@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/isoft/IT_page/perbaikan/working_order.dart';
 import 'package:intl/intl.dart';
@@ -144,26 +145,30 @@ class _DetailWorkingOrderState extends State<DetailWorkingOrder> with TickerProv
   Widget build(BuildContext context) {
     final double size = MediaQuery.of(context).size.width;
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          elevation: 0.25,
-          backgroundColor: Colors.white,
-          iconTheme: IconThemeData(color: Colors.black),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Flexible(
-                child: Text('Detail', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600, color: Colors.black),),
-              )
-            ],
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.dark.copyWith(
+      statusBarColor: Color(0xfff9f9f9),),
+      child: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            elevation: 0.25,
+            backgroundColor: Colors.white,
+            iconTheme: IconThemeData(color: Colors.black),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Flexible(
+                  child: Text('Detail Working Order', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600, color: Colors.black)),
+                )
+              ],
+            )
           ),
-        ),
-        body: GestureDetector(
-          onTap: () {
-            FocusScope.of(context).requestFocus(FocusNode());
-          },
-          child: _bodyForm(size),
+          body: GestureDetector(
+            onTap: () {
+              FocusScope.of(context).requestFocus(FocusNode());
+            },
+            child: _bodyForm(size),
+          ),
         ),
       ),
     );

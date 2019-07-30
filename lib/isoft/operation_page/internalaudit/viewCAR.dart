@@ -77,7 +77,7 @@ class _ViewCARState extends State<ViewCAR> with TickerProviderStateMixin {
           val3 = getData.data['imageSocialBlock'][getData.data['pertanyaanSocialBlock'].indexWhere((test) => test == getData.data['FSProblem'][val2])];
         } else if (getData.data['FSArea'][val2] == 'Personal Hygiene') {
           val3 = getData.data['imagePersonal'][getData.data['pertanyaanPersonal'].indexWhere((test) => test == getData.data['FSProblem'][val2])];
-        } else if (getData.data['FSArea'][val2] == 'Food Completely Cooked') {
+        } else if (getData.data['FSArea'][val2] == 'Product Handling') {
           val3 = getData.data['imageFoodCooked'][getData.data['pertanyaanFoodCooked'].indexWhere((test) => test == getData.data['FSProblem'][val2])];
         }
       });
@@ -89,7 +89,11 @@ class _ViewCARState extends State<ViewCAR> with TickerProviderStateMixin {
         rekomendasiFS = data.documents[0].data['rekomendasiFS'];
         problem = data.documents[0].data['problem'];
         if (data.documents[0].data.containsKey('imageDone')) {
-          imageDoneSplit = data.documents[0].data['imageDone'].toString().split('###');
+          if (data.documents[0].data['imageDone'] != null) {
+            imageDoneSplit = data.documents[0].data['imageDone'].toString().split('###');
+          } else {
+            imageDoneSplit = [];
+          }
         } else {
           imageDoneSplit = [];
         }
@@ -916,8 +920,6 @@ class _ViewCARState extends State<ViewCAR> with TickerProviderStateMixin {
                                         showImageIA = !showImageIA;
                                         showNote = false;
                                         imageSplit = val3.toString().split('###');
-                                        print(imageSplit);
-                                        print(val3);
                                       });
                                     },
                                     child: Icon(Icons.image, color: AbubaPallate.menuBluebird),
@@ -1535,6 +1537,7 @@ class _ViewCARState extends State<ViewCAR> with TickerProviderStateMixin {
                                     onTap: () {
                                       setState(() {
                                         showImageDone = !showImageDone;
+                                        print(imageDoneSplit);
                                       });
                                     },
                                     child: Icon(Icons.image, color: AbubaPallate.menuBluebird),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/isoft/operation_page/incoming/beranda_incoming.dart';
+import 'package:flutter_abuba/isoft/operation_page/incoming/driver_konfirmasi.dart';
 import 'package:flutter_abuba/isoft/operation_page/incoming/form_report.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class BerandaIncoming2 extends StatefulWidget {
   final int idUser;
@@ -23,10 +23,18 @@ class _BerandaIncoming2 extends State<BerandaIncoming2> {
           elevation: 0.25,
           backgroundColor: Colors.white,
           iconTheme: IconThemeData(color: Colors.black),
-          title: Image.asset(
-            'assets/images/logo2.png',
-            height: 150.0,
-            width: 120.0,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Flexible(
+                child: Text('Incoming Material', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600, color: Colors.black),),
+              ),
+              /*Stack(
+                children: <Widget>[
+                  Icon(Icons.notifications, color: Colors.grey[400],)
+                ],
+              )*/
+            ],
           ),
         ),
         body: _buildMenu(),
@@ -37,127 +45,190 @@ class _BerandaIncoming2 extends State<BerandaIncoming2> {
   Widget _buildMenu() {
     return ListView(
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                'Operation',
-                style: TextStyle(color: Colors.black12, fontSize: 12.0),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 15.0),
-                child: Text(
-                  '|',
-                  style:
-                  TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 15.0),
-                child: Text(
-                  'Incoming',
-                  style:
-                  TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
-                ),
-              ),
-            ],
-          ),
+        SizedBox(
+          height: 15.0,
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-          child: Wrap(
-            spacing: 10.0,
-            runSpacing: 15.0,
-            direction: Axis.horizontal,
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 15.0),
+          height: 100.0,
+          child: GridView.count(
+            crossAxisCount: 3,
+            mainAxisSpacing: 0.1,
+            crossAxisSpacing: 0.1,
+//            childAspectRatio: 1.7,
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MyCustomRoute(
-                              builder: (context) => BerandaIncoming(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser)
-                          ));
-                    },
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Stack(
-                          overflow: Overflow.visible,
-                          children: <Widget>[
-                            Container(
-                              height: MediaQuery.of(context).size.width * 0.09,
-                              width: MediaQuery.of(context).size.width * 0.09,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage(
-                                        'assets/images/incoming/inspection.png',
-                                      ),
-                                      fit: BoxFit.cover
-                                  )
-                              ),
-                            ),
-                          ],
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MyCustomRoute(
+                          builder: (context) => BerandaIncoming(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser)
+                      ));
+                },
+                child: Column(
+                  children: <Widget>[
+                    Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(15.0),
+                            bottomRight: Radius.circular(15.0),
+                            topRight: Radius.circular(15.0),
+                            topLeft: Radius.circular(15.0),
+                          ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10.0),
+                        elevation: 1.0,
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.17,
+                          margin: EdgeInsets.symmetric(vertical: 10.0),
+                          child: Stack(
+                            overflow: Overflow.visible,
+                            children: <Widget>[
+                              Center(
+                                child: Image.asset(
+                                  'assets/images/incoming/inspection.png',
+                                  width: 30.0,
+                                  height: 30.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                    ),
+                    SizedBox(
+                      height: 5.0,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Flexible(
                           child: Text(
                             'Inspection',
                             style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12.0),
+                                fontWeight: FontWeight.w400, color: Colors.grey),
+                            textAlign: TextAlign.center,
                           ),
-                        ),
+                        )
                       ],
                     ),
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                          context,
-                          MyCustomRoute(
-                              builder: (context) => FormReport(departmentUser: widget.departmentUser, idUser: widget.idUser, namaUser: widget.namaUser,)
-                          ));
-                        },
-                        child: Stack(
-                          overflow: Overflow.visible,
-                          children: <Widget>[
-                            Container(
-                              height: MediaQuery.of(context).size.width * 0.09,
-                              width: MediaQuery.of(context).size.width * 0.09,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage(
-                                        'assets/images/IT/report.png',
-                                      ),
-                                      fit: BoxFit.cover
-                                  )
-                              ),
-                            ),
-                          ],
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                      MyCustomRoute(
+                          builder: (context) => DriverKonfirmasi(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser)
+                      )
+                  );
+                },
+                child: Column(
+                  children: <Widget>[
+                    Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(15.0),
+                          bottomRight: Radius.circular(15.0),
+                          topRight: Radius.circular(15.0),
+                          topLeft: Radius.circular(15.0),
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 10.0),
-                        child: Text('Report',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12.0),
-                            softWrap: false,
-                            overflow: TextOverflow.ellipsis),
+                      elevation: 1.0,
+                      child: Container(
+                          width: MediaQuery.of(context).size.width * 0.17,
+                          margin: EdgeInsets.symmetric(vertical: 10.0),
+                          child: Stack(
+                            overflow: Overflow.visible,
+                            children: <Widget>[
+                              Center(
+                                child: Image.asset(
+                                  'assets/images/iso/qc2.png',
+                                  width: 30.0,
+                                  height: 30.0,
+                                ),
+                              ),
+                            ],
+                          )
                       ),
-                    ],
-                  ),
-                ],
+                    ),
+                    SizedBox(
+                      height: 5.0,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Flexible(
+                          child: Text(
+                            'Konfirmasi Driver',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400, color: Colors.grey),
+                            textAlign: TextAlign.center,
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MyCustomRoute(
+                          builder: (context) => FormReport(departmentUser: widget.departmentUser, idUser: widget.idUser, namaUser: widget.namaUser,)
+                      ));
+                },
+                child: Column(
+                  children: <Widget>[
+                    Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(15.0),
+                          bottomRight: Radius.circular(15.0),
+                          topRight: Radius.circular(15.0),
+                          topLeft: Radius.circular(15.0),
+                        ),
+                      ),
+                      elevation: 1.0,
+                      child: Container(
+                          width: MediaQuery.of(context).size.width * 0.17,
+                          margin: EdgeInsets.symmetric(vertical: 10.0),
+                          child: Stack(
+                            overflow: Overflow.visible,
+                            children: <Widget>[
+                              Center(
+                                child: Image.asset(
+                                  'assets/images/hrd/report2.png',
+                                  width: 30.0,
+                                  height: 30.0,
+                                ),
+                              ),
+                            ],
+                          )
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5.0,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Flexible(
+                          child: Text(
+                            'Report',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400, color: Colors.grey),
+                            textAlign: TextAlign.center,
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
         ),
+
       ],
     );
   }

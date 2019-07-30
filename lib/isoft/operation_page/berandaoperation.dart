@@ -3,33 +3,39 @@ import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/creative_page/form_comment.dart';
 import 'package:flutter_abuba/creative_page/form_create.dart';
 import 'package:flutter_abuba/creative_page/form_detail.dart';
-import 'form_create.dart';
-import 'report.dart';
-import 'package:flutter_abuba/isoft/operation_page/changemanagement/beranda_management.dart';
-import 'package:flutter_abuba/isoft/operation_page/correctiveaction/beranda_corrective.dart';
-import 'package:flutter_abuba/isoft/operation_page/internalaudit/beranda_audit.dart';
+import 'package:flutter_abuba/isoft/operation_page/incoming/beranda_incoming.dart';
+import 'package:flutter_abuba/isoft/operation_page/incoming/beranda_incoming2.dart';
 import 'package:flutter_abuba/isoft/operation_page/kpimonitoring/kpi_monitoring_beranda.dart';
-import 'package:flutter_abuba/isoft/operation_page/meeting/beranda_meeting.dart';
+import 'package:flutter_abuba/isoft/operation_page/workinginstruction/beranda_working.dart';
 import 'package:flutter_abuba/whats_page/form_comment.dart';
 import 'package:flutter_abuba/whats_page/form_create_happening.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_abuba/isoft/operation_page/riskassesment/beranda_risk_register.dart';
-import 'package:flutter_abuba/isoft/operation_page/documentcontrol/beranda_document.dart';
-import 'package:flutter_abuba/isoft/operation_page/workinginstruction/beranda_working.dart';
 
-class MenuKitchen extends StatefulWidget {
+import 'package:flutter_abuba/isoft/operation_page/logbook/beranda_logbook.dart';
+import 'package:flutter_abuba/isoft/operation_page/dailychecklist/berandachecklist.dart';
+import 'kitchen/form_inspection.dart';
+import 'internalaudit/beranda_audit.dart';
+import 'correctiveaction/beranda_corrective.dart';
+import 'meeting/beranda_meeting.dart';
+import 'changemanagement/beranda_management.dart';
+import 'riskassesment/beranda_risk_register.dart';
+import 'qcchecklist/beranda_qc.dart';
+import 'documentcontrol/beranda_document.dart';
+import 'logbook/linecheck/beranda_linecheck.dart';
+import 'package:flutter/services.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class BerandaOperation extends StatefulWidget {
   final int idUser;
   final String namaUser;
   final String departmentUser;
+  BerandaOperation({this.idUser, this.namaUser, this.departmentUser});
 
-  MenuKitchen({this.idUser, this.namaUser, this.departmentUser});
   @override
-  _MenuKitchenState createState() => _MenuKitchenState();
+  _BerandaOperationState createState() => _BerandaOperationState();
 }
 
-class _MenuKitchenState extends State<MenuKitchen> with TickerProviderStateMixin {
+class _BerandaOperationState extends State<BerandaOperation> with TickerProviderStateMixin {
   AnimationController animationController;
 
   List<String> department = [
@@ -67,7 +73,7 @@ class _MenuKitchenState extends State<MenuKitchen> with TickerProviderStateMixin
     'Pak ADE RIDWAN - INTERNAL AUDIT MANAGER.jpeg',
     'Pak YASIR - OPERASIONAL MANAGER.jpeg',
   ];
-  
+
   List<bool> _alreadyOKHappening = [false, false, true];
   List<int> _counterOKHappening = [200, 150, 500];
   List<bool> _likeHappening = [false, true, false];
@@ -103,7 +109,7 @@ class _MenuKitchenState extends State<MenuKitchen> with TickerProviderStateMixin
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Flexible(
-                  child: Text('Kitchen', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600, color: Colors.black),),
+                  child: Text('Operation', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600, color: Colors.black),),
                 ),
                 Stack(
                   children: <Widget>[
@@ -130,18 +136,16 @@ class _MenuKitchenState extends State<MenuKitchen> with TickerProviderStateMixin
             margin: EdgeInsets.symmetric(horizontal: 15.0),
             height: 100.0,
             child: GridView.count(
-              crossAxisCount: 2,
+              crossAxisCount: 3,
               mainAxisSpacing: 0.1,
               crossAxisSpacing: 0.1,
-              childAspectRatio: 1.8,
+              childAspectRatio: 1.2,
               children: <Widget>[
                 GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MyCustomRoute(
-                            builder: (context) => FormCreateKitchen(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser)));
-                  },
+                  onTap: () => Navigator.push(
+                      context,
+                      MyCustomRoute(
+                          builder: (context) => MenuChecklist(idUser: widget.idUser, departmentUser: widget.departmentUser, namaUser: widget.namaUser))),
                   child: Column(
                     children: <Widget>[
                       Card(
@@ -162,7 +166,7 @@ class _MenuKitchenState extends State<MenuKitchen> with TickerProviderStateMixin
                               children: <Widget>[
                                 Center(
                                   child: Image.asset(
-                                    'assets/images/hrd/create new2.png',
+                                    'assets/images/iso/daily checklist2.png',
                                     width: 30.0,
                                     height: 30.0,
                                   ),
@@ -179,7 +183,7 @@ class _MenuKitchenState extends State<MenuKitchen> with TickerProviderStateMixin
                         children: <Widget>[
                           Flexible(
                             child: Text(
-                              'Create',
+                              'Line Check Shifting',
                               style: TextStyle(
                                   fontWeight: FontWeight.w400, color: Colors.grey),
                               textAlign: TextAlign.center,
@@ -192,10 +196,12 @@ class _MenuKitchenState extends State<MenuKitchen> with TickerProviderStateMixin
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                        context,
+                    // showSearch(context: context, delegate: DataSearch());
+                    Navigator.push(context,
                         MyCustomRoute(
-                            builder: (context) => KitchenReport(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser)));
+                            builder: (context) => new BerandaIncoming2(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser)
+                        )
+                    );
                   },
                   child: Column(
                     children: <Widget>[
@@ -217,7 +223,7 @@ class _MenuKitchenState extends State<MenuKitchen> with TickerProviderStateMixin
                               children: <Widget>[
                                 Center(
                                   child: Image.asset(
-                                    'assets/images/hrd/report2.png',
+                                    'assets/images/iso/qc2.png',
                                     width: 30.0,
                                     height: 30.0,
                                   ),
@@ -234,7 +240,61 @@ class _MenuKitchenState extends State<MenuKitchen> with TickerProviderStateMixin
                         children: <Widget>[
                           Flexible(
                             child: Text(
-                              'Report',
+                              'Incoming Material',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400, color: Colors.grey),
+                              textAlign: TextAlign.center,
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+
+                GestureDetector(
+                  onTap: () => Navigator.push(
+                      context,
+                      MyCustomRoute(
+                          builder: (context) => BerandaLinecheck(idUser: widget.idUser, departmentUser: widget.departmentUser, namaUser: widget.namaUser))),
+                  child: Column(
+                    children: <Widget>[
+                      Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(15.0),
+                            bottomRight: Radius.circular(15.0),
+                            topRight: Radius.circular(15.0),
+                            topLeft: Radius.circular(15.0),
+                          ),
+                        ),
+                        elevation: 1.0,
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.17,
+                          margin: EdgeInsets.symmetric(vertical: 10.0),
+                          child: Stack(
+                            overflow: Overflow.visible,
+                            children: <Widget>[
+                              Center(
+                                child: Image.asset(
+                                  'assets/images/incoming/inspection.png',
+                                  width: 30.0,
+                                  height: 30.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Flexible(
+                            child: Text(
+                              'QC Checklist',
                               style: TextStyle(
                                   fontWeight: FontWeight.w400, color: Colors.grey),
                               textAlign: TextAlign.center,

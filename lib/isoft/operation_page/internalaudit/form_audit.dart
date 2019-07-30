@@ -9754,7 +9754,7 @@ class _FormAuditState extends State<FormAudit> with TickerProviderStateMixin {
                         )
                       ],
                     ),
-                // sini food completely cooked
+                // sini Product Handling
                 ListView(
                       shrinkWrap: true,
                       physics: ScrollPhysics(),
@@ -9785,7 +9785,7 @@ class _FormAuditState extends State<FormAudit> with TickerProviderStateMixin {
                                                 overflow: TextOverflow.ellipsis,
                                                 textAlign: TextAlign.start,
                                                 text: TextSpan(
-                                                  text: 'Food Completely Cooked',
+                                                  text: 'Product Handling',
                                                   style: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 17.0
@@ -9960,7 +9960,7 @@ class _FormAuditState extends State<FormAudit> with TickerProviderStateMixin {
                                               ),
                                             ],
                                           ),
-                                          widget.subArea.contains('Food Completely Cooked')
+                                          widget.subArea.contains('Product Handling')
                                             ? Padding(
                                                 padding:
                                                 const EdgeInsets.symmetric(
@@ -10094,7 +10094,7 @@ class _FormAuditState extends State<FormAudit> with TickerProviderStateMixin {
 
                                                                 if (problemFS.length == 0) {
                                                                   problemFS.add(jmlFoodCooked[index]);
-                                                                  areaFS.add('Food Completely Cooked');
+                                                                  areaFS.add('Product Handling');
                                                                   auditorFS.add(auditorName[9]);
                                                                   auditorIDFS.add(int.tryParse(widget.auditor[9].toString()));
                                                                   subBabFS.add(systemFoodCooked[index]);
@@ -10108,7 +10108,7 @@ class _FormAuditState extends State<FormAudit> with TickerProviderStateMixin {
                                                                     rekomendasiFS.add(null);
                                                                       carNoFS.add(null);
                                                                     problemFS.add(jmlFoodCooked[index]);
-                                                                    areaFS.add('Food Completely Cooked');
+                                                                    areaFS.add('Product Handling');
                                                                     auditorFS.add(auditorName[9]);
                                                                     auditorIDFS.add(int.tryParse(widget.auditor[9].toString()));
                                                                     subBabFS.add(systemFoodCooked[index]);
@@ -10473,7 +10473,7 @@ class _FormAuditState extends State<FormAudit> with TickerProviderStateMixin {
                                                 ),
                                               )
                                             : Container(),
-                                          widget.subArea.contains('Food Completely Cooked')
+                                          widget.subArea.contains('Product Handling')
                                             ? Padding(
                                                 padding: const EdgeInsets.symmetric(horizontal: 2.0),
                                                 child: Row(
@@ -10699,7 +10699,7 @@ class _FormAuditState extends State<FormAudit> with TickerProviderStateMixin {
                                                     ),
                                                 onTap: () async {
                                                   if (scoreFoodCooked[indexFoodCooked] == null) {
-                                                    if (widget.subArea.contains('Food Completely Cooked')) {
+                                                    if (widget.subArea.contains('Product Handling')) {
                                                       showDialog(
                                                         barrierDismissible: false,
                                                         context: context,
@@ -10830,7 +10830,7 @@ class _FormAuditState extends State<FormAudit> with TickerProviderStateMixin {
                                                           } else {
                                                             finalPersonal = 0;
                                                           }
-                                                        } else if (widget.subArea.contains('Food Completely Cooked')) {
+                                                        } else if (widget.subArea.contains('Product Handling')) {
                                                           if (cp.data.containsKey('hasilFoodCooked')) {
                                                             finalFoodCooked = (cp.data['hasilFoodCooked'] * parameterFoodCooked) / 100;
                                                           } else {
@@ -11036,7 +11036,7 @@ class _FormAuditState extends State<FormAudit> with TickerProviderStateMixin {
                                                         });
                                                       }
 
-                                                      if (widget.subArea.contains('Food Completely Cooked')) {
+                                                      if (widget.subArea.contains('Product Handling')) {
                                                         docReference.updateData({
                                                           'FoodCooked_score': scoreFoodCooked,
                                                           'FoodCooked_note': noteFoodCooked,
@@ -11314,7 +11314,7 @@ class _FormAuditState extends State<FormAudit> with TickerProviderStateMixin {
                                                         } else {
                                                           finalPersonal = 0;
                                                         }
-                                                      } else if (widget.subArea.contains('Food Completely Cooked')) {
+                                                      } else if (widget.subArea.contains('Product Handling')) {
                                                         if (cp.data.containsKey('hasilFoodCooked')) {
                                                           finalFoodCooked = (cp.data['hasilFoodCooked'] * parameterFoodCooked) / 100;
                                                         } else {
@@ -11517,7 +11517,7 @@ class _FormAuditState extends State<FormAudit> with TickerProviderStateMixin {
                                                       });
                                                     }
 
-                                                    if (widget.subArea.contains('Food Completely Cooked')) {
+                                                    if (widget.subArea.contains('Product Handling')) {
                                                       docReference.updateData({
                                                         'FoodCooked_score': scoreFoodCooked,
                                                         'FoodCooked_note': noteFoodCooked,

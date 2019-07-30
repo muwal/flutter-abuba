@@ -57,9 +57,9 @@ class _OpenStatusState extends State<OpenStatus> with TickerProviderStateMixin {
 
     animationController = AnimationController(vsync: this, duration: Duration(seconds: 3));
     animationController.reverse(
-      from: animationController.value == 0.0
-        ? 1.0
-        : animationController.value
+        from: animationController.value == 0.0
+            ? 1.0
+            : animationController.value
     );
 
     Firestore.instance.collection('user').where('grade', isEqualTo: 'Manager').where('department', isEqualTo: 'IT').snapshots().listen((getManagerID) {
@@ -80,19 +80,19 @@ class _OpenStatusState extends State<OpenStatus> with TickerProviderStateMixin {
         child: Scaffold(
           appBar: _appBar(),
           body: GestureDetector(
-            onTap: () {
-              FocusScope.of(context).requestFocus(FocusNode());
-            },
-            child: AnimatedBuilder(
-              animation: animationController,
-              builder: (_, Widget child) {
-                return animationController.isAnimating
-                  ? Container(
-                      child: Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    )
-                  : ListView(
+              onTap: () {
+                FocusScope.of(context).requestFocus(FocusNode());
+              },
+              child: AnimatedBuilder(
+                animation: animationController,
+                builder: (_, Widget child) {
+                  return animationController.isAnimating
+                      ? Container(
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  )
+                      : ListView(
                       children: List.generate(masalah.length, (index) {
                         if (status[index] == 'CLOSE') {
                           return Container();
@@ -121,9 +121,9 @@ class _OpenStatusState extends State<OpenStatus> with TickerProviderStateMixin {
                                                     child: Text(
                                                       location[index],
                                                       style: TextStyle(
-                                                        fontSize: 15.0,
-                                                        fontWeight: FontWeight.w400,
-                                                        color: Colors.black87
+                                                          fontSize: 15.0,
+                                                          fontWeight: FontWeight.w400,
+                                                          color: Colors.black87
                                                       ),
                                                     ),
                                                   )
@@ -139,9 +139,9 @@ class _OpenStatusState extends State<OpenStatus> with TickerProviderStateMixin {
                                                     child: Text(
                                                       masalah[index],
                                                       style: TextStyle(
-                                                        fontSize: 20.0,
-                                                        fontWeight: FontWeight.w700,
-                                                        color: AbubaPallate.greenabuba
+                                                          fontSize: 20.0,
+                                                          fontWeight: FontWeight.w700,
+                                                          color: AbubaPallate.greenabuba
                                                       ),
                                                     ),
                                                   )
@@ -157,9 +157,9 @@ class _OpenStatusState extends State<OpenStatus> with TickerProviderStateMixin {
                                                     child: Text(
                                                       tanggal[index].toDate().toString().substring(8, 10) + '/' + tanggal[index].toDate().toString().substring(5, 7) + '/' +tanggal[index].toDate().toString().substring(0, 4),
                                                       style: TextStyle(
-                                                        fontSize: 14.0,
-                                                        fontWeight: FontWeight.w500,
-                                                        color: Colors.black54
+                                                          fontSize: 14.0,
+                                                          fontWeight: FontWeight.w500,
+                                                          color: Colors.black54
                                                       ),
                                                     ),
                                                   )
@@ -181,10 +181,10 @@ class _OpenStatusState extends State<OpenStatus> with TickerProviderStateMixin {
                                                               child: Text(
                                                                 'USER VERIFY',
                                                                 style: TextStyle(
-                                                                  fontSize: 15.0,
-                                                                  fontWeight: FontWeight.w800,
-                                                                  color: Colors.black54,
-                                                                  letterSpacing: 1.0
+                                                                    fontSize: 15.0,
+                                                                    fontWeight: FontWeight.w800,
+                                                                    color: Colors.black54,
+                                                                    letterSpacing: 1.0
                                                                 ),
                                                               ),
                                                             )
@@ -219,9 +219,9 @@ class _OpenStatusState extends State<OpenStatus> with TickerProviderStateMixin {
                                                     child: Text(
                                                       'FOLLOW UP',
                                                       style: TextStyle(
-                                                        fontSize: 13.0,
-                                                        color: AbubaPallate.menuBluebird,
-                                                        fontWeight: FontWeight.bold
+                                                          fontSize: 13.0,
+                                                          color: AbubaPallate.menuBluebird,
+                                                          fontWeight: FontWeight.bold
                                                       ),
                                                     ),
                                                     borderSide: BorderSide(color: AbubaPallate.menuBluebird, width: 2.0),
@@ -229,9 +229,9 @@ class _OpenStatusState extends State<OpenStatus> with TickerProviderStateMixin {
                                                     splashColor: AbubaPallate.menuBluebird,
                                                     onPressed: () {
                                                       Navigator.pushReplacement(context,
-                                                        MaterialPageRoute(
-                                                          builder: (_) => DetailOpenStatus(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser, index: docID[index])
-                                                        )
+                                                          MaterialPageRoute(
+                                                              builder: (_) => DetailOpenStatus(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser, index: docID[index])
+                                                          )
                                                       );
                                                     },
                                                   ),
@@ -276,9 +276,9 @@ class _OpenStatusState extends State<OpenStatus> with TickerProviderStateMixin {
                                                     child: Text(
                                                       location[index],
                                                       style: TextStyle(
-                                                        fontSize: 15.0,
-                                                        fontWeight: FontWeight.w400,
-                                                        color: Colors.black87
+                                                          fontSize: 15.0,
+                                                          fontWeight: FontWeight.w400,
+                                                          color: Colors.black87
                                                       ),
                                                     ),
                                                   )
@@ -294,9 +294,9 @@ class _OpenStatusState extends State<OpenStatus> with TickerProviderStateMixin {
                                                     child: Text(
                                                       masalah[index],
                                                       style: TextStyle(
-                                                        fontSize: 20.0,
-                                                        fontWeight: FontWeight.w700,
-                                                        color: AbubaPallate.greenabuba
+                                                          fontSize: 20.0,
+                                                          fontWeight: FontWeight.w700,
+                                                          color: AbubaPallate.greenabuba
                                                       ),
                                                     ),
                                                   )
@@ -312,9 +312,9 @@ class _OpenStatusState extends State<OpenStatus> with TickerProviderStateMixin {
                                                     child: Text(
                                                       tanggal[index].toDate().toString().substring(8, 10) + '/' + tanggal[index].toDate().toString().substring(5, 7) + '/' +tanggal[index].toDate().toString().substring(0, 4),
                                                       style: TextStyle(
-                                                        fontSize: 14.0,
-                                                        fontWeight: FontWeight.w500,
-                                                        color: Colors.black54
+                                                          fontSize: 14.0,
+                                                          fontWeight: FontWeight.w500,
+                                                          color: Colors.black54
                                                       ),
                                                     ),
                                                   )
@@ -336,10 +336,10 @@ class _OpenStatusState extends State<OpenStatus> with TickerProviderStateMixin {
                                                               child: Text(
                                                                 'USER VERIFY',
                                                                 style: TextStyle(
-                                                                  fontSize: 15.0,
-                                                                  fontWeight: FontWeight.w800,
-                                                                  color: Colors.black54,
-                                                                  letterSpacing: 1.0
+                                                                    fontSize: 15.0,
+                                                                    fontWeight: FontWeight.w800,
+                                                                    color: Colors.black54,
+                                                                    letterSpacing: 1.0
                                                                 ),
                                                               ),
                                                             )
@@ -374,9 +374,9 @@ class _OpenStatusState extends State<OpenStatus> with TickerProviderStateMixin {
                                                     child: Text(
                                                       'VIEW',
                                                       style: TextStyle(
-                                                        fontSize: 13.0,
-                                                        color: AbubaPallate.menuBluebird,
-                                                        fontWeight: FontWeight.bold
+                                                          fontSize: 13.0,
+                                                          color: AbubaPallate.menuBluebird,
+                                                          fontWeight: FontWeight.bold
                                                       ),
                                                     ),
                                                     borderSide: BorderSide(color: AbubaPallate.menuBluebird, width: 2.0),
@@ -384,9 +384,9 @@ class _OpenStatusState extends State<OpenStatus> with TickerProviderStateMixin {
                                                     splashColor: AbubaPallate.menuBluebird,
                                                     onPressed: () {
                                                       Navigator.pushReplacement(context,
-                                                        MaterialPageRoute(
-                                                          builder: (_) => DetailOpenStatus(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser, index: docID[index])
-                                                        )
+                                                          MaterialPageRoute(
+                                                              builder: (_) => DetailOpenStatus(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser, index: docID[index])
+                                                          )
                                                       );
                                                     },
                                                   ),
@@ -412,9 +412,9 @@ class _OpenStatusState extends State<OpenStatus> with TickerProviderStateMixin {
                           }
                         }
                       }).toList()
-                    );
-              },
-            )
+                  );
+                },
+              )
           ),
         ),
       ),

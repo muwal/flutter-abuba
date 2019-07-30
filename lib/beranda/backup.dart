@@ -27,6 +27,16 @@ class _BerandaPage2State extends State<BerandaPage2> with TickerProviderStateMix
   AnimationController animationController;
   GlobalKey<ScaffoldState> _key = new GlobalKey<ScaffoldState>();
 
+  List<String> menu = [
+    'Maintenance',
+    'Perbaikan',
+    'Corrective Action',
+    'Internal Audit',
+    'Minutes of Meeting',
+    'Change Management',
+    'Document Control',
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -657,97 +667,118 @@ class _BerandaPage2State extends State<BerandaPage2> with TickerProviderStateMix
                                   ],
                                 ),
                               ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Card(
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width * 0.25,
-                                      height: MediaQuery.of(context).size.width * 0.25,
-                                      padding: EdgeInsets.all(5.0),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Container(child: Icon(Icons.lock, size: 35.0, color: Colors.grey), alignment: Alignment.center, padding: EdgeInsets.only(top: 15.0, left: 5.0, bottom: 15.0),),
-                                          Text('Maintenance')
-                                        ],
+                              Container(
+                                height: 200.0,
+                                child: GridView.count(
+                                  crossAxisCount: 3,
+                                  children: List.generate(menu.length, (index) {
+                                    return Card(
+                                      child: Container(
+                                        width: MediaQuery.of(context).size.width * 0.25,
+                                        height: MediaQuery.of(context).size.width * 0.25,
+                                        padding: EdgeInsets.all(5.0),
+                                        child: Column(
+                                          children: <Widget>[
+                                            Container(child: Icon(Icons.lock, size: 35.0, color: Colors.grey), alignment: Alignment.center, padding: EdgeInsets.only(top: 15.0, left: 5.0, bottom: 15.0),),
+                                            Text(menu[index], textAlign: TextAlign.center),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                  Card(
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width * 0.25,
-                                      height: MediaQuery.of(context).size.width * 0.25,
-                                      padding: EdgeInsets.all(5.0),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Container(child: Icon(Icons.card_travel, size: 35.0, color: Colors.grey), alignment: Alignment.center, padding: EdgeInsets.only(top: 15.0, left: 5.0, bottom: 15.0),),
-                                          Text('Perbaikan')
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Card(
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width * 0.25,
-                                      height: MediaQuery.of(context).size.width * 0.25,
-                                      padding: EdgeInsets.all(5.0),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Container(child: Icon(Icons.change_history, size: 35.0, color: Colors.grey), alignment: Alignment.center, padding: EdgeInsets.only(top: 15.0, left: 5.0, bottom: 15.0),),
-                                          Text('Perbaikan')
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                    );
+                                  })
+                                ),
                               ),
-                              SizedBox(
-                                height: 15.0,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Card(
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width * 0.25,
-                                      height: MediaQuery.of(context).size.width * 0.25,
-                                      padding: EdgeInsets.all(5.0),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Container(child: Icon(Icons.zoom_out, size: 35.0, color: Colors.grey), alignment: Alignment.center, padding: EdgeInsets.only(top: 15.0, left: 5.0, bottom: 15.0),),
-                                          Text('Maintenance')
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Card(
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width * 0.25,
-                                      height: MediaQuery.of(context).size.width * 0.25,
-                                      padding: EdgeInsets.all(5.0),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Container(child: Icon(Icons.radio, size: 35.0, color: Colors.grey), alignment: Alignment.center, padding: EdgeInsets.only(top: 15.0, left: 5.0, bottom: 15.0),),
-                                          Text('Perbaikan')
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Card(
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width * 0.25,
-                                      height: MediaQuery.of(context).size.width * 0.25,
-                                      padding: EdgeInsets.all(5.0),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Container(child: Icon(Icons.redeem, size: 35.0, color: Colors.grey), alignment: Alignment.center, padding: EdgeInsets.only(top: 15.0, left: 5.0, bottom: 15.0),),
-                                          Text('Perbaikan')
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                              // Row(
+                              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              //   children: <Widget>[
+                              //     Card(
+                              //       child: Container(
+                              //         width: MediaQuery.of(context).size.width * 0.25,
+                              //         height: MediaQuery.of(context).size.width * 0.25,
+                              //         padding: EdgeInsets.all(5.0),
+                              //         child: Column(
+                              //           children: <Widget>[
+                              //             Container(child: Icon(Icons.lock, size: 35.0, color: Colors.grey), alignment: Alignment.center, padding: EdgeInsets.only(top: 15.0, left: 5.0, bottom: 15.0),),
+                              //             Text('Maintenance')
+                              //           ],
+                              //         ),
+                              //       ),
+                              //     ),
+                              //     Card(
+                              //       child: Container(
+                              //         width: MediaQuery.of(context).size.width * 0.25,
+                              //         height: MediaQuery.of(context).size.width * 0.25,
+                              //         padding: EdgeInsets.all(5.0),
+                              //         child: Column(
+                              //           children: <Widget>[
+                              //             Container(child: Icon(Icons.card_travel, size: 35.0, color: Colors.grey), alignment: Alignment.center, padding: EdgeInsets.only(top: 15.0, left: 5.0, bottom: 15.0),),
+                              //             Text('Perbaikan')
+                              //           ],
+                              //         ),
+                              //       ),
+                              //     ),
+                              //     Card(
+                              //       child: Container(
+                              //         width: MediaQuery.of(context).size.width * 0.25,
+                              //         height: MediaQuery.of(context).size.width * 0.25,
+                              //         padding: EdgeInsets.all(5.0),
+                              //         child: Column(
+                              //           children: <Widget>[
+                              //             Container(child: Icon(Icons.change_history, size: 35.0, color: Colors.grey), alignment: Alignment.center, padding: EdgeInsets.only(top: 15.0, left: 5.0, bottom: 15.0),),
+                              //             Text('Perbaikan')
+                              //           ],
+                              //         ),
+                              //       ),
+                              //     ),
+                              //   ],
+                              // ),
+                              // SizedBox(
+                              //   height: 15.0,
+                              // ),
+                              // Row(
+                              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              //   children: <Widget>[
+                              //     Card(
+                              //       child: Container(
+                              //         width: MediaQuery.of(context).size.width * 0.25,
+                              //         height: MediaQuery.of(context).size.width * 0.25,
+                              //         padding: EdgeInsets.all(5.0),
+                              //         child: Column(
+                              //           children: <Widget>[
+                              //             Container(child: Icon(Icons.zoom_out, size: 35.0, color: Colors.grey), alignment: Alignment.center, padding: EdgeInsets.only(top: 15.0, left: 5.0, bottom: 15.0),),
+                              //             Text('Maintenance')
+                              //           ],
+                              //         ),
+                              //       ),
+                              //     ),
+                              //     Card(
+                              //       child: Container(
+                              //         width: MediaQuery.of(context).size.width * 0.25,
+                              //         height: MediaQuery.of(context).size.width * 0.25,
+                              //         padding: EdgeInsets.all(5.0),
+                              //         child: Column(
+                              //           children: <Widget>[
+                              //             Container(child: Icon(Icons.radio, size: 35.0, color: Colors.grey), alignment: Alignment.center, padding: EdgeInsets.only(top: 15.0, left: 5.0, bottom: 15.0),),
+                              //             Text('Perbaikan')
+                              //           ],
+                              //         ),
+                              //       ),
+                              //     ),
+                              //     Card(
+                              //       child: Container(
+                              //         width: MediaQuery.of(context).size.width * 0.25,
+                              //         height: MediaQuery.of(context).size.width * 0.25,
+                              //         padding: EdgeInsets.all(5.0),
+                              //         child: Column(
+                              //           children: <Widget>[
+                              //             Container(child: Icon(Icons.redeem, size: 35.0, color: Colors.grey), alignment: Alignment.center, padding: EdgeInsets.only(top: 15.0, left: 5.0, bottom: 15.0),),
+                              //             Text('Perbaikan')
+                              //           ],
+                              //         ),
+                              //       ),
+                              //     ),
+                              //   ],
+                              // ),
                             ],
                           ),
                         ),

@@ -88,13 +88,21 @@ class _FormCreateKitchenState extends State<FormCreateKitchen> with TickerProvid
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          elevation: 0.25,
+          elevation: 1.0,
           backgroundColor: Colors.white,
           iconTheme: IconThemeData(color: Colors.black),
-          title: Image.asset(
-            'assets/images/logo2.png',
-            height: 150.0,
-            width: 120.0,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Flexible(
+                child: Text('Create', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600, color: Colors.black),),
+              ),
+              /*Stack(
+                children: <Widget>[
+                  Icon(Icons.notifications, color: Colors.grey[400],)
+                ],
+              )*/
+            ],
           ),
         ),
         body: GestureDetector(
@@ -109,35 +117,6 @@ class _FormCreateKitchenState extends State<FormCreateKitchen> with TickerProvid
   Widget _buildCreate(BuildContext context) {
     return ListView(
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Flexible(
-                child: Text(
-                  'Kitchen',
-                  style: TextStyle(color: Colors.black12, fontSize: 12.0),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15.0),
-                child: Text(
-                  '|',
-                  style:
-                      TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
-                ),
-              ),
-              Flexible(
-                child: Text(
-                  'Create New',
-                  style:
-                      TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
-                ),
-              ),
-            ],
-          ),
-        ),
         AnimatedBuilder(
             animation: animationController,
             builder: (_, Widget child) {

@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/isoft/IT_page/perbaikan/detail_workingOrder.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter/services.dart';
 
 class WorkingOrder extends StatefulWidget {
   final int idUser;
@@ -146,7 +146,7 @@ class _WorkingOrderState extends State<WorkingOrder> with TickerProviderStateMix
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark.copyWith(
-        statusBarColor: Color(0xfff9f9f9),),
+      statusBarColor: Color(0xfff9f9f9),),
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
@@ -157,10 +157,10 @@ class _WorkingOrderState extends State<WorkingOrder> with TickerProviderStateMix
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Flexible(
-                  child: Text('Working Order', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600, color: Colors.black),),
+                  child: Text('Working Order', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600, color: Colors.black)),
                 )
               ],
-            ),
+            )
           ),
           body: GestureDetector(
               onTap: () {
@@ -238,7 +238,7 @@ class _WorkingOrderState extends State<WorkingOrder> with TickerProviderStateMix
                             if (status[index] != 'NOT READY') {
                               return Container();
                             } else if (status[index] == 'NOT READY') {
-                              if (managerIT == widget.idUser) {
+                              if (managerIT == widget.idUser || asManagerIT == widget.idUser) {
                                 return Container(
                                   width: width,
                                   padding: const EdgeInsets.only(right: 5.0, left: 5.0),

@@ -1,10 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/isoft/operation_page/changemanagement/management_approval.dart';
 import 'package:flutter_abuba/isoft/operation_page/changemanagement/management_create.dart';
 import 'package:flutter_abuba/isoft/operation_page/changemanagement/management_report.dart';
 import 'package:flutter_abuba/isoft/operation_page/changemanagement/management_review.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class BerandaManagement extends StatefulWidget {
   final int idUser;
@@ -17,6 +17,41 @@ class BerandaManagement extends StatefulWidget {
 }
 
 class _BerandaManagementState extends State<BerandaManagement> {
+  bool showNotifChangeMgmtReview = false;
+  bool showNotifChangeMgmtApproval = false;
+
+  @override
+  void initState() {
+    CollectionReference reference = Firestore.instance.collection('changeMgmt');
+    reference.where('personReview', arrayContains: widget.idUser).where('statusApprove', isEqualTo: false).where('finalStatus', isEqualTo: 'OPEN').snapshots().listen((querySnapshot) {
+      querySnapshot.documentChanges.forEach((change) {
+        setState(() {
+          int indexPIC = change.document.data['personReview'].indexOf(widget.idUser);
+          if (change.document.data['personReviewStatus'][indexPIC] == 'OPEN') {
+            showNotifChangeMgmtReview = true;
+          } else {
+            showNotifChangeMgmtReview = false;
+          }
+        });
+      });
+    });
+
+    CollectionReference reference2 = Firestore.instance.collection('changeMgmt');
+    reference2.where('approveBy', isEqualTo: widget.idUser).where('finalStatus', isEqualTo: 'OPEN').snapshots().listen((querySnapshot2) {
+      querySnapshot2.documentChanges.forEach((change2) {
+        setState(() {
+          if (change2.document.data['personReviewStatus'].contains('OPEN') == false) {
+            showNotifChangeMgmtApproval = true;
+          } else {
+            showNotifChangeMgmtApproval = false;
+          }
+        });
+      });
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -142,23 +177,17 @@ class _BerandaManagementState extends State<BerandaManagement> {
                                   )
                               ),
                             ),
-                            Positioned(
-                              top: -10.0,
-                              right: -8.0,
-                              child: Icon(
-                                Icons.brightness_1,
-                                size: 25.0,
-                                color: Colors.redAccent,
-                              ),
-                            ),
-                            Positioned(
-                              top: -5.0,
-                              right: 2.0,
-                              child: Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
+                            showNotifChangeMgmtReview
+                              ? Positioned(
+                                  top: 0.0,
+                                  right: 0.0,
+                                  child: Icon(
+                                    Icons.brightness_1,
+                                    size: 13.0,
+                                    color: Colors.redAccent,
+                                  ),
+                                )
+                              : Container()
                           ],
                         ),
                       ),
@@ -198,23 +227,17 @@ class _BerandaManagementState extends State<BerandaManagement> {
                                   )
                               ),
                             ),
-                            Positioned(
-                              top: -10.0,
-                              right: -8.0,
-                              child: Icon(
-                                Icons.brightness_1,
-                                size: 25.0,
-                                color: Colors.redAccent,
-                              ),
-                            ),
-                            Positioned(
-                              top: -5.0,
-                              right: 2.0,
-                              child: Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
+                            showNotifChangeMgmtApproval
+                              ? Positioned(
+                                  top: 0.0,
+                                  right: 0.0,
+                                  child: Icon(
+                                    Icons.brightness_1,
+                                    size: 13.0,
+                                    color: Colors.redAccent,
+                                  ),
+                                )
+                              : Container()
                           ],
                         ),
                         Padding(

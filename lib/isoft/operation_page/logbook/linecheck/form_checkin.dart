@@ -32,56 +32,35 @@ class _FormCheckInState extends State<FormCheckIn> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          elevation: 0.25,
+          elevation: 1.0,
           backgroundColor: Colors.white,
           iconTheme: IconThemeData(color: Colors.black),
-          title: Image.asset(
-            'assets/images/logo2.png',
-            height: 150.0,
-            width: 120.0,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Flexible(
+                child: Text('Check in', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600, color: Colors.black),),
+              ),
+              /*Stack(
+                children: <Widget>[
+                  Icon(Icons.notifications, color: Colors.grey[400],)
+                ],
+              )*/
+            ],
           ),
         ),
         body: Scrollbar(
           child: ListView(
             children: <Widget>[
-              Container(
-                height: 400.0,
-                width: MediaQuery.of(context).size.width,
-                color: Colors.white,
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            'Line Check Shifting',
-                            style: TextStyle(
-                                color: Colors.black12, fontSize: 12.0),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 15.0),
-                            child: Text(
-                              '|',
-                              style: TextStyle(
-                                  color: AbubaPallate.greenabuba,
-                                  fontSize: 12.0),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 15.0),
-                            child: Text(
-                              'Location',
-                              style: TextStyle(
-                                  color: AbubaPallate.greenabuba,
-                                  fontSize: 12.0),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.551,
+                    color: Colors.white,
+                    child: Padding(
                       padding: EdgeInsets.fromLTRB(20.0, 100.0, 20.0, 20.0),
                       child: Column(
                         children: <Widget>[
@@ -142,23 +121,23 @@ class _FormCheckInState extends State<FormCheckIn> {
                                     'outlet': widget.outlet
                                   },
                                 ).then(
-                                  (doc) {
+                                      (doc) {
                                     Navigator.pushReplacement(
                                       context,
                                       MyCustomRoute(
                                         builder: (context) => FormLineCheck(
-                                            idOutlet: widget.idOutlet,
-                                            alamatOutlet: widget.alamatOutlet,
-                                            outlet: widget.outlet,
-                                            imageOutlet: widget.imageOutlet,
-                                            idUser: widget.idUser,
-                                            idMysteryGuest: maxid,
-                                            index: docReference.documentID,),
+                                          idOutlet: widget.idOutlet,
+                                          alamatOutlet: widget.alamatOutlet,
+                                          outlet: widget.outlet,
+                                          imageOutlet: widget.imageOutlet,
+                                          idUser: widget.idUser,
+                                          idMysteryGuest: maxid,
+                                          index: docReference.documentID,),
                                       ),
                                     );
                                   },
                                 ).catchError(
-                                  (error) {
+                                      (error) {
                                     print(error);
                                   },
                                 );
@@ -167,16 +146,17 @@ class _FormCheckInState extends State<FormCheckIn> {
                           ),
                         ],
                       ),
-                    )
-                  ],
-                ),
+                    ),
+                  ),
+                  Container(
+                    child: Image.network(
+                      widget.imageOutlet,
+                      fit: BoxFit.fitWidth,
+                    ),
+                  )
+                ],
               ),
-              Container(
-                child: Image.network(
-                  widget.imageOutlet,
-                  fit: BoxFit.fitWidth,
-                ),
-              )
+
             ],
           ),
         ),

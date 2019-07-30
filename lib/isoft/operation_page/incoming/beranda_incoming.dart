@@ -79,206 +79,179 @@ class _BerandaIncomingState extends State<BerandaIncoming> with TickerProviderSt
         appBar: _appBar(),
         body: ListView(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'Incoming',
-                    style: TextStyle(color: Colors.black12, fontSize: 12.0),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 15.0),
-                    child: Text(
-                      '|',
-                      style: TextStyle(
-                          color: AbubaPallate.greenabuba, fontSize: 12.0),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 15.0),
-                    child: Text(
-                      'Inspection',
-                      style: TextStyle(
-                          color: AbubaPallate.greenabuba, fontSize: 12.0),
-                    ),
-                  ),
-                ],
-              ),
-            ),
             AnimatedBuilder(
               animation: animationController,
               builder: (_, Widget child) {
                 return animationController.isAnimating
                     ? Container(
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                )
+                        height: MediaQuery.of(context).size.height * 0.8,
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      )
                     : Container(
-                    color: Colors.white,
-                    width: width,
-                    child: Column(
-                      children: List.generate(namaMaterial.length, (index) {
-                        return Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            index == 0
-                                ? Padding(
-                              padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Container(
-                                    width: width / 5,
-                                    child: Row(
-                                      children: <Widget>[
-                                        Flexible(
-                                          child: Text(
-                                            'Resource #',
-                                            style: TextStyle(color: Colors.green),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    width: width / 5,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: <Widget>[
-                                        Flexible(
-                                          child: Text(
-                                            'Material',
-                                            style: TextStyle(color: Colors.green),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    width: width / 5,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: <Widget>[
-                                        Flexible(
-                                          child: Text(
-                                            'Supplier',
-                                            style: TextStyle(color: Colors.green),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    width: width / 5,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: <Widget>[
-                                        Flexible(
-                                          child: Text(
-                                            '',
-                                            style: TextStyle(color: Colors.green),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
-                                : Container(),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(12.0, 6.0, 12.0, 0.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Container(
-                                    width: width / 5,
-                                    child: Row(
-                                      children: <Widget>[
-                                        Flexible(
-                                          child: Text(
-                                            resourceNo[index],
-                                            style: TextStyle(
-                                                fontSize: 12.0, color: Colors.black38),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    width: width / 5,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: <Widget>[
-                                        Flexible(
-                                          child: Text(
-                                            namaMaterial[index],
-                                            style: TextStyle(
-                                                fontSize: 12.0, color: Colors.black38),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    width: width / 5,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: <Widget>[
-                                        Flexible(
-                                          child: Text(
-                                            supplier[index],
-                                            style: TextStyle(
-                                                fontSize: 12.0, color: Colors.black38),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    width: width / 5,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: <Widget>[
-                                        Flexible(
-                                          child: ButtonTheme(
-                                            minWidth: 50.0,
-                                            height: 30.0,
-                                            splashColor: AbubaPallate.menuBluebird,
-                                            child: OutlineButton(
-                                              borderSide: BorderSide(
-                                                  color: AbubaPallate.menuBluebird),
-                                              child: Text(
-                                                'VIEW',
-                                                style: TextStyle(
-                                                    fontSize: 12.0,
-                                                    color: AbubaPallate.menuBluebird),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                              onPressed: () {
-                                                Navigator.push(context,
-                                                    MaterialPageRoute(
-                                                        builder: (_) => Inspection(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser, idMaterial: idMaterial[index], namaMaterial: namaMaterial[index], parameterAttr: parameterAttr[index], parameterVar: parameterVar[index], detailAttr: detailAttr[index], detailVar: detailVar[index], stdAttr: stdAttr[index], stdVar: stdVar[index], stdVarMax: stdVarMax[index], stdVarUnit: stdVarUnit[index], stdVarAlat: stdVarAlat[index], idSupplier: idSupplier[index], supplier: supplier[index])
-                                                    )
-                                                );
-                                              },
+                        padding: EdgeInsets.only(top: 20.0),
+                        color: Colors.white,
+                        width: width,
+                        child: Column(
+                          children: List.generate(namaMaterial.length, (index) {
+                            return Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                index == 0
+                                  ? Padding(
+                                      padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Container(
+                                            width: width / 5,
+                                            child: Row(
+                                              children: <Widget>[
+                                                Flexible(
+                                                  child: Text(
+                                                    'Resource #',
+                                                    style: TextStyle(color: Colors.green),
+                                                  ),
+                                                )
+                                              ],
                                             ),
                                           ),
+                                          Container(
+                                            width: width / 5,
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                Flexible(
+                                                  child: Text(
+                                                    'Material',
+                                                    style: TextStyle(color: Colors.green),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                          Container(
+                                            width: width / 5,
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                Flexible(
+                                                  child: Text(
+                                                    'Supplier',
+                                                    style: TextStyle(color: Colors.green),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                          Container(
+                                            width: width / 5,
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.end,
+                                              children: <Widget>[
+                                                Flexible(
+                                                  child: Text(
+                                                    '',
+                                                    style: TextStyle(color: Colors.green),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  : Container(),
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(12.0, 6.0, 12.0, 0.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Container(
+                                        width: width / 5,
+                                        child: Row(
+                                          children: <Widget>[
+                                            Flexible(
+                                              child: Text(
+                                                resourceNo[index],
+                                                style: TextStyle(
+                                                    fontSize: 12.0, color: Colors.black38),
+                                              ),
+                                            )
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        );
-                      }).toList(),
-                    )
-                );
+                                      ),
+                                      Container(
+                                        width: width / 5,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: <Widget>[
+                                            Flexible(
+                                              child: Text(
+                                                namaMaterial[index],
+                                                style: TextStyle(
+                                                    fontSize: 12.0, color: Colors.black38),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        width: width / 5,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: <Widget>[
+                                            Flexible(
+                                              child: Text(
+                                                supplier[index],
+                                                style: TextStyle(
+                                                    fontSize: 12.0, color: Colors.black38),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        width: width / 5,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: <Widget>[
+                                            Flexible(
+                                              child: ButtonTheme(
+                                                minWidth: 50.0,
+                                                height: 30.0,
+                                                splashColor: AbubaPallate.menuBluebird,
+                                                child: OutlineButton(
+                                                  borderSide: BorderSide(color: AbubaPallate.menuBluebird),
+                                                  child: Text(
+                                                    'VIEW',
+                                                    style: TextStyle(
+                                                      fontSize: 12.0,
+                                                      color: AbubaPallate.menuBluebird),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                  onPressed: () {
+                                                    Navigator.push(context,
+                                                      MaterialPageRoute(
+                                                          builder: (_) => Inspection(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser, idMaterial: idMaterial[index], namaMaterial: namaMaterial[index], parameterAttr: parameterAttr[index], parameterVar: parameterVar[index], detailAttr: detailAttr[index], detailVar: detailVar[index], stdAttr: stdAttr[index], stdVar: stdVar[index], stdVarMax: stdVarMax[index], stdVarUnit: stdVarUnit[index], stdVarAlat: stdVarAlat[index], idSupplier: idSupplier[index], supplier: supplier[index])
+                                                      )
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                )
+                              ],
+                            );
+                          }).toList(),
+                        )
+                      );
               },
             )
           ],
@@ -289,20 +262,28 @@ class _BerandaIncomingState extends State<BerandaIncoming> with TickerProviderSt
 
   Widget _appBar() {
     return AppBar(
-      elevation: 0.25,
+      elevation: 1.0,
       backgroundColor: Colors.white,
       iconTheme: IconThemeData(color: Colors.black),
-      actions: <Widget>[
-        IconButton(
-            tooltip: 'Search',
-            icon: Icon(Icons.search),
-            onPressed: () {}
-        )
-      ],
-      title: Image.asset(
-        'assets/images/logo2.png',
-        height: 150.0,
-        width: 120.0,
+      // actions: <Widget>[
+      //   IconButton(
+      //       tooltip: 'Search',
+      //       icon: Icon(Icons.search),
+      //       onPressed: () {}
+      //   )
+      // ],
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Flexible(
+            child: Text('Inspection', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600, color: Colors.black),),
+          ),
+          /*Stack(
+                children: <Widget>[
+                  Icon(Icons.notifications, color: Colors.grey[400],)
+                ],
+              )*/
+        ],
       ),
     );
   }

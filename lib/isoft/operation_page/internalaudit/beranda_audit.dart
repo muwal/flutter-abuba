@@ -20,6 +20,91 @@ class MenuAudit extends StatefulWidget {
 class _MenuAuditState extends State<MenuAudit> {
   final _scaffoldState = GlobalKey<ScaffoldState>();
 
+  bool showNotifIAKonfirmasiLead = false;
+  bool showNotifIAKonfirmasiAuditee = false;
+  bool showNotifIAKonfirmasiAuditor = false;
+  bool showNotifIAStartAuditLead = false;
+  bool showNotifIAStartAuditAuditee = false;
+  bool showNotifIAStartAuditAuditor = false;
+
+  @override
+  void initState() {
+    CollectionReference reference5 = Firestore.instance.collection('audit_internal');
+    reference5.where('auditEnd', isNull: true).where('leadAuditor', isEqualTo: widget.idUser).where('leadAuditorConfirm', isEqualTo: widget.idUser).snapshots().listen((querySnapshot5) {
+      querySnapshot5.documentChanges.forEach((change5) {
+        setState(() {
+          showNotifIAKonfirmasiLead = true;
+        });
+      });
+    });
+
+    CollectionReference reference6 = Firestore.instance.collection('audit_internal');
+    reference6.where('auditEnd', isNull: true).where('auditee', isEqualTo: widget.idUser).where('auditeeConfirm', isEqualTo: widget.idUser).snapshots().listen((querySnapshot6) {
+      querySnapshot6.documentChanges.forEach((change6) {
+        setState(() {
+          showNotifIAKonfirmasiAuditee = true;
+        });
+      });
+    });
+    
+    CollectionReference reference7 = Firestore.instance.collection('audit_internal');
+    reference7.where('auditEnd', isNull: true).where('subAreaAuditor', arrayContains: widget.idUser.toString()).snapshots().listen((querySnapshot7) {
+      querySnapshot7.documentChanges.forEach((change7) {
+        setState(() {
+          if (change7.document.data['auditorConfirm'].contains(widget.idUser.toString())) {
+            showNotifIAKonfirmasiAuditor = true;
+          } else {
+            showNotifIAKonfirmasiAuditor = false;
+          }
+        });
+      });
+    });
+
+    CollectionReference reference8 = Firestore.instance.collection('audit_internal');
+    reference8.where('auditEnd', isNull: true).where('leadAuditorConfirm', isEqualTo: 'CONFIRM').where('auditeeConfirm', isEqualTo: 'CONFIRM').where('auditee', isEqualTo: widget.idUser).where('auditeeCheckIn', isNull: true).snapshots().listen((querySnapshot8) {
+      querySnapshot8.documentChanges.forEach((change8) {
+        setState(() {
+          Timestamp bantu = change8.document.data['dateAudite'];
+          if (bantu.toDate().toString().substring(8, 10) + '/' + bantu.toDate().toString().substring(5, 7) + '/' +bantu.toDate().toString().substring(0, 4) == DateTime.now().toString().substring(8, 10) + '/' + DateTime.now().toString().substring(5, 7) + '/' +DateTime.now().toString().substring(0, 4) || bantu.toDate().isBefore(DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day))) {
+            showNotifIAStartAuditAuditee = true;
+          } else {
+            showNotifIAStartAuditAuditee = false;
+          }
+        });
+      });
+    });
+
+    CollectionReference reference9 = Firestore.instance.collection('audit_internal');
+    reference9.where('auditEnd', isNull: true).where('leadAuditorConfirm', isEqualTo: 'CONFIRM').where('auditeeConfirm', isEqualTo: 'CONFIRM').where('leadAuditor', isEqualTo: widget.idUser).where('leadAuditorCheckIn', isNull: true).where('status', isEqualTo: 'ONGOING').snapshots().listen((querySnapshot9) {
+      querySnapshot9.documentChanges.forEach((change9) {
+        setState(() {
+          Timestamp bantu = change9.document.data['dateAudite'];
+          if (bantu.toDate().toString().substring(8, 10) + '/' + bantu.toDate().toString().substring(5, 7) + '/' +bantu.toDate().toString().substring(0, 4) == DateTime.now().toString().substring(8, 10) + '/' + DateTime.now().toString().substring(5, 7) + '/' +DateTime.now().toString().substring(0, 4) || bantu.toDate().isBefore(DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day))) {
+            showNotifIAStartAuditLead = true;
+          } else {
+            showNotifIAStartAuditLead = false;
+          }
+        });
+      });
+    });
+
+    CollectionReference reference10 = Firestore.instance.collection('audit_internal');
+    reference10.where('auditEnd', isNull: true).where('subAreaAuditor', arrayContains: widget.idUser).where('leadAuditorConfirm', isEqualTo: 'CONFIRM').where('auditeeConfirm', isEqualTo: 'CONFIRM').where('status', isEqualTo: 'ONGOING').snapshots().listen((querySnapshot10) {
+      querySnapshot10.documentChanges.forEach((change10) {
+        setState(() {
+          Timestamp bantu = change10.document.data['dateAudite'];
+          if (bantu.toDate().toString().substring(8, 10) + '/' + bantu.toDate().toString().substring(5, 7) + '/' +bantu.toDate().toString().substring(0, 4) == DateTime.now().toString().substring(8, 10) + '/' + DateTime.now().toString().substring(5, 7) + '/' +DateTime.now().toString().substring(0, 4) || bantu.toDate().isBefore(DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day))) {
+            showNotifIAStartAuditAuditor = true;
+          } else {
+            showNotifIAStartAuditAuditor = false;
+          }
+        });
+      });
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -150,23 +235,39 @@ class _MenuAuditState extends State<MenuAudit> {
                                 )
                               ),
                             ),
-                            Positioned(
-                              top: -5.0,
-                              right: -5.0,
-                              child: Icon(
-                                Icons.brightness_1,
-                                size: 25.0,
-                                color: Colors.redAccent,
-                              ),
-                            ),
-                            Positioned(
-                              top: 0.0,
-                              right: 4.0,
-                              child: Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
+                            showNotifIAKonfirmasiLead
+                              ? Positioned(
+                                  top: 0.0,
+                                  right: 0.0,
+                                  child: Icon(
+                                    Icons.brightness_1,
+                                    size: 13.0,
+                                    color: Colors.redAccent,
+                                  ),
+                                )
+                              : Container(),
+                            showNotifIAKonfirmasiAuditee
+                              ? Positioned(
+                                  top: 0.0,
+                                  right: 0.0,
+                                  child: Icon(
+                                    Icons.brightness_1,
+                                    size: 13.0,
+                                    color: Colors.redAccent,
+                                  ),
+                                )
+                              : Container(),
+                            showNotifIAKonfirmasiAuditor
+                              ? Positioned(
+                                  top: 0.0,
+                                  right: 0.0,
+                                  child: Icon(
+                                    Icons.brightness_1,
+                                    size: 13.0,
+                                    color: Colors.redAccent,
+                                  ),
+                                )
+                              : Container(),
                           ],
                         ),
                       ),
@@ -214,23 +315,39 @@ class _MenuAuditState extends State<MenuAudit> {
                                   )
                               ),
                             ),
-                            Positioned(
-                              top: -5.0,
-                              right: -5.0,
-                              child: Icon(
-                                Icons.brightness_1,
-                                size: 25.0,
-                                color: Colors.redAccent,
-                              ),
-                            ),
-                            Positioned(
-                              top: 0.0,
-                              right: 4.0,
-                              child: Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
+                            showNotifIAStartAuditAuditee
+                              ? Positioned(
+                                  top: 0.0,
+                                  right: 0.0,
+                                  child: Icon(
+                                    Icons.brightness_1,
+                                    size: 13.0,
+                                    color: Colors.redAccent,
+                                  ),
+                                )
+                              : Container(),
+                            showNotifIAStartAuditAuditor
+                              ? Positioned(
+                                  top: 0.0,
+                                  right: 0.0,
+                                  child: Icon(
+                                    Icons.brightness_1,
+                                    size: 13.0,
+                                    color: Colors.redAccent,
+                                  ),
+                                )
+                              : Container(),
+                            showNotifIAStartAuditLead
+                              ? Positioned(
+                                  top: 0.0,
+                                  right: 0.0,
+                                  child: Icon(
+                                    Icons.brightness_1,
+                                    size: 13.0,
+                                    color: Colors.redAccent,
+                                  ),
+                                )
+                              : Container(),
                           ],
                         ),
                         Padding(

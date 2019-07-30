@@ -243,7 +243,7 @@ class _FormReportState extends State<FormReport> with TickerProviderStateMixin {
                   },
                 )
             )
-          ),
+        ),
       ),
     );
   }
@@ -265,7 +265,7 @@ class _FormReportState extends State<FormReport> with TickerProviderStateMixin {
                 child: Text(
                   '|',
                   style:
-                      TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
+                  TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
                 ),
               ),
               Padding(
@@ -273,7 +273,7 @@ class _FormReportState extends State<FormReport> with TickerProviderStateMixin {
                 child: Text(
                   'Report',
                   style:
-                      TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
+                  TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
                 ),
               ),
             ],
@@ -308,9 +308,9 @@ class _FormReportState extends State<FormReport> with TickerProviderStateMixin {
                           labelText: 'From',
                           helperText: helperText,
                           helperStyle: TextStyle(
-                            color: showHelper ? Colors.redAccent : Colors.black38,
-                            fontStyle: showHelper ? FontStyle.italic : FontStyle.normal,
-                            fontSize: 14.0
+                              color: showHelper ? Colors.redAccent : Colors.black38,
+                              fontStyle: showHelper ? FontStyle.italic : FontStyle.normal,
+                              fontSize: 14.0
                           ),
                         ),
                       ),
@@ -318,17 +318,17 @@ class _FormReportState extends State<FormReport> with TickerProviderStateMixin {
                     Container(
                       width: width / 2.5,
                       child: DateTimePickerFormField(
-                    format: dateFormat,
-                    onChanged: (dt) => setState(() => dateEnd = dt),
-                    dateOnly: true,
-                    style: TextStyle(fontSize: 16.0, color: Colors.black),
-                    decoration: InputDecoration(
-                      border: UnderlineInputBorder(),
-                      labelStyle: TextStyle(fontSize: 14.0),
-                      labelText: 'To',
-                      helperText: '',
-                    ),
-                  ),
+                        format: dateFormat,
+                        onChanged: (dt) => setState(() => dateEnd = dt),
+                        dateOnly: true,
+                        style: TextStyle(fontSize: 16.0, color: Colors.black),
+                        decoration: InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelStyle: TextStyle(fontSize: 14.0),
+                          labelText: 'To',
+                          helperText: '',
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -374,8 +374,8 @@ class _FormReportState extends State<FormReport> with TickerProviderStateMixin {
             children: <Widget>[
               StreamBuilder(
                 stream: showDataFiltered
-                  ? Firestore.instance.collection('perbaikanIT').where('dateCreated', isGreaterThanOrEqualTo: dateStart).orderBy('dateCreated', descending: false).snapshots()
-                  : Firestore.instance.collection('perbaikanIT').orderBy('dateCreated', descending: false).snapshots(),
+                    ? Firestore.instance.collection('perbaikanIT').where('dateCreated', isGreaterThanOrEqualTo: dateStart).orderBy('dateCreated', descending: false).snapshots()
+                    : Firestore.instance.collection('perbaikanIT').orderBy('dateCreated', descending: false).snapshots(),
                 builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData)
                     return Container(
@@ -442,9 +442,9 @@ class _FormReportState extends State<FormReport> with TickerProviderStateMixin {
                                     highlightedBorderColor: snapshot.data.documents[index].data['statusPerbaikan'] == 'OPEN' ? Colors.redAccent : AbubaPallate.menuBluebird,
                                     onPressed: () {
                                       Navigator.push(context,
-                                        MaterialPageRoute(
-                                          builder: (_) => DetailReport(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser, index: snapshot.data.documents[index].documentID, )
-                                        )
+                                          MaterialPageRoute(
+                                              builder: (_) => DetailReport(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser, index: snapshot.data.documents[index].documentID, )
+                                          )
                                       );
                                     },
                                   ),
@@ -504,9 +504,9 @@ class _FormReportState extends State<FormReport> with TickerProviderStateMixin {
                                   highlightedBorderColor: snapshot.data.documents[index].data['statusPerbaikan'] == 'OPEN' ? Colors.redAccent : AbubaPallate.menuBluebird,
                                   onPressed: () {
                                     Navigator.push(context,
-                                      MaterialPageRoute(
-                                        builder: (_) => DetailReport(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser, index: snapshot.data.documents[index].documentID, )
-                                      )
+                                        MaterialPageRoute(
+                                            builder: (_) => DetailReport(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser, index: snapshot.data.documents[index].documentID, )
+                                        )
                                     );
                                   },
                                 ),
@@ -708,7 +708,7 @@ class _FormReportState extends State<FormReport> with TickerProviderStateMixin {
                                     splashColor: status[index] == 'DONE' ? AbubaPallate.greenabuba : Colors.redAccent,
                                     child: OutlineButton(
                                       child: Text(
-                                          // status[index],
+                                        // status[index],
                                         'Report',
                                         style: TextStyle(fontSize: 13.0, color: status[index] == 'OPEN' ? Colors.redAccent : AbubaPallate.menuBluebird),
                                       ),
@@ -737,7 +737,7 @@ class _FormReportState extends State<FormReport> with TickerProviderStateMixin {
               return Container();
             }
           }
-        ),
+      ),
     );
   }
 
@@ -1037,8 +1037,8 @@ class _FormReportState extends State<FormReport> with TickerProviderStateMixin {
                                     splashColor: statusListItems[index] == 'DONE' ? AbubaPallate.greenabuba : Colors.redAccent,
                                     child: OutlineButton(
                                       child: Text(
-                                          // statusListItems[index],
-                                          'Report',
+                                        // statusListItems[index],
+                                        'Report',
                                         style: TextStyle(fontSize: 13.0, color: statusListItems[index] == 'OPEN' ? Colors.redAccent : AbubaPallate.menuBluebird),
                                       ),
                                       borderSide: BorderSide(color: statusListItems[index] == 'OPEN' ? Colors.redAccent : AbubaPallate.menuBluebird, width: 1.0),

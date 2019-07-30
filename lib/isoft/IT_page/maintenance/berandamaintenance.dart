@@ -50,6 +50,10 @@ class _BerandaMaintenanceState extends State<BerandaMaintenance> with TickerProv
     return null;
   }
 
+  bool showNotifMaintenanceTLToday = false;
+  bool showNotifMaintenanceTLSkip = false;
+  bool showNotifMaintenanceTLReschedule = false;
+
   @override
   void initState() {
     animationController = AnimationController(vsync: this, duration: Duration(seconds: 3));
@@ -60,37 +64,77 @@ class _BerandaMaintenanceState extends State<BerandaMaintenance> with TickerProv
     );
 
     CollectionReference reference = Firestore.instance.collection('maintenance_IT');
-    reference.where('pic', isEqualTo: widget.idUser).where('status', isEqualTo: 'OPEN').where('dueDate', isLessThanOrEqualTo: DateTime.now()).limit(10).snapshots().listen((querySnapshot) {
+    reference.where('pic', isEqualTo: widget.idUser).where('status', isEqualTo: 'OPEN').limit(10).snapshots().listen((querySnapshot) {
       querySnapshot.documentChanges.forEach((change) {
         // setState(() {
-          dueDate.add(change.document.data['dueDate']);
-          maintenanceNo.add(change.document.data['maintenanceNo']);
-          frequency.add(change.document.data['frequency']);
-          status.add(change.document.data['status']);
-          userCreated.add(change.document.data['userCreated']);
-          picID.add(change.document.data['pic']);
+          Timestamp bantu = change.document.data['dueDate'];
+          if (bantu.toDate().toString().substring(8, 10) + '/' + bantu.toDate().toString().substring(5, 7) + '/' +bantu.toDate().toString().substring(0, 4) == DateTime.now().toString().substring(8, 10) + '/' + DateTime.now().toString().substring(5, 7) + '/' +DateTime.now().toString().substring(0, 4)) {
+            dueDate.add(change.document.data['dueDate']);
+            maintenanceNo.add(change.document.data['maintenanceNo']);
+            frequency.add(change.document.data['frequency']);
+            status.add(change.document.data['status']);
+            userCreated.add(change.document.data['userCreated']);
+            picID.add(change.document.data['pic']);
 
-          job.add(change.document.data['jobdesc']);
-          jobStatus.add(change.document.data['jobdesc_status']);
+            job.add(change.document.data['jobdesc']);
+            jobStatus.add(change.document.data['jobdesc_status']);
 
-          Firestore.instance.collection('outlet').where('id', isEqualTo: change.document.data['outlet']).snapshots().listen((data) {
-            outlet.add(data.documents[0].data['nama_outlet']);
-          });
+            Firestore.instance.collection('outlet').where('id', isEqualTo: change.document.data['outlet']).snapshots().listen((data) {
+              outlet.add(data.documents[0].data['nama_outlet']);
+            });
 
-          Firestore.instance.collection('lokasi').where('id', isEqualTo: change.document.data['lokasi']).snapshots().listen((data2) {
-            lokasi.add(data2.documents[0].data['lokasi']);
-          });
+            Firestore.instance.collection('lokasi').where('id', isEqualTo: change.document.data['lokasi']).snapshots().listen((data2) {
+              lokasi.add(data2.documents[0].data['lokasi']);
+            });
 
-          merek.add(change.document.data['merek']);
-          indexx.add(change.document.documentID);
-          item.add(change.document.data['item']);
-          itemNo.add(change.document.data['itemNo']);
-          qrCode.add(change.document.data['itemNo']);
+            merek.add(change.document.data['merek']);
+            indexx.add(change.document.documentID);
+            item.add(change.document.data['item']);
+            itemNo.add(change.document.data['itemNo']);
+            qrCode.add(change.document.data['itemNo']);
 
-          Firestore.instance.collection('user').where('id', isEqualTo: change.document.data['pic']).snapshots().listen((data5) {
-            pic.add(data5.documents[0].data['nama']);
-          });
+            Firestore.instance.collection('user').where('id', isEqualTo: change.document.data['pic']).snapshots().listen((data5) {
+              pic.add(data5.documents[0].data['nama']);
+            });
+          }
         // });
+      });
+    });
+
+    CollectionReference reference11 = Firestore.instance.collection('maintenance_IT');
+    reference11.where('pic', isEqualTo: widget.idUser).where('status', isEqualTo: 'OPEN').snapshots().listen((querySnapshot11) {
+      querySnapshot11.documentChanges.forEach((change11) {
+        setState(() {
+          Timestamp bantu = change11.document.data['dueDate'];
+          if (bantu.toDate().toString().substring(8, 10) + '/' + bantu.toDate().toString().substring(5, 7) + '/' +bantu.toDate().toString().substring(0, 4) == DateTime.now().toString().substring(8, 10) + '/' + DateTime.now().toString().substring(5, 7) + '/' +DateTime.now().toString().substring(0, 4)) {
+            showNotifMaintenanceTLToday = true;
+          } else {
+            showNotifMaintenanceTLToday = false;
+          }
+        });
+      });
+    });
+
+    CollectionReference reference12 = Firestore.instance.collection('maintenance_IT');
+    reference12.where('pic', isEqualTo: widget.idUser).where('status', isEqualTo: 'RESCHEDULE').snapshots().listen((querySnapshot12) {
+      querySnapshot12.documentChanges.forEach((change12) {
+        setState(() {
+          Timestamp bantu = change12.document.data['newDueDate'];
+          if (bantu.toDate().toString().substring(8, 10) + '/' + bantu.toDate().toString().substring(5, 7) + '/' +bantu.toDate().toString().substring(0, 4) == DateTime.now().toString().substring(8, 10) + '/' + DateTime.now().toString().substring(5, 7) + '/' +DateTime.now().toString().substring(0, 4)) {
+            showNotifMaintenanceTLSkip = true;
+          } else {
+            showNotifMaintenanceTLSkip = false;
+          }
+        });
+      });
+    });
+
+    CollectionReference reference13 = Firestore.instance.collection('maintenance_IT');
+    reference13.where('rescheduleBy', isEqualTo: widget.idUser).where('status', isEqualTo: 'SKIP').where('newDueDate', isNull: true).snapshots().listen((querySnapshot13) {
+      querySnapshot13.documentChanges.forEach((change13) {
+        setState(() {
+          showNotifMaintenanceTLReschedule = true;
+        });
       });
     });
 
@@ -553,46 +597,28 @@ class _BerandaMaintenanceState extends State<BerandaMaintenance> with TickerProv
                                             height: 30.0,
                                           ),
                                         ),
-                                        StreamBuilder(
-                                          stream: Firestore.instance.collection('maintenance_IT').where('pic', isEqualTo: widget.idUser).where('status', isEqualTo: 'OPEN').where('dueDate', isEqualTo: DateTime.now()).snapshots(),
-                                          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                                            if (snapshot.data == null) return Container();
-
-                                            if (snapshot.data.documents.length == 0) {
-                                              return Container();
-                                            } else {
-                                              return Positioned(
-                                                top: -7.0,
-                                                right: 0.0,
-                                                child: Icon(
-                                                  Icons.brightness_1,
-                                                  size: 13.0,
-                                                  color: Colors.redAccent,
-                                                ),
-                                              );
-                                            }
-                                          },
-                                        ),
-                                        StreamBuilder(
-                                          stream: Firestore.instance.collection('maintenance_IT').where('pic', isEqualTo: widget.idUser).where('status', isEqualTo: 'RESCHEDULE').where('newDueDate', isEqualTo: DateTime.now()).snapshots(),
-                                          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                                            if (snapshot.data == null) return Container();
-
-                                            if (snapshot.data.documents.length == 0) {
-                                              return Container();
-                                            } else {
-                                              return Positioned(
-                                                top: -7.0,
-                                                right: 0.0,
-                                                child: Icon(
-                                                  Icons.brightness_1,
-                                                  size: 13.0,
-                                                  color: Colors.redAccent,
-                                                ),
-                                              );
-                                            }
-                                          },
-                                        ),
+                                        showNotifMaintenanceTLToday
+                                          ? Positioned(
+                                              top: -7.0,
+                                              right: 0.0,
+                                              child: Icon(
+                                                Icons.brightness_1,
+                                                size: 13.0,
+                                                color: Colors.redAccent,
+                                              ),
+                                            )
+                                          : Container(),
+                                        showNotifMaintenanceTLSkip
+                                          ? Positioned(
+                                              top: -7.0,
+                                              right: 0.0,
+                                              child: Icon(
+                                                Icons.brightness_1,
+                                                size: 13.0,
+                                                color: Colors.redAccent,
+                                              ),
+                                            )
+                                          : Container(),
                                       ],
                                     ),
                                   ),
@@ -649,26 +675,17 @@ class _BerandaMaintenanceState extends State<BerandaMaintenance> with TickerProv
                                             height: 30.0,
                                           ),
                                         ),
-                                        StreamBuilder(
-                                          stream: Firestore.instance.collection('maintenance_IT').where('rescheduleBy', isEqualTo: widget.idUser).where('status', isEqualTo: 'SKIP').where('newDueDate', isNull: true).snapshots(),
-                                          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                                            if (snapshot.data == null) return Container();
-
-                                            if (snapshot.data.documents.length == 0) {
-                                              return Container();
-                                            } else {
-                                              return Positioned(
-                                                top: -7.0,
-                                                right: 0.0,
-                                                child: Icon(
-                                                  Icons.brightness_1,
-                                                  size: 13.0,
-                                                  color: Colors.redAccent,
-                                                ),
-                                              );
-                                            }
-                                          },
-                                        ),
+                                        showNotifMaintenanceTLReschedule
+                                          ? Positioned(
+                                              top: -7.0,
+                                              right: 0.0,
+                                              child: Icon(
+                                                Icons.brightness_1,
+                                                size: 13.0,
+                                                color: Colors.redAccent,
+                                              ),
+                                            )
+                                          : Container(),
                                       ],
                                     ),
                                   ),

@@ -116,7 +116,7 @@ class _BerandaMaintenanceState extends State<BerandaMaintenance> {
 
                         Navigator.push(context,
                           MaterialPageRoute(
-                            builder: (_) => FormMaintenanceTest(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser, count: outlet.length)
+                            builder: (_) => FormMaintenanceTest(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser)
                           )
                         );
                       } else {
@@ -200,7 +200,7 @@ class _BerandaMaintenanceState extends State<BerandaMaintenance> {
 
                         Navigator.push(context,
                           MaterialPageRoute(
-                            builder: (_) => SkippedMaintenance(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser, count: outlet.length, countAll: outlet.length + outletSkip.length)
+                            builder: (_) => SkippedMaintenance(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser)
                           )
                         );
                       } else {

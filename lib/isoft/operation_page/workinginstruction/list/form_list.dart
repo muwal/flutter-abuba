@@ -117,7 +117,7 @@ class _FormListWorkingState extends State<FormListWorking> with TickerProviderSt
     );
 
     CollectionReference reference = Firestore.instance.collection('docInstruksi');
-    reference.snapshots().listen((querySnapshot) {
+    reference.where('status', isEqualTo: 'PUBLISH').snapshots().listen((querySnapshot) {
       querySnapshot.documentChanges.forEach((change) {
         setState(() {
           docID.add(change.document.documentID);
@@ -795,7 +795,7 @@ class _FormListWorkingState extends State<FormListWorking> with TickerProviderSt
           itemCount: dateCreatedList.length,
           itemBuilder: (BuildContext context, int index) {
             Timestamp date = dateCreatedList[index];
-            DateTime dateBantu = DateTime.tryParse(date.toDate().toString());
+            DateTime dateBantu = date.toDate();
 
             // if (statusList[index] == 'PUBLISH') {
               return Container(
@@ -1089,9 +1089,9 @@ class _FormListWorkingState extends State<FormListWorking> with TickerProviderSt
                                           highlightedBorderColor: AbubaPallate.menuBluebird,
                                           onPressed: () {
                                             Navigator.push(context,
-                                                MyCustomRoute(
-                                                    builder: (context) => new FormDetailListWorking(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser, index: docIDList[index], pJabatan: pJabatanList[index], pDocTerkait: pDocTerkaitList[index], pDepartment: pDepartmentList[index], pComment: pCommentList[index], pCommentStatus: pCommentStatusList[index], tujuanCommentCreated: tujuanCommentCreatedList[index], ruangLingkupCommentCreated: ruangLingkupCommentCreatedList[index], referensiCommentCreated: referensiCommentCreatedList[index], istilahCommentCreated: istilahCommentCreatedList[index], prosedurCommentTgl: prosedurCommentTglList[index], risikoCommentCreated: risikoCommentCreatedList[index], bantureferensi: bantureferensiList[index], banturisiko: banturisikoList[index], banturuanglingkup: banturuanglingkupList[index], bantutujuan: bantutujuanList[index])
-                                                )
+                                              MyCustomRoute(
+                                                builder: (context) => new FormDetailListWorking(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser, index: docIDList[index], pJabatan: pJabatanList[index], pDocTerkait: pDocTerkaitList[index], pDepartment: pDepartmentList[index], pComment: pCommentList[index], pCommentStatus: pCommentStatusList[index], tujuanCommentCreated: tujuanCommentCreatedList[index], ruangLingkupCommentCreated: ruangLingkupCommentCreatedList[index], referensiCommentCreated: referensiCommentCreatedList[index], istilahCommentCreated: istilahCommentCreatedList[index], prosedurCommentTgl: prosedurCommentTglList[index], risikoCommentCreated: risikoCommentCreatedList[index], bantureferensi: bantureferensiList[index], banturisiko: banturisikoList[index], banturuanglingkup: banturuanglingkupList[index], bantutujuan: bantutujuanList[index])
+                                              )
                                             );
                                           }
                                       ),

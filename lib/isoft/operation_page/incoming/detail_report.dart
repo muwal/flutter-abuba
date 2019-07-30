@@ -103,13 +103,16 @@ class _DetailReportState extends State<DetailReport> with TickerProviderStateMix
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          elevation: 0.25,
+          elevation: 1.0,
           backgroundColor: Colors.white,
           iconTheme: IconThemeData(color: Colors.black),
-          title: Image.asset(
-            'assets/images/logo2.png',
-            height: 150.0,
-            width: 120.0,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Flexible(
+                child: Text('Detail', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600, color: Colors.black),),
+              )
+            ],
           ),
         ),
         body: GestureDetector(
@@ -126,39 +129,12 @@ class _DetailReportState extends State<DetailReport> with TickerProviderStateMix
     return Scrollbar(
       child: ListView(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  'Incoming',
-                  style: TextStyle(color: Colors.black12, fontSize: 12.0),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 15.0),
-                  child: Text(
-                    '|',
-                    style: TextStyle(
-                        color: AbubaPallate.greenabuba, fontSize: 12.0),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 15.0),
-                  child: Text(
-                    'Detail Report',
-                    style: TextStyle(
-                        color: AbubaPallate.greenabuba, fontSize: 12.0),
-                  ),
-                ),
-              ],
-            ),
-          ),
           AnimatedBuilder(
             animation: animationController,
             builder: (_, Widget child) {
               return animationController.isAnimating
                 ? Container(
+                height: MediaQuery.of(context).size.height * 0.8,
                     child: Center(
                       child:CircularProgressIndicator()
                     ),

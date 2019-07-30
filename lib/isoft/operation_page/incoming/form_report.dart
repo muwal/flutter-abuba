@@ -101,13 +101,21 @@ class _FormReportState extends State<FormReport> with TickerProviderStateMixin {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          elevation: 0.25,
+          elevation: 1.0,
           backgroundColor: Colors.white,
           iconTheme: IconThemeData(color: Colors.black),
-          title: Image.asset(
-            'assets/images/logo2.png',
-            height: 150.0,
-            width: 120.0,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Flexible(
+                child: Text('Report', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600, color: Colors.black),),
+              ),
+              /*Stack(
+                children: <Widget>[
+                  Icon(Icons.notifications, color: Colors.grey[400],)
+                ],
+              )*/
+            ],
           ),
         ),
         body: GestureDetector(
@@ -123,34 +131,6 @@ class _FormReportState extends State<FormReport> with TickerProviderStateMixin {
               ) :
               Column(
                 children: <Widget>[
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 10.0, right: 15.0, left: 15.0, top: 10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          'Incoming',
-                          style: TextStyle(color: Colors.black12, fontSize: 12.0),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 15.0),
-                          child: Text(
-                            '|',
-                            style:
-                            TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 15.0),
-                          child: Text(
-                            'Report',
-                            style:
-                            TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                   _searchBox(),
                   Container(
                     width: width,
@@ -216,8 +196,11 @@ class _FormReportState extends State<FormReport> with TickerProviderStateMixin {
 
   Widget _searchBox() {
     return new Container(
-      margin: const EdgeInsets.only(bottom: 10.0, right: 15.0, left: 15.0),
-      decoration: BoxDecoration(border: Border.all(width: 1.0, color: Colors.white), borderRadius: BorderRadius.circular(25.0), color: Colors.white  ),
+      margin: const EdgeInsets.only(bottom: 10.0, right: 15.0, left: 15.0, top: 10.0),
+      decoration: BoxDecoration(border: Border.all(width: 1.0, color: Colors.white), borderRadius: BorderRadius.circular(25.0), color: Colors.white, boxShadow: [BoxShadow(
+        color: Colors.grey[200],
+        blurRadius: 2.0,
+      ),]  ),
       child: new TextField(
         controller: _searchEdit,
         decoration: InputDecoration(

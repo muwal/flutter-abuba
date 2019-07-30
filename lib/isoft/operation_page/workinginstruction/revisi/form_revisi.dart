@@ -101,7 +101,7 @@ class _FormRevisiWorkingState extends State<FormRevisiWorking> with TickerProvid
     super.initState();
 
     CollectionReference reference = Firestore.instance.collection('docInstruksi');
-    reference.snapshots().listen((querySnapshot) {
+    reference.where('createdBy', isEqualTo: widget.idUser).where('status', isEqualTo: 'REJECTED').snapshots().listen((querySnapshot) {
       querySnapshot.documentChanges.forEach((change) {
         setState(() {
           docID.add(change.document.documentID);

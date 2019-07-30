@@ -86,13 +86,16 @@ class _DetailReportState extends State<DetailReport>
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          elevation: 0.25,
+          elevation: 1.0,
           backgroundColor: Colors.white,
           iconTheme: IconThemeData(color: Colors.black),
-          title: Image.asset(
-            'assets/images/logo2.png',
-            height: 150.0,
-            width: 120.0,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Flexible(
+                child: Text('Detail', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600, color: Colors.black),),
+              ),
+            ],
           ),
         ),
         body: _formDetail(context),
@@ -118,34 +121,6 @@ class _DetailReportState extends State<DetailReport>
               child: ListView(
 
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15.0, top: 15.0, bottom: 15.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          'Report',
-                          style: TextStyle(color: Colors.black12, fontSize: 12.0),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 15.0),
-                          child: Text(
-                            '|',
-                            style: TextStyle(
-                                color: AbubaPallate.greenabuba, fontSize: 12.0),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 15.0),
-                          child: Text(
-                            'Kitchen No. K-${no}',
-                            style: TextStyle(
-                                color: AbubaPallate.greenabuba, fontSize: 12.0),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
 
                   Container(
                     color: Colors.white,

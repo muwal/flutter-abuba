@@ -1710,6 +1710,8 @@ class _InspectionState extends State<Inspection> with TickerProviderStateMixin {
                                             'stdAttr': widget.stdAttr,
                                             'stdVar': widget.stdVar,
                                             'unit': _mySelection,
+                                            'driverConfirm': null,
+                                            'driverID': null,
                                           }).then((doc2) {
                                             showDialog(
                                               barrierDismissible: false,
@@ -1832,6 +1834,8 @@ class _InspectionState extends State<Inspection> with TickerProviderStateMixin {
                                             'stdAttr': widget.stdAttr,
                                             'stdVar': widget.stdVar,
                                             'unit': _mySelection,
+                                            'driverConfirm': null,
+                                            'driverID': null,
                                           }).then((doc2) {
                                             showDialog(
                                               barrierDismissible: false,
@@ -1953,6 +1957,8 @@ class _InspectionState extends State<Inspection> with TickerProviderStateMixin {
                                             'stdAttr': widget.stdAttr,
                                             'stdVar': widget.stdVar,
                                             'unit': _mySelection,
+                                            'driverConfirm': null,
+                                            'driverID': null,
                                           }).then((doc2) {
                                             showDialog(
                                               barrierDismissible: false,

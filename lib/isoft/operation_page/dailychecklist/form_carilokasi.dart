@@ -74,10 +74,18 @@ class _FormCariLokasiState extends State<FormCariLokasi> {
           elevation: 0.25,
           backgroundColor: Colors.white,
           iconTheme: IconThemeData(color: Colors.black),
-          title: Image.asset(
-            'assets/images/logo2.png',
-            height: 150.0,
-            width: 120.0,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Flexible(
+                child: Text('Create', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600, color: Colors.black),),
+              ),
+              /*Stack(
+                children: <Widget>[
+                  Icon(Icons.notifications, color: Colors.grey[400],)
+                ],
+              )*/
+            ],
           ),
         ),
         body: GestureDetector(
@@ -86,33 +94,186 @@ class _FormCariLokasiState extends State<FormCariLokasi> {
           },
           child: Column(
             children: <Widget>[
+              SizedBox(
+                height: 10.0,
+              ),
               Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      'Line Check Shifting',
-                      style: TextStyle(color: Colors.black12, fontSize: 12.0),
+                padding: EdgeInsets.all(10.0),
+                child: TextField(
+                  onChanged: (val) {
+                    setState(() {
+                      search = true;
+                    });
+                    initiateSearch(val);
+                  },
+                  controller: _controllerSearch,
+                  decoration: InputDecoration(
+                    suffixIcon: !search
+                      ? null
+                      : IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _controllerSearch.clear();
+                              queryResultSet = [];
+                              tempSearchStore = [];
+                              search = false;
+                            });
+                          },
+                          icon: Icon(Icons.close),
+                          color: Colors.black,
+                          iconSize: 20.0,
+                        ),
+                    prefixIcon: IconButton(
+                      color: Colors.black,
+                      icon: Icon(Icons.search),
+                      iconSize: 20.0,
+                      onPressed: null,
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 15.0),
-                      child: Text(
-                        '|',
-                        style:
-                            TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 15.0),
-                      child: Text(
-                        'Location',
-                        style:
-                            TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
-                      ),
-                    ),
-                  ],
+                    contentPadding: EdgeInsets.only(left: 25.0),
+                    hintText: 'Search by name',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4.0)
+                    )
+                  ),
                 ),
+              ),
+              SizedBox(
+                height: 10.0,
+              ),SizedBox(
+                height: 10.0,
+              ),
+              Padding(
+                padding: EdgeInsets.all(10.0),
+                child: TextField(
+                  onChanged: (val) {
+                    setState(() {
+                      search = true;
+                    });
+                    initiateSearch(val);
+                  },
+                  controller: _controllerSearch,
+                  decoration: InputDecoration(
+                    suffixIcon: !search
+                      ? null
+                      : IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _controllerSearch.clear();
+                              queryResultSet = [];
+                              tempSearchStore = [];
+                              search = false;
+                            });
+                          },
+                          icon: Icon(Icons.close),
+                          color: Colors.black,
+                          iconSize: 20.0,
+                        ),
+                    prefixIcon: IconButton(
+                      color: Colors.black,
+                      icon: Icon(Icons.search),
+                      iconSize: 20.0,
+                      onPressed: null,
+                    ),
+                    contentPadding: EdgeInsets.only(left: 25.0),
+                    hintText: 'Search by name',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4.0)
+                    )
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10.0,
+              ),SizedBox(
+                height: 10.0,
+              ),
+              Padding(
+                padding: EdgeInsets.all(10.0),
+                child: TextField(
+                  onChanged: (val) {
+                    setState(() {
+                      search = true;
+                    });
+                    initiateSearch(val);
+                  },
+                  controller: _controllerSearch,
+                  decoration: InputDecoration(
+                    suffixIcon: !search
+                      ? null
+                      : IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _controllerSearch.clear();
+                              queryResultSet = [];
+                              tempSearchStore = [];
+                              search = false;
+                            });
+                          },
+                          icon: Icon(Icons.close),
+                          color: Colors.black,
+                          iconSize: 20.0,
+                        ),
+                    prefixIcon: IconButton(
+                      color: Colors.black,
+                      icon: Icon(Icons.search),
+                      iconSize: 20.0,
+                      onPressed: null,
+                    ),
+                    contentPadding: EdgeInsets.only(left: 25.0),
+                    hintText: 'Search by name',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4.0)
+                    )
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10.0,
+              ),SizedBox(
+                height: 10.0,
+              ),
+              Padding(
+                padding: EdgeInsets.all(10.0),
+                child: TextField(
+                  onChanged: (val) {
+                    setState(() {
+                      search = true;
+                    });
+                    initiateSearch(val);
+                  },
+                  controller: _controllerSearch,
+                  decoration: InputDecoration(
+                    suffixIcon: !search
+                      ? null
+                      : IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _controllerSearch.clear();
+                              queryResultSet = [];
+                              tempSearchStore = [];
+                              search = false;
+                            });
+                          },
+                          icon: Icon(Icons.close),
+                          color: Colors.black,
+                          iconSize: 20.0,
+                        ),
+                    prefixIcon: IconButton(
+                      color: Colors.black,
+                      icon: Icon(Icons.search),
+                      iconSize: 20.0,
+                      onPressed: null,
+                    ),
+                    contentPadding: EdgeInsets.only(left: 25.0),
+                    hintText: 'Search by name',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4.0)
+                    )
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20.0,
               ),
               Padding(
                 padding: EdgeInsets.all(10.0),

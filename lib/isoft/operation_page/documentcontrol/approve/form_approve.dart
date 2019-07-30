@@ -99,7 +99,7 @@ class _FormApproveState extends State<FormApprove> with TickerProviderStateMixin
     super.initState();
 
     CollectionReference reference = Firestore.instance.collection('docControl');
-    reference.snapshots().listen((querySnapshot) {
+    reference.where('approvedBy', isEqualTo: widget.idUser).where('status', isEqualTo: 'REVIEWED').snapshots().listen((querySnapshot) {
       querySnapshot.documentChanges.forEach((change) {
         setState(() {
           typeDoc.add(change.document.data['type']);

@@ -13,6 +13,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_abuba/isoft/hrd_page/medical/menu_medical.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_abuba/launcher/launcher_view.dart';
 
 class MenuHRD extends StatefulWidget {
   final int idUser;
@@ -30,50 +31,23 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  List<String> department = [
-    'Procurement',
-    'FAT',
-    'IA',
-    'BD',
-    'HRD',
-    'IT',
-    'BOD',
-    'IA',
-    'OPR',
-  ];
+  bool showNotifMeetingOpenStatus = false;
+  bool showNotifMeetingCheckIn = false;
+  bool showNotifChangeMgmtReview = false;
+  bool showNotifChangeMgmtApproval = false;
+  bool showNotifIAKonfirmasiLead = false;
+  bool showNotifIAKonfirmasiAuditee = false;
+  bool showNotifIAKonfirmasiAuditor = false;
+  bool showNotifIAStartAuditLead = false;
+  bool showNotifIAStartAuditAuditee = false;
+  bool showNotifIAStartAuditAuditor = false;
+  bool showNotifMaintenanceTLToday = false;
+  bool showNotifMaintenanceTLSkip = false;
+  bool showNotifMaintenanceTLReschedule = false;
+  bool showNotifPerbaikanWO = false;
 
-  List<String> nama = [
-    'Inne Rettiani',
-    'Dewi Kurniasih',
-    'Indah',
-    'Andi Lala',
-    'Rizal Baydillah',
-    'Sony Ramdhani Tahir',
-    'M. Ali Ariansyah',
-    'Ade Ridwan',
-    'Rahmat Yasir',
-  ];
-
-  List<String> gambar = [
-    'inne.jpeg',
-    'Ibu DEWI KURNIASIH - FAT MANAGER.png',
-    'INDAH.jpeg',
-    'Pak ANDI LALA - BUSINESS DEVELOPMENT MANAGER.jpeg',
-    'Pak RIZAL BAYDILLAH - HRD MANAGER.jpeg',
-    'Pak SONNY RAMADHAN - IT ASST. MANAGER.jpg',
-    'DIRUT (2).jpg',
-    'Pak ADE RIDWAN - INTERNAL AUDIT MANAGER.jpeg',
-    'Pak YASIR - OPERASIONAL MANAGER.jpeg',
-  ];
-
-  List<bool> _alreadyOKHappening = [false, false, true];
-  List<int> _counterOKHappening = [200, 150, 500];
-  List<bool> _likeHappening = [false, true, false];
-  List<int> _counterLikeHappening = [0, 20, 100];
-
-  List<bool> _likeIdea = [false, true, false];
-  List<int> _counterLikeIdea = [0, 20, 100];
-  List<int> _counterViewIdea = [100, 50, 33];
+  int managerHRD;
+  int asManagerHRD;
 
   String userNama = 'User Name';
 
@@ -83,10 +57,366 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    super.initState();
+    CollectionReference reference =
+        Firestore.instance.collection('minutesMeeting');
+    reference
+        .where('status', isEqualTo: 'CLOSE')
+        .where('picIDNotulen', arrayContains: widget.idUser)
+        .snapshots()
+        .listen((querySnapshot) {
+      querySnapshot.documentChanges.forEach((change) {
+        setState(() {
+          int indexPIC =
+              change.document.data['picIDNotulen'].indexOf(widget.idUser);
+          if (change.document.data['statusActionPlan'][indexPIC] == 'OPEN') {
+            showNotifMeetingOpenStatus = true;
+          } else {
+            showNotifMeetingOpenStatus = false;
+          }
+        });
+      });
+    });
+
+    CollectionReference reference2 =
+        Firestore.instance.collection('minutesMeeting');
+    reference2
+        .where('status', isEqualTo: 'OPEN')
+        .where('pesertaID', arrayContains: widget.idUser)
+        .snapshots()
+        .listen((querySnapshot2) {
+      querySnapshot2.documentChanges.forEach((change2) {
+        setState(() {
+          Timestamp bantu = change2.document.data['dateMeeting'];
+          if (bantu.toDate().toString().substring(8, 10) +
+                  '/' +
+                  bantu.toDate().toString().substring(5, 7) +
+                  '/' +
+                  bantu.toDate().toString().substring(0, 4) ==
+              DateTime.now().toString().substring(8, 10) +
+                  '/' +
+                  DateTime.now().toString().substring(5, 7) +
+                  '/' +
+                  DateTime.now().toString().substring(0, 4)) {
+            int indexPIC =
+                change2.document.data['pesertaID'].indexOf(widget.idUser);
+            if (change2.document.data['checkOutPeserta'][indexPIC] == null) {
+              showNotifMeetingCheckIn = true;
+            } else {
+              showNotifMeetingCheckIn = false;
+            }
+          } else {
+            showNotifMeetingCheckIn = false;
+          }
+        });
+      });
+    });
+
+    CollectionReference reference3 =
+        Firestore.instance.collection('changeMgmt');
+    reference3
+        .where('personReview', arrayContains: widget.idUser)
+        .where('statusApprove', isEqualTo: false)
+        .where('finalStatus', isEqualTo: 'OPEN')
+        .snapshots()
+        .listen((querySnapshot3) {
+      querySnapshot3.documentChanges.forEach((change3) {
+        setState(() {
+          int indexPIC =
+              change3.document.data['personReview'].indexOf(widget.idUser);
+          if (change3.document.data['personReviewStatus'][indexPIC] == 'OPEN') {
+            showNotifChangeMgmtReview = true;
+          } else {
+            showNotifChangeMgmtReview = false;
+          }
+        });
+      });
+    });
+
+    CollectionReference reference4 =
+        Firestore.instance.collection('changeMgmt');
+    reference4
+        .where('approveBy', isEqualTo: widget.idUser)
+        .where('finalStatus', isEqualTo: 'OPEN')
+        .snapshots()
+        .listen((querySnapshot4) {
+      querySnapshot4.documentChanges.forEach((change4) {
+        setState(() {
+          if (change4.document.data['personReviewStatus'].contains('OPEN') ==
+              false) {
+            showNotifChangeMgmtApproval = true;
+          } else {
+            showNotifChangeMgmtApproval = false;
+          }
+        });
+      });
+    });
+
+    CollectionReference reference5 =
+        Firestore.instance.collection('audit_internal');
+    reference5
+        .where('auditEnd', isNull: true)
+        .where('leadAuditor', isEqualTo: widget.idUser)
+        .where('leadAuditorConfirm', isEqualTo: widget.idUser)
+        .snapshots()
+        .listen((querySnapshot5) {
+      querySnapshot5.documentChanges.forEach((change5) {
+        setState(() {
+          showNotifIAKonfirmasiLead = true;
+        });
+      });
+    });
+
+    CollectionReference reference6 =
+        Firestore.instance.collection('audit_internal');
+    reference6
+        .where('auditEnd', isNull: true)
+        .where('auditee', isEqualTo: widget.idUser)
+        .where('auditeeConfirm', isEqualTo: widget.idUser)
+        .snapshots()
+        .listen((querySnapshot6) {
+      querySnapshot6.documentChanges.forEach((change6) {
+        setState(() {
+          showNotifIAKonfirmasiAuditee = true;
+        });
+      });
+    });
+
+    CollectionReference reference7 =
+        Firestore.instance.collection('audit_internal');
+    reference7
+        .where('auditEnd', isNull: true)
+        .where('subAreaAuditor', arrayContains: widget.idUser.toString())
+        .snapshots()
+        .listen((querySnapshot7) {
+      querySnapshot7.documentChanges.forEach((change7) {
+        setState(() {
+          if (change7.document.data['auditorConfirm']
+              .contains(widget.idUser.toString())) {
+            showNotifIAKonfirmasiAuditor = true;
+          } else {
+            showNotifIAKonfirmasiAuditor = false;
+          }
+        });
+      });
+    });
+
+    CollectionReference reference8 =
+        Firestore.instance.collection('audit_internal');
+    reference8
+        .where('auditEnd', isNull: true)
+        .where('leadAuditorConfirm', isEqualTo: 'CONFIRM')
+        .where('auditeeConfirm', isEqualTo: 'CONFIRM')
+        .where('auditee', isEqualTo: widget.idUser)
+        .where('auditeeCheckIn', isNull: true)
+        .snapshots()
+        .listen((querySnapshot8) {
+      querySnapshot8.documentChanges.forEach((change8) {
+        setState(() {
+          Timestamp bantu = change8.document.data['dateAudite'];
+          if (bantu.toDate().toString().substring(8, 10) +
+                      '/' +
+                      bantu.toDate().toString().substring(5, 7) +
+                      '/' +
+                      bantu.toDate().toString().substring(0, 4) ==
+                  DateTime.now().toString().substring(8, 10) +
+                      '/' +
+                      DateTime.now().toString().substring(5, 7) +
+                      '/' +
+                      DateTime.now().toString().substring(0, 4) ||
+              bantu.toDate().isBefore(DateTime(DateTime.now().year,
+                  DateTime.now().month, DateTime.now().day))) {
+            showNotifIAStartAuditAuditee = true;
+          } else {
+            showNotifIAStartAuditAuditee = false;
+          }
+        });
+      });
+    });
+
+    CollectionReference reference9 =
+        Firestore.instance.collection('audit_internal');
+    reference9
+        .where('auditEnd', isNull: true)
+        .where('leadAuditorConfirm', isEqualTo: 'CONFIRM')
+        .where('auditeeConfirm', isEqualTo: 'CONFIRM')
+        .where('leadAuditor', isEqualTo: widget.idUser)
+        .where('leadAuditorCheckIn', isNull: true)
+        .where('status', isEqualTo: 'ONGOING')
+        .snapshots()
+        .listen((querySnapshot9) {
+      querySnapshot9.documentChanges.forEach((change9) {
+        setState(() {
+          Timestamp bantu = change9.document.data['dateAudite'];
+          if (bantu.toDate().toString().substring(8, 10) +
+                      '/' +
+                      bantu.toDate().toString().substring(5, 7) +
+                      '/' +
+                      bantu.toDate().toString().substring(0, 4) ==
+                  DateTime.now().toString().substring(8, 10) +
+                      '/' +
+                      DateTime.now().toString().substring(5, 7) +
+                      '/' +
+                      DateTime.now().toString().substring(0, 4) ||
+              bantu.toDate().isBefore(DateTime(DateTime.now().year,
+                  DateTime.now().month, DateTime.now().day))) {
+            showNotifIAStartAuditLead = true;
+          } else {
+            showNotifIAStartAuditLead = false;
+          }
+        });
+      });
+    });
+
+    CollectionReference reference10 =
+        Firestore.instance.collection('audit_internal');
+    reference10
+        .where('auditEnd', isNull: true)
+        .where('subAreaAuditor', arrayContains: widget.idUser)
+        .where('leadAuditorConfirm', isEqualTo: 'CONFIRM')
+        .where('auditeeConfirm', isEqualTo: 'CONFIRM')
+        .where('status', isEqualTo: 'ONGOING')
+        .snapshots()
+        .listen((querySnapshot10) {
+      querySnapshot10.documentChanges.forEach((change10) {
+        setState(() {
+          Timestamp bantu = change10.document.data['dateAudite'];
+          if (bantu.toDate().toString().substring(8, 10) +
+                      '/' +
+                      bantu.toDate().toString().substring(5, 7) +
+                      '/' +
+                      bantu.toDate().toString().substring(0, 4) ==
+                  DateTime.now().toString().substring(8, 10) +
+                      '/' +
+                      DateTime.now().toString().substring(5, 7) +
+                      '/' +
+                      DateTime.now().toString().substring(0, 4) ||
+              bantu.toDate().isBefore(DateTime(DateTime.now().year,
+                  DateTime.now().month, DateTime.now().day))) {
+            showNotifIAStartAuditAuditor = true;
+          } else {
+            showNotifIAStartAuditAuditor = false;
+          }
+        });
+      });
+    });
+
+    CollectionReference reference11 =
+        Firestore.instance.collection('maintenance_HRD');
+    reference11
+        .where('pic', isEqualTo: widget.idUser)
+        .where('status', isEqualTo: 'OPEN')
+        .snapshots()
+        .listen((querySnapshot11) {
+      querySnapshot11.documentChanges.forEach((change11) {
+        setState(() {
+          Timestamp bantu = change11.document.data['dueDate'];
+          if (bantu.toDate().toString().substring(8, 10) +
+                  '/' +
+                  bantu.toDate().toString().substring(5, 7) +
+                  '/' +
+                  bantu.toDate().toString().substring(0, 4) ==
+              DateTime.now().toString().substring(8, 10) +
+                  '/' +
+                  DateTime.now().toString().substring(5, 7) +
+                  '/' +
+                  DateTime.now().toString().substring(0, 4)) {
+            showNotifMaintenanceTLToday = true;
+          } else {
+            showNotifMaintenanceTLToday = false;
+          }
+        });
+      });
+    });
+
+    CollectionReference reference12 =
+        Firestore.instance.collection('maintenance_HRD');
+    reference12
+        .where('pic', isEqualTo: widget.idUser)
+        .where('status', isEqualTo: 'RESCHEDULE')
+        .snapshots()
+        .listen((querySnapshot12) {
+      querySnapshot12.documentChanges.forEach((change12) {
+        setState(() {
+          Timestamp bantu = change12.document.data['newDueDate'];
+          if (bantu.toDate().toString().substring(8, 10) +
+                  '/' +
+                  bantu.toDate().toString().substring(5, 7) +
+                  '/' +
+                  bantu.toDate().toString().substring(0, 4) ==
+              DateTime.now().toString().substring(8, 10) +
+                  '/' +
+                  DateTime.now().toString().substring(5, 7) +
+                  '/' +
+                  DateTime.now().toString().substring(0, 4)) {
+            showNotifMaintenanceTLSkip = true;
+          } else {
+            showNotifMaintenanceTLSkip = false;
+          }
+        });
+      });
+    });
+
+    CollectionReference reference13 =
+        Firestore.instance.collection('maintenance_HRD');
+    reference13
+        .where('rescheduleBy', isEqualTo: widget.idUser)
+        .where('status', isEqualTo: 'SKIP')
+        .where('newDueDate', isNull: true)
+        .snapshots()
+        .listen((querySnapshot13) {
+      querySnapshot13.documentChanges.forEach((change13) {
+        setState(() {
+          showNotifMaintenanceTLReschedule = true;
+        });
+      });
+    });
+
+    Firestore.instance
+        .collection('user')
+        .where('grade', isEqualTo: 'Manager')
+        .where('department', isEqualTo: 'HRD')
+        .snapshots()
+        .listen((data3) {
+      setState(() {
+        managerHRD = data3.documents[0].data['id'];
+      });
+    });
+
+    Firestore.instance
+        .collection('user')
+        .where('grade', isEqualTo: 'Assistant Manager')
+        .where('department', isEqualTo: 'IT')
+        .snapshots()
+        .listen((data4) {
+      setState(() {
+        asManagerHRD = data4.documents[0].data['id'];
+      });
+    });
+
+    CollectionReference reference14 =
+        Firestore.instance.collection('perbaikanHRD');
+    reference14
+        .where('status', isEqualTo: 'NOT READY')
+        .snapshots()
+        .listen((querySnapshot14) {
+      querySnapshot14.documentChanges.forEach((change14) {
+        setState(() {
+          if (managerHRD == widget.idUser || asManagerHRD == widget.idUser) {
+            showNotifPerbaikanWO = true;
+          } else {
+            showNotifPerbaikanWO = false;
+          }
+        });
+      });
+    });
+
     getUser().then((user) {
       if (user != null) {
-        Firestore.instance.collection('user').where('email', isEqualTo: user.email).snapshots().listen((data) {
+        Firestore.instance
+            .collection('user')
+            .where('email', isEqualTo: user.email)
+            .snapshots()
+            .listen((data) {
           setState(() {
             userNama = data.documents[0].data['nama'];
           });
@@ -94,19 +424,21 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
       }
     });
 
-    animationController = AnimationController(vsync: this, duration: Duration(seconds: 3));
+    animationController =
+        AnimationController(vsync: this, duration: Duration(seconds: 3));
     animationController.reverse(
-        from: animationController.value == 0.0
-            ? 1.0
-            : animationController.value
-    );
+        from:
+            animationController.value == 0.0 ? 1.0 : animationController.value);
+
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark.copyWith(
-        statusBarColor: Color(0xfff9f9f9),),
+        statusBarColor: Color(0xfff9f9f9),
+      ),
       child: SafeArea(
         child: WillPopScope(
           onWillPop: () {
@@ -130,61 +462,9 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                               children: <Widget>[
                                 Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
-                                    Flexible(
-                                      child: Column(
-                                        children: <Widget>[
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 5.0,
-                                                right: 5.0,
-                                                bottom: 2.5),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                              children: <Widget>[
-                                                Flexible(
-                                                  child: Text(
-                                                    'Hello,',
-                                                    style: TextStyle(
-                                                        fontSize: 16.0,
-                                                        fontWeight:
-                                                        FontWeight.w600,
-                                                        color: Colors.black54,
-                                                        letterSpacing: 1.0),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 5.0,
-                                                right: 5.0,
-                                                bottom: 0.0),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                              children: <Widget>[
-                                                Flexible(
-                                                  child: Text(
-                                                    widget.namaUser,
-                                                    style: TextStyle(
-                                                      fontSize: 18.0,
-                                                      fontWeight: FontWeight.w600,
-                                                      color: Colors.black,
-                                                    ),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {},
+                                    PopupMenuButton(
                                       child: Container(
                                         width: 40.0,
                                         height: 40.0,
@@ -200,7 +480,110 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                                     'https://image.flaticon.com/icons/png/512/149/149071.png'),
                                                 fit: BoxFit.cover)),
                                       ),
+                                      elevation: 3.2,
+                                      onCanceled: () {},
+                                      tooltip: 'Tooltip',
+                                      onSelected: (val) {
+                                        showDialog(
+                                            barrierDismissible: false,
+                                            context: context,
+                                            builder: (context) => AlertDialog(
+                                                  title: Text('Are you sure?'),
+                                                  content: Text(
+                                                      'Do you want to sign out ?'),
+                                                  actions: <Widget>[
+                                                    FlatButton(
+                                                      onPressed: () =>
+                                                          Navigator.of(context)
+                                                              .pop(false),
+                                                      child: Text('No'),
+                                                    ),
+                                                    FlatButton(
+                                                      onPressed: () async {
+                                                        await _auth
+                                                            .signOut()
+                                                            .then((_) {
+                                                          Navigator.pushReplacement(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder: (_) =>
+                                                                      LoginPage()));
+                                                        });
+                                                      },
+                                                      child: Text('Yes'),
+                                                    )
+                                                  ],
+                                                ));
+                                      },
+                                      itemBuilder: (BuildContext context) {
+                                        return [
+                                          PopupMenuItem(
+                                            value: 'signout',
+                                            child: Text('Sign Out'),
+                                          )
+                                        ];
+                                      },
                                     ),
+                                    Flexible(
+                                      child: Column(
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 10.0,
+                                                right: 5.0,
+                                                bottom: 2.5),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                Flexible(
+                                                  child: Text(
+                                                    'Hello,',
+                                                    style: TextStyle(
+                                                        fontSize: 14.0,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: Colors.black54,
+                                                        letterSpacing: 1.0),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 10.0,
+                                                right: 5.0,
+                                                bottom: 0.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                Flexible(
+                                                  child: Text(
+                                                    widget.namaUser ?? '-',
+                                                    style: TextStyle(
+                                                      fontSize: 16.0,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: Colors.black,
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Stack(
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.notifications,
+                                          color: Colors.grey[400],
+                                        )
+                                      ],
+                                    )
                                   ],
                                 ),
                               ],
@@ -271,7 +654,11 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                             onTap: () => Navigator.push(
                                 context,
                                 MyCustomRoute(
-                                    builder: (context) => BerandaMaintenance(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser))),
+                                    builder: (context) => BerandaMaintenance(
+                                        idUser: widget.idUser,
+                                        namaUser: widget.namaUser,
+                                        departmentUser:
+                                            widget.departmentUser))),
                             child: Card(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
@@ -298,14 +685,15 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                       height: 5.0,
                                     ),
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: <Widget>[
                                         Flexible(
                                             child: Text(
-                                              'Maintenance',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w400),
-                                            ))
+                                          'Maintenance',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w400),
+                                        ))
                                       ],
                                     ),
                                   ],
@@ -319,7 +707,11 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                             onTap: () => Navigator.push(
                                 context,
                                 MyCustomRoute(
-                                    builder: (context) => BerandaPerbaikan(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser))),
+                                    builder: (context) => BerandaPerbaikan(
+                                        idUser: widget.idUser,
+                                        namaUser: widget.namaUser,
+                                        departmentUser:
+                                            widget.departmentUser))),
                             child: Card(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
@@ -346,12 +738,14 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                       height: 5.0,
                                     ),
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: <Widget>[
                                         Flexible(
                                             child: Text('Perbaikan',
                                                 style: TextStyle(
-                                                    fontWeight: FontWeight.w400)))
+                                                    fontWeight:
+                                                        FontWeight.w400)))
                                       ],
                                     ),
                                   ],
@@ -371,11 +765,17 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                       children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.only(left: 5.0),
-                          child: Text("ISO", style: TextStyle(color: Colors.black38,fontWeight: FontWeight.w500),),
+                          child: Text(
+                            "ISO",
+                            style: TextStyle(
+                                color: Colors.black38,
+                                fontWeight: FontWeight.w500),
+                          ),
                         ),
                         Expanded(
                           child: new Container(
-                              margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+                              margin: const EdgeInsets.only(
+                                  left: 10.0, right: 10.0),
                               child: Divider(
                                 color: Colors.black38,
                                 height: 2,
@@ -442,11 +842,13 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                       ),*/
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(context,
+                            Navigator.push(
+                                context,
                                 MyCustomRoute(
-                                    builder: (context) => MenuAudit(departmentUser: widget.departmentUser, namaUser: widget.namaUser, idUser: widget.idUser)
-                                )
-                            );
+                                    builder: (context) => MenuAudit(
+                                        departmentUser: widget.departmentUser,
+                                        namaUser: widget.namaUser,
+                                        idUser: widget.idUser)));
                           },
                           child: Column(
                             children: <Widget>[
@@ -461,8 +863,10 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                   ),
                                   elevation: 1.0,
                                   child: Container(
-                                    width: MediaQuery.of(context).size.width * 0.17,
-                                    margin: EdgeInsets.symmetric(vertical: 10.0),
+                                    width: MediaQuery.of(context).size.width *
+                                        0.17,
+                                    margin:
+                                        EdgeInsets.symmetric(vertical: 10.0),
                                     child: Stack(
                                       overflow: Overflow.visible,
                                       children: <Widget>[
@@ -474,11 +878,23 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                           ),
                                         ),
                                         StreamBuilder(
-                                          stream: Firestore.instance.collection('audit_internal').where('leadAuditor', isEqualTo: widget.idUser).where('leadAuditorConfirm', isEqualTo: widget.idUser).where('auditEnd', isNull: true).snapshots(),
-                                          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                                            if (snapshot.data == null) return Container();
+                                          stream: Firestore.instance
+                                              .collection('audit_internal')
+                                              .where('auditEnd', isNull: true)
+                                              .where('leadAuditor',
+                                                  isEqualTo: widget.idUser)
+                                              .where('leadAuditorConfirm',
+                                                  isEqualTo: widget.idUser)
+                                              .snapshots(),
+                                          builder: (BuildContext context,
+                                              AsyncSnapshot<QuerySnapshot>
+                                                  snapshot) {
+                                            if (snapshot.data == null)
+                                              return Container();
 
-                                            if (snapshot.data.documents.length == 0) {
+                                            if (snapshot
+                                                    .data.documents.length ==
+                                                0) {
                                               return Container();
                                             } else {
                                               return Positioned(
@@ -494,11 +910,23 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                           },
                                         ),
                                         StreamBuilder(
-                                          stream: Firestore.instance.collection('audit_internal').where('leadAuditor', isEqualTo: widget.idUser).where('auditee', isEqualTo: widget.idUser).where('auditEnd', isNull: true).snapshots(),
-                                          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                                            if (snapshot.data == null) return Container();
+                                          stream: Firestore.instance
+                                              .collection('audit_internal')
+                                              .where('auditEnd', isNull: true)
+                                              .where('auditee',
+                                                  isEqualTo: widget.idUser)
+                                              .where('auditeeConfirm',
+                                                  isEqualTo: widget.idUser)
+                                              .snapshots(),
+                                          builder: (BuildContext context,
+                                              AsyncSnapshot<QuerySnapshot>
+                                                  snapshot) {
+                                            if (snapshot.data == null)
+                                              return Container();
 
-                                            if (snapshot.data.documents.length == 0) {
+                                            if (snapshot
+                                                    .data.documents.length ==
+                                                0) {
                                               return Container();
                                             } else {
                                               return Positioned(
@@ -514,11 +942,22 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                           },
                                         ),
                                         StreamBuilder(
-                                          stream: Firestore.instance.collection('audit_internal').where('leadAuditor', isEqualTo: widget.idUser).where('subAreaAuditor', arrayContains: widget.idUser).where('auditEnd', isNull: true).snapshots(),
-                                          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                                            if (snapshot.data == null) return Container();
+                                          stream: Firestore.instance
+                                              .collection('audit_internal')
+                                              .where('auditEnd', isNull: true)
+                                              .where('auditorConfirm',
+                                                  arrayContains:
+                                                      widget.idUser.toString())
+                                              .snapshots(),
+                                          builder: (BuildContext context,
+                                              AsyncSnapshot<QuerySnapshot>
+                                                  snapshot) {
+                                            if (snapshot.data == null)
+                                              return Container();
 
-                                            if (snapshot.data.documents.length == 0) {
+                                            if (snapshot
+                                                    .data.documents.length ==
+                                                0) {
                                               return Container();
                                             } else {
                                               return Positioned(
@@ -533,15 +972,8 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                             }
                                           },
                                         ),
-                                        StreamBuilder(
-                                          stream: Firestore.instance.collection('audit_internal').where('status', isEqualTo: 'ONGOING').where('auditEnd', isNull: true).where('dateAudit', isLessThanOrEqualTo: DateTime.now()).snapshots(),
-                                          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                                            if (snapshot.data == null) return Container();
-
-                                            if (snapshot.data.documents.length == 0) {
-                                              return Container();
-                                            } else {
-                                              return Positioned(
+                                        showNotifIAStartAuditAuditee
+                                            ? Positioned(
                                                 top: -7.0,
                                                 right: 0.0,
                                                 child: Icon(
@@ -549,14 +981,33 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                                   size: 13.0,
                                                   color: Colors.redAccent,
                                                 ),
-                                              );
-                                            }
-                                          },
-                                        ),
+                                              )
+                                            : Container(),
+                                        showNotifIAStartAuditAuditor
+                                            ? Positioned(
+                                                top: -7.0,
+                                                right: 0.0,
+                                                child: Icon(
+                                                  Icons.brightness_1,
+                                                  size: 13.0,
+                                                  color: Colors.redAccent,
+                                                ),
+                                              )
+                                            : Container(),
+                                        showNotifIAStartAuditLead
+                                            ? Positioned(
+                                                top: -7.0,
+                                                right: 0.0,
+                                                child: Icon(
+                                                  Icons.brightness_1,
+                                                  size: 13.0,
+                                                  color: Colors.redAccent,
+                                                ),
+                                              )
+                                            : Container(),
                                       ],
                                     ),
-                                  )
-                              ),
+                                  )),
                               SizedBox(
                                 height: 5.0,
                               ),
@@ -567,7 +1018,8 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                     child: Text(
                                       'Internal Audit',
                                       style: TextStyle(
-                                          fontWeight: FontWeight.w400, color: Colors.grey),
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.grey),
                                       textAlign: TextAlign.center,
                                     ),
                                   )
@@ -578,11 +1030,13 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(context,
+                            Navigator.push(
+                                context,
                                 MyCustomRoute(
-                                    builder: (context) => MenuCorrective(departmentUser: widget.departmentUser, namaUser: widget.namaUser, idUser: widget.idUser)
-                                )
-                            );
+                                    builder: (context) => MenuCorrective(
+                                        departmentUser: widget.departmentUser,
+                                        namaUser: widget.namaUser,
+                                        idUser: widget.idUser)));
                           },
                           child: Column(
                             children: <Widget>[
@@ -597,8 +1051,10 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                 ),
                                 elevation: 1.0,
                                 child: Container(
-                                    width: MediaQuery.of(context).size.width * 0.17,
-                                    margin: EdgeInsets.symmetric(vertical: 10.0),
+                                    width: MediaQuery.of(context).size.width *
+                                        0.17,
+                                    margin:
+                                        EdgeInsets.symmetric(vertical: 10.0),
                                     child: Stack(
                                       overflow: Overflow.visible,
                                       children: <Widget>[
@@ -610,11 +1066,22 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                           ),
                                         ),
                                         StreamBuilder(
-                                          stream: Firestore.instance.collection('correctiveAction').where('userCreated', isEqualTo: widget.idUser).where('status', isEqualTo: 'DONE').snapshots(),
-                                          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                                            if (snapshot.data == null) return Container();
+                                          stream: Firestore.instance
+                                              .collection('correctiveAction')
+                                              .where('userCreated',
+                                                  isEqualTo: widget.idUser)
+                                              .where('status',
+                                                  isEqualTo: 'DONE')
+                                              .snapshots(),
+                                          builder: (BuildContext context,
+                                              AsyncSnapshot<QuerySnapshot>
+                                                  snapshot) {
+                                            if (snapshot.data == null)
+                                              return Container();
 
-                                            if (snapshot.data.documents.length == 0) {
+                                            if (snapshot
+                                                    .data.documents.length ==
+                                                0) {
                                               return Container();
                                             } else {
                                               return Positioned(
@@ -630,11 +1097,23 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                           },
                                         ),
                                         StreamBuilder(
-                                          stream: Firestore.instance.collection('correctiveAction').where('category', isEqualTo: 1).where('userDituju', isEqualTo: widget.idUser).where('status', isEqualTo: 'OPEN').snapshots(),
-                                          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                                            if (snapshot.data == null) return Container();
+                                          stream: Firestore.instance
+                                              .collection('correctiveAction')
+                                              .where('category', isEqualTo: 1)
+                                              .where('userDituju',
+                                                  isEqualTo: widget.idUser)
+                                              .where('status',
+                                                  isEqualTo: 'OPEN')
+                                              .snapshots(),
+                                          builder: (BuildContext context,
+                                              AsyncSnapshot<QuerySnapshot>
+                                                  snapshot) {
+                                            if (snapshot.data == null)
+                                              return Container();
 
-                                            if (snapshot.data.documents.length == 0) {
+                                            if (snapshot
+                                                    .data.documents.length ==
+                                                0) {
                                               return Container();
                                             } else {
                                               return Positioned(
@@ -650,11 +1129,23 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                           },
                                         ),
                                         StreamBuilder(
-                                          stream: Firestore.instance.collection('correctiveAction').where('category', isEqualTo: 1).where('userDituju', isEqualTo: widget.idUser).where('status', isEqualTo: 'ONGOING').snapshots(),
-                                          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                                            if (snapshot.data == null) return Container();
+                                          stream: Firestore.instance
+                                              .collection('correctiveAction')
+                                              .where('category', isEqualTo: 1)
+                                              .where('userDituju',
+                                                  isEqualTo: widget.idUser)
+                                              .where('status',
+                                                  isEqualTo: 'ONGOING')
+                                              .snapshots(),
+                                          builder: (BuildContext context,
+                                              AsyncSnapshot<QuerySnapshot>
+                                                  snapshot) {
+                                            if (snapshot.data == null)
+                                              return Container();
 
-                                            if (snapshot.data.documents.length == 0) {
+                                            if (snapshot
+                                                    .data.documents.length ==
+                                                0) {
                                               return Container();
                                             } else {
                                               return Positioned(
@@ -670,11 +1161,23 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                           },
                                         ),
                                         StreamBuilder(
-                                          stream: Firestore.instance.collection('correctiveAction').where('category', isEqualTo: 1).where('userDituju', isEqualTo: widget.idUser).where('status', isEqualTo: 'DONE').snapshots(),
-                                          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                                            if (snapshot.data == null) return Container();
+                                          stream: Firestore.instance
+                                              .collection('correctiveAction')
+                                              .where('category', isEqualTo: 1)
+                                              .where('userDituju',
+                                                  isEqualTo: widget.idUser)
+                                              .where('status',
+                                                  isEqualTo: 'DONE')
+                                              .snapshots(),
+                                          builder: (BuildContext context,
+                                              AsyncSnapshot<QuerySnapshot>
+                                                  snapshot) {
+                                            if (snapshot.data == null)
+                                              return Container();
 
-                                            if (snapshot.data.documents.length == 0) {
+                                            if (snapshot
+                                                    .data.documents.length ==
+                                                0) {
                                               return Container();
                                             } else {
                                               return Positioned(
@@ -690,11 +1193,23 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                           },
                                         ),
                                         StreamBuilder(
-                                          stream: Firestore.instance.collection('correctiveAction').where('category', isEqualTo: 2).where('userDituju', isEqualTo: widget.idUser).where('status', isEqualTo: 'OPEN').snapshots(),
-                                          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                                            if (snapshot.data == null) return Container();
+                                          stream: Firestore.instance
+                                              .collection('correctiveAction')
+                                              .where('category', isEqualTo: 2)
+                                              .where('userDituju',
+                                                  isEqualTo: widget.idUser)
+                                              .where('status',
+                                                  isEqualTo: 'OPEN')
+                                              .snapshots(),
+                                          builder: (BuildContext context,
+                                              AsyncSnapshot<QuerySnapshot>
+                                                  snapshot) {
+                                            if (snapshot.data == null)
+                                              return Container();
 
-                                            if (snapshot.data.documents.length == 0) {
+                                            if (snapshot
+                                                    .data.documents.length ==
+                                                0) {
                                               return Container();
                                             } else {
                                               return Positioned(
@@ -710,8 +1225,7 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                           },
                                         ),
                                       ],
-                                    )
-                                ),
+                                    )),
                               ),
                               SizedBox(
                                 height: 5.0,
@@ -723,7 +1237,8 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                     child: Text(
                                       'Corrective Action',
                                       style: TextStyle(
-                                          fontWeight: FontWeight.w400, color: Colors.grey),
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.grey),
                                       textAlign: TextAlign.center,
                                     ),
                                   )
@@ -732,14 +1247,16 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                             ],
                           ),
                         ),
-
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(context,
+                            Navigator.push(
+                                context,
                                 MyCustomRoute(
-                                    builder: (context) => BerandaRiskRegister(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser)
-                                )
-                            );
+                                    builder: (context) => BerandaRiskRegister(
+                                        idUser: widget.idUser,
+                                        namaUser: widget.namaUser,
+                                        departmentUser:
+                                            widget.departmentUser)));
                           },
                           child: Column(
                             children: <Widget>[
@@ -754,7 +1271,8 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                 ),
                                 elevation: 1.0,
                                 child: Container(
-                                  width: MediaQuery.of(context).size.width * 0.17,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.17,
                                   margin: EdgeInsets.symmetric(vertical: 10.0),
                                   child: Stack(
                                     overflow: Overflow.visible,
@@ -780,7 +1298,8 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                     child: Text(
                                       'Risk Assesment',
                                       style: TextStyle(
-                                          fontWeight: FontWeight.w400, color: Colors.grey),
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.grey),
                                       textAlign: TextAlign.center,
                                     ),
                                   )
@@ -791,11 +1310,14 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(context,
+                            Navigator.push(
+                                context,
                                 MyCustomRoute(
-                                    builder: (context) => MenuMeeting(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser)
-                                )
-                            );
+                                    builder: (context) => MenuMeeting(
+                                        idUser: widget.idUser,
+                                        namaUser: widget.namaUser,
+                                        departmentUser:
+                                            widget.departmentUser)));
                           },
                           child: Column(
                             children: <Widget>[
@@ -810,7 +1332,8 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                 ),
                                 elevation: 1.0,
                                 child: Container(
-                                  width: MediaQuery.of(context).size.width * 0.17,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.17,
                                   margin: EdgeInsets.symmetric(vertical: 10.0),
                                   child: Stack(
                                     overflow: Overflow.visible,
@@ -822,15 +1345,8 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                           height: 30.0,
                                         ),
                                       ),
-                                      StreamBuilder(
-                                        stream: Firestore.instance.collection('minutesMeeting').where('status', isEqualTo: 'OPEN').where('dateMeeting', isEqualTo: DateTime.now()).snapshots(),
-                                        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                                          if (snapshot.data == null) return Container();
-
-                                          if (snapshot.data.documents.length == 0) {
-                                            return Container();
-                                          } else {
-                                            return Positioned(
+                                      showNotifMeetingCheckIn
+                                          ? Positioned(
                                               top: -7.0,
                                               right: 0.0,
                                               child: Icon(
@@ -838,19 +1354,10 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                                 size: 13.0,
                                                 color: Colors.redAccent,
                                               ),
-                                            );
-                                          }
-                                        },
-                                      ),
-                                      StreamBuilder(
-                                        stream: Firestore.instance.collection('minutesMeeting').where('status', isEqualTo: 'ONGOING').where('dateMeeting', isEqualTo: DateTime.now()).snapshots(),
-                                        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                                          if (snapshot.data == null) return Container();
-
-                                          if (snapshot.data.documents.length == 0) {
-                                            return Container();
-                                          } else {
-                                            return Positioned(
+                                            )
+                                          : Container(),
+                                      showNotifMeetingOpenStatus
+                                          ? Positioned(
                                               top: -7.0,
                                               right: 0.0,
                                               child: Icon(
@@ -858,30 +1365,8 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                                 size: 13.0,
                                                 color: Colors.redAccent,
                                               ),
-                                            );
-                                          }
-                                        },
-                                      ),
-                                      StreamBuilder(
-                                        stream: Firestore.instance.collection('minutesMeeting').where('status', isEqualTo: 'CLOSE').where('picIDNotulen', arrayContains: widget.idUser).snapshots(),
-                                        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                                          if (snapshot.data == null) return Container();
-
-                                          if (snapshot.data.documents.length == 0) {
-                                            return Container();
-                                          } else {
-                                            return Positioned(
-                                              top: -7.0,
-                                              right: 0.0,
-                                              child: Icon(
-                                                Icons.brightness_1,
-                                                size: 13.0,
-                                                color: Colors.redAccent,
-                                              ),
-                                            );
-                                          }
-                                        },
-                                      ),
+                                            )
+                                          : Container()
                                     ],
                                   ),
                                 ),
@@ -896,7 +1381,8 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                     child: Text(
                                       'Minute of Meeting',
                                       style: TextStyle(
-                                          fontWeight: FontWeight.w400, color: Colors.grey),
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.grey),
                                       textAlign: TextAlign.center,
                                     ),
                                   )
@@ -907,11 +1393,13 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(context,
+                            Navigator.push(
+                                context,
                                 MyCustomRoute(
-                                    builder: (context) => BerandaDocument(departmentUser: widget.departmentUser, namaUser: widget.namaUser, idUser: widget.idUser)
-                                )
-                            );
+                                    builder: (context) => BerandaDocument(
+                                        departmentUser: widget.departmentUser,
+                                        namaUser: widget.namaUser,
+                                        idUser: widget.idUser)));
                           },
                           child: Column(
                             children: <Widget>[
@@ -926,7 +1414,8 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                 ),
                                 elevation: 1.0,
                                 child: Container(
-                                  width: MediaQuery.of(context).size.width * 0.17,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.17,
                                   margin: EdgeInsets.symmetric(vertical: 10.0),
                                   child: Stack(
                                     overflow: Overflow.visible,
@@ -952,7 +1441,8 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                     child: Text(
                                       'Document Control',
                                       style: TextStyle(
-                                          fontWeight: FontWeight.w400, color: Colors.grey),
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.grey),
                                       textAlign: TextAlign.center,
                                     ),
                                   )
@@ -963,9 +1453,13 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(context,
+                            Navigator.push(
+                              context,
                               MyCustomRoute(
-                                builder: (context) => BerandaWorking(departmentUser: widget.departmentUser, namaUser: widget.namaUser, idUser: widget.idUser),
+                                builder: (context) => BerandaWorking(
+                                    departmentUser: widget.departmentUser,
+                                    namaUser: widget.namaUser,
+                                    idUser: widget.idUser),
                               ),
                             );
                           },
@@ -982,7 +1476,8 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                 ),
                                 elevation: 1.0,
                                 child: Container(
-                                  width: MediaQuery.of(context).size.width * 0.17,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.17,
                                   margin: EdgeInsets.symmetric(vertical: 10.0),
                                   child: Stack(
                                     overflow: Overflow.visible,
@@ -1008,7 +1503,8 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                     child: Text(
                                       'Working Instruction',
                                       style: TextStyle(
-                                          fontWeight: FontWeight.w400, color: Colors.grey),
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.grey),
                                       textAlign: TextAlign.center,
                                     ),
                                   )
@@ -1019,11 +1515,14 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(context,
+                            Navigator.push(
+                                context,
                                 MyCustomRoute(
-                                    builder: (context) => BerandaManagement(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser)
-                                )
-                            );
+                                    builder: (context) => BerandaManagement(
+                                        idUser: widget.idUser,
+                                        namaUser: widget.namaUser,
+                                        departmentUser:
+                                            widget.departmentUser)));
                           },
                           child: Column(
                             children: <Widget>[
@@ -1038,7 +1537,8 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                 ),
                                 elevation: 1.0,
                                 child: Container(
-                                  width: MediaQuery.of(context).size.width * 0.17,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.17,
                                   margin: EdgeInsets.symmetric(vertical: 10.0),
                                   child: Stack(
                                     overflow: Overflow.visible,
@@ -1050,15 +1550,8 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                           height: 30.0,
                                         ),
                                       ),
-                                      StreamBuilder(
-                                        stream: Firestore.instance.collection('changeMgmt').where('approveBy', isEqualTo: widget.idUser).where('finalStatus', isEqualTo: 'OPEN').snapshots(),
-                                        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                                          if (snapshot.data == null) return Container();
-
-                                          if (snapshot.data.documents.length == 0) {
-                                            return Container();
-                                          } else {
-                                            return Positioned(
+                                      showNotifChangeMgmtReview
+                                          ? Positioned(
                                               top: -7.0,
                                               right: 0.0,
                                               child: Icon(
@@ -1066,19 +1559,10 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                                 size: 13.0,
                                                 color: Colors.redAccent,
                                               ),
-                                            );
-                                          }
-                                        },
-                                      ),
-                                      StreamBuilder(
-                                        stream: Firestore.instance.collection('changeMgmt').where('personReview', arrayContains: widget.idUser).snapshots(),
-                                        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                                          if (snapshot.data == null) return Container();
-
-                                          if (snapshot.data.documents.length == 0) {
-                                            return Container();
-                                          } else {
-                                            return Positioned(
+                                            )
+                                          : Container(),
+                                      showNotifChangeMgmtApproval
+                                          ? Positioned(
                                               top: -7.0,
                                               right: 0.0,
                                               child: Icon(
@@ -1086,10 +1570,8 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                                 size: 13.0,
                                                 color: Colors.redAccent,
                                               ),
-                                            );
-                                          }
-                                        },
-                                      ),
+                                            )
+                                          : Container(),
                                     ],
                                   ),
                                 ),
@@ -1104,7 +1586,8 @@ class _MenuHRDState extends State<MenuHRD> with TickerProviderStateMixin {
                                     child: Text(
                                       'Change Management',
                                       style: TextStyle(
-                                          fontWeight: FontWeight.w400, color: Colors.grey),
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.grey),
                                       textAlign: TextAlign.center,
                                     ),
                                   )

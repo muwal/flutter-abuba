@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'detail_list.dart';
 
-import 'package:video_player/video_player.dart';
-
 class FormList extends StatefulWidget {
   final int idUser;
   final String namaUser;
@@ -99,7 +97,7 @@ class _FormListState extends State<FormList> with TickerProviderStateMixin {
     super.initState();
 
     CollectionReference reference = Firestore.instance.collection('docControl');
-    reference.snapshots().listen((querySnapshot) {
+    reference.where('status', isEqualTo: 'PUBLISH').snapshots().listen((querySnapshot) {
       querySnapshot.documentChanges.forEach((change) {
         setState(() {
           typeDoc.add(change.document.data['type']);

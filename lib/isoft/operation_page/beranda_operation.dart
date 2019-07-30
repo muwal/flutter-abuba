@@ -3,23 +3,16 @@ import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/creative_page/form_comment.dart';
 import 'package:flutter_abuba/creative_page/form_create.dart';
 import 'package:flutter_abuba/creative_page/form_detail.dart';
-import 'package:flutter_abuba/isoft/operation_page/incoming/beranda_incoming.dart';
 import 'package:flutter_abuba/isoft/operation_page/incoming/beranda_incoming2.dart';
-import 'package:flutter_abuba/isoft/operation_page/kpimonitoring/kpi_monitoring_beranda.dart';
 import 'package:flutter_abuba/isoft/operation_page/workinginstruction/beranda_working.dart';
 import 'package:flutter_abuba/whats_page/form_comment.dart';
 import 'package:flutter_abuba/whats_page/form_create_happening.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-
-import 'package:flutter_abuba/isoft/operation_page/logbook/beranda_logbook.dart';
 import 'package:flutter_abuba/isoft/operation_page/dailychecklist/beranda_checklist.dart';
-import 'kitchen/form_inspection.dart';
 import 'internalaudit/beranda_audit.dart';
 import 'correctiveaction/beranda_corrective.dart';
 import 'meeting/beranda_meeting.dart';
 import 'changemanagement/beranda_management.dart';
 import 'riskassesment/beranda_risk_register.dart';
-import 'qcchecklist/beranda_qc.dart';
 import 'documentcontrol/beranda_document.dart';
 import 'logbook/linecheck/beranda_linecheck.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -72,15 +65,6 @@ class _BerandaOperationState extends State<BerandaOperation> with TickerProvider
     'Pak ADE RIDWAN - INTERNAL AUDIT MANAGER.jpeg',
     'Pak YASIR - OPERASIONAL MANAGER.jpeg',
   ];
-
-  List<bool> _alreadyOKHappening = [false, false, true];
-  List<int> _counterOKHappening = [200, 150, 500];
-  List<bool> _likeHappening = [false, true, false];
-  List<int> _counterLikeHappening = [0, 20, 100];
-
-  List<bool> _likeIdea = [false, true, false];
-  List<int> _counterLikeIdea = [0, 20, 100];
-  List<int> _counterViewIdea = [100, 50, 33];
 
   @override
   void initState() {
@@ -245,23 +229,86 @@ class _BerandaOperationState extends State<BerandaOperation> with TickerProvider
                                   )
                               ),
                             ),
-                            Positioned(
-                              top: -10.0,
-                              right: -8.0,
-                              child: Icon(
-                                Icons.brightness_1,
-                                size: 25.0,
-                                color: Colors.redAccent,
-                              ),
+                            StreamBuilder(
+                              stream: Firestore.instance.collection('audit_internal').where('leadAuditor', isEqualTo: widget.idUser).where('leadAuditorConfirm', isEqualTo: widget.idUser).where('auditEnd', isNull: true).snapshots(),
+                              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (snapshot.data == null) return Container();
+
+                                if (snapshot.data.documents.length == 0) {
+                                  return Container();
+                                } else {
+                                  return Positioned(
+                                    top: 0.0,
+                                    right: 0.0,
+                                    child: Icon(
+                                      Icons.brightness_1,
+                                      size: 13.0,
+                                      color: Colors.redAccent,
+                                    ),
+                                  );
+                                }
+                              },
                             ),
-                            Positioned(
-                              top: -5.0,
-                              right: 2.0,
-                              child: Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
+                            StreamBuilder(
+                              stream: Firestore.instance.collection('audit_internal').where('leadAuditor', isEqualTo: widget.idUser).where('auditee', isEqualTo: widget.idUser).where('auditEnd', isNull: true).snapshots(),
+                              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (snapshot.data == null) return Container();
+
+                                if (snapshot.data.documents.length == 0) {
+                                  return Container();
+                                } else {
+                                  return Positioned(
+                                    top: 0.0,
+                                    right: 0.0,
+                                    child: Icon(
+                                      Icons.brightness_1,
+                                      size: 13.0,
+                                      color: Colors.redAccent,
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+                            StreamBuilder(
+                              stream: Firestore.instance.collection('audit_internal').where('leadAuditor', isEqualTo: widget.idUser).where('subAreaAuditor', arrayContains: widget.idUser).where('auditEnd', isNull: true).snapshots(),
+                              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (snapshot.data == null) return Container();
+
+                                if (snapshot.data.documents.length == 0) {
+                                  return Container();
+                                } else {
+                                  return Positioned(
+                                    top: 0.0,
+                                    right: 0.0,
+                                    child: Icon(
+                                      Icons.brightness_1,
+                                      size: 13.0,
+                                      color: Colors.redAccent,
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+                            StreamBuilder(
+                              stream: Firestore.instance.collection('audit_internal').where('status', isEqualTo: 'ONGOING').where('auditEnd', isNull: true).where('dateAudit', isLessThanOrEqualTo: DateTime.now()).snapshots(),
+                              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (snapshot.data == null) return Container();
+
+                                if (snapshot.data.documents.length == 0) {
+                                  return Container();
+                                } else {
+                                  return Positioned(
+                                    top: 0.0,
+                                    right: 0.0,
+                                    child: Icon(
+                                      Icons.brightness_1,
+                                      size: 13.0,
+                                      color: Colors.redAccent,
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
                           ],
                         ),
                         Padding(
@@ -305,23 +352,106 @@ class _BerandaOperationState extends State<BerandaOperation> with TickerProvider
                                   )
                               ),
                             ),
-                            Positioned(
-                              top: -10.0,
-                              right: -8.0,
-                              child: Icon(
-                                Icons.brightness_1,
-                                size: 25.0,
-                                color: Colors.redAccent,
-                              ),
+                            StreamBuilder(
+                              stream: Firestore.instance.collection('correctiveAction').where('userCreated', isEqualTo: widget.idUser).where('status', isEqualTo: 'DONE').snapshots(),
+                              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (snapshot.data == null) return Container();
+
+                                if (snapshot.data.documents.length == 0) {
+                                  return Container();
+                                } else {
+                                  return Positioned(
+                                    top: 0.0,
+                                    right: 0.0,
+                                    child: Icon(
+                                      Icons.brightness_1,
+                                      size: 13.0,
+                                      color: Colors.redAccent,
+                                    ),
+                                  );
+                                }
+                              },
                             ),
-                            Positioned(
-                              top: -5.0,
-                              right: 2.0,
-                              child: Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
+                            StreamBuilder(
+                              stream: Firestore.instance.collection('correctiveAction').where('category', isEqualTo: 1).where('userDituju', isEqualTo: widget.idUser).where('status', isEqualTo: 'OPEN').snapshots(),
+                              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (snapshot.data == null) return Container();
+
+                                if (snapshot.data.documents.length == 0) {
+                                  return Container();
+                                } else {
+                                  return Positioned(
+                                    top: 0.0,
+                                    right: 0.0,
+                                    child: Icon(
+                                      Icons.brightness_1,
+                                      size: 13.0,
+                                      color: Colors.redAccent,
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+                            StreamBuilder(
+                              stream: Firestore.instance.collection('correctiveAction').where('category', isEqualTo: 1).where('userDituju', isEqualTo: widget.idUser).where('status', isEqualTo: 'ONGOING').snapshots(),
+                              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (snapshot.data == null) return Container();
+
+                                if (snapshot.data.documents.length == 0) {
+                                  return Container();
+                                } else {
+                                  return Positioned(
+                                    top: 0.0,
+                                    right: 0.0,
+                                    child: Icon(
+                                      Icons.brightness_1,
+                                      size: 13.0,
+                                      color: Colors.redAccent,
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+                            StreamBuilder(
+                              stream: Firestore.instance.collection('correctiveAction').where('category', isEqualTo: 1).where('userDituju', isEqualTo: widget.idUser).where('status', isEqualTo: 'DONE').snapshots(),
+                              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (snapshot.data == null) return Container();
+
+                                if (snapshot.data.documents.length == 0) {
+                                  return Container();
+                                } else {
+                                  return Positioned(
+                                    top: 0.0,
+                                    right: 0.0,
+                                    child: Icon(
+                                      Icons.brightness_1,
+                                      size: 13.0,
+                                      color: Colors.redAccent,
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+                            StreamBuilder(
+                              stream: Firestore.instance.collection('correctiveAction').where('category', isEqualTo: 2).where('userDituju', isEqualTo: widget.idUser).where('status', isEqualTo: 'OPEN').snapshots(),
+                              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (snapshot.data == null) return Container();
+
+                                if (snapshot.data.documents.length == 0) {
+                                  return Container();
+                                } else {
+                                  return Positioned(
+                                    top: 0.0,
+                                    right: 0.0,
+                                    child: Icon(
+                                      Icons.brightness_1,
+                                      size: 13.0,
+                                      color: Colors.redAccent,
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
                           ],
                         ),
                         Padding(
@@ -435,23 +565,66 @@ class _BerandaOperationState extends State<BerandaOperation> with TickerProvider
                                   )
                               ),
                             ),
-                            Positioned(
-                              top: -10.0,
-                              right: -8.0,
-                              child: Icon(
-                                Icons.brightness_1,
-                                size: 25.0,
-                                color: Colors.redAccent,
-                              ),
+                            StreamBuilder(
+                              stream: Firestore.instance.collection('minutesMeeting').where('status', isEqualTo: 'OPEN').where('dateMeeting', isEqualTo: DateTime.now()).snapshots(),
+                              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (snapshot.data == null) return Container();
+
+                                if (snapshot.data.documents.length == 0) {
+                                  return Container();
+                                } else {
+                                  return Positioned(
+                                    top: 0.0,
+                                    right: 0.0,
+                                    child: Icon(
+                                      Icons.brightness_1,
+                                      size: 13.0,
+                                      color: Colors.redAccent,
+                                    ),
+                                  );
+                                }
+                              },
                             ),
-                            Positioned(
-                              top: -5.0,
-                              right: 2.0,
-                              child: Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
+                            StreamBuilder(
+                              stream: Firestore.instance.collection('minutesMeeting').where('status', isEqualTo: 'ONGOING').where('dateMeeting', isEqualTo: DateTime.now()).snapshots(),
+                              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (snapshot.data == null) return Container();
+
+                                if (snapshot.data.documents.length == 0) {
+                                  return Container();
+                                } else {
+                                  return Positioned(
+                                    top: 0.0,
+                                    right: 0.0,
+                                    child: Icon(
+                                      Icons.brightness_1,
+                                      size: 13.0,
+                                      color: Colors.redAccent,
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+                            StreamBuilder(
+                              stream: Firestore.instance.collection('minutesMeeting').where('status', isEqualTo: 'CLOSE').where('picIDNotulen', arrayContains: widget.idUser).snapshots(),
+                              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (snapshot.data == null) return Container();
+
+                                if (snapshot.data.documents.length == 0) {
+                                  return Container();
+                                } else {
+                                  return Positioned(
+                                    top: 0.0,
+                                    right: 0.0,
+                                    child: Icon(
+                                      Icons.brightness_1,
+                                      size: 13.0,
+                                      color: Colors.redAccent,
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
                           ],
                         ),
                         Padding(
@@ -670,23 +843,46 @@ class _BerandaOperationState extends State<BerandaOperation> with TickerProvider
                                   )
                               ),
                             ),
-                            Positioned(
-                              top: -10.0,
-                              right: -8.0,
-                              child: Icon(
-                                Icons.brightness_1,
-                                size: 25.0,
-                                color: Colors.redAccent,
-                              ),
+                            StreamBuilder(
+                              stream: Firestore.instance.collection('changeMgmt').where('approveBy', isEqualTo: widget.idUser).where('finalStatus', isEqualTo: 'OPEN').snapshots(),
+                              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (snapshot.data == null) return Container();
+
+                                if (snapshot.data.documents.length == 0) {
+                                  return Container();
+                                } else {
+                                  return Positioned(
+                                    top: 0.0,
+                                    right: 0.0,
+                                    child: Icon(
+                                      Icons.brightness_1,
+                                      size: 13.0,
+                                      color: Colors.redAccent,
+                                    ),
+                                  );
+                                }
+                              },
                             ),
-                            Positioned(
-                              top: -5.0,
-                              right: 2.0,
-                              child: Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
+                            StreamBuilder(
+                              stream: Firestore.instance.collection('changeMgmt').where('personReview', arrayContains: widget.idUser).snapshots(),
+                              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (snapshot.data == null) return Container();
+
+                                if (snapshot.data.documents.length == 0) {
+                                  return Container();
+                                } else {
+                                  return Positioned(
+                                    top: 0.0,
+                                    right: 0.0,
+                                    child: Icon(
+                                      Icons.brightness_1,
+                                      size: 13.0,
+                                      color: Colors.redAccent,
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
                           ],
                         ),
                         Padding(

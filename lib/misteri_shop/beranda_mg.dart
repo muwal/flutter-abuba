@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_abuba/beranda/beranda_view.dart';
+import 'package:flutter_abuba/beranda/berandaview.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/misteri_shop/point_trend_check/point_trend_check.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -30,7 +30,7 @@ class _BerandaMGState extends State<BerandaMG> {
     return SafeArea(
       child: WillPopScope(
         onWillPop: () {
-          Navigator.push(context,
+          Navigator.pop(context,
             MaterialPageRoute(
               builder: (_) => BerandaPage(idUser: widget.idUser, aksesStatus: widget.aksesStatus)
             )

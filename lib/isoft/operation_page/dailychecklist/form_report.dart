@@ -230,13 +230,21 @@ class _FormReportState extends State<FormReport> with TickerProviderStateMixin {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          elevation: 0.25,
+          elevation: 1.0,
           backgroundColor: Colors.white,
           iconTheme: IconThemeData(color: Colors.black),
-          title: Image.asset(
-            'assets/images/logo2.png',
-            height: 150.0,
-            width: 120.0,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Flexible(
+                child: Text('Report', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600, color: Colors.black),),
+              ),
+              /*Stack(
+                children: <Widget>[
+                  Icon(Icons.notifications, color: Colors.grey[400],)
+                ],
+              )*/
+            ],
           ),
         ),
         body: AnimatedBuilder(
@@ -256,34 +264,6 @@ class _FormReportState extends State<FormReport> with TickerProviderStateMixin {
   Widget _buildReport(double width) {
     return ListView(
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                'Daily Checklist',
-                style: TextStyle(color: Colors.black12, fontSize: 12.0),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 15.0),
-                child: Text(
-                  '|',
-                  style:
-                  TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 15.0),
-                child: Text(
-                  'Report',
-                  style:
-                  TextStyle(color: AbubaPallate.greenabuba, fontSize: 12.0),
-                ),
-              ),
-            ],
-          ),
-        ),
         Container(
           color: Colors.white,
           width: width,

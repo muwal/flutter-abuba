@@ -7,9 +7,7 @@ import 'package:flutter_abuba/isoft/operation_page/correctiveaction/car_IA.dart'
 import 'package:flutter_abuba/isoft/operation_page/correctiveaction/car_nonIA.dart';
 import 'package:flutter_abuba/isoft/operation_page/correctiveaction/form_createnew.dart';
 import 'package:flutter_abuba/isoft/operation_page/correctiveaction/praReport.dart';
-import 'package:flutter_abuba/isoft/operation_page/correctiveaction/pra_create.dart';
 import 'package:flutter_abuba/isoft/operation_page/correctiveaction/verifikasi.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class MenuCorrective extends StatefulWidget {
   final int idUser;
@@ -222,23 +220,26 @@ class _MenuCorrectiveState extends State<MenuCorrective> {
                                   )
                               ),
                             ),
-                            Positioned(
-                              top: -10.0,
-                              right: -8.0,
-                              child: Icon(
-                                Icons.brightness_1,
-                                size: 25.0,
-                                color: Colors.redAccent,
-                              ),
+                            StreamBuilder(
+                              stream: Firestore.instance.collection('correctiveAction').where('userCreated', isEqualTo: widget.idUser).where('status', isEqualTo: 'DONE').snapshots(),
+                              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (snapshot.data == null) return Container();
+
+                                if (snapshot.data.documents.length == 0) {
+                                  return Container();
+                                } else {
+                                  return Positioned(
+                                    top: 0.0,
+                                    right: 0.0,
+                                    child: Icon(
+                                      Icons.brightness_1,
+                                      size: 13.0,
+                                      color: Colors.redAccent,
+                                    ),
+                                  );
+                                }
+                              },
                             ),
-                            Positioned(
-                              top: -5.0,
-                              right: 2.0,
-                              child: Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
                           ],
                         ),
                         Padding(
@@ -403,23 +404,66 @@ class _MenuCorrectiveState extends State<MenuCorrective> {
                                   )
                               ),
                             ),
-                            Positioned(
-                              top: -10.0,
-                              right: -8.0,
-                              child: Icon(
-                                Icons.brightness_1,
-                                size: 25.0,
-                                color: Colors.redAccent,
-                              ),
+                            StreamBuilder(
+                              stream: Firestore.instance.collection('correctiveAction').where('category', isEqualTo: 1).where('userDituju', isEqualTo: widget.idUser).where('status', isEqualTo: 'OPEN').snapshots(),
+                              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (snapshot.data == null) return Container();
+
+                                if (snapshot.data.documents.length == 0) {
+                                  return Container();
+                                } else {
+                                  return Positioned(
+                                    top: 0.0,
+                                    right: 0.0,
+                                    child: Icon(
+                                      Icons.brightness_1,
+                                      size: 13.0,
+                                      color: Colors.redAccent,
+                                    ),
+                                  );
+                                }
+                              },
                             ),
-                            Positioned(
-                              top: -5.0,
-                              right: 2.0,
-                              child: Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
+                            StreamBuilder(
+                              stream: Firestore.instance.collection('correctiveAction').where('category', isEqualTo: 1).where('userDituju', isEqualTo: widget.idUser).where('status', isEqualTo: 'ONGOING').snapshots(),
+                              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (snapshot.data == null) return Container();
+
+                                if (snapshot.data.documents.length == 0) {
+                                  return Container();
+                                } else {
+                                  return Positioned(
+                                    top: 0.0,
+                                    right: 0.0,
+                                    child: Icon(
+                                      Icons.brightness_1,
+                                      size: 13.0,
+                                      color: Colors.redAccent,
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+                            StreamBuilder(
+                              stream: Firestore.instance.collection('correctiveAction').where('category', isEqualTo: 1).where('userDituju', isEqualTo: widget.idUser).where('status', isEqualTo: 'DONE').snapshots(),
+                              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (snapshot.data == null) return Container();
+
+                                if (snapshot.data.documents.length == 0) {
+                                  return Container();
+                                } else {
+                                  return Positioned(
+                                    top: 0.0,
+                                    right: 0.0,
+                                    child: Icon(
+                                      Icons.brightness_1,
+                                      size: 13.0,
+                                      color: Colors.redAccent,
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
                           ],
                         ),
                         Padding(
@@ -467,23 +511,26 @@ class _MenuCorrectiveState extends State<MenuCorrective> {
                                   )
                               ),
                             ),
-                            Positioned(
-                              top: -10.0,
-                              right: -8.0,
-                              child: Icon(
-                                Icons.brightness_1,
-                                size: 25.0,
-                                color: Colors.redAccent,
-                              ),
+                            StreamBuilder(
+                              stream: Firestore.instance.collection('correctiveAction').where('category', isEqualTo: 2).where('userDituju', isEqualTo: widget.idUser).where('status', isEqualTo: 'OPEN').snapshots(),
+                              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (snapshot.data == null) return Container();
+
+                                if (snapshot.data.documents.length == 0) {
+                                  return Container();
+                                } else {
+                                  return Positioned(
+                                    top: 0.0,
+                                    right: 0.0,
+                                    child: Icon(
+                                      Icons.brightness_1,
+                                      size: 13.0,
+                                      color: Colors.redAccent,
+                                    ),
+                                  );
+                                }
+                              },
                             ),
-                            Positioned(
-                              top: -5.0,
-                              right: 2.0,
-                              child: Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
                           ],
                         ),
                         Padding(

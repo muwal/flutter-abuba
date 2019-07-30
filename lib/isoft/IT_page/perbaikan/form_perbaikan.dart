@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:intl/intl.dart';
 import 'package:search_widget/search_widget.dart';
-import 'package:flutter/services.dart';
 
 class LeaderBoard {
   final String name;
@@ -117,7 +117,7 @@ class _FormPerbaikanState extends State<FormPerbaikan> with TickerProviderStateM
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Flexible(
-            child: Text('Create', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600, color: Colors.black),),
+            child: Text('Perbaikan Baru', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600, color: Colors.black)),
           )
         ],
       ),
@@ -128,7 +128,7 @@ class _FormPerbaikanState extends State<FormPerbaikan> with TickerProviderStateM
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark.copyWith(
-        statusBarColor: Color(0xfff9f9f9),),
+      statusBarColor: Color(0xfff9f9f9),),
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.white,
@@ -789,13 +789,13 @@ class _FormPerbaikanState extends State<FormPerbaikan> with TickerProviderStateM
                                       } else {
                                         if (_isProccess == false) {
                                           var split = selectedItemNo.toString().split(' - ');
-
+                                        
                                           setState(() {
                                             _isProccess = true;
                                           });
 
                                           DocumentReference docReference = Firestore.instance.collection('perbaikanIT').document();
-
+                                          
                                           docReference.setData({
                                             'userCreated': widget.idUser,
                                             'dateCreated': DateTime.now(),

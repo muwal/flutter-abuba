@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/isoft/operation_page/correctiveaction/verifikasi.dart';
-import 'package:intl/intl.dart';
 
 class VerifikasiLanjutan extends StatefulWidget {
   VerifikasiLanjutan({this.idUser, this.namaUser, this.departmentUser, this.status, this.index});

@@ -456,7 +456,7 @@ class _FormAuditAuditeeState extends State<FormAuditAuditee> with TickerProvider
                                                             ? colorSocialBlock
                                                             : snapshot.data.documents[indexDoc].data['subArea'][index] == 'Personal Hygiene'
                                                             ? colorPersonal
-                                                            : snapshot.data.documents[indexDoc].data['subArea'][index] == 'Food Completely Cooked'
+                                                            : snapshot.data.documents[indexDoc].data['subArea'][index] == 'Product Handling'
                                                             ? colorFoodCooked
                                                             : Colors.black
                                                       ),
@@ -2835,7 +2835,7 @@ class _FormAuditAuditeeState extends State<FormAuditAuditee> with TickerProvider
                                                         ],
                                                       )
                                                     // end personal
-                                                    : snapshot.data.documents[indexDoc].data['subArea'][index] == 'Food Completely Cooked'
+                                                    : snapshot.data.documents[indexDoc].data['subArea'][index] == 'Product Handling'
                                                     ? Column(
                                                         children: <Widget>[
                                                           snapshot.data.documents[indexDoc].data.containsKey('hasilFoodCooked')

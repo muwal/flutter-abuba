@@ -905,6 +905,7 @@ class _DetailReportState extends State<DetailReport> with TickerProviderStateMix
                                                           builder: (builder) {
                                                             return DialogBottomRekomendasi(
                                                               indexData: index,
+                                                              leadAuditorID: snapshot.data.documents[0].data['leadAuditor'],
                                                               indexx: snapshot.data.documents[0].documentID,
                                                               area: snapshot.data.documents[0].data['FSArea'][index],
                                                               auditeeID: int.tryParse(auditeeID.toString()),
@@ -939,7 +940,6 @@ class _DetailReportState extends State<DetailReport> with TickerProviderStateMix
                                                         children: <Widget>[
                                                           Flexible(
                                                             child: Text(
-                                                              // 'CAR # ${snapshot.data.documents[0].data['FSCarNo'][index].toString().padLeft(4, '0')}',
                                                               'CAR # ${snapshot2.data.documents[0].data['carNo'].toString().padLeft(4, '0')}',
                                                               style: TextStyle(
                                                                 color: Colors.black54,
@@ -4156,7 +4156,7 @@ class _DetailReportState extends State<DetailReport> with TickerProviderStateMix
                                 Container(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    'Food Completely Cooked',
+                                    'Product Handling',
                                     style: TextStyle(
                                       fontSize: 14.0,
                                       fontWeight: FontWeight.w700,
@@ -4805,6 +4805,7 @@ class _DetailScreenFoodCookedState extends State<DetailScreenFoodCooked>{
 class DialogBottomRekomendasi extends StatefulWidget {
   final ValueChanged<List<dynamic>> result;
   final int auditorIDFS;
+  final int leadAuditorID;
   final int departmentUser;
   final int categoryFS;
   final String problemFS;
@@ -4816,7 +4817,7 @@ class DialogBottomRekomendasi extends StatefulWidget {
   var indexx;
   var indexData;
 
-  DialogBottomRekomendasi({this.result, this.auditeeID, this.departmentAuditee, this.area, this.auditorIDFS, this.categoryFS, this.departmentID, this.departmentUser, this.divisi, this.problemFS, this.indexx, this.indexData});
+  DialogBottomRekomendasi({this.result, this.auditeeID, this.departmentAuditee, this.area, this.auditorIDFS, this.categoryFS, this.departmentID, this.departmentUser, this.divisi, this.problemFS, this.indexx, this.indexData, this.leadAuditorID});
   @override
   _DialogBottomRekomendasiState createState() => _DialogBottomRekomendasiState();
 }
@@ -4904,7 +4905,7 @@ class _DialogBottomRekomendasiState extends State<DialogBottomRekomendasi> {
                     DocumentReference docReference = Firestore.instance.collection('correctiveAction').document();
 
                     docReference.setData({
-                      'userCreated': widget.auditorIDFS,
+                      'userCreated': widget.leadAuditorID,
                       'dateCreated': DateTime.now(),
                       'departmentCreated': widget.departmentUser,
                       'carNo': maxidCorrectiveAction,

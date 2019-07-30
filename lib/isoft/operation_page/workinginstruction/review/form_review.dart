@@ -97,7 +97,7 @@ class _FormReviewWorkingState extends State<FormReviewWorking> with TickerProvid
     super.initState();
 
     CollectionReference reference = Firestore.instance.collection('docInstruksi');
-    reference.snapshots().listen((querySnapshot) {
+    reference.where('verifyBy', isEqualTo: widget.idUser).where('status', isEqualTo: 'OPEN').snapshots().listen((querySnapshot) {
       querySnapshot.documentChanges.forEach((change) {
         setState(() {
           docID.add(change.document.documentID);

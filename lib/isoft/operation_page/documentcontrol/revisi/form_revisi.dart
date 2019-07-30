@@ -35,7 +35,7 @@ class _FormRevisiState extends State<FormRevisi> with TickerProviderStateMixin {
     super.initState();
 
     CollectionReference reference = Firestore.instance.collection('docControl');
-    reference.snapshots().listen((querySnapshot) {
+    reference.where('createdBy', isEqualTo: widget.idUser).where('status', isEqualTo: 'REJECTED').snapshots().listen((querySnapshot) {
       querySnapshot.documentChanges.forEach((change) {
         setState(() {
           dateCreated.add(change.document.data['createdDate']);

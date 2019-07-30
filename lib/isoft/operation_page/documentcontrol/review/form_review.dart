@@ -99,7 +99,7 @@ class _FormReviewState extends State<FormReview> with TickerProviderStateMixin {
     super.initState();
 
     CollectionReference reference = Firestore.instance.collection('docControl');
-    reference.snapshots().listen((querySnapshot) {
+    reference.where('verifyBy', isEqualTo: widget.idUser).where('status', isEqualTo: 'OPEN').snapshots().listen((querySnapshot) {
       querySnapshot.documentChanges.forEach((change) {
         setState(() {
           typeDoc.add(change.document.data['type']);

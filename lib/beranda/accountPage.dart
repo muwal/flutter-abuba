@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/launcher/launcher_view.dart';
 import 'package:flutter/services.dart';
@@ -32,8 +32,8 @@ class _AccountPageState extends State<AccountPage> with TickerProviderStateMixin
     return await _auth.currentUser();
   }
 
-  String projectVersion = '';
-  String projectName = '';
+  String _projectVersion = '';
+  String _projectName = '';
 
   @override
   void initState() {
@@ -61,6 +61,7 @@ class _AccountPageState extends State<AccountPage> with TickerProviderStateMixin
 
   initPlatformState() async {
     String projectVersion;
+    // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       projectVersion = await GetVersion.projectVersion;
     } on PlatformException {
@@ -68,6 +69,7 @@ class _AccountPageState extends State<AccountPage> with TickerProviderStateMixin
     }
     
     String projectName;
+    // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       projectName = await GetVersion.appName;
     } on PlatformException {
@@ -76,8 +78,8 @@ class _AccountPageState extends State<AccountPage> with TickerProviderStateMixin
     if (!mounted) return;
 
     setState(() {
-      projectVersion = projectVersion;
-      projectName = projectName;
+      _projectVersion = projectVersion;
+      _projectName = projectName;
     });
   }
   
@@ -241,7 +243,7 @@ class _AccountPageState extends State<AccountPage> with TickerProviderStateMixin
                               children: <Widget>[
                                 Flexible(
                                   child: Text(
-                                    projectName,
+                                    _projectName,
                                     style: TextStyle(color: Colors.black54, fontSize: 18, fontWeight: FontWeight.w400),
                                     textAlign: TextAlign.center,
                                   ),
@@ -256,7 +258,7 @@ class _AccountPageState extends State<AccountPage> with TickerProviderStateMixin
                               children: <Widget>[
                                 Flexible(
                                   child: Text(
-                                    'v' + projectVersion,
+                                    'v' + _projectVersion,
                                     style: TextStyle(color: Colors.black54, fontSize: 16, fontWeight: FontWeight.w400),
                                     textAlign: TextAlign.center,
                                   ),

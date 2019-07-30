@@ -74,24 +74,6 @@ class _BerandaPerbaikanState extends State<BerandaPerbaikan> {
       ),
       child: ListView(
         children: <Widget>[
-          /*Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              IconButton(
-                onPressed: _onWillPop,
-                icon: Icon(Icons.arrow_back, color: Colors.white),
-              ),
-              *//*SizedBox(
-                            width: 10.0,
-                          ),
-                          Flexible(
-                            child: Text('Maintenance', style: TextStyle(fontSize: 20.0, color: Colors.white, fontWeight: FontWeight.w600),)
-                          )*//*
-            ],
-          ),
-          SizedBox(
-            height: 35.0,
-          ),*/
           Container(
             margin: EdgeInsets.only(left: 15.0, right: 15.0, top: 25.0),
             child: Row(
@@ -385,7 +367,8 @@ class _BerandaPerbaikanState extends State<BerandaPerbaikan> {
                     ),
                   ),
                 ],
-              )),
+              ),
+          ),
           SizedBox(
             height: 5.0,
           ),

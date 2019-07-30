@@ -98,7 +98,7 @@ class _FormApproveWorkingState extends State<FormApproveWorking> with TickerProv
     super.initState();
 
     CollectionReference reference = Firestore.instance.collection('docInstruksi');
-    reference.snapshots().listen((querySnapshot) {
+    reference.where('approvedBy', isEqualTo: widget.idUser).where('status', isEqualTo: 'REVIEWED').snapshots().listen((querySnapshot) {
       querySnapshot.documentChanges.forEach((change) {
         setState(() {
           docID.add(change.document.documentID);

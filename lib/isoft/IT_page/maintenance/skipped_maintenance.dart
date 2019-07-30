@@ -1,18 +1,16 @@
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter/services.dart';
 
 class SkippedMaintenance extends StatefulWidget {
   final int idUser;
   final String namaUser;
   final String departmentUser;
-  int count;
-  final int countAll;
-  SkippedMaintenance({this.idUser, this.namaUser, this.departmentUser, this.count, this.countAll});
+  SkippedMaintenance({this.idUser, this.namaUser, this.departmentUser});
 
   _SkippedMaintenanceState createState() => _SkippedMaintenanceState();
 }
@@ -44,6 +42,7 @@ class _SkippedMaintenanceState extends State<SkippedMaintenance> with TickerProv
   List<dynamic> newDueDate2 = [];
 
   var docID = [];
+  int managerIT;
 
   String result;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -104,6 +103,12 @@ class _SkippedMaintenanceState extends State<SkippedMaintenance> with TickerProv
       ? 1.0
       : animationController.value
     );
+
+    Firestore.instance.collection('user').where('grade', isEqualTo: 'Manager').where('department', isEqualTo: 'IT').snapshots().listen((data3) {
+      setState(() {
+        managerIT = data3.documents[0].data['id'];
+      });
+    });
   }
 
   @override
@@ -314,6 +319,117 @@ class _SkippedMaintenanceState extends State<SkippedMaintenance> with TickerProv
                               } else {
                                 return Container();
                               }
+                            } else if (managerIT == widget.idUser) {
+                              if (newDueDate2[index] == null) {
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  verticalDirection: VerticalDirection.down,
+                                  children: <Widget>[
+                                    Container(
+                                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                                      color: Colors.white,
+                                      child: Container(
+                                        child: Padding(
+                                          padding: EdgeInsets.only(left: 25.0, right: 25.0, top: 15.0, bottom: 15.0),
+                                          child: Column(
+                                            children: <Widget>[
+                                              Padding(
+                                                padding: const EdgeInsets.only(left: 5.0, right: 5.0, bottom: 5.0),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                  children: <Widget>[
+                                                    Icon(Icons.location_on, color: Colors.grey, size: 16.0),
+                                                    Flexible(
+                                                      child: Text(
+                                                        '${outlet[index]} - ${lokasi[index]}',
+                                                        style: TextStyle(
+                                                          fontSize: 15.0,
+                                                          fontWeight: FontWeight.w400,
+                                                          color: Colors.black87
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(left: 5.0, right: 5.0, bottom: 20.0),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                  children: <Widget>[
+                                                    Flexible(
+                                                      child: Text(
+                                                        '${merek[index]} - ${item[index]} - # ${itemNo[index]}',
+                                                        style: TextStyle(
+                                                          fontSize: 20.0,
+                                                          fontWeight: FontWeight.w700,
+                                                          color: AbubaPallate.greenabuba
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: <Widget>[
+                                                  ButtonTheme(
+                                                    minWidth: MediaQuery.of(context).size.width * 0.35,
+                                                    height: 30.0,
+                                                    child: OutlineButton(
+                                                      child: Row(
+                                                        children: <Widget>[
+                                                          Container(
+                                                            width: MediaQuery.of(context).size.width * 0.15,
+                                                            alignment: Alignment.centerLeft,
+                                                            child: Text(
+                                                              'Detail',
+                                                              style: TextStyle(
+                                                                fontSize: 13.0,
+                                                                color: AbubaPallate.menuBluebird,
+                                                                fontWeight: FontWeight.bold
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                            width: MediaQuery.of(context).size.width * 0.15,
+                                                            alignment: Alignment.centerRight,
+                                                            child: Icon(Icons.close, color: AbubaPallate.menuBluebird, size: 18.0),
+                                                          )
+                                                        ],
+                                                      ),
+                                                      borderSide: BorderSide(color: AbubaPallate.menuBluebird, width: 2.0),
+                                                      highlightedBorderColor: AbubaPallate.menuBluebird,
+                                                      splashColor: Colors.white,
+                                                      onPressed: () {
+                                                        showModalBottomSheet(
+                                                          context: context,
+                                                          builder: (builder) {
+                                                            return DialogBottomDetail(
+                                                              job: job[index],
+                                                              jobStatus: jobStatus[index]
+                                                            );
+                                                          }
+                                                        );
+                                                      },
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Divider(
+                                      color: Colors.black26,
+                                      height: 1.0,
+                                    )
+                                  ],
+                                );
+                              } else {
+                                return Container();
+                              } 
                             } else {
                               return Container();
                             }

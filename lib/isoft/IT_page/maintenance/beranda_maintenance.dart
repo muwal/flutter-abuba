@@ -115,7 +115,7 @@ class _BerandaMaintenanceState extends State<BerandaMaintenance> {
 
                         Navigator.push(context,
                           MaterialPageRoute(
-                            builder: (_) => FormMaintenanceTest(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser, count: outlet.length)
+                            builder: (_) => FormMaintenanceTest(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser)
                           )
                         );
                       } else {
@@ -140,23 +140,46 @@ class _BerandaMaintenanceState extends State<BerandaMaintenance> {
                                   )
                               ),
                             ),
-                            Positioned(
-                              top: -10.0,
-                              right: -8.0,
-                              child: Icon(
-                                Icons.brightness_1,
-                                size: 25.0,
-                                color: Colors.redAccent,
-                              ),
+                            StreamBuilder(
+                              stream: Firestore.instance.collection('maintenance_IT').where('pic', isEqualTo: widget.idUser).where('status', isEqualTo: 'OPEN').where('dueDate', isLessThanOrEqualTo: DateTime.now()).snapshots(),
+                              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (snapshot.data == null) return Container();
+
+                                if (snapshot.data.documents.length == 0) {
+                                  return Container();
+                                } else {
+                                  return Positioned(
+                                    top: 0.0,
+                                    right: 0.0,
+                                    child: Icon(
+                                      Icons.brightness_1,
+                                      size: 13.0,
+                                      color: Colors.redAccent,
+                                    ),
+                                  );
+                                }
+                              },
                             ),
-                            Positioned(
-                              top: -5.0,
-                              right: 2.0,
-                              child: Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
+                            StreamBuilder(
+                              stream: Firestore.instance.collection('maintenance_IT').where('pic', isEqualTo: widget.idUser).where('status', isEqualTo: 'RESCHEDULE').where('newDueDate', isEqualTo: DateTime.now()).snapshots(),
+                              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (snapshot.data == null) return Container();
+
+                                if (snapshot.data.documents.length == 0) {
+                                  return Container();
+                                } else {
+                                  return Positioned(
+                                    top: 0.0,
+                                    right: 0.0,
+                                    child: Icon(
+                                      Icons.brightness_1,
+                                      size: 13.0,
+                                      color: Colors.redAccent,
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
                           ],
                         ),
                         Padding(
@@ -199,7 +222,7 @@ class _BerandaMaintenanceState extends State<BerandaMaintenance> {
 
                         Navigator.push(context,
                           MaterialPageRoute(
-                            builder: (_) => SkippedMaintenance(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser, count: outlet.length, countAll: outlet.length + outletSkip.length)
+                            builder: (_) => SkippedMaintenance(idUser: widget.idUser, namaUser: widget.namaUser, departmentUser: widget.departmentUser)
                           )
                         );
                       } else {
@@ -224,23 +247,26 @@ class _BerandaMaintenanceState extends State<BerandaMaintenance> {
                                   )
                               ),
                             ),
-                            Positioned(
-                              top: -10.0,
-                              right: -8.0,
-                              child: Icon(
-                                Icons.brightness_1,
-                                size: 25.0,
-                                color: Colors.redAccent,
-                              ),
+                            StreamBuilder(
+                              stream: Firestore.instance.collection('maintenance_IT').where('rescheduleBy', isEqualTo: widget.idUser).where('status', isEqualTo: 'SKIP').where('newDueDate', isNull: true).snapshots(),
+                              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (snapshot.data == null) return Container();
+
+                                if (snapshot.data.documents.length == 0) {
+                                  return Container();
+                                } else {
+                                  return Positioned(
+                                    top: 0.0,
+                                    right: 0.0,
+                                    child: Icon(
+                                      Icons.brightness_1,
+                                      size: 13.0,
+                                      color: Colors.redAccent,
+                                    ),
+                                  );
+                                }
+                              },
                             ),
-                            Positioned(
-                              top: -5.0,
-                              right: 2.0,
-                              child: Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
                           ],
                         ),
                         Padding(

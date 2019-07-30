@@ -1,8 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_abuba/constant.dart';
 import 'package:flutter_abuba/isoft/operation_page/meeting/done_task.dart';
 import 'package:flutter_abuba/isoft/operation_page/meeting/report_meeting.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import 'form_createnew.dart';
 import 'form_checkin.dart';
@@ -19,6 +19,46 @@ class MenuMeeting extends StatefulWidget {
 
 class _MenuMeetingState extends State<MenuMeeting> {
   final _scaffoldState = GlobalKey<ScaffoldState>();
+
+  bool showNotifOpenStatus = false;
+  bool showNotifCheckIn = false;
+
+  @override
+  void initState() {
+    CollectionReference reference = Firestore.instance.collection('minutesMeeting');
+    reference.where('status', isEqualTo: 'CLOSE').where('picIDNotulen', arrayContains: widget.idUser).snapshots().listen((querySnapshot) {
+      querySnapshot.documentChanges.forEach((change) {
+        setState(() {
+          int indexPIC = change.document.data['picIDNotulen'].indexOf(widget.idUser);
+          if (change.document.data['statusActionPlan'][indexPIC] == 'OPEN') {
+            showNotifOpenStatus = true;
+          } else {
+            showNotifOpenStatus = false;
+          }
+        });
+      });
+    });
+
+    CollectionReference reference2 = Firestore.instance.collection('minutesMeeting');
+    reference2.where('status', isEqualTo: 'OPEN').where('pesertaID', arrayContains: widget.idUser).snapshots().listen((querySnapshot2) {
+      querySnapshot2.documentChanges.forEach((change2) {
+        setState(() {
+          Timestamp bantu = change2.document.data['dateMeeting'];
+          if (bantu.toDate().toString().substring(8, 10) + '/' + bantu.toDate().toString().substring(5, 7) + '/' +bantu.toDate().toString().substring(0, 4) == DateTime.now().toString().substring(8, 10) + '/' + DateTime.now().toString().substring(5, 7) + '/' +DateTime.now().toString().substring(0, 4)) {
+            int indexPIC = change2.document.data['pesertaID'].indexOf(widget.idUser);
+            if (change2.document.data['checkOutPeserta'][indexPIC] == null) {
+              showNotifCheckIn = true;
+            } else {
+              showNotifCheckIn = false;
+            }
+          } else {
+            showNotifCheckIn = false;
+          }
+        });
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -136,23 +176,17 @@ class _MenuMeetingState extends State<MenuMeeting> {
                                   )
                               ),
                             ),
-                            Positioned(
-                              top: -10.0,
-                              right: -8.0,
-                              child: Icon(
-                                Icons.brightness_1,
-                                size: 25.0,
-                                color: Colors.redAccent,
-                              ),
-                            ),
-                            Positioned(
-                              top: -5.0,
-                              right: 2.0,
-                              child: Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
+                            showNotifCheckIn
+                              ? Positioned(
+                                  top: 0.0,
+                                  right: 0.0,
+                                  child: Icon(
+                                    Icons.brightness_1,
+                                    size: 13.0,
+                                    color: Colors.redAccent,
+                                  ),
+                                )
+                              : Container()
                           ],
                         ),
                       ),
@@ -187,23 +221,17 @@ class _MenuMeetingState extends State<MenuMeeting> {
                                   )
                               ),
                             ),
-                            Positioned(
-                              top: -10.0,
-                              right: -8.0,
-                              child: Icon(
-                                Icons.brightness_1,
-                                size: 25.0,
-                                color: Colors.redAccent,
-                              ),
-                            ),
-                            Positioned(
-                              top: -5.0,
-                              right: 2.0,
-                              child: Text(
-                                '2',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )
+                            showNotifOpenStatus
+                              ? Positioned(
+                                  top: 0.0,
+                                  right: 0.0,
+                                  child: Icon(
+                                    Icons.brightness_1,
+                                    size: 13.0,
+                                    color: Colors.redAccent,
+                                  ),
+                                )
+                              : Container()
                           ],
                         ),
                       ),
